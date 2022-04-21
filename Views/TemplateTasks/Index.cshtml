@@ -3,12 +3,18 @@
 @{
     ViewData["Title"] = "Index";
 }
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
 
-<h1>Index</h1>
+<h1>Add Tasks</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+    Create New
+</button>
+
+<br />
+<br />
 
 <div class="card text-center" style="width: 100%;">
     <div class="card-title">
@@ -28,54 +34,405 @@
     <div class="card-body">
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Description)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Schedule)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DateCreated)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.UserEmail)
-                            </th>
+
+                <table class="table" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-light">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Schedule)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DateCreated)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserEmail)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
                 </table>
+
+
             </div>
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                <table class="table" id="tbl2" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-light">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+
+                <table class="table" id="tbl3" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-light">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
         </div>
 
     </div>
 </div>
+<br />
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Description</label>
+                    <input id="Description" class="form-control" />
+
+                </div>
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Schedule</label>
+                    <select id="Schedule" class="form-control">
+                        <option>Daily</option>
+                        <option>Weekly</option>
+                        <option>Monthly</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a onclick="AddTask()" class="btn btn-primary">Create</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Description</label>
+                    <input id="DescriptionEdit" class="form-control" />
+
+                </div>
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Schedule</label>
+                    <select id="ScheduleEdit" class="form-control">
+                        <option>Daily</option>
+                        <option>Weekly</option>
+                        <option>Monthly</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a onclick="EditTask()" class="btn btn-primary">Save</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/plugins/jquery/jquery.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+<script>
+
+    loadTable();
+
+    function loadTable() {
+
+        Table01 = $("#tbl").DataTable({
+            "ajax": {
+                "url": "/TemplateTasks/GetDaily",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "60%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ]
+        });
+
+        Table02 = $("#tbl2").DataTable({
+            "ajax": {
+                "url": "/TemplateTasks/GetWeekly",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "60%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ]
+        });
+
+        Table03 = $("#tbl3").DataTable({
+            "ajax": {
+                "url": "/TemplateTasks/GetMonthly",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "60%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ]
+        });
+    }
+
+    function AddTask() {
+
+
+
+        var Desc = $('#Description').val();
+        var Schedule = $('#Schedule').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/TemplateTasks/AddTask?Desc=" + Desc + "&Schedule=" + Schedule,
+            success: function (data) {
+                if (data.success) {
+
+                    $("#exampleModal").modal("toggle")
+                    swal(data.message, "", "success");
+                    Table01.ajax.reload();
+                    Table02.ajax.reload();
+                    Table03.ajax.reload();
+
+
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+
+    }
+
+    function Delete(url) {
+        swal({
+            title: "Are you sure you want to Delete?",
+            text: "You will not be able to restore the data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: url,
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success(data.message);
+                            Table01.ajax.reload();
+                            Table02.ajax.reload();
+                            Table03.ajax.reload();
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    var editId = 0;
+
+    function ShowEditModal(id) {
+        $("#editModal").modal("toggle");
+
+        $.ajax({
+            type: "GET",
+            url: "/TemplateTasks/GetTask?id=" + id,
+            success: function (data) {
+                document.getElementById("DescriptionEdit").value = data.data.description;
+                document.getElementById("ScheduleEdit").value = data.data.schedule;
+                editId = id;
+            }
+        });
+    }
+
+    function EditTask() {
+
+
+        var Desc = $('#DescriptionEdit').val();
+        var Schedule = $('#ScheduleEdit').val();
+
+        $.ajax({
+            type: "PUT",
+            url: "/TemplateTasks/EditTask?Id=" + editId  +"&Desc=" + Desc + "&Schedule=" + Schedule,
+            success: function (data) {
+                if (data.success) {
+
+                    $("#editModal").modal("toggle")
+                    swal(data.message, "", "success");
+                    Table01.ajax.reload();
+                    Table02.ajax.reload();
+                    Table03.ajax.reload();
+
+
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+    }
+</script>

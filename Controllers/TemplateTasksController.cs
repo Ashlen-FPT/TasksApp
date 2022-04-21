@@ -153,5 +153,87 @@ namespace TasksApp.Controllers
         {
             return _context.TemplateTasks.Any(e => e.Id == id);
         }
+
+        #region API Calls
+
+        [HttpGet]
+        public IActionResult GetDaily()
+        {
+
+            return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Daily").ToList() });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetWeekly()
+        {
+
+            return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Weekly").ToList() });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetMonthly()
+        {
+
+            return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Monthly").ToList() });
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTask(string Desc, string Schedule)
+        {
+
+            var Task = new TemplateTask 
+            { 
+                Description = Desc,
+                Schedule = Schedule,
+                DateCreated = DateTime.Now,
+                UserEmail = User.Identity.Name
+            
+            };
+
+            _context.Add(Task);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Task added!" });
+
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditTask(int Id, string Desc, string Schedule)
+        {
+
+            var templateTask = await _context.TemplateTasks.FindAsync(Id);
+
+            templateTask.Description = Desc;
+            templateTask.Schedule = Schedule;
+
+            _context.Update(templateTask);
+            
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Task Updated!" });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTaskAsync(int id)
+        {
+            var templateTask = await _context.TemplateTasks.FindAsync(id);
+            return Json(new { data = templateTask });
+
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            var templateTask = await _context.TemplateTasks.FindAsync(id);
+            _context.TemplateTasks.Remove(templateTask);
+            await _context.SaveChangesAsync();
+            return Json(new { success = true, message = "Task deleted!" });
+        }
+
+        #endregion
     }
 }
