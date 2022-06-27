@@ -1,0 +1,34 @@
+﻿.declarationsTable, .declarationsTd, .declarationsTh {
+    padding: 5px;
+    border: 0px solid white;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+table, td, th {
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.title {
+    padding: 5px;
+    background-color: #eaeaea;
+    font-weight: bold;
+}
+
+.titleQuest {
+    width: 15%;
+    padding: 5px;
+    background-color: #eaeaea;
+    font-weight: bold;
+}
+
+.center1 {
+   text-align:center;
+    margin: 0;
+}

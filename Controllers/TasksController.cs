@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
@@ -161,12 +160,12 @@ namespace TasksApp.Controllers
 
             DateTime oDate = Convert.ToDateTime(date);
 
-            var TasksToday = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+            var TasksToday = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks").ToList();
 
 
             if (TasksToday.Count == 0)
             {
-                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").ToList();
+                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "Tasks").ToList();
 
                 foreach (var task in TemplateTasks)
                 {
@@ -175,25 +174,23 @@ namespace TasksApp.Controllers
                     { 
                        Description = task.Description,
                        DateCreated = date,
-                       DateTaskCompleted = new DateTime()
-                    
+                       DateTaskCompleted = new DateTime(),
+                       Schedule = task.Schedule,
+                       TaskType = task.TaskType
                     };
 
                     _context.Tasks.Add(Task);
 
                 }
-
-              
-
             }
 
             if (TasksToday.Count > 0)
             {
-                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").ToList();
+                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "Tasks").ToList();
 
                 if (TemplateTasks.Count > TasksToday.Count)
                 {
-                    var result = TemplateTasks.Where(p => TasksToday.All(p2 => p2.Description != p.Description));
+                    var result = TemplateTasks.Where(p => TasksToday.All(p2 => p2.Description != p.Description)).Where(s => s.TaskType == "Tasks");
 
                     foreach (var item in result)
                     {
@@ -201,8 +198,73 @@ namespace TasksApp.Controllers
                         {
                             Description = item.Description,
                             DateCreated = date,
-                            DateTaskCompleted = new DateTime()
+                            Schedule = item.Schedule,
+                            DateTaskCompleted = new DateTime(),
+                            TaskType = item.TaskType
+                        };
 
+                        _context.Tasks.Add(Task);
+                    }
+
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            
+            return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "Tasks") });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTasksWeekly(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var Day = oDate.DayOfWeek.ToString();
+
+            var TasksToday = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule ==  "Weekly").Where(s => s.TaskType == "Tasks").ToList();
+
+
+            if (TasksToday.Count == 0)
+            {
+                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Weekly").Where(s => s.TaskType == "Tasks").Where(d => d.DayOfWeek == Day).ToList();
+
+                foreach (var task in TemplateTasks)
+                {
+
+                    var Task = new Tasks
+                    {
+                        Description = task.Description,
+                        DateCreated = date,
+                        DateTaskCompleted = new DateTime(),
+                        Schedule = task.Schedule,
+                        TaskType = task.TaskType
+
+                    };
+
+                    _context.Tasks.Add(Task);
+
+                }
+
+            }
+
+            if (TasksToday.Count > 0)
+            {
+                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Weekly").Where(s => s.TaskType == "Tasks").Where(d => d.DayOfWeek == Day).ToList();
+
+                if (TemplateTasks.Count > TasksToday.Count)
+                {
+                    var result = TemplateTasks.Where(p => TasksToday.All(p2 => p2.Description != p.Description)).Where(s => s.TaskType == "Tasks");
+
+                    foreach (var item in result)
+                    {
+                        var Task = new Tasks
+                        {
+                            Description = item.Description,
+                            DateCreated = date,
+                            DateTaskCompleted = new DateTime(),
+                            Schedule = item.Schedule,
+                            TaskType = item.TaskType
                         };
 
                         _context.Tasks.Add(Task);
@@ -210,13 +272,130 @@ namespace TasksApp.Controllers
 
                 }
 
-               
-
             }
 
             await _context.SaveChangesAsync();
-            
-            return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date) });
+
+            return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly").Where(s => s.TaskType == "Tasks") });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTasksMonthly(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var firstDayOfMonth = new DateTime(oDate.Year, oDate.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+
+            if (firstDayOfMonth == oDate)
+            {
+                var TasksToday = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskType == "Tasks").ToList();
+
+                if(TasksToday.Count == 0)
+                {
+                    var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskType == "Tasks").ToList();
+
+                    foreach (var task in TemplateTasks)
+                    {
+
+                        var Task = new Tasks
+                        {
+                            Description = task.Description,
+                            DateCreated = date,
+                            DateTaskCompleted = new DateTime(),
+                            Schedule = task.Schedule,
+                            TaskType = task.TaskType
+                        };
+
+                        _context.Tasks.Add(Task);
+
+                    }
+                }
+
+                if (TasksToday.Count > 0)
+                {
+                    var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskType == "Tasks").ToList();
+
+                    if (TemplateTasks.Count > TasksToday.Count)
+                    {
+                        var result = TemplateTasks.Where(p => TasksToday.All(p2 => p2.Description != p.Description));
+
+                        foreach (var item in result)
+                        {
+                            var Task = new Tasks
+                            {
+                                Description = item.Description,
+                                DateCreated = date,
+                                DateTaskCompleted = new DateTime(),
+                                Schedule = item.Schedule,
+                                TaskType = item.TaskType
+                            };
+
+                            _context.Tasks.Add(Task);
+                        }
+
+                    }
+                }
+            }
+
+            if (lastDayOfMonth == oDate)
+            {
+                var TasksToday = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskType == "Tasks").ToList();
+
+                if (TasksToday.Count == 0)
+                {
+                    var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskType == "Tasks").ToList();
+
+                    foreach (var task in TemplateTasks)
+                    {
+
+                        var Task = new Tasks
+                        {
+                            Description = task.Description,
+                            DateCreated = date,
+                            DateTaskCompleted = new DateTime(),
+                            Schedule = task.Schedule,
+                            TaskType = task.TaskType
+                        };
+
+                        _context.Tasks.Add(Task);
+
+                    }
+
+                }
+
+                if (TasksToday.Count > 0)
+                {
+                    var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskType == "Tasks").ToList();
+
+                    if (TemplateTasks.Count > TasksToday.Count)
+                    {
+                        var result = TemplateTasks.Where(p => TasksToday.All(p2 => p2.Description != p.Description));
+
+                        foreach (var item in result)
+                        {
+                            var Task = new Tasks
+                            {
+                                Description = item.Description,
+                                DateCreated = date,
+                                DateTaskCompleted = new DateTime(),
+                                Schedule = item.Schedule,
+                                TaskType = item.TaskType
+                            };
+
+                            _context.Tasks.Add(Task);
+                        }
+
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskType == "Tasks") });
 
         }
 
@@ -226,14 +405,13 @@ namespace TasksApp.Controllers
 
             DateTime oDate = Convert.ToDateTime(date);
 
-            return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date) });
+            return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks") });
 
         }
 
         [HttpGet]
         public async Task<IActionResult> CompleteTask(int id)
         {
-
 
             var task = _context.Tasks.Find(id);
             task.IsDone = true;
@@ -263,8 +441,6 @@ namespace TasksApp.Controllers
                 }
 
             }
-
-
 
             await _context.SaveChangesAsync();
 
@@ -298,4 +474,5 @@ namespace TasksApp.Controllers
 
         #endregion
     }
+
 }

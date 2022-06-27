@@ -1,0 +1,62 @@
+﻿.list-group-item {
+    user-select: none;
+    border-color: #20a8d8;
+}
+
+.list-group input[type="checkbox"] {
+    display: none;
+}
+
+.list-group input[type="checkbox"] + .list-group-item {
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 600px) {
+    .list-group input[type="checkbox"] + .list-group-item:before {
+        content: "\2713";
+        color: transparent;
+        font-weight: bold;
+        margin-right: 1em;
+    }
+}
+
+
+.list-group input[type="checkbox"]:checked + .list-group-item {
+    background-color: #0275D8;
+    color: #FFF;
+}
+
+.list-group input[type="checkbox"]:checked + .list-group-item:before {
+    color: inherit;
+}
+
+.list-group input[type="radio"] {
+    display: none;
+}
+
+.list-group input[type="radio"] + .list-group-item {
+    cursor: pointer;
+}
+
+
+@media only screen and (min-width: 600px) {
+    .list-group input[type="radio"] + .list-group-item:before {
+        /*content: "\2022";*/
+        content: "\2713";
+        color: transparent;
+        font-weight: bold;
+        margin-right: 1em;
+    }
+}
+
+.list-group input[type="radio"]:checked + .list-group-item {
+    background-color: #0275D8;
+    color: #FFF;
+}
+
+.list-group input[type="radio"]:checked + .list-group-item:before {
+    color: inherit;
+}
+.list-group {
+    flex-direction: row;
+}

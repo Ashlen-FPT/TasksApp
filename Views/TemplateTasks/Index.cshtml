@@ -3,17 +3,16 @@
 @{
     ViewData["Title"] = "Index";
 }
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css" />
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
 
-<h1>Add Tasks</h1>
+<h1>Manage Tasks</h1>
 
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
     Create New
 </button>
 
-<br />
 <br />
 
 <div class="card text-center" style="width: 100%;">
@@ -22,21 +21,34 @@
             <li class="nav-item">
                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Daily</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Weekly</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Monthly</a>
             </li>
-        </ul>
 
+            <li class="nav-item">
+                <a class="nav-link" id="pills-quart-tab" data-toggle="pill" href="#pills-quart" role="tab" aria-controls="pills-quart" aria-selected="true">Quarterly</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-bi-tab" data-toggle="pill" href="#pills-bi" role="tab" aria-controls="pills-bi" aria-selected="false">Bi-Anually</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-annual-tab" data-toggle="pill" href="#pills-annual" role="tab" aria-controls="pills-annual" aria-selected="false">Anually</a>
+            </li>
+        </ul>
     </div>
+
     <div class="card-body">
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
-                <table class="table" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
-                    <thead class="thead-light">
+                <table class="table table-striped table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
                         <tr class="table-info">
                             <th>Description</th>
                             <th>Schedule</th>
@@ -46,13 +58,11 @@
                         </tr>
                     </thead>
                 </table>
-
-
             </div>
+
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-
-                <table class="table" id="tbl2" style=" word-wrap:break-word; width:100%; table-layout:fixed">
-                    <thead class="thead-light">
+                <table class="table table-striped table-bordered table-hover" id="tbl2" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
                         <tr class="table-info">
                             <th>Description</th>
                             <th>Schedule</th>
@@ -62,11 +72,38 @@
                         </tr>
                     </thead>
                 </table>
-
             </div>
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 
-                <table class="table" id="tbl3" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <table class="table table-striped table-bordered table-hover" id="tbl3" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-quart" role="tabpanel" aria-labelledby="pills-quart-tab">
+                <table class="table table-striped table-bordered table-hover" id="tbl4" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-bi" role="tabpanel" aria-labelledby="pills-bi-tab">
+                <table class="table" id="tbl5" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-light">
                         <tr class="table-info">
                             <th>Description</th>
@@ -77,16 +114,27 @@
                         </tr>
                     </thead>
                 </table>
+            </div>
 
+            <div class="tab-pane fade" id="pills-annual" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <table class="table table-striped table-bordered table-hover" id="tbl6" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
-
     </div>
 </div>
-<br />
+<br/>
 
-
-<!-- Modal -->
+<!-- Add Task Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -102,17 +150,121 @@
                 <div class="form-group">
                     <label style="float:left" class="control-label">Description</label>
                     <input id="Description" class="form-control" />
-
                 </div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Task Type</label>
+                    <select id="TaskType" class="form-control ">
+                        <option>Tasks</option>
+                        <option>PreTasks</option>
+                        @*<option>Tasks Category</option>*@
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label style="float:left" class="control-label">Schedule</label>
                     <select id="Schedule" class="form-control">
                         <option>Daily</option>
                         <option>Weekly</option>
                         <option>Monthly</option>
+                        <option>Quarterly</option>
+                        <option>Bi-Annually</option>
+                        <option>Annually</option>
                     </select>
-
                 </div>
+
+                <div id="Days" style="display:none">
+                    <input type="radio" id="Monday" name="fav_language" value="Monday">
+                    <label for="Monday">M</label>
+
+                    <input type="radio" id="Tuesday" name="fav_language" value="Tuesday">
+                    <label for="Tuesday">T</label>
+
+                    <input type="radio" id="Wednesday" name="fav_language" value="Wednesday">
+                    <label for="Wednesday">W</label>
+
+                    <input type="radio" id="Thursday" name="fav_language" value="Thursday">
+                    <label for="Thursday">T</label>
+
+                    <input type="radio" id="Friday" name="fav_language" value="Friday">
+                    <label for="Friday">F</label>
+
+                    <input type="radio" id="Saturday" name="fav_language" value="Saturday">
+                    <label for="Saturday">S</label>
+
+                    <input type="radio" id="Sunday" name="fav_language" value="Sunday">
+                    <label for="Sunday">S</label>
+                </div>
+
+                <div id="Months" style="display:none">
+                    <input type="radio" id="Beginning" name="fav" value="Beginning">
+                    <label for="Beginning">B</label>
+
+                    <input type="radio" id="End" name="fav" value="End">
+                    <label for="End">E</label>
+                </div>
+
+                <div id="Quart" style="display:none">
+                    <input type="radio" id="1st_Quarter" name="quart" value="1st_Quarter">
+                    <label for="1st_Quarter">1st Quarter</label>
+
+                    <input type="radio" id="2nd_Quarter" name="quart" value="2nd_Quarter">
+                    <label for="2nd_Quarter">2nd Quarter</label>
+
+                    <input type="radio" id="3rd_Quarter" name="quart" value="3rd_Quarter">
+                    <label for="3rd_Quarter">3rd Quarter</label>
+
+                    <input type="radio" id="4th_Quarter" name="quart" value="4th_Quarter">
+                    <label for="4th_Quarter">4th Quarter</label>
+                </div>
+
+                <div id="Bi_Annually" style="display:none">
+                    <input type="radio" id="1st" name="bi" value="1st">
+                    <label for="1st">1st</label>
+
+                    <input type="radio" id="2nd" name="bi" value="2nd">
+                    <label for="2nd">2nd</label>
+                </div>
+
+                <div id="Annual" style="display:none">
+
+                    <input type="radio" id="January" name="ann" value="January">
+                    <label for="January">J</label>
+
+                    <input type="radio" id="February" name="ann" value="February">
+                    <label for="February">F</label>
+
+                    <input type="radio" id="March" name="ann" value="March">
+                    <label for="March">M</label>
+
+                    <input type="radio" id="April" name="ann" value="April">
+                    <label for="April">A</label>
+
+                    <input type="radio" id="May" name="ann" value="May">
+                    <label for="May">M</label>
+
+                    <input type="radio" id="June" name="ann" value="June">
+                    <label for="June">J</label>
+
+                    <input type="radio" id="July" name="ann" value="July">
+                    <label for="July">J</label>
+
+                    <input type="radio" id="August" name="ann" value="August">
+                    <label for="August">A</label>
+
+                    <input type="radio" id="September" name="ann" value="September">
+                    <label for="September">S</label>
+
+                    <input type="radio" id="October" name="ann" value="October">
+                    <label for="October">O</label>
+
+                    <input type="radio" id="November" name="ann" value="November">
+                    <label for="November">N</label>
+
+                    <input type="radio" id="December" name="ann" value="December">
+                    <label for="December">D</label>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -123,7 +275,7 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -150,6 +302,41 @@
                     </select>
 
                 </div>
+
+                <div id="Day" style="display:none">
+                    <input type="radio" id="Monday" name="fav_language" value="Monday">
+                    <label for="Monday">M</label>
+
+                    <input type="radio" id="Tuesday" name="fav_language" value="Tuesday">
+                    <label for="Tuesday">T</label>
+
+                    <input type="radio" id="Wednesday" name="fav_language" value="Wednesday">
+                    <label for="Wednesday">W</label>
+
+                    <input type="radio" id="Thursday" name="fav_language" value="Thursday">
+                    <label for="Thursday">T</label>
+
+                    <input type="radio" id="Friday" name="fav_language" value="Friday">
+                    <label for="Friday">F</label>
+
+                    <input type="radio" id="Saturday" name="fav_language" value="Saturday">
+                    <label for="Saturday">S</label>
+
+                    <input type="radio" id="Sunday" name="fav_language" value="Sunday">
+                    <label for="Sunday">S</label>
+                </div>
+
+                <div id="Month" style="display:none">
+                    <input type="radio" id="Beginning" name="fav" value="Beginning">
+                    <label for="Beginning">B</label>
+
+                    <input type="radio" id="Mid-Month" name="fav" value="Mid-Month">
+                    <label for="Mid-Month">M</label>
+
+                    <input type="radio" id="End" name="fav" value="End">
+                    <label for="End">E</label>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -161,9 +348,106 @@
 
 <script src="~/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+
 <script>
 
     loadTable();
+
+    $("#Schedule").change(function () {
+        var Schedule = $('#Schedule').val();
+        if (Schedule == "Weekly") {
+            document.getElementById("Days").style.display = "block";
+        }
+        else {
+            document.getElementById("Days").style.display = "none";
+        }
+        var Day = document.querySelector('input[name="fav_language"]:checked');
+
+    });
+
+    $("#Schedule").change(function () {
+        var Schedule = $('#Schedule').val();
+        if (Schedule == "Monthly") {
+            document.getElementById("Months").style.display = "block";
+        }
+        else {
+            document.getElementById("Months").style.display = "none";
+        }
+        var Month = document.querySelector('input[name="fav"]:checked');
+
+    });
+
+    $("#Schedule").change(function () {
+        var Schedule = $('#Schedule').val();
+        if (Schedule == "Quarterly") {
+            document.getElementById("Quart").style.display = "block";
+        }
+        else {
+            document.getElementById("Quart").style.display = "none";
+        }
+        var Day = document.querySelector('input[name="quart"]:checked');
+
+    });
+
+    $("#Schedule").change(function () {
+        var Schedule = $('#Schedule').val();
+        if (Schedule == "Bi-Annually") {
+            document.getElementById("Bi_Annually").style.display = "block";
+        }
+        else {
+            document.getElementById("Bi_Annually").style.display = "none";
+        }
+        var Day = document.querySelector('input[name="bi"]:checked');
+
+    });
+
+    $("#Schedule").change(function () {
+        var Schedule = $('#Schedule').val();
+        if (Schedule == "Annually") {
+            document.getElementById("Annual").style.display = "block";
+        }
+        else {
+            document.getElementById("Annual").style.display = "none";
+        }
+        var Day = document.querySelector('input[name="ann"]:checked');
+
+    });
+
+    $("#ScheduleEdit").change(function () {
+        var Schedule = $('#ScheduleEdit').val();
+        if (Schedule == "Weekly") {
+            document.getElementById("Days").style.display = "block";
+        }
+        else {
+            document.getElementById("Days").style.display = "none";
+        }
+        var Day = document.querySelector('input[name="fav_language"]:checked');
+
+    });
+
+    $("#ScheduleEdit").change(function () {
+        var Schedule = $('#ScheduleEdit').val();
+        if (Schedule == "Monthly") {
+            document.getElementById("Months").style.display = "block";
+        }
+        else {
+            document.getElementById("Months").style.display = "none";
+        }
+        var Month = document.querySelector('input[name="fav"]:checked');
+
+    });
+
+    //$("#TaskType").change(function () {
+    //    var TaskType = $('#TaskType').val();
+    //    if (TaskType == "Tasks Category") {
+    //        document.getElementById("Category").style.display = "block";
+    //    }
+    //    else {
+    //        document.getElementById("Category").style.display = "none";
+    //    }
+    //    var Day = document.querySelector('input[name="cat"]:checked');
+
+    //});
 
     function loadTable() {
 
@@ -334,18 +618,565 @@
 
             ]
         });
+
+        Table04 = $("#tbl4").DataTable({
+            "ajax": {
+                "url": "/TemplateTasks/GetQuarterly",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "60%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ]
+        });
+
+        Table05 = $("#tbl5").DataTable({
+            "ajax": {
+                "url": "/TemplateTasks/GetBi",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "60%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ]
+        });
+
+        Table06 = $("#tbl6").DataTable({
+            "ajax": {
+                "url": "/TemplateTasks/GetAnually",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "60%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ]
+        });
+
+        //Table04 = $("#tbl4").DataTable({
+        //    "ajax": {
+        //        "url": "/TemplateTasks/GetPreTasks",
+        //    },
+        //    responsive: true,
+        //    autoWidth: false,
+        //    "columns": [
+        //        { "data": "description", "width": "60%" },
+        //        { "data": "schedule", "width": "20%" },
+
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+        //        { "data": "userEmail", "width": "50%" },
+        //        {
+        //            "data": {
+        //                id: "id"
+        //            },
+        //            "render": function (data) {
+
+
+        //                return `
+        //                                <div class="text-center">
+        //                                        <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+        //                                            <i class="fas fa-edit"></i>
+        //                                        </a>
+        //                                        <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+        //                                                        <i class="fas fa-trash-alt"></i>
+        //                                         </a>
+
+        //                                </div>
+        //                               `;
+        //            }, "width": "30%"
+        //        },
+
+
+        //    ]
+        //});
+
+        //Table05 = $("#tbl5").DataTable({
+        //    "ajax": {
+        //        "url": "/TemplateTasks/GetActive",
+        //    },
+        //    responsive: true,
+        //    autoWidth: false,
+        //    "columns": [
+        //        { "data": "description", "width": "60%" },
+        //        { "data": "schedule", "width": "20%" },
+
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+        //        { "data": "userEmail", "width": "50%" },
+        //        {
+        //            "data": {
+        //                id: "id"
+        //            },
+        //            "render": function (data) {
+
+
+        //                return `
+        //                                <div class="text-center">
+        //                                        <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+        //                                            <i class="fas fa-edit"></i>
+        //                                        </a>
+        //                                        <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+        //                                                        <i class="fas fa-trash-alt"></i>
+        //                                         </a>
+
+        //                                </div>
+        //                               `;
+        //            }, "width": "30%"
+        //        },
+
+
+        //    ]
+        //});
+
+        //Table06 = $("#tbl6").DataTable({
+        //    "ajax": {
+        //        "url": "/TemplateTasks/GetPreTasks",
+        //    },
+        //    responsive: true,
+        //    autoWidth: false,
+        //    "columns": [
+        //        { "data": "description", "width": "60%" },
+        //        { "data": "schedule", "width": "20%" },
+
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+        //        { "data": "userEmail", "width": "50%" },
+        //        {
+        //            "data": {
+        //                id: "id"
+        //            },
+        //            "render": function (data) {
+
+
+        //                return `
+        //                                <div class="text-center">
+        //                                        <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+        //                                            <i class="fas fa-edit"></i>
+        //                                        </a>
+        //                                        <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+        //                                                        <i class="fas fa-trash-alt"></i>
+        //                                         </a>
+
+        //                                </div>
+        //                               `;
+        //            }, "width": "30%"
+        //        },
+
+
+        //    ]
+        //});
+
+        //Table07 = $("#tbl7").DataTable({
+        //    "ajax": {
+        //        "url": "/TemplateTasks/GetPreTasks",
+        //    },
+        //    responsive: true,
+        //    autoWidth: false,
+        //    "columns": [
+        //        { "data": "description", "width": "60%" },
+        //        { "data": "schedule", "width": "20%" },
+
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+        //        { "data": "userEmail", "width": "50%" },
+        //        {
+        //            "data": {
+        //                id: "id"
+        //            },
+        //            "render": function (data) {
+
+
+        //                return `
+        //                                <div class="text-center">
+        //                                        <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+        //                                            <i class="fas fa-edit"></i>
+        //                                        </a>
+        //                                        <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+        //                                                        <i class="fas fa-trash-alt"></i>
+        //                                         </a>
+
+        //                                </div>
+        //                               `;
+        //            }, "width": "30%"
+        //        },
+
+
+        //    ]
+        //});
+
+        //Table08 = $("#tbl8").DataTable({
+        //    "ajax": {
+        //        "url": "/TemplateTasks/GetPreTasks",
+        //    },
+        //    responsive: true,
+        //    autoWidth: false,
+        //    "columns": [
+        //        { "data": "description", "width": "60%" },
+        //        { "data": "schedule", "width": "20%" },
+
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+        //        { "data": "userEmail", "width": "50%" },
+        //        {
+        //            "data": {
+        //                id: "id"
+        //            },
+        //            "render": function (data) {
+
+
+        //                return `
+        //                                <div class="text-center">
+        //                                        <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+        //                                            <i class="fas fa-edit"></i>
+        //                                        </a>
+        //                                        <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+        //                                                        <i class="fas fa-trash-alt"></i>
+        //                                         </a>
+
+        //                                </div>
+        //                               `;
+        //            }, "width": "30%"
+        //        },
+
+
+        //    ]
+        //});
+
+        //Table09 = $("#tbl9").DataTable({
+        //    "ajax": {
+        //        "url": "/TemplateTasks/GetPreTasks",
+        //    },
+        //    responsive: true,
+        //    autoWidth: false,
+        //    "columns": [
+        //        { "data": "description", "width": "60%" },
+        //        { "data": "schedule", "width": "20%" },
+
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+        //        { "data": "userEmail", "width": "50%" },
+        //        {
+        //            "data": {
+        //                id: "id"
+        //            },
+        //            "render": function (data) {
+
+
+        //                return `
+        //                                <div class="text-center">
+        //                                        <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+        //                                            <i class="fas fa-edit"></i>
+        //                                        </a>
+        //                                        <a onclick=Delete("/TemplateTasks/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+        //                                                        <i class="fas fa-trash-alt"></i>
+        //                                         </a>
+
+        //                                </div>
+        //                               `;
+        //            }, "width": "30%"
+        //        },
+
+
+        //    ]
+        //});
     }
 
     function AddTask() {
 
-
-
         var Desc = $('#Description').val();
         var Schedule = $('#Schedule').val();
+        var Type = $('#TaskType').val();
 
+        var Day = document.querySelector('input[name="fav_language"]:checked');
+
+        if (Day == null) {
+            Day = "";
+        }
+        else {
+            Day = Day.value;
+        }
+
+        var Month = document.querySelector('input[name="fav"]:checked');
+
+        if (Month == null) {
+            Month = "";
+        }
+        else {
+            Month = Month.value;
+        }
+
+        var Quarter = document.querySelector('input[name="quart"]:checked');
+
+        if (Quarter == null) {
+            Quarter = "";
+        }
+        else {
+            Quarter = Quarter.value;
+        }
+
+        var Bi_Annual = document.querySelector('input[name="bi"]:checked');
+
+        if (Bi_Annual == null) {
+            Bi_Annual = "";
+        }
+        else {
+            Bi_Annual = Bi_Annual.value;
+        }
+
+        var Annual = document.querySelector('input[name="ann"]:checked');
+
+        if (Annual == null) {
+            Annual = "";
+        }
+        else {
+            Annual = Annual.value;
+        }
         $.ajax({
             type: "POST",
-            url: "/TemplateTasks/AddTask?Desc=" + Desc + "&Schedule=" + Schedule,
+            url: "/TemplateTasks/AddTask?Desc=" + Desc + "&Schedule=" + Schedule + "&Day=" + Day + "&Month=" + Month + "&TType=" + Type + "&Quarter=" + Quarter + "&Bi_Annually=" + Bi_Annual + "&Annual=" + Annual,
             success: function (data) {
                 if (data.success) {
 
@@ -354,6 +1185,7 @@
                     Table01.ajax.reload();
                     Table02.ajax.reload();
                     Table03.ajax.reload();
+                    Table04.ajax.reload();
 
 
                 }
@@ -383,6 +1215,7 @@
                             Table01.ajax.reload();
                             Table02.ajax.reload();
                             Table03.ajax.reload();
+                            Table04.ajax.reload();
                         }
                         else {
                             toastr.error(data.message);
@@ -404,6 +1237,7 @@
             success: function (data) {
                 document.getElementById("DescriptionEdit").value = data.data.description;
                 document.getElementById("ScheduleEdit").value = data.data.schedule;
+                /*document.getElementById("TaskTypeEdit").value = data.data.TaskType;*/
                 editId = id;
             }
         });
@@ -417,7 +1251,7 @@
 
         $.ajax({
             type: "PUT",
-            url: "/TemplateTasks/EditTask?Id=" + editId  +"&Desc=" + Desc + "&Schedule=" + Schedule,
+            url: "/TemplateTasks/EditTask?Id=" + editId + "&Desc=" + Desc + "&Schedule=" + Schedule,
             success: function (data) {
                 if (data.success) {
 
@@ -426,6 +1260,7 @@
                     Table01.ajax.reload();
                     Table02.ajax.reload();
                     Table03.ajax.reload();
+                    Table04.ajax.reload();
 
 
                 }

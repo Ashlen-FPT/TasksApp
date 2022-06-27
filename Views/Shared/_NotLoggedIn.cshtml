@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="~/images/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - eRAMP</title>
+
+    @*<meta name="description" content="Electronic Research Administration And Management Platform facilitates the tracking of students' research.">
+        <meta property="og:title" content="e.R.A.M.P  @ViewBag.Title" />
+
+        <meta property="og:url" content="@AppSettings.baseUrl" />
+        <meta property="og:description" content="Electronic Research Administration And Management Platform facilitates the tracking of students' research.">
+
+        <meta property="og:image" content="@AppSettings.baseUrl/Content/Logo/DUT-LOGO-sharing.png">
+        <meta property="og:type" content="article" />*@
+
+
+    <partial name="/Views/Shared/_StyleSheet.cshtml" />
+    @RenderSection("Stylesheets", false)
+</head>
+
+<body class="c-app">
+    <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar" id="sidebar">
+        <!-- Sidebar content here -->
+        <div class="c-sidebar-brand d-md-down-none csidebar-brandbackground-color">
+            <img class="c-sidebar-brand-full" src="~/images/download.png" height="46" alt="DUT App Factory Logo">
+            <img class="c-sidebar-brand-minimized" src="~/images/CheckList.jpg" width="50" height="46" alt="DUT App Factory Logo">
+        </div>
+
+        <ul class="c-sidebar-nav">
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" href="@Url.Page("Login", "Account")">
+                    <span class="c-sidebar-nav-icon fa fa-sign-in-alt"></span> Login
+                </a>
+            </li>
+        </ul>
+        <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+    </div>
+    <div class="c-wrapper">
+        <!-- Header content here -->
+        <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
+            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
+                <span class="fa fa-bars"></span>
+            </button>
+            <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true">
+                <span class="fa fa-bars"></span>
+            </button>
+            <ul class="c-header-nav ml-auto mr-4">
+            </ul>
+        </header>
+        <div class="c-body">
+            @RenderBody()
+        </div>
+        <footer class="c-footer">
+            <div class="small-device-footer small-device">
+                <p class="footer-tag-styling">eRAMP </p><a href="#" target="_blank">FPT Group</a>
+                <span class="footer-tag-styling">&copy; @DateTime.Now.Year</span>
+            </div>
+            <div class="large-device-footer large-device">
+                <p class="footer-tag-styling">Electronic Research Administration Management Platform </p><a href="#" target="_blank">FPT Group</a>
+                <span class="footer-tag-styling">&copy; @DateTime.Now.Year</span>
+            </div>
+            <img class="d-none d-md-block" src="~/images/download.png" height="50" alt="DUT App Factory Logo">
+        </footer>
+    </div>
+    <partial name="/Views/Shared/_Scripts.cshtml" />
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

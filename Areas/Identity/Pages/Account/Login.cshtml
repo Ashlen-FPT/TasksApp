@@ -5,81 +5,219 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use another service to log in.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Login</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="icon" href="~/classic-login/images/download.png" />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    
+    <link href="~/classic-login/css/bootstrap.min.css" rel="stylesheet">
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'PT Sans', sans-serif !important;
+            background-image: url('/images/CheckList.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+           
+        }
+.content{
+    background-image: url('/wwwroot/images/CheckList.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-align: center;
 }
+a, a:focus, a:hover{
+    text-decoration: none !important;
+    color:#fff !important;
+}
+.placeholder-fix:focus::-webkit-input-placeholder  {color:transparent !important; }
+.placeholder-fix:focus::-moz-placeholder   {color:transparent !important;}
+.placeholder-fix:-moz-placeholder   {color:transparent !important;}
+.loginpage {
+    margin: 0 auto;
+}
+.loginpage .form-control{
+    width:100%;
+}
+.logo h2 {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+     padding-bottom: 60px;
+}
+        .loginpage input:first-child {
+            background: url('/wwwroot/images/user.png');
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-origin: content-box;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: medium none;
+            height: 60px;
+            margin: 0 0 5px;
+            width: 100%;
+            color: rgb(57,80,86);
+            font-weight: 600;
+            border-radius: 5px 5px 0 0;
+        }
+.loginpage input:last-child{
+    background: url(../images/lock.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-origin: content-box;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: medium none;
+    height: 60px;
+    margin: 0 0 5px;
+    width: 100%;
+    color: rgb(57,80,86);
+    font-weight: 600;
+     border-radius: 0 0 5px 5px;
+}
+.form-control::-moz-placeholder {
+    color: rgb(57,80,86) !important;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.form-control::-webkit-input-placeholder{
+    color: rgb(57,80,86) !important;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.form-control:focus {
+    border-color: transparent;
+    box-shadow: none!important;
+    outline: 0 none;
+}
+.action-button .btn-block {
+    background-color: rgba(57,80,86,0.9);
+    border: medium none;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    height: 60px;
+    margin-top: 15px;
+    border-radius: 5px;
+    width: 100%;
+}
+.page-links {
+    padding: 0;
+    text-align: center;
+    padding: 30px 0;
+}
+.page-links li{
+    display: inline-block;
+}
+.page-links a {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    margin-right: 50px;
+}
+.social-button {
+    text-align: center;
+}
+.social-button > a {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 20px;
+    padding: 12px 39px;
+    border-radius: 4px;
+}
+.social-button a:first-child{
+    background-color: rgba(56,83,141,0.8);
+}
+.social-button a:last-child{
+    background-color: rgba(214,34,33,0.8);
+    margin-right: 0px;
+}
+.social-button img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.copyright {
+    color: #fff;
+    font-size: 16px;
+    margin-top: 50px;
+}
+.copyright a, .copyright a:hover{
+    color:#fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+</style>
+</head>
+<body class="content">
+    <header>
+        <div class="logo text-center">
+           
+            <img class="c-sidebar-brand-full" src="~/images/download.png" height="60" alt="FPT Group">
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6 width-100">
+                <form id="account" method="post">
+                    <div class="loginpage">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="field">
+                            <input asp-for="Input.Email" type="text" placeholder="Username"/>
+                            <span asp-validation-for="Input.Email"></span>
+                        </div>
+
+                        <div class="field space">
+                            <input asp-for="Input.Password" type="password" placeholder="Password"/>
+                            <span asp-validation-for="Input.Password" ></span>
+                        </div>
+
+                        @*<div class="form-group">
+                            <input asp-for="Input.RememberMe" type="checkbox"/>
+                             @Html.DisplayNameFor(m => m.Input.RememberMe)   
+                        </div>*@
+                    </div>
+                    <div class="action-button">
+                        <button type="submit" class="btn-block">Log in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <ul class="page-links">
+                <li>
+                    <a asp-page="./ForgotPassword">Forgot your password?</a>
+                </li>
+                <li>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
+                </li>
+                <li>
+                    <a  asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+  @section Scripts {
+      <partial name="_ValidationScriptsPartial" />
+  }
+</body>
+</html>

@@ -1,0 +1,63 @@
+﻿@media only screen and (max-width: 767px) {
+    .small-screen {
+        display: block;
+        width:100%;
+    }
+
+    .large-screen {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .large-screen {
+        display: block;
+        width:100%;
+    }
+
+    .small-screen {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .small-device-footer {
+        display: block !important;
+    }
+
+    .large-device-footer {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .small-device-footer {
+        display: none !important;
+    }
+
+    .large-device-footer {
+        display: block !important;
+    }
+}
+
+.footer-tag-styling {
+    font-size: 14px;
+    display: inline;
+    color: #7D7D7D
+}
+
+.small-device {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    display: none;
+}
+
+.large-device {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.csidebar-brandbackground-color {
+    background-color: #fff !important;
+} 

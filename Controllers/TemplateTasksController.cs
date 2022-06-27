@@ -1,25 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace TasksApp.Controllers
 {
+    [Authorize]
     public class TemplateTasksController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        //private readonly UserManager<IdentityUser> _userManager;
 
-        public TemplateTasksController(UserManager<IdentityUser> userManager, ApplicationDbContext context)
+        public TemplateTasksController(ApplicationDbContext context)
         {
             _context = context; 
-            _userManager = userManager;
+            //_userManager = userManager;
         }
 
         // GET: TemplateTasks
@@ -160,7 +161,7 @@ namespace TasksApp.Controllers
         public IActionResult GetDaily()
         {
 
-            return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Daily").ToList() });
+            return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Daily").ToList()});
 
         }
 
@@ -180,14 +181,48 @@ namespace TasksApp.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddTask(string Desc, string Schedule)
+        [HttpGet]
+        public IActionResult GetPreTasks()
         {
+            return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Daily").Where(t => t.TaskType == "PreTasks").ToList() });
 
+        }
+
+        [HttpGet]
+        public IActionResult GetQuarterly()
+        {
+            return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Quarterly").ToList() });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetBi()
+        {
+            return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Bi-Annually").ToList() });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetAnually()
+        {
+            return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Annually").ToList() });
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTask(string Desc, string Schedule, string Day, string Month, string TType, string Annual, string Quarter, string Bi_Annually)
+        {
+            
             var Task = new TemplateTask 
             { 
                 Description = Desc,
                 Schedule = Schedule,
+                DayOfWeek = Day,
+                Month = Month,
+                Quarterly = Quarter,
+                Bi_Annual = Bi_Annually,
+                Annual =Annual,
+                TaskType = TType,
                 DateCreated = DateTime.Now,
                 UserEmail = User.Identity.Name
             
@@ -211,7 +246,7 @@ namespace TasksApp.Controllers
 
             _context.Update(templateTask);
             
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             return Json(new { success = true, message = "Task Updated!" });
 
@@ -230,7 +265,7 @@ namespace TasksApp.Controllers
         {
             var templateTask = await _context.TemplateTasks.FindAsync(id);
             _context.TemplateTasks.Remove(templateTask);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
             return Json(new { success = true, message = "Task deleted!" });
         }
 

@@ -1,0 +1,54 @@
+﻿<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">HEADER</li>
+    <!-- Optionally, you can add icons to the links -->
+    <li class="active">
+        <a asp-controller="TemplateTasks" asp-action="Index">
+            <i class="fa fa-tasks"></i>
+            <span data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Click here to Manage Tasks">
+            </span>
+            &nbsp;
+            Tasks Management
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="Tasks" asp-action="Index">
+            <i class="fa fa-tasks"></i>
+            <span data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Click here to View Supervisor Tasks">
+            </span>
+            &nbsp;
+            Supervisor Tasks
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="PreTasks" asp-action="Index">
+            <i class="fa fa-tasks"></i>
+            <span data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Click here to View Operator Tasks">
+            </span>
+            &nbsp;
+            Operator Tasks
+        </a>
+    </li>
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-link"></i>
+            <span>Check-List</span>
+
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="#">Manage Tasks</a></li>
+            <li><a href="#">Link in level 2</a></li>
+        </ul>
+    </li>
+</ul>

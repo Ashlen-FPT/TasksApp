@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TasksApp.Models
 {
@@ -16,9 +13,20 @@ namespace TasksApp.Models
         [Required]
         public string Schedule { get; set; }
 
+        public string DayOfWeek { get; set; }
+
+        public string Month { get; set; }
+
+        public string Quarterly { get; set; }
+
+        public string Bi_Annual { get; set; }
+
+        public string Annual { get; set; }
+
         public DateTime DateCreated { get; set; }
 
-
         public string UserEmail { get; set; }
+
+        public string TaskType { get; set; }
     }
 }

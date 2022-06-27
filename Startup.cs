@@ -34,6 +34,7 @@ namespace TasksApp
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+
             services.AddIdentity<IdentityUser, IdentityRole>(options => {
                 options.SignIn.RequireConfirmedAccount = false;
                 // options.User.RequireUniqueEmail = false;
@@ -80,7 +81,7 @@ namespace TasksApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Tasks}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
