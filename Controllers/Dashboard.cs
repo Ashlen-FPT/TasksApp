@@ -27,6 +27,17 @@ namespace TasksApp.Controllers
             return View(dashboard);
         }
 
+        public IActionResult Calendar()
+        {
+            return View();
+        }
+
+        //public IActionResult GetList()
+        //{
+
+        //    var list = _context.Tasks.OrderBy(x=>x.DateCreated).ToList();
+        //}
+
         public ActionResult Test()
         {
             return View();
