@@ -32,7 +32,7 @@
 <body class="c-app">
     @await Html.PartialAsync("_SideBarLayout")
     <div class="c-wrapper">
-        
+
         @await Html.PartialAsync("_HeaderLayout")
         <div class="c-body">
             @RenderBody()
@@ -42,6 +42,7 @@
 
     <partial name="/Views/Shared/_Scripts.cshtml" />
 
+    <script src="~/plugins/jquery/jquery.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

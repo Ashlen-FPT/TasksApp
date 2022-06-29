@@ -212,8 +212,77 @@ namespace TasksApp.Controllers
             return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "PreTasks") });
         }
 
+        public async Task<IActionResult> AdminGetTasks(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var TasksToday = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "PreTasks").ToList();
+
+
+            if (TasksToday.Count == 0)
+            {
+                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "PreTasks").ToList();
+
+                foreach (var task in TemplateTasks)
+                {
+
+                    var preTask = new PreTasks
+                    {
+                        Description = task.Description,
+                        DateCreated = date,
+                        DateTaskCompleted = new DateTime(),
+                        Schedule = task.Schedule,
+                        TaskType = task.TaskType
+                    };
+
+                    _context.PreTasks.Add(preTask);
+
+                }
+            }
+
+            if (TasksToday.Count > 0)
+            {
+                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "PreTasks").ToList();
+
+                if (TemplateTasks.Count > TasksToday.Count)
+                {
+                    var result = TemplateTasks.Where(p => TasksToday.All(p2 => p2.Description != p.Description)).Where(s => s.TaskType == "PreTasks");
+
+                    foreach (var item in result)
+                    {
+                        var preTask = new PreTasks
+                        {
+                            Description = item.Description,
+                            DateCreated = date,
+                            Schedule = item.Schedule,
+                            DateTaskCompleted = new DateTime(),
+                            TaskType = item.TaskType
+                        };
+
+                        _context.PreTasks.Add(preTask);
+                    }
+
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "PreTasks") });
+        }
+
         [HttpGet]
         public IActionResult GetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "PreTasks") });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAll(DateTime date)
         {
 
             DateTime oDate = Convert.ToDateTime(date);
@@ -244,14 +313,14 @@ namespace TasksApp.Controllers
                 {
                     await _context.SaveChangesAsync();
 
-                    return Json(new { success = true, message = "Task Completed!" });
+                    return Json(new { success = true, message = "Task inCompleted!" });
                 }
 
-                else
-                {
-                    task.DateAllTaskCompleted = DateTime.Now;
-                    task.TasksCompleted = true;
-                }
+                //else
+                //{
+                //    task.DateAllTaskCompleted = DateTime.Now;
+                //    task.TasksCompleted = true;
+                //}
 
             }
 
