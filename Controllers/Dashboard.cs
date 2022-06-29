@@ -2,6 +2,7 @@
 using System.Linq;
 using TasksApp.Data;
 using TasksApp.ViewModels;
+using System.Text.Json;
 
 namespace TasksApp.Controllers
 {
@@ -32,11 +33,13 @@ namespace TasksApp.Controllers
             return View();
         }
 
-        //public IActionResult GetList()
-        //{
+        public IActionResult GetList()
+        {
 
-        //    var list = _context.Tasks.OrderBy(x=>x.DateCreated).ToList();
-        //}
+            var list = _context.Tasks.ToList();
+            return new JsonResult(new{ data = list });
+
+        }
 
         public ActionResult Test()
         {

@@ -1777,8 +1777,4 @@
     <None Include="wwwroot\soft-ui-dashboard-main\soft-ui-dashboard-main\.github\workflows\main.yml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\NewFolder\" />
-  </ItemGroup>
-
 </Project>

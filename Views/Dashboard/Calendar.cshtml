@@ -1,65 +1,17 @@
-﻿
-@{ ViewBag.Title = "Calendar";
-
+﻿@{
+    ViewBag.Title = "Calendar";
 }
-<style>
-    .myDiv {
-        background-color: white;
-    }
-</style>
-<section class="content-header">
-    <center><h1>
-        Calendar Overview
-    </h1></center>
-</section>
-<div class="myDiv">
 
-    <div ng-app="myApp" ng-controller="myNgController">
-        <div class="row">
-            <div class="col-md-8">
-                <div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar"></div>
-            </div>
-            <div class="col-md-4">
-                <div ng-show="SelectedEvent" class="alert alert-success" style="margin-top:50px;">
-                    <center><h3 style="margin-top:0px"><u>Checklist Status</u></h3></center>
-                    @{
-                        int status = 0;
-                    }
+<div id='calendar'></div>
 
-                    @if (status == 0)
-                    {
 
-                        <p><font color=" blue">Day Shift:</font><font color="red"> Not Inspected</font></p>
-                        <p><font color=" blue">Night Shift :</font><font color="red">  Not Inspected</font></p>
-                        <br>
-                        <center><input type="submit" value="Open New Checklist" class="btn btn-primary" onclick="location.href='@Url.Action("action", "controller")'" /></center>
-                    }
 
-                    @if (status == 0)
-                    {
-                        <p><font color=" blue">Day Shift:</font><font color="green"> Inspected</font></p>
-                        <p><font color=" blue">Night Shift :</font><font color="red">  Not Inspected</font></p>
-                        <br>
-                        <center><input type="submit" value="Complete Checklist" class="btn btn-warning" onclick="location.href='@Url.Action("action", "controller")'" /></center>
-                    }
-
-                    @if (status == 0)
-                    {
-                        <p><font color=" blue">Day Shift:</font><font color="green"> Inspected</font></p>
-                        <p><font color=" blue">Night Shift :</font><font color="green"> Inspected</font></p>
-                        <br>
-                        <center><input type="submit" value="View Or Update Checklist" class="btn btn-success" onclick="location.href='@Url.Action("action", "controller")'" /></center>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-    <link href="~/css/fullcalendar.css" rel="stylesheet" />
-    <script src="~/Scripts/moment.js"></script>
-    <script src="~/Scripts/jquery-1.11.3.js"></script>
-    <script src="~/Scripts/angular.js"></script>
-    <script src="~/Scripts/calendar.js"></script>
-    <script src="~/Scripts/fullcalendar.js"></script>
-    <script src="~/Scripts/gcal.js"></script>
-    <script src="~/Scripts/angular-calendar.js"></script>
-</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+        });
+        calendar.render();
+    });
+</script>
