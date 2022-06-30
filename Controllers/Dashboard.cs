@@ -6,6 +6,7 @@ using System.Text.Json;
 using System;
 using System.Collections.Generic;
 using TasksApp.Models;
+using TasksApp.Helpers;
 
 namespace TasksApp.Controllers
 {
@@ -33,14 +34,14 @@ namespace TasksApp.Controllers
 
         public IActionResult Calendar()
         {
-            var dateList = _context.Tasks.Select(x => x.DateCreated.ToString("yyyy-MM-dd")).ToList();
+            var dateList = _context.Tasks.Select(x => x.DateAllTaskCompleted!=null?x.DateAllTaskCompleted.Value.ToString("yyyy-MM-dd"):null).ToList();
 
-
-            foreach (var item in dateList)
-            {
+                foreach (var item in dateList)
+                {
+                // TODO: Display all dates
                 var jsonDate = JsonSerializer.Serialize(item);
-                ViewData["Date"] = jsonDate;
-            }
+                    ViewData["Date"] = jsonDate;
+                }
 
             return View();
         }
