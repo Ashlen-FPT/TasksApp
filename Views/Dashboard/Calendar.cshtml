@@ -2,15 +2,44 @@
     ViewBag.Title = "Calendar";
 }
 
+
+<section class="content-header">
+    <h1>
+        Calendar Overview
+    </h1>
+</section>
+<br />
 <div id='calendar'></div>
-
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
+            headerToolbar: {
+                left: 'dayGridMonth,dayGridWeek,dayGridDay',
+                center: 'title',
+                right: 'prev,next'
+            },
+            events: [
+                {
+                    title: 'Attention : Checklist',
+                    start: @Html.Raw(ViewData["Date"]),
+                    color: 'red',
+                },
+
+
+                @*{
+                    title: 'Partially Complete',
+                    start: @Html.Raw(ViewData["Date"]),
+                    color: 'orange'
+                },
+                {
+                    title: 'Completed',
+                    start: @Html.Raw(ViewData["Date"]),
+                    color: 'green',
+                },*@
+            ],
+
         });
         calendar.render();
     });

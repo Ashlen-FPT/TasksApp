@@ -3,6 +3,9 @@ using System.Linq;
 using TasksApp.Data;
 using TasksApp.ViewModels;
 using System.Text.Json;
+using System;
+using System.Collections.Generic;
+using TasksApp.Models;
 
 namespace TasksApp.Controllers
 {
@@ -30,15 +33,16 @@ namespace TasksApp.Controllers
 
         public IActionResult Calendar()
         {
+            var dateList = _context.Tasks.Select(x => x.DateCreated.ToString("yyyy-MM-dd")).ToList();
+
+
+            foreach (var item in dateList)
+            {
+                var jsonDate = JsonSerializer.Serialize(item);
+                ViewData["Date"] = jsonDate;
+            }
+
             return View();
-        }
-
-        public IActionResult GetList()
-        {
-
-            var list = _context.Tasks.ToList();
-            return new JsonResult(new{ data = list });
-
         }
 
         public ActionResult Test()
