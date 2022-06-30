@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -430,7 +429,7 @@ namespace TasksApp.Controllers
                 {
                     await _context.SaveChangesAsync();
 
-                    return Json(new { success = true, message = "Task Completed!" });
+                    return Json(new { success = true, message = "Task inCompleted!" });
                 }
 
                 else

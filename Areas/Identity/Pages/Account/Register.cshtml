@@ -112,7 +112,7 @@
                 top: 0;
                 width: 900px;
                 height: 100%;
-                background-image: url("ext.jpg");
+                background-image: url('/images/CheckList.jpg');
                 opacity: .8;
                 background-size: cover;
                 -webkit-transition: -webkit-transform 1.2s ease-in-out;
@@ -336,32 +336,35 @@
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </label>
 
-                <label>
-                    @*<input asp-for="Input.Role" placeholder="Role" />
-                    <span asp-validation-for="Input.Role" class="text-danger"></span>*@
-                    @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Please select a role", new { @class = "form-control" })
-                </label>
-
-                <label>
-                    <input asp-for="Input.Password" placeholder="Password" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </label>
-
-                <label>
-                    <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </label>
-
-                @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                @if (User.IsInRole(SD.Role_Admin))
                 {
-                    <div class="form-group">
-                        <label asp-for="Input.Role"></label>
-                        
-                    </div>
+                    <label>
+                        @*<input asp-for="Input.Role" placeholder="Role" />
+                <span asp-validation-for="Input.Role" class="text-danger"></span>*@
+                        @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Please select a role", new { @class = "form-control" })
+                    </label>
                 }
 
-                <button type="submit" class="submit">Register</button>
-            </form>
+                    <label>
+                        <input asp-for="Input.Password" placeholder="Password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </label>
+
+                    <label>
+                        <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </label>
+
+                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                    {
+                        <div class="form-group">
+                            <label asp-for="Input.Role"></label>
+
+                        </div>
+                    }
+
+                    <button type="submit" class="submit">Register</button>
+                </form>
         </div>
     </div>
 
