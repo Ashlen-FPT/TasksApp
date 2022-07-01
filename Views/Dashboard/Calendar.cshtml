@@ -15,38 +15,25 @@
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+
             headerToolbar: {
                 left: 'dayGridMonth,dayGridWeek,dayGridDay',
                 center: 'title',
                 right: 'prev,next'
             },
+
             events: [
                 {
-                    title: 'Supervisor - Attention: Checklist',
-                    start: @Html.Raw(ViewData["Date"]),
+                    title: 'Attention: Checklist',
+                    start: @Html.Raw(ViewData["Dates"]),
                     color: 'red',
                 },
-
-                @*{
-                    title: 'Operator - Attention: Checklist',
-                    start: @Html.Raw(ViewData["Date"]),
-                    color: 'red',
-                },*@
-
-
-                @*{
-                    title: 'Partially Complete',
-                    start: @Html.Raw(ViewData["Date"]),
-                    color: 'orange'
-                },
-                {
-                    title: 'Completed',
-                    start: @Html.Raw(ViewData["Date"]),
-                    color: 'green',
-                },*@
             ],
+
 
         });
         calendar.render();
     });
+
+    console.log(@Html.Raw(ViewData["Dates"]));
 </script>

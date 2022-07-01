@@ -34,14 +34,25 @@ namespace TasksApp.Controllers
 
         public IActionResult Calendar()
         {
-            var dateList = _context.Tasks.Select(x => x.DateAllTaskCompleted!=null?x.DateAllTaskCompleted.Value.ToString("yyyy-MM-dd"):null).ToList();
+            var dateList = _context.Tasks.Select(x => x.DateAllTaskCompleted != null ? x.DateAllTaskCompleted.Value.ToString("yyyy-MM-dd") : null).ToList();
+            List<string> jsonDates = new List<string>();
 
-                foreach (var item in dateList)
+            foreach (var item in dateList)
+            {
+                if (item != null)
                 {
-                // TODO: Display all dates
-                var jsonDate = JsonSerializer.Serialize(item);
-                    ViewData["Date"] = jsonDate;
+
+                    jsonDates.Add(JsonSerializer.Serialize(item));
+
                 }
+            }
+
+
+            foreach (var item in jsonDates)
+            {
+                ViewData["Dates"] = item;
+            }
+
 
             return View();
         }
