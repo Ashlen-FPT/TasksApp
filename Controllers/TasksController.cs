@@ -416,9 +416,9 @@ namespace TasksApp.Controllers
             task.IsDone = true;
             task.DateTaskCompleted = DateTime.Now;
             task.User = User.Identity.Name;
+            task.Status = "Partialy Complete";
 
             var date = task.DateCreated;
-
 
             var tasks = _context.Tasks.Where(d => d.DateCreated == date).ToList();
 
@@ -429,22 +429,56 @@ namespace TasksApp.Controllers
                 {
                     await _context.SaveChangesAsync();
 
-                    return Json(new { success = true, message = "Task inCompleted!" });
+                    return Json(new { success = true, message = "Task Completed!" });
                 }
 
                 else
                 {
-                    
-                    task.DateAllTaskCompleted = DateTime.Now;
-                    task.TasksCompleted = true;
+                    bool completeTasks = tasks.All(c => c.IsDone == true);
+                    {
+                        if (completeTasks == false)
+                        {
+                            
+                            await _context.SaveChangesAsync();
+
+                            return Json(new { success = true, message = "Task Completed!" });
+                        }
+                        else if(completeTasks == true)
+                        {
+                            task.TasksCompleted = true;
+                            task.DateAllTaskCompleted = DateTime.Now;
+                            task.Status = "Completed";
+                        }
+                    }
+
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, message = "All Tasks Completed!" });
                 }
 
             }
 
             await _context.SaveChangesAsync();
 
-            return Json(new { success = true, message = "Task Completed!" });
+            return Json(new { success = true, message = "All Tasks Completed!" });
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CompleteAllTasks( DateTime date)
+        {
+            var task = _context.Tasks.Where(d => d.DateCreated == date).Where( t => t.IsDone == true).ToList();
+            
+            foreach (var item in task)
+            {
+                if (item.IsDone == true)
+                {
+                    item.TasksCompleted = true;
+                    item.DateAllTaskCompleted = DateTime.Now;
+                }
+                
+            }
+            await _context.SaveChangesAsync();
+            return Json(new { success = true, message = "All Tasks Completed!"});
         }
 
         [HttpGet]

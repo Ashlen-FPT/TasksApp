@@ -12,12 +12,19 @@
     <ul class="c-sidebar-nav">
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" asp-action="Index">
+
                 <span class="c-sidebar-nav-icon fa fa-home fa-lg"></span> &nbsp;Welcome
                 <span class="badge badge-info">
 
                     @if (User.IsInRole(SD.Role_Operator.ToString()))
                     {
                         <text>Operator</text> 
+
+                        <span class="fa fa-bell fa-lg"> <span class="count"> &nbsp; </span></span>
+                            @*<div class="noti-content">
+                    <div class="noti-top-arrow"></div>
+                    <ul id="notiContent"></ul>
+                </div>*@
                     }
 
                     else if (User.IsInRole(SD.Role_Supervisor.ToString()))
@@ -30,6 +37,7 @@
                         <text>Admin</text>
                     }
                 </span>
+
             </a>
         </li>
 
