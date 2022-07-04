@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]  Check-List</title>
 
+    <!--Ashlen Integration-->
+    <link href="~/css/main.css" rel="stylesheet" />
+    <script src="~/js/calendar/main.js"></script>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -27,6 +31,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
 
     <partial name="/Views/Shared/_StyleSheet.cshtml" />
 
@@ -54,6 +59,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
 
 
