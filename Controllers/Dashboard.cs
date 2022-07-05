@@ -2,6 +2,7 @@
 using System.Linq;
 using TasksApp.Data;
 using TasksApp.ViewModels;
+using TasksApp.Models;
 
 namespace TasksApp.Controllers
 {
@@ -25,6 +26,37 @@ namespace TasksApp.Controllers
             dashboard.preTasks_count = _context.PreTasks.Count();
 
             return View(dashboard);
+        }
+
+        public IActionResult Calendar()
+        {
+            #region Supervisor Tasks
+            //Supervisor Tasks
+            ViewData["SupervisorEvents"] = (from m in _context.Tasks
+                                 where m.DateAllTaskCompleted != null
+                                 select new Tasks
+                                 {
+                                     DateAllTaskCompleted=m.DateAllTaskCompleted,
+                                     TasksCompleted=m.TasksCompleted    
+                                 }).ToArray();
+
+            #endregion
+
+
+            #region Operator Tasks
+            //Operator Tasks
+            ViewData["OperatorEvents"] = (from m in _context.PreTasks
+                                 where m.DateAllTaskCompleted != null
+                                 select new Tasks
+                                 {
+                                     DateAllTaskCompleted=m.DateAllTaskCompleted
+                                 }).ToArray();
+            #endregion
+
+
+
+
+            return View();
         }
 
         public ActionResult Test()

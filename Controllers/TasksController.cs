@@ -436,8 +436,13 @@ namespace TasksApp.Controllers
             //bool status = tasks.All(c => c.IsDone == false);
             foreach (var item in tasks)
             {
+                if (item.Status == null)
+                {
+                    task.Status = "Do-CheckList";
+                    await _context.SaveChangesAsync();
+                }
 
-                if (item.IsDone == false)
+                 else if (item.IsDone == false)
                 {
                     await _context.SaveChangesAsync();
 

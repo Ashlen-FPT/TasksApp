@@ -52,7 +52,7 @@ namespace TasksApp
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
                 //options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
             });
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
