@@ -399,11 +399,23 @@ namespace TasksApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(DateTime date)
+        public async Task<IActionResult> GetAllAsync(DateTime date)
         {
 
             DateTime oDate = Convert.ToDateTime(date);
 
+            var tasks = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks").ToList();
+            var task = _context.Tasks.FirstOrDefault();
+
+            foreach (var item in tasks)
+            {
+                var status = tasks.All(c => c.IsDone == false);
+                {
+                    task.Status = "Do-Checklist";
+                    await _context.SaveChangesAsync();
+                }
+            }
+            await _context.SaveChangesAsync();
             return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks") });
 
         }
@@ -416,16 +428,21 @@ namespace TasksApp.Controllers
             task.IsDone = true;
             task.DateTaskCompleted = DateTime.Now;
             task.User = User.Identity.Name;
-            task.Status = "Partialy Complete";
+            task.Status = "Partially Completed";
 
             var date = task.DateCreated;
 
             var tasks = _context.Tasks.Where(d => d.DateCreated == date).ToList();
-
+            //bool status = tasks.All(c => c.IsDone == false);
             foreach (var item in tasks)
             {
+                if (item.Status == null)
+                {
+                    task.Status = "Do-CheckList";
+                    await _context.SaveChangesAsync();
+                }
 
-                if (item.IsDone == false)
+                 else if (item.IsDone == false)
                 {
                     await _context.SaveChangesAsync();
 
@@ -434,11 +451,18 @@ namespace TasksApp.Controllers
 
                 else
                 {
+
+                    //bool statuses = tasks.All(c => c.IsDone == false);
+                    //{
+                    //    task.Status = "Do-Checklist";
+                    //    await _context.SaveChangesAsync();
+                    //}
+
                     bool completeTasks = tasks.All(c => c.IsDone == true);
                     {
                         if (completeTasks == false)
                         {
-                            
+                            task.Status = "Partially Completed";
                             await _context.SaveChangesAsync();
 
                             return Json(new { success = true, message = "Task Completed!" });
