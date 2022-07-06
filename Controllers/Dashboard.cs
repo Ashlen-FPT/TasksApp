@@ -34,27 +34,50 @@ namespace TasksApp.Controllers
 
         public IActionResult Calendar()
         {
-            #region Supervisor Tasks
-            //Supervisor Tasks
-            ViewData["SupervisorEvents"] = (from m in _context.Tasks
-                                 where m.DateAllTaskCompleted != null
-                                 select new Tasks
-                                 {
-                                     DateAllTaskCompleted=m.DateAllTaskCompleted,
-                                     TasksCompleted=m.TasksCompleted    
-                                 }).ToArray();
 
+            #region Supervisor Tasks
+
+            var color = "";
+
+            var query = _context.Tasks.Where(x => x.DateAllTaskCompleted != null && x.Status != null).Select(t => new Tasks
+            {
+                DateAllTaskCompleted = t.DateAllTaskCompleted,
+                Status = t.Status,
+            }).ToList();
+
+            ViewData["SupervisorEvents"] = query;
+
+            foreach (var item in query)
+            {
+                if(item.Status== "Attention : Checklist")
+                {
+                    color = "red";
+                }
+                else
+                if(item.Status== "Partially Complete")
+                {
+                    color = "orange";
+                }
+                else
+                if (item.Status == "Complete")
+                {
+                    color = "green";
+                }
+                ViewData["Color"] = JsonSerializer.Serialize(color);
+            }
+
+           
             #endregion
 
 
             #region Operator Tasks
             //Operator Tasks
             ViewData["OperatorEvents"] = (from m in _context.PreTasks
-                                 where m.DateAllTaskCompleted != null
-                                 select new Tasks
-                                 {
-                                     DateAllTaskCompleted=m.DateAllTaskCompleted
-                                 }).ToArray();
+                                          where m.DateAllTaskCompleted != null
+                                          select new Tasks
+                                          {
+                                              DateAllTaskCompleted = m.DateAllTaskCompleted
+                                          }).ToArray();
             #endregion
 
 

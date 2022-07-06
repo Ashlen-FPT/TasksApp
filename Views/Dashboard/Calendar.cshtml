@@ -1,11 +1,9 @@
-﻿@model IEnumerable<TasksApp.Models.Tasks>
+﻿@*@model IEnumerable<TasksApp.Models.Tasks>*@
 @{
     ViewBag.Title = "Calendar";
 
     var events = (IEnumerable<TasksApp.Models.Tasks>)ViewData["SupervisorEvents"];
     var length = events.Count();
-    var title = "hello";
-    var color = "green";
 }
 
 
@@ -18,9 +16,11 @@
 <table id="table" hidden>
     @for (int i = 0; i < length; i++)
     {
+
         <tr>
-            <td >@Html.Encode(events.ElementAt(i).TasksCompleted)</td>
-            <td >@Html.Encode(events.ElementAt(i).DateAllTaskCompleted.Value.ToString("yyyy-MM-dd"))</td>
+            <td>@Html.Encode(events.ElementAt(i).Status)</td>
+            <td>@Html.Encode(events.ElementAt(i).DateAllTaskCompleted.Value.ToString("yyyy-MM-dd"))</td>
+
         </tr>
     }
 </table>
@@ -42,9 +42,9 @@
             console.log(tr);
             let tdElems = tr.getElementsByTagName("td");
             let eventObj = {
-                title :'test',
-                start: tdElems[0].innerText,
-                color: 'green',
+                title: tdElems[0].innerText,
+                start: tdElems[1].innerText,
+                color:@Html.Raw(ViewData["Color"]),
             }
             eventsArr.push(eventObj);
         }
@@ -60,6 +60,7 @@
                 center: 'title',
                 right: 'prev,next'
             },
+
             events: eventsArr,
         });
         calendar.render();
