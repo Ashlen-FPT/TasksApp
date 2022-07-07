@@ -3,6 +3,7 @@ using System.Linq;
 using TasksApp.Data;
 using TasksApp.ViewModels;
 using TasksApp.Models;
+using System.Text.Json;
 
 namespace TasksApp.Controllers
 {
@@ -33,8 +34,6 @@ namespace TasksApp.Controllers
 
             #region Supervisor Tasks
 
-            var color = "";
-
             var query = _context.Tasks.Where(x => x.DateAllTaskCompleted != null && x.Status != null).Select(t => new Tasks
             {
                 DateAllTaskCompleted = t.DateAllTaskCompleted,
@@ -43,26 +42,6 @@ namespace TasksApp.Controllers
 
             ViewData["SupervisorEvents"] = query;
 
-            foreach (var item in query)
-            {
-                if(item.Status== "Attention : Checklist")
-                {
-                    color = "red";
-                }
-                else
-                if(item.Status== "Partially Complete")
-                {
-                    color = "orange";
-                }
-                else
-                if (item.Status == "Complete")
-                {
-                    color = "green";
-                }
-                ViewData["Color"] = JsonSerializer.Serialize(color);
-            }
-
-           
             #endregion
 
 

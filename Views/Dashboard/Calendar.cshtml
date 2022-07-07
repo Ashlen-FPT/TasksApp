@@ -29,25 +29,37 @@
     <div id="calendar"></div>
 </div>
 
-
 <script>
+
     let eventsArr = loadData();
     let calendar = initCalendar();
     function loadData() {
+        var bgColor = '';
         let eventsArr = [];
-        let todoTable = document.getElementById("table");
-        let trElem = todoTable.getElementsByTagName("tr");
-        console.log(trElem);
+        let data = document.getElementById("table");
+        let trElem = data.getElementsByTagName("tr");
         for (let tr of trElem) {
-            console.log(tr);
             let tdElems = tr.getElementsByTagName("td");
+
+            if (tdElems[0].innerText == "Attention : Checklist") {
+                bgColor = 'red';
+            }
+            else
+                if (tdElems[0].innerText == "Partially Complete") {
+                    bgColor = 'orange';
+                }
+                else
+                    if (tdElems[0].innerText == "Complete") {
+                        bgColor = 'green';
+                    }
             let eventObj = {
                 title: tdElems[0].innerText,
                 start: tdElems[1].innerText,
-                color:@Html.Raw(ViewData["Color"]),
+                color: bgColor,
             }
             eventsArr.push(eventObj);
         }
+
         return eventsArr;
     }
 
@@ -62,6 +74,8 @@
             },
 
             events: eventsArr,
+
+
         });
         calendar.render();
         return calendar;
