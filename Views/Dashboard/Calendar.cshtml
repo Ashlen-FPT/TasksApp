@@ -16,12 +16,10 @@
 <table id="table" hidden>
     @for (int i = 0; i < length; i++)
     {
-
         <tr>
             <td>@Html.Encode(events.ElementAt(i).Status)</td>
-            <td>@Html.Encode(events.ElementAt(i).DateAllTaskCompleted.Value.ToString("yyyy-MM-dd"))</td>
-
-        </tr>
+            <td>@Html.Encode(events.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
+        </tr>  
     }
 </table>
 
@@ -34,18 +32,22 @@
     let eventsArr = loadData();
     let calendar = initCalendar();
     function loadData() {
+        var url = '';
         var bgColor = '';
+        var date = document.getElementById("calendar");
         let eventsArr = [];
         let data = document.getElementById("table");
         let trElem = data.getElementsByTagName("tr");
         for (let tr of trElem) {
             let tdElems = tr.getElementsByTagName("td");
 
-            if (tdElems[0].innerText == "Attention : Checklist") {
+            if (tdElems[0].innerText == "Do-Checklist") {
                 bgColor = 'red';
+                url = '/Tasks/Index';
+      
             }
             else
-                if (tdElems[0].innerText == "Partially Complete") {
+                if (tdElems[0].innerText == "Partially Completed") {
                     bgColor = 'orange';
                 }
                 else
@@ -56,7 +58,10 @@
                 title: tdElems[0].innerText,
                 start: tdElems[1].innerText,
                 color: bgColor,
-            }
+                url: url,
+                date: date,
+              
+            }            
             eventsArr.push(eventObj);
         }
 
@@ -72,9 +77,9 @@
                 center: 'title',
                 right: 'prev,next'
             },
-
+            
             events: eventsArr,
-
+            
 
         });
         calendar.render();

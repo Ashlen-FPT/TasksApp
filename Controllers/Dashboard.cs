@@ -34,9 +34,9 @@ namespace TasksApp.Controllers
 
             #region Supervisor Tasks
 
-            var query = _context.Tasks.Where(x => x.DateAllTaskCompleted != null && x.Status != null).Select(t => new Tasks
+            var query = _context.Tasks.Where(x => x.Status != null).Select(t => new Tasks
             {
-                DateAllTaskCompleted = t.DateAllTaskCompleted,
+                DateCreated = t.DateCreated,
                 Status = t.Status,
             }).ToList();
 
@@ -54,9 +54,6 @@ namespace TasksApp.Controllers
                                               DateAllTaskCompleted = m.DateAllTaskCompleted
                                           }).ToArray();
             #endregion
-
-
-
 
             return View();
         }
