@@ -34,7 +34,7 @@
     function loadData() {
         var url = '';
         var bgColor = '';
-        var date = document.getElementById("calendar");
+        //var date = document.getElementById("calendar");
         let eventsArr = [];
         let data = document.getElementById("table");
         let trElem = data.getElementsByTagName("tr");
@@ -59,7 +59,7 @@
                 start: tdElems[1].innerText,
                 color: bgColor,
                 url: url,
-                date: date,
+                //date: date,
               
             }            
             eventsArr.push(eventObj);

@@ -452,11 +452,11 @@ namespace TasksApp.Controllers
                 else
                 {
 
-                    //bool statuses = tasks.All(c => c.IsDone == false);
-                    //{
-                    //    task.Status = "Do-Checklist";
-                    //    await _context.SaveChangesAsync();
-                    //}
+                    bool statuses = tasks.All(c => c.IsDone == false);
+                    {
+                        task.Status = "Do-Checklist";
+                        await _context.SaveChangesAsync();
+                    }
 
                     bool completeTasks = tasks.All(c => c.IsDone == true);
                     {
