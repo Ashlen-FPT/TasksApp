@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
@@ -152,7 +153,7 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetAudits()
         {
-
+            var user = HttpContext.User.Identity.Name;
             return Json(new { data = _context.Audits.ToList() });
 
         }
