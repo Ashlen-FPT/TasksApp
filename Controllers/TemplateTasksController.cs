@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
@@ -15,11 +15,13 @@ namespace TasksApp.Controllers
     public class TemplateTasksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserService _userService;
         //private readonly UserManager<IdentityUser> _userManager;
 
-        public TemplateTasksController(ApplicationDbContext context)
+        public TemplateTasksController(ApplicationDbContext context , UserService userService)
         {
-            _context = context; 
+            _context = context;
+            _userService = userService;
             //_userManager = userManager;
         }
 
@@ -229,7 +231,7 @@ namespace TasksApp.Controllers
             };
 
             _context.Add(Task);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { success = true, message = "Task added!" });
 
@@ -246,7 +248,7 @@ namespace TasksApp.Controllers
 
             _context.Update(templateTask);
             
-            await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+            await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { success = true, message = "Task Updated!" });
 
@@ -265,7 +267,7 @@ namespace TasksApp.Controllers
         {
             var templateTask = await _context.TemplateTasks.FindAsync(id);
             _context.TemplateTasks.Remove(templateTask);
-            await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
+            await _context.SaveChangesAsync(_userService.GetUser());
             return Json(new { success = true, message = "Task deleted!" });
         }
 

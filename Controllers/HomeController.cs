@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using TasksApp.Data;
+using TasksApp.Models;
+using TasksApp.Services;
 using TasksApp.ViewModels;
 
 namespace TasksApp.Controllers

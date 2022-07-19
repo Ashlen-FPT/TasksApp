@@ -30,12 +30,10 @@ namespace TasksApp.Controllers
             return View(dashboard);
         }
 
-        public IActionResult Calendar()
+        public IActionResult SupervisorCalendar()
         {
 
             #region Supervisor Tasks
-
-            //DateTime oDate = Convert.ToDateTime(date);
 
             var query = _context.Tasks.Where(x => x.Status != null).Select(t => new Tasks
             {
@@ -45,21 +43,23 @@ namespace TasksApp.Controllers
 
             ViewData["SupervisorEvents"] = query;
 
-            #endregion
+            return View();
+        }
 
+        public IActionResult OperatorCalendar()
+        {
+            var query = _context.PreTasks.Where(x => x.Status != null).Select(t => new PreTasks
+            {
+                DateCreated = t.DateCreated,
+                Status = t.Status,
+            }).ToList();
 
-            #region Operator Tasks
-            //Operator Tasks
-            ViewData["OperatorEvents"] = (from m in _context.PreTasks
-                                          where m.DateAllTaskCompleted != null
-                                          select new Tasks
-                                          {
-                                              DateAllTaskCompleted = m.DateAllTaskCompleted
-                                          }).ToArray();
-            #endregion
+            ViewData["OperatorEvents"] = query;
 
             return View();
         }
+
+
 
         public ActionResult Test()
         {

@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
     public class SoftwaresController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserService _userServices;
 
-        public SoftwaresController(ApplicationDbContext context)
+        public SoftwaresController(ApplicationDbContext context , UserService userService)
         {
             _context = context;
+            _userServices = userService;
         }
 
         // GET: Softwares
@@ -152,7 +155,6 @@ namespace TasksApp.Controllers
 
         #region API Calls
 
-
         [HttpGet]
         public async Task<IActionResult> GetTasksTodayAsync(DateTime date)
         {
@@ -208,7 +210,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "OS/Software") });
         }
@@ -274,7 +276,7 @@ namespace TasksApp.Controllers
 
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
 
@@ -392,7 +394,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "OS/Software") });
 
@@ -509,7 +511,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
@@ -626,7 +628,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
@@ -743,7 +745,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
@@ -777,7 +779,7 @@ namespace TasksApp.Controllers
 
                 if (item.IsDone == false)
                 {
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userServices.GetUser());
 
                     return Json(new { success = true, message = "Task Completed!" });
                 }
@@ -790,7 +792,7 @@ namespace TasksApp.Controllers
 
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "Task Completed!" });
 
@@ -803,7 +805,7 @@ namespace TasksApp.Controllers
 
             task.Comments = comment;
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "Comment added!" });
 

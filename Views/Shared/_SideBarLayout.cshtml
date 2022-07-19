@@ -18,13 +18,13 @@
 
                     @if (User.IsInRole(SD.Role_Operator.ToString()))
                     {
-                        <text>Operator</text> 
+                        <text>Operator</text>
 
                         <span class="fa fa-bell fa-lg"> <span class="count"> &nbsp; </span></span>
-                            @*<div class="noti-content">
-                    <div class="noti-top-arrow"></div>
-                    <ul id="notiContent"></ul>
-                </div>*@
+                        @*<div class="noti-content">
+                            <div class="noti-top-arrow"></div>
+                            <ul id="notiContent"></ul>
+                        </div>*@
 
                         <text>Operator</text>
                     }
@@ -223,13 +223,24 @@
                 </a>
             </li>
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Calendar">
+                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="SupervisorCalendar">
                     <span class="c-sidebar-nav-icon fa fa-info-circle"
                           data-toggle="tooltip"
                           data-placement="bottom"
-                          title="Checklist statuses at a glance"></span>
+                          title="Supervisor Operations at a glance"></span>
                     &nbsp;
-                    Calendar Overview
+                    Supervisor Calendar Overview
+                </a>
+            </li>
+
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="OperatorCalendar">
+                    <span class="c-sidebar-nav-icon fa fa-info-circle"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Operator Operations at a glance"></span>
+                    &nbsp;
+                    Operator Calendar Overview
                 </a>
             </li>
         }
@@ -268,9 +279,9 @@
                         </a>
                     </li>
                 </ul>
-                
+
             </li>
-         }
+        }
 
         @if (User.IsInRole(SD.Role_Operator.ToString()))
         {
