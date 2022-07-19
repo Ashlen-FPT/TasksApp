@@ -45,7 +45,7 @@ namespace TasksApp.Controllers
 
         public IActionResult OperatorCalendar()
         {
-            var query = _context.Tasks.Where(x => x.Status != null).Select(t => new Tasks
+            var query = _context.PreTasks.Where(x => x.Status != null).Select(t => new PreTasks
             {
                 DateCreated = t.DateCreated,
                 Status = t.Status,

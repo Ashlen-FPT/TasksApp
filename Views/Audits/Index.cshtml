@@ -25,8 +25,8 @@
                     <thead class="thead-dark">
                         <tr class="table-info">
                             <th>User</th>
-                            <th>Activity Type</th>
-                            <th>Entity</th>
+                            <th>Activity</th>
+                            <th>Alias</th>
                             <th>Date & Time</th>
                             <th>Existing Data</th>
                             <th>New Data</th>
@@ -49,6 +49,7 @@
 
     function loadTable() {
 
+
         Table01 = $("#tbl").DataTable({
             "ajax": {
                 "url": "/Audits/GetAudits",
@@ -56,7 +57,7 @@
             responsive: true,
             autoWidth: false,
             "columns": [
-                { "data": "userEmail", "width": "50%" },
+                { "data": "userEmail", "width": "49%" },
                 { "data": "type", "width": "30%" },
                 { "data": "tableName", "width": "30%" },
                 { "data": "dateTime",
@@ -69,9 +70,9 @@
                             var datestr = jsonDate.toString();
                             var date = new Date(datestr.substr(0, 10));
                             var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                            var time = datestr.substr(11)
-                            var hr = time.substr(0, 2)
-                            var min = time.substr(3, 2)
+                            var time = datestr.substr(11);
+                            var hr = time.substr(0, 2);
+                            var min = time.substr(3, 2);
                             var sec = time.substr(6, 2);
                             return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
                         }
