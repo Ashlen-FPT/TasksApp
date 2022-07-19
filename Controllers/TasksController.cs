@@ -211,7 +211,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
             
             return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "Tasks") });
         }
@@ -276,7 +276,7 @@ namespace TasksApp.Controllers
 
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly").Where(s => s.TaskType == "Tasks") });
 
@@ -395,7 +395,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskType == "Tasks") });
 

@@ -211,7 +211,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Hardware") });
         }
@@ -276,7 +276,7 @@ namespace TasksApp.Controllers
 
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
 
@@ -394,7 +394,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Hardware") });
 
@@ -511,7 +511,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
@@ -628,7 +628,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
@@ -781,7 +781,7 @@ namespace TasksApp.Controllers
 
                 if (item.IsDone == false)
                 {
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userServices.GetUser());
 
                     return Json(new { success = true, message = "Task Completed!" });
                 }

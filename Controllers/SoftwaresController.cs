@@ -155,7 +155,6 @@ namespace TasksApp.Controllers
 
         #region API Calls
 
-
         [HttpGet]
         public async Task<IActionResult> GetTasksTodayAsync(DateTime date)
         {
@@ -211,7 +210,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "OS/Software") });
         }
@@ -277,7 +276,7 @@ namespace TasksApp.Controllers
 
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
 
@@ -395,7 +394,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "OS/Software") });
 
@@ -512,7 +511,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
@@ -629,7 +628,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
@@ -746,7 +745,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 

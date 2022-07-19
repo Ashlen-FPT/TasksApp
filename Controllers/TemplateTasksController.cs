@@ -231,7 +231,7 @@ namespace TasksApp.Controllers
             };
 
             _context.Add(Task);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { success = true, message = "Task added!" });
 

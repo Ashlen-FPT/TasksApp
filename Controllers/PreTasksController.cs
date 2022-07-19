@@ -212,7 +212,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "PreTasks") });
         }
@@ -271,7 +271,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "PreTasks") });
         }
