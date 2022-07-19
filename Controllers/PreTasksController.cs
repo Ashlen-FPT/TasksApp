@@ -64,7 +64,7 @@ namespace TasksApp.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(preTasks);
-                await _context.SaveChangesAsync(HttpContext.User.Identity.Name);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(preTasks);
