@@ -4,6 +4,7 @@ using TasksApp.Data;
 using TasksApp.ViewModels;
 using TasksApp.Models;
 using System.Text.Json;
+using System;
 
 namespace TasksApp.Controllers
 {
@@ -33,6 +34,8 @@ namespace TasksApp.Controllers
         {
 
             #region Supervisor Tasks
+
+            //DateTime oDate = Convert.ToDateTime(date);
 
             var query = _context.Tasks.Where(x => x.Status != null).Select(t => new Tasks
             {
