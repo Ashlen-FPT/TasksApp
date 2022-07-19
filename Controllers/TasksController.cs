@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
@@ -13,10 +14,12 @@ namespace TasksApp.Controllers
     public class TasksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserService _userService;
 
-        public TasksController(ApplicationDbContext context)
+        public TasksController(ApplicationDbContext context , UserService userService)
         {
             _context = context;
+            _userService = userService;
         }
 
         // GET: Tasks
@@ -59,7 +62,7 @@ namespace TasksApp.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(tasks);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(HttpContext.User.Identity.Name);
                 return RedirectToAction(nameof(Index));
             }
             return View(tasks);
@@ -141,7 +144,7 @@ namespace TasksApp.Controllers
         {
             var tasks = await _context.Tasks.FindAsync(id);
             _context.Tasks.Remove(tasks);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(HttpContext.User.Identity.Name);
             return RedirectToAction(nameof(Index));
         }
 
@@ -412,10 +415,10 @@ namespace TasksApp.Controllers
                 var status = tasks.All(c => c.IsDone == false);
                 {
                     task.Status = "Do-Checklist";
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userService.GetUser());
                 }
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
             return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks") });
 
         }
@@ -439,12 +442,12 @@ namespace TasksApp.Controllers
                 if (item.Status == null)
                 {
                     task.Status = "Do-CheckList";
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userService.GetUser());
                 }
 
                  else if (item.IsDone == false)
                 {
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userService.GetUser());
 
                     return Json(new { success = true, message = "Task Completed!" });
                 }
@@ -455,7 +458,7 @@ namespace TasksApp.Controllers
                     bool statuses = tasks.All(c => c.IsDone == false);
                     {
                         task.Status = "Do-Checklist";
-                        await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync(_userService.GetUser());
                     }
 
                     bool completeTasks = tasks.All(c => c.IsDone == true);
@@ -463,7 +466,7 @@ namespace TasksApp.Controllers
                         if (completeTasks == false)
                         {
                             task.Status = "Partially Completed";
-                            await _context.SaveChangesAsync();
+                            await _context.SaveChangesAsync(_userService.GetUser());
 
                             return Json(new { success = true, message = "Task Completed!" });
                         }
@@ -475,13 +478,13 @@ namespace TasksApp.Controllers
                         }
                     }
 
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userService.GetUser());
                     return Json(new { success = true, message = "All Tasks Completed!" });
                 }
 
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { success = true, message = "All Tasks Completed!" });
 
@@ -501,7 +504,7 @@ namespace TasksApp.Controllers
                 }
                 
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
             return Json(new { success = true, message = "All Tasks Completed!"});
         }
 
@@ -515,7 +518,7 @@ namespace TasksApp.Controllers
             task.Comments = comment;
 
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { success = true, message = "Comment added!" });
 

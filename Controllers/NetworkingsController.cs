@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
     public class NetworkingsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserService _userServices;
 
-        public NetworkingsController(ApplicationDbContext context)
+        public NetworkingsController(ApplicationDbContext context , UserService userService)
         {
             _context = context;
+            _userServices = userService;
         }
 
         // GET: Networkings
@@ -783,7 +786,7 @@ namespace TasksApp.Controllers
 
                 if (item.IsDone == false)
                 {
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userServices.GetUser());
 
                     return Json(new { success = true, message = "Task Completed!" });
                 }
@@ -799,7 +802,7 @@ namespace TasksApp.Controllers
 
 
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "Task Completed!" });
 
@@ -815,7 +818,7 @@ namespace TasksApp.Controllers
             task.Comments = comment;
 
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "Comment added!" });
 

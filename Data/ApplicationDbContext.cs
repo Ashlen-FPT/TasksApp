@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Data
 {

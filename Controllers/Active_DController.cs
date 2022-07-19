@@ -5,16 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
     public class Active_DController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserService _userService;
 
-        public Active_DController(ApplicationDbContext context)
+        public Active_DController(ApplicationDbContext context , UserService userService)
         {
             _context = context;
+            _userService = userService;
         }
 
         // GET: Active_D
@@ -825,7 +828,7 @@ namespace TasksApp.Controllers
 
                 if (item.IsDone == false)
                 {
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userService.GetUser());
 
                     return Json(new { success = true, message = "Task Completed!" });
                 }
@@ -841,7 +844,7 @@ namespace TasksApp.Controllers
 
 
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { success = true, message = "Task Completed!" });
 
@@ -857,7 +860,7 @@ namespace TasksApp.Controllers
             task.Comments = comment;
 
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { success = true, message = "Comment added!" });
 

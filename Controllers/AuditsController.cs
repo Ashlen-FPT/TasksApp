@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
     public class AuditsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public AuditsController(ApplicationDbContext context)
         {
             _context = context;
@@ -153,7 +153,6 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetAudits()
         {
-            var user = HttpContext.User.Identity.Name;
             return Json(new { data = _context.Audits.ToList() });
 
         }

@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
     public class HardwaresController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserService _userServices;
 
-        public HardwaresController(ApplicationDbContext context)
+        public HardwaresController(ApplicationDbContext context , UserService userService)
         {
             _context = context;
+            _userServices = userService;
         }
 
         // GET: Hardwares
@@ -792,7 +795,7 @@ namespace TasksApp.Controllers
 
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "Task Completed!" });
 
@@ -808,7 +811,7 @@ namespace TasksApp.Controllers
             task.Comments = comment;
 
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "Comment added!" });
 

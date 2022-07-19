@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
@@ -15,10 +16,12 @@ namespace TasksApp.Controllers
     public class PreTasksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserService _userServices;
 
-        public PreTasksController(ApplicationDbContext context)
+        public PreTasksController(ApplicationDbContext context , UserService userService)
         {
             _context = context;
+            _userServices = userService;
         }
 
         // GET: PreTasks
@@ -61,7 +64,7 @@ namespace TasksApp.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(preTasks);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(HttpContext.User.Identity.Name);
                 return RedirectToAction(nameof(Index));
             }
             return View(preTasks);
@@ -287,10 +290,10 @@ namespace TasksApp.Controllers
                 var status = tasks.All(c => c.IsDone == false);
                 {
                     task.Status = "Do-Checklist";
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userServices.GetUser());
                 }
             }
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "PreTasks") });
 
@@ -327,12 +330,12 @@ namespace TasksApp.Controllers
                 if (item.Status == null)
                 {
                     task.Status = "Do-CheckList";
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userServices.GetUser());
                 }
 
                 else if (item.IsDone == false)
                 {
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userServices.GetUser());
 
                     return Json(new { success = true, message = "Task Completed!" });
                 }
@@ -342,7 +345,7 @@ namespace TasksApp.Controllers
                     bool statuses = tasks.All(c => c.IsDone == false);
                     {
                         task.Status = "Do-Checklist";
-                        await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync(_userServices.GetUser());
                     }
 
                     bool completeTasks = tasks.All(c => c.IsDone == true);
@@ -350,7 +353,7 @@ namespace TasksApp.Controllers
                         if (completeTasks == false)
                         {
                             task.Status = "Partially Completed";
-                            await _context.SaveChangesAsync();
+                            await _context.SaveChangesAsync(_userServices.GetUser());
 
                             return Json(new { success = true, message = "Task Completed!" });
                         }
@@ -362,14 +365,14 @@ namespace TasksApp.Controllers
                         }
                     }
 
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(_userServices.GetUser());
                     return Json(new { success = true, message = "All Tasks Completed!" });
 
                 }
 
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "All Tasks Completed!" });
 
@@ -398,7 +401,7 @@ namespace TasksApp.Controllers
             task.Comments = comment;
 
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "Comment added!" });
 

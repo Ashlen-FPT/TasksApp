@@ -4,12 +4,12 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using TasksApp.Enums;
+using TasksApp.Services;
 
 namespace TasksApp.Models
 {
     public class AuditEntry
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
         public AuditEntry(EntityEntry entry)
         {
             Entry = entry;
@@ -23,11 +23,11 @@ namespace TasksApp.Models
         public AuditType AuditType { get; set; }
         public List<string> ChangedColumns { get; } = new List<string>();
 
+
         public Audit ToAudit()
         {
-            var user = _httpContextAccessor.HttpContext.User.Identity.Name;
             var audit = new Audit();
-            audit.UserEmail = user;
+            audit.UserEmail = UserEmail;
             audit.Type = AuditType.ToString();
             audit.TableName = TableName;
             audit.DateTime = DateTime.Now;

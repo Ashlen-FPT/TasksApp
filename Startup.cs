@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -7,12 +8,14 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TasksApp.Data;
+using TasksApp.Models;
 using TasksApp.Services;
 
 namespace TasksApp
@@ -30,6 +33,8 @@ namespace TasksApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<UserService>();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(60); });
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
