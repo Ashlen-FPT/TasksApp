@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<TasksApp.Models.Tasks>*@
+﻿
 @{
     ViewBag.Title = "Calendar";
 
@@ -13,26 +13,26 @@
     </h1>
 </section>
 <br />
+
 <table id="table" hidden>
     @for (int i = 0; i < length; i++)
     {
         <tr>
             <td>@Html.Encode(events.ElementAt(i).Status)</td>
             <td>@Html.Encode(events.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
-        </tr>  
+        </tr>
+
     }
 </table>
-
 <div class="calendarContainer">
     <div id="calendar"></div>
 </div>
-
 <script>
 
     let eventsArr = loadData();
     let calendar = initCalendar();
     function loadData() {
-        var url = '';
+        var url = '/Tasks/Index';
         var bgColor = '';
         var date = document.getElementById("calendar");
         let eventsArr = [];
@@ -43,8 +43,8 @@
 
             if (tdElems[0].innerText == "Do-Checklist") {
                 bgColor = 'red';
-                url = '/Tasks/Index';
-      
+
+
             }
             else
                 if (tdElems[0].innerText == "Partially Completed") {
@@ -60,8 +60,8 @@
                 color: bgColor,
                 url: url,
                 date: date,
-              
-            }            
+
+            }
             eventsArr.push(eventObj);
         }
 
@@ -70,6 +70,7 @@
 
     function initCalendar() {
         var calendarEl = document.getElementById('calendar');
+        var eventObj = "";
         let calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             headerToolbar: {
@@ -77,12 +78,19 @@
                 center: 'title',
                 right: 'prev,next'
             },
-            
-            events: eventsArr,
-            
+            eventClick: function (info) {
+                eventObj = info.event;
+                if (eventObj.start) {
+                    localStorage.setItem('sdate', eventObj.start.toLocaleDateString('en-US'));
+                    storeDate = localStorage.getItem('sdate');
+                    
+                }
+            },
 
+            events: eventsArr,
         });
         calendar.render();
         return calendar;
     }
+
 </script>
