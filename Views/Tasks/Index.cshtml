@@ -132,9 +132,17 @@
 
 
 <script>
-    console.log(localStorage.getItem('sdate'));
+    var storedDate = localStorage.getItem('sdate');
     $(document).ready(function () {
-        var date = localStorage.getItem('sdate');/*document.getElementById("datePicker").value;*/
+        //var date = localStorage.getItem('sdate');
+        var date;
+        if (storedDate == null) {
+            date = document.getElementById("datePicker").value;
+        }
+        else if (storedDate != null) {
+            date = storedDate;
+            localStorage.removeItem('sdate');
+        }
 
         loadTable(date);
 
