@@ -81,8 +81,9 @@
             eventClick: function (info) {
                 eventObj = info.event;
                 if (eventObj.start) {
-                    localStorage.setItem('odate', eventObj.start.toLocaleDateString('en-US'));
-                    storeDate = localStorage.getItem('odate');
+                    localStorage.setItem('opDate', eventObj.start.toLocaleDateString('en-US'));
+                    opStoreDate = localStorage.getItem('opDate');
+                    console.log(opStoreDate);
                 }
             },
 

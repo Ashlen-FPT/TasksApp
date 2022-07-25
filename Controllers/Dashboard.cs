@@ -358,7 +358,7 @@ namespace TasksApp.Controllers
         //        return Json(new { data = applicationDbContext });
 
         //    }
-            #endregion
+          
         //}
 
         //class DashFilters

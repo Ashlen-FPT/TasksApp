@@ -133,9 +133,9 @@
 
 
 <script>
-
+    //console.log(storedDate);
+    var storedDate = localStorage.getItem('sdate');
     $(document).ready(function () {
-        //var date = localStorage.getItem('sdate');
         var date;
         if (storedDate == null) {
             date = document.getElementById("datePicker").value;

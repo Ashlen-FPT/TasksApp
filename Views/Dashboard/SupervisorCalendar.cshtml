@@ -21,12 +21,13 @@
             <td>@Html.Encode(events.ElementAt(i).Status)</td>
             <td>@Html.Encode(events.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
         </tr>
-
     }
 </table>
+
 <div class="calendarContainer">
     <div id="calendar"></div>
 </div>
+
 <script>
 
     let eventsArr = loadData();
@@ -82,7 +83,7 @@
                 eventObj = info.event;
                 if (eventObj.start) {
                     localStorage.setItem('sdate', eventObj.start.toLocaleDateString('en-US'));
-                    storeDate = localStorage.getItem('sdate');                
+                    storeDate = localStorage.getItem('sdate');
                 }
             },
 
