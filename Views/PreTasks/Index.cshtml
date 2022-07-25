@@ -122,9 +122,16 @@
 <script>
 
 
+    var storedDate = localStorage.getItem('odate');
     $(document).ready(function () {
-        var date = document.getElementById("datePicker").value;
-        loadTable(date);
+        var date;
+        if (storedDate == null) {
+            date = document.getElementById("datePicker").value;
+        }
+        else if (storedDate != null) {
+            date = storedDate;
+            localStorage.removeItem('odate');
+        }
 
         $.ajax({
             type: "GET",

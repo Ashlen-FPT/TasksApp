@@ -33,7 +33,7 @@
     let eventsArr = loadData();
     let calendar = initCalendar();
     function loadData() {
-        var url = '';
+        var url = '/PreTasks/Index';
         var bgColor = '';
         var date = document.getElementById("calendar");
         let eventsArr = [];
@@ -44,7 +44,7 @@
 
             if (tdElems[0].innerText == "Do-Checklist") {
                 bgColor = 'red';
-                url = '/Tasks/Index';
+               
 
             }
             else
@@ -77,6 +77,13 @@
                 left: 'dayGridMonth,dayGridWeek,dayGridDay',
                 center: 'title',
                 right: 'prev,next'
+            },
+            eventClick: function (info) {
+                eventObj = info.event;
+                if (eventObj.start) {
+                    localStorage.setItem('odate', eventObj.start.toLocaleDateString('en-US'));
+                    storeDate = localStorage.getItem('odate');
+                }
             },
 
             events: eventsArr,

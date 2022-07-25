@@ -11,7 +11,6 @@
 <h1>Tasks</h1>
 
 <br />
-
 <div class="form-group">
     <label class="control-label">Choose date</label>
     <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
@@ -135,10 +134,16 @@
 
 <script>
 
-    
-
     $(document).ready(function () {
-        var date = document.getElementById("datePicker").value;
+        //var date = localStorage.getItem('sdate');
+        var date;
+        if (storedDate == null) {
+            date = document.getElementById("datePicker").value;
+        }
+        else if (storedDate != null) {
+            date = storedDate;
+            localStorage.removeItem('sdate');
+        }
 
         loadTable(date);
 
@@ -231,7 +236,7 @@
                 { "data": "description", "width": "60%" },
                 {
                     "data": {
-                        id: "id", isDone: "isDone" 
+                        id: "id", isDone: "isDone"
                     },
                     "render": function (data) {
                         if (data.isDone == true) {
