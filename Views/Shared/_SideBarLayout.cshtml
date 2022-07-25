@@ -6,23 +6,32 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
     <!-- Sidebar content here -->
     <div class="c-sidebar-brand d-md-down-none csidebar-brandbackground-color">
-        <img class="c-sidebar-brand-full" src="~/images/download.png" height="46" alt="FPT Group">
-        <img class="c-sidebar-brand-minimized" src="~/images/download.png" width="50" height="46" alt="FPT Group">
+        <img class="c-sidebar-brand-full" src="~/images/Logo.png" height="46" alt="FPT Group">
+        <img class="c-sidebar-brand-minimized" src="~/images/Logo.png" width="50" height="46" alt="FPT Group">
     </div>
     <ul class="c-sidebar-nav">
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" asp-action="Index">
+
                 <span class="c-sidebar-nav-icon fa fa-home fa-lg"></span> &nbsp;Welcome
                 <span class="badge badge-info">
 
                     @if (User.IsInRole(SD.Role_Operator.ToString()))
                     {
-                        <text>Operator</text> 
+                        <text>Operator</text>
+
+                        @*<span class="fa fa-bell fa-lg"> <span class="count"> &nbsp; </span></span>*@
+                        @*<div class="noti-content">
+                            <div class="noti-top-arrow"></div>
+                            <ul id="notiContent"></ul>
+                        </div>*@
+
+                        
                     }
 
                     else if (User.IsInRole(SD.Role_Supervisor.ToString()))
                     {
-                        <text>Supervisor</text> 
+                        <text>Supervisor</text>
                     }
 
                     else if (User.IsInRole(SD.Role_Admin.ToString()))
@@ -30,9 +39,34 @@
                         <text>Admin</text>
                     }
                 </span>
+
             </a>
         </li>
-
+        @if (User.IsInRole(SD.Role_Operator.ToString()))
+        {
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown" id="research" style="display: none">
+                <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                    <span class="c-sidebar-nav-icon fa fa-info-circle"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Click here for more options"></span>
+                    &nbsp;
+                    Tasks
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item" id="definedTopic" style="display: none">
+                        <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
+                            <span class="c-sidebar-nav-icon fa fa-tasks"
+                                  data-toggle="tooltip"
+                                  data-placement="bottom"
+                                  title="Click here to complete tasks"></span>
+                            &nbsp;
+                            Check-List
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        }
         @if (User.IsInRole(SD.Role_Admin.ToString()))
         {
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
@@ -156,18 +190,18 @@
                 </ul>
             </li>
 
-             <li class="c-sidebar-nav-item">
-                 <a class="c-sidebar-nav-link" asp-controller="User" asp-action="Index">
-                     <span class="c-sidebar-nav-icon fa fa-info-circle"
-                         data-toggle="tooltip"
-                         data-placement="bottom"
-                         title="Click here to View Users"></span>
-                     &nbsp;
-                     Users
-                 </a>
-             </li>
-               
-            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" asp-controller="User" asp-action="Index">
+                    <span class="c-sidebar-nav-icon fa fa-info-circle"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Click here to View Users"></span>
+                    &nbsp;
+                    Users
+                </a>
+            </li>
+
+            @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-link" asp-controller="Audits" asp-action="Index">
                     <span class="c-sidebar-nav-icon fa fa-info-circle"
                           data-toggle="tooltip"
@@ -176,7 +210,7 @@
                     &nbsp;
                     User Activity Log
                 </a>
-            </li>
+            </li>*@
 
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Index">
@@ -186,6 +220,27 @@
                           title="Click here for more"></span>
                     &nbsp;
                     Dashboard
+                </a>
+            </li>
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="SupervisorCalendar">
+                    <span class="c-sidebar-nav-icon fa fa-info-circle"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Supervisor Operations at a glance"></span>
+                    &nbsp;
+                    Supervisor Calendar Overview
+                </a>
+            </li>
+
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="OperatorCalendar">
+                    <span class="c-sidebar-nav-icon fa fa-info-circle"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Operator Operations at a glance"></span>
+                    &nbsp;
+                    Operator Calendar Overview
                 </a>
             </li>
         }
@@ -224,9 +279,9 @@
                         </a>
                     </li>
                 </ul>
-                
+
             </li>
-         }
+        }
 
         @if (User.IsInRole(SD.Role_Operator.ToString()))
         {
@@ -252,9 +307,9 @@
                         </a>
                     </li>
                 </ul>
-                
+
             </li>
-         }
+        }
     </ul>
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
 </div>

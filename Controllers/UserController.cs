@@ -7,16 +7,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly UserService _userService;
 
-        public UserController(ApplicationDbContext db)
+        public UserController(ApplicationDbContext db , UserService userService)
         {
             _db = db;
+            _userService = userService;
         }
         [Authorize]
         public IActionResult Index()

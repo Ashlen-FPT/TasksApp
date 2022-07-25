@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classic Login</title>
     <!-- Bootstrap core CSS -->
-    <link rel="icon" href="~/classic-login/images/download.png" />
+    <link rel="icon" href="~/images/Logo_Final.png"/>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
     <!-- Custom styles for this template -->
     
@@ -26,20 +26,20 @@
         }
         body {
             font-family: 'PT Sans', sans-serif !important;
-            background-image: url('/images/CheckList.jpg');
+            background-image: url('/images/slider2.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             margin: 0;
            
         }
-.content{
-    background-image: url('/wwwroot/images/CheckList.jpg');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    text-align: center;
-}
+        .content {
+            background-image: url('/wwwroot/images/slider2.jpg');
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            text-align: center;
+        }
 a, a:focus, a:hover{
     text-decoration: none !important;
     color:#fff !important;
@@ -169,7 +169,7 @@ a, a:focus, a:hover{
     <header>
         <div class="logo text-center">
            
-            <img class="c-sidebar-brand-full" src="~/images/download.png" height="60" alt="FPT Group">
+            <img class="c-sidebar-brand-full" src="~/images/Logo.png" height="60" alt="FPT Group">
         </div>
     </header>
     <div class="container">
@@ -196,23 +196,32 @@ a, a:focus, a:hover{
                     <div class="action-button">
                         <button type="submit" class="btn-block">Log in</button>
                     </div>
+                
+                    <div class="row">
+                        <ul class="page-links">
+                            <li>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
+                            </li>
+                         
+                        </ul>
+                    </div>
                 </form>
             </div>
         </div>
 
-        <div class="row">
-            <ul class="page-links">
-                <li>
+        @*<div class="row">
+            <ul class="page-links">*@
+                @*<li>
                     <a asp-page="./ForgotPassword">Forgot your password?</a>
-                </li>
-                <li>
+                </li>*@
+                @*<li>
                     <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
-                </li>
-                <li>
+                </li>*@
+                @*<li>
                     <a  asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                </li>
-            </ul>
-        </div>
+                </li>*@
+            @*</ul>
+        </div>*@
     </div>
 
 

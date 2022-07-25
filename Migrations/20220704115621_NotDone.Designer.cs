@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TasksApp.Data;
 
 namespace TasksApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220704115621_NotDone")]
+    partial class NotDone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,14 +270,8 @@ namespace TasksApp.Migrations
                     b.Property<string>("AffectedColumns")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Changes")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("KeyFieldId")
-                        .HasColumnType("int");
 
                     b.Property<string>("NewValues")
                         .HasColumnType("nvarchar(max)");
@@ -445,9 +441,6 @@ namespace TasksApp.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Schedule")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TaskType")

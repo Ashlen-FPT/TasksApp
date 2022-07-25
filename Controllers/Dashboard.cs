@@ -2,6 +2,9 @@
 using System.Linq;
 using TasksApp.Data;
 using TasksApp.ViewModels;
+using TasksApp.Models;
+using System.Text.Json;
+using System;
 
 namespace TasksApp.Controllers
 {
@@ -26,6 +29,36 @@ namespace TasksApp.Controllers
 
             return View(dashboard);
         }
+
+        public IActionResult SupervisorCalendar()
+        {
+
+
+            var query = _context.Tasks.Where(x => x.Status != null).Select(t => new Tasks
+            {
+                DateCreated = t.DateCreated,
+                Status = t.Status,
+            }).ToList();
+
+            ViewData["SupervisorEvents"] = query;
+
+            return View();
+        }
+
+        public IActionResult OperatorCalendar()
+        {
+            var query = _context.PreTasks.Where(x => x.Status != null).Select(t => new PreTasks
+            {
+                DateCreated = t.DateCreated,
+                Status = t.Status,
+            }).ToList();
+
+            ViewData["OperatorEvents"] = query;
+
+            return View();
+        }
+
+
 
         public ActionResult Test()
         {
@@ -325,7 +358,7 @@ namespace TasksApp.Controllers
         //        return Json(new { data = applicationDbContext });
 
         //    }
-        //    #endregion
+            #endregion
         //}
 
         //class DashFilters

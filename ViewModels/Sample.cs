@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TasksApp.Models
+namespace TasksApp.ViewModels
 {
-    public class Audit
+    public partial class Sample
     {
         public int Id { get; set; }
         public int KeyFieldId { get; set; }

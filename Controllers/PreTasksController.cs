@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
+    [Authorize]
     public class PreTasksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserService _userServices;
 
-        public PreTasksController(ApplicationDbContext context)
+        public PreTasksController(ApplicationDbContext context , UserService userService)
         {
             _context = context;
+            _userServices = userService;
         }
 
         // GET: PreTasks
@@ -207,7 +212,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "PreTasks") });
         }
@@ -266,16 +271,29 @@ namespace TasksApp.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "PreTasks") });
         }
 
         [HttpGet]
-        public IActionResult GetAll(DateTime date)
+        public async Task<IActionResult> GetAllAsync(DateTime date)
         {
 
             DateTime oDate = Convert.ToDateTime(date);
+
+            var tasks = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks").ToList();
+            var task = _context.PreTasks.FirstOrDefault();
+
+            foreach (var item in tasks)
+            {
+                var status = tasks.All(c => c.IsDone == false);
+                {
+                    task.Status = "Do-Checklist";
+                    await _context.SaveChangesAsync(_userServices.GetUser());
+                }
+            }
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "PreTasks") });
 
@@ -300,35 +318,76 @@ namespace TasksApp.Controllers
             task.IsDone = true;
             task.DateTaskCompleted = DateTime.Now;
             task.User = User.Identity.Name;
+            task.Status = "Partially Completed";
 
             var date = task.DateCreated;
-
+            //bool status = tasks.All(c => c.IsDone == false);
 
             var tasks = _context.PreTasks.Where(d => d.DateCreated == date).ToList();
 
             foreach (var item in tasks)
             {
-
-                if (item.IsDone == false)
+                if (item.Status == null)
                 {
-                    await _context.SaveChangesAsync();
-
-                    return Json(new { success = true, message = "Task inCompleted!" });
+                    task.Status = "Do-CheckList";
+                    await _context.SaveChangesAsync(_userServices.GetUser());
                 }
 
-                //else
-                //{
-                //    task.DateAllTaskCompleted = DateTime.Now;
-                //    task.TasksCompleted = true;
-                //}
+                else if (item.IsDone == false)
+                {
+                    await _context.SaveChangesAsync(_userServices.GetUser());
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+
+                else
+                {
+                    bool statuses = tasks.All(c => c.IsDone == false);
+                    {
+                        task.Status = "Do-Checklist";
+                        await _context.SaveChangesAsync(_userServices.GetUser());
+                    }
+
+                    bool completeTasks = tasks.All(c => c.IsDone == true);
+                    {
+                        if (completeTasks == false)
+                        {
+                            task.Status = "Partially Completed";
+                            await _context.SaveChangesAsync(_userServices.GetUser());
+
+                            return Json(new { success = true, message = "Task Completed!" });
+                        }
+                        else if (completeTasks == true)
+                        {
+                            task.TasksCompleted = true;
+                            task.DateAllTaskCompleted = DateTime.Now;
+                            task.Status = "Completed";
+                        }
+                    }
+
+                    await _context.SaveChangesAsync(_userServices.GetUser());
+                    return Json(new { success = true, message = "All Tasks Completed!" });
+
+                }
 
             }
 
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
+            return Json(new { success = true, message = "All Tasks Completed!" });
 
-            await _context.SaveChangesAsync();
+            //if (item.IsDone == false)
+            //{
+            //await _context.SaveChangesAsync();
 
-            return Json(new { success = true, message = "Task Completed!" });
+            //return Json(new { success = true, message = "Task inCompleted!" });
+            //}
+
+            //else
+            //{
+            //    task.DateAllTaskCompleted = DateTime.Now;
+            //    task.TasksCompleted = true;
+            //}
 
         }
 
@@ -342,7 +401,7 @@ namespace TasksApp.Controllers
             task.Comments = comment;
 
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "Comment added!" });
 

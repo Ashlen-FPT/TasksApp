@@ -1,16 +1,17 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
     public class AuditsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public AuditsController(ApplicationDbContext context)
         {
             _context = context;
@@ -152,11 +153,17 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetAudits()
         {
-
+            
             return Json(new { data = _context.Audits.ToList() });
 
         }
-
+        //public JsonResult GetAudit(int id)
+        //{
+        //    id = 1;
+        //    AuditEntry SD = new AuditEntry();
+        //    var AuditTrail = SD.GetAudit(id);
+        //    return Json(new { data = _context.Audits.Where(d => d.KeyFieldId == id).ToList() });
+        //}
         #endregion
     }
 }
