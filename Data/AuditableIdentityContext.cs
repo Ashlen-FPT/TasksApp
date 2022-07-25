@@ -5,18 +5,34 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TasksApp.Models;
 using TasksApp.Services;
+using TasksApp.ViewModels;
 
 namespace TasksApp.Data
 {
-    public abstract class AuditableIdentityContext : IdentityDbContext
+    public class AuditableIdentityContext : IdentityDbContext
     {
+        public AuditableIdentityContext()
+        {
+        }
+       
 
         public AuditableIdentityContext(DbContextOptions options ) : base(options)
         {
         }
 
-        public DbSet<Audit> AuditLogs { get; set; }
+        //protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        //{
+        //    if (!builder.IsConfigured)
+        //    {
+        //        string conn = "Server=(LocalDb)\\MSSQLLocalDB;Database=aspnet-TasksApp;Trusted_Connection=True;MultipleActiveResultSets=true";
+        //        builder.UseSqlServer(conn);
+        //    }
 
+        //    base.OnConfiguring(builder);
+        //}
+
+        public DbSet<Audit> AuditLogs { get; set; }
+        //public DbSet<Sample> samples { get; set; }
         public virtual async Task<int> SaveChangesAsync(string userEmail = null)
         {
             OnBeforeSaveChanges(userEmail);
@@ -70,10 +86,10 @@ namespace TasksApp.Data
                     }
                 }
             }
-            foreach (var auditEntry in auditEntries)
-            {
-                AuditLogs.Add(auditEntry.ToAudit());
-            }
+            //foreach (var auditEntry in auditEntries)
+            //{
+            //    AuditLogs.Add(auditEntry.ToAudit());
+            //}
         }
     }
 }

@@ -153,10 +153,17 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetAudits()
         {
+            
             return Json(new { data = _context.Audits.ToList() });
 
         }
-
+        public JsonResult GetAudit(int id)
+        {
+            id = 1;
+            AuditEntry SD = new AuditEntry();
+            var AuditTrail = SD.GetAudit(id);
+            return Json(new { data = _context.Audits.Where(d => d.KeyFieldId == id).ToList() });
+        }
         #endregion
     }
 }

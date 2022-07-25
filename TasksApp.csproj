@@ -702,6 +702,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CompareNETObjects" Version="4.77.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.16" />
