@@ -4,7 +4,6 @@
 @{
     ViewData["Title"] = "Log in";
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classic Login</title>
     <!-- Bootstrap core CSS -->
-    <link rel="icon" href="~/images/Logo_Final.png"/>
+    <link rel="icon" href="~/images/Logo_Final.png" />
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
     <!-- Custom styles for this template -->
-    
+
     <link href="~/classic-login/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -24,14 +23,15 @@
             margin: 0;
             padding: 0;
         }
+
         body {
             font-family: 'PT Sans', sans-serif !important;
             background-image: url('/images/slider2.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             margin: 0;
-           
         }
+
         .content {
             background-image: url('/wwwroot/images/slider2.jpg');
             -webkit-background-size: cover;
@@ -40,28 +40,40 @@
             background-size: cover;
             text-align: center;
         }
-a, a:focus, a:hover{
-    text-decoration: none !important;
-    color:#fff !important;
-}
-.placeholder-fix:focus::-webkit-input-placeholder  {color:transparent !important; }
-.placeholder-fix:focus::-moz-placeholder   {color:transparent !important;}
-.placeholder-fix:-moz-placeholder   {color:transparent !important;}
-.loginpage {
-    margin: 0 auto;
-}
-.loginpage .form-control{
-    width:100%;
-}
-.logo h2 {
-    color: #fff;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    margin: 0;
-    text-transform: uppercase;
-     padding-bottom: 60px;
-}
+        /*a, a:focus, a:hover{
+            text-decoration: none !important;
+            color:#fff !important;
+        }*/
+        .placeholder-fix:focus::-webkit-input-placeholder {
+            color: transparent !important;
+        }
+
+        .placeholder-fix:focus::-moz-placeholder {
+            color: transparent !important;
+        }
+
+        .placeholder-fix:-moz-placeholder {
+            color: transparent !important;
+        }
+
+        .loginpage {
+            margin: 0 auto;
+        }
+
+            .loginpage .form-control {
+                width: 100%;
+            }
+
+        .logo h2 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin: 0;
+            text-transform: uppercase;
+            padding-bottom: 60px;
+        }
+
         .loginpage input:first-child {
             background: url('/wwwroot/images/user.png');
             background-repeat: no-repeat;
@@ -76,157 +88,187 @@ a, a:focus, a:hover{
             font-weight: 600;
             border-radius: 5px 5px 0 0;
         }
-.loginpage input:last-child{
-    background: url(../images/lock.png);
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-origin: content-box;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: medium none;
-    height: 60px;
-    margin: 0 0 5px;
-    width: 100%;
-    color: rgb(57,80,86);
-    font-weight: 600;
-     border-radius: 0 0 5px 5px;
-}
-.form-control::-moz-placeholder {
-    color: rgb(57,80,86) !important;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-.form-control::-webkit-input-placeholder{
-    color: rgb(57,80,86) !important;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-.form-control:focus {
-    border-color: transparent;
-    box-shadow: none!important;
-    outline: 0 none;
-}
-.action-button .btn-block {
-    background-color: rgba(57,80,86,0.9);
-    border: medium none;
-    color: #fff;
-    font-size: 20px;
-    font-weight: 600;
-    height: 60px;
-    margin-top: 15px;
-    border-radius: 5px;
-    width: 100%;
-}
-.page-links {
-    padding: 0;
-    text-align: center;
-    padding: 30px 0;
-}
-.page-links li{
-    display: inline-block;
-}
-.page-links a {
-    color: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    margin-right: 50px;
-}
-.social-button {
-    text-align: center;
-}
-.social-button > a {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    margin-right: 20px;
-    padding: 12px 39px;
-    border-radius: 4px;
-}
-.social-button a:first-child{
-    background-color: rgba(56,83,141,0.8);
-}
-.social-button a:last-child{
-    background-color: rgba(214,34,33,0.8);
-    margin-right: 0px;
-}
-.social-button img {
-    vertical-align: middle;
-    margin-right: 10px;
-}
-.copyright {
-    color: #fff;
-    font-size: 16px;
-    margin-top: 50px;
-}
-.copyright a, .copyright a:hover{
-    color:#fff;
-    text-decoration: none;
-    font-weight: 600;
-}
 
-</style>
+        .loginpage input:last-child {
+            background: url(../images/lock.png);
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-origin: content-box;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: medium none;
+            height: 60px;
+            margin: 0 0 5px;
+            width: 100%;
+            color: rgb(57,80,86);
+            font-weight: 600;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .form-control::-moz-placeholder {
+            color: rgb(57,80,86) !important;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .form-control::-webkit-input-placeholder {
+            color: rgb(57,80,86) !important;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .form-control:focus {
+            border-color: transparent;
+            box-shadow: none !important;
+            outline: 0 none;
+        }
+
+        .action-button .btn-block {
+            background-color: rgba(57,80,86,0.9);
+            border: medium none;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            height: 60px;
+            margin-top: 15px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .page-links {
+            padding: 0;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+            .page-links li {
+                display: inline-block;
+            }
+
+            .page-links a {
+                color: #fff;
+                font-size: 13px;
+                font-weight: 600;
+                margin-right: 50px;
+            }
+
+        .social-button {
+            text-align: center;
+        }
+
+            .social-button > a {
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+                margin-right: 20px;
+                padding: 12px 39px;
+                border-radius: 4px;
+            }
+
+            .social-button a:first-child {
+                background-color: rgba(56,83,141,0.8);
+            }
+
+            .social-button a:last-child {
+                background-color: rgba(214,34,33,0.8);
+                margin-right: 0px;
+            }
+
+            .social-button img {
+                vertical-align: middle;
+                margin-right: 10px;
+            }
+
+        .copyright {
+            color: #fff;
+            font-size: 16px;
+            margin-top: 50px;
+        }
+
+            .copyright a, .copyright a:hover {
+                color: #fff;
+                text-decoration: none;
+                font-weight: 600;
+            }
+        .card {
+            margin: 0 auto; /* Added */
+            float: none; /* Added */
+            margin-bottom: 10px; /* Added */
+            border-radius: 20px;
+        }
+    </style>
 </head>
 <body class="content">
-    <header>
-        <div class="logo text-center">
-           
-            <img class="c-sidebar-brand-full" src="~/images/Logo.png" height="60" alt="FPT Group">
-        </div>
-    </header>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6 width-100">
+    <div class="card"style="width:100%">
+        <div class="card-body" ><center><h1>Checklist System</h1></center></div>
+    </div>
+    <br />
+    <div class="card"style="width:800px">
+        <div class="card-body">
+            <header>
+
+                <div class="logo text-center">
+
+                    <img class="c-sidebar-brand-full" src="~/images/Logo.png" height="60" alt="FPT Group">
+                </div>
+            </header>
+
+            <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6 width-1">
                 <form id="account" method="post">
                     <div class="loginpage">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="field">
-                            <input asp-for="Input.Email" type="text" placeholder="Username"/>
+                            <input asp-for="Input.Email" type="text" placeholder="Username" />
                             <span asp-validation-for="Input.Email"></span>
                         </div>
 
                         <div class="field space">
-                            <input asp-for="Input.Password" type="password" placeholder="Password"/>
-                            <span asp-validation-for="Input.Password" ></span>
+                            <input asp-for="Input.Password" type="password" placeholder="Password" />
+                            <span asp-validation-for="Input.Password"></span>
                         </div>
 
                         @*<div class="form-group">
                             <input asp-for="Input.RememberMe" type="checkbox"/>
-                             @Html.DisplayNameFor(m => m.Input.RememberMe)   
+                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </div>*@
+                        <div class="action-button">
+                            <button type="submit" class="btn btn-success">Login</button>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-primary">Register ?</a>
+                        </div>
                     </div>
-                    <div class="action-button">
-                        <button type="submit" class="btn-block">Log in</button>
-                    </div>
-                
-                    <div class="row">
-                        <ul class="page-links">
-                            <li>
-                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
-                            </li>
-                         
-                        </ul>
-                    </div>
+
+
+
+                    @*<ul class="page-links">
+                        <li>
+
+                        </li>
+
+                    </ul>*@
+
                 </form>
             </div>
+
+
+            @*<div class="row">
+            <ul class="page-links">*@
+            @*<li>
+                <a asp-page="./ForgotPassword">Forgot your password?</a>
+            </li>*@
+            @*<li>
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
+            </li>*@
+            @*<li>
+                <a  asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+            </li>*@
+            @*</ul>
+            </div>*@
+
+        </div>
         </div>
 
-        @*<div class="row">
-            <ul class="page-links">*@
-                @*<li>
-                    <a asp-page="./ForgotPassword">Forgot your password?</a>
-                </li>*@
-                @*<li>
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
-                </li>*@
-                @*<li>
-                    <a  asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                </li>*@
-            @*</ul>
-        </div>*@
-    </div>
 
-
-  @section Scripts {
-      <partial name="_ValidationScriptsPartial" />
-  }
+        @section Scripts {
+            <partial name="_ValidationScriptsPartial" />
+        }
 </body>
 </html>
