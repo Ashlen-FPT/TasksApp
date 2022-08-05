@@ -90,17 +90,17 @@ namespace TasksApp.Models
 
             List<AuditChange> rslt = new List<AuditChange>();
             //Audit ent = new Audit();
-            AuditableIdentityContext ent = new AuditableIdentityContext();
-            var AuditTrail = ent.AuditLogs.Where(s => s.KeyFieldId == Id).OrderByDescending(s => s.DateTime); // we are looking for audit-history of the record selected.
+            //AuditableIdentityContext ent = new AuditableIdentityContext();
+            //var AuditTrail = ent.AuditLogs.Where(s => s.KeyFieldId == Id).OrderByDescending(s => s.DateTime); // we are looking for audit-history of the record selected.
             var serializer = new XmlSerializer(typeof(AuditDelta));
-            foreach (var record in AuditTrail)
+            //foreach (var record in AuditTrail)
             {
                 AuditChange Change = new AuditChange();
-                Change.DateTimeStamp = record.DateTime.ToString();
+                //Change.DateTimeStamp = record.DateTime.ToString();
                 //Change.AuditType = (AuditType)record.AuditType;
-                Change.AuditTypeName = Enum.GetName(typeof(AuditType), record.Type);
+                //Change.AuditTypeName = Enum.GetName(typeof(AuditType), record.Type);
                 List<AuditDelta> delta = new List<AuditDelta>();
-                delta = JsonConvert.DeserializeObject<List<AuditDelta>>(record.AffectedColumns);
+                //delta = JsonConvert.DeserializeObject<List<AuditDelta>>(record.AffectedColumns);
                 Change.Changes.AddRange(delta);
                 rslt.Add(Change);
             }

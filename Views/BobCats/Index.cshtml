@@ -1,0 +1,602 @@
+﻿@model IEnumerable<TasksApp.Models.BobCat>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+
+@*<h1>Manage Tasks</h1>*@
+
+@*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+    Create New
+</button>*@
+
+<br />
+
+<html>
+<head>
+    <style>
+
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+            table.center {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        input.center {
+            margin-left: auto;
+            margin-right: auto;
+            min-block-size: max-content;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>
+
+<div class="card text-center" style="width: 100%;">
+    @*<div class="card-title">
+        <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">BobCat</a>
+            </li>
+        </ul>
+    </div>*@
+
+    <div class="card-body">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                <table class="center table table-striped" id="tbl" style=" word-wrap:break-word; width:70%; table-layout:fixed">
+                    <tr>
+                        <th rowspan="2" style="width:20%"> <img src="~/Pictures/logo_new.png" /></th>
+                        <td style="width:40%"> <b> STANDARD OPERATING PROCEDURES </b></td>
+                    </tr>
+
+                    <tr>
+                        <td style="width:40%"> <b> BRAKE TEST FEL / BOBCAT </b></td>
+                    </tr>
+                </table>
+
+                <br />
+
+                @*<p style="left:initial"><b> DATE             :</b><hr width="20%" , size="3" , color="black" /> </p>
+                <p><b> OPERATOR NAME    :</b><hr width="20%" , size="3" , color="black" /> </p>
+                <p><b> SUPERVISOR NAME  :</b><hr width="20%" , size="3" , color="black" /> </p>*@
+
+
+                <table class="center table table-striped" id="tbl" style=" word-wrap:break-word; width:70%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th style="width:5%"></th>
+                            <th style="width:40%">General</th>
+                            <th style="width:5%">Yes</th>
+                            <th style="width:5%">No</th>
+                            <th style="width:5%">N/A</th>
+                            @*<th>Description</th>
+                    <th>DateCreated</th>*@
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Does the operator have a license or authorised to operate machine ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>Did the driver do a proper pre-start check ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>Did the operator cautiously and slowly drive up the ramp incline ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>4</td>
+                            <td>Did operator put machine in neutral to check if foot brakes hold machine ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>5</td>
+                            <td>Did machine foot brakes hold machine ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>6</td>
+                            <td>Did operator engage the park brake and lift his/her feet off the foot brake ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>7</td>
+                            <td>Did machine park brakes hold the machine ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+                    </tbody>
+
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th></th>
+                            <th>
+                                After testing brakes on the incline did they check out the
+                                operator advances to the decline of the ramp.
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>8</td>
+                            <td>Did operator slowly and cautiously advance to the decline of the ramp /</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>9</td>
+                            <td>Did operator put machine in neutral to check if foot brakes hold machine ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>10</td>
+                            <td>Did machine foot brakes hold machine ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>11</td>
+                            <td> Did the operator engage the park brake and lift his/her feet off the foot brake ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>12</td>
+                            <td>Did machine park brakes hold the machine ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                    </tbody>
+
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th></th>
+                            <th>
+                                After testing brakes on the decline did they check out operators advances
+                                off the ramp.
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>10</td>
+                            <td>
+                                Did operator slowly and cautiously move off the ramp ?
+                            </td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>11</td>
+                            <td>
+                                Did the operator hand the pre-start check list to the supervisor for signing ?
+                            </td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                    </tbody>
+
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th></th>
+                            <th>
+                                If ever the brakes are found to be faulty.
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>12</td>
+                            <td>Did operator slowly and cautiously move off the ramp ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>13</td>
+                            <td>Did operator immediately notify the supervisor ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>14</td>
+                            <td>Was the machine grounded from all operators ?</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <br />
+                <br />
+
+                <table class="center table table-striped" id="tbl" style=" word-wrap:break-word; width:70%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th style="width:40%">MACHINE OPERATING LOADS / HOURS </th>
+                            <th style="width:10%">No Loads </th>
+                            <th style="width:10%">No Hours</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Sinter moved to Rail siding</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Sinter moved to Stock Pad</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Sinter loading into trucks</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Manganese moved to Manganese Shed – UMK 1</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Manganese moved to Manganese Shed – Tshipi / UMK 2
+                            </td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Manganese loaded into ADT</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Manganese loaded onto Screen</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Coke moved to Sinter Plant</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Coke loaded into ADT</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Coke loaded onto Screen</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+
+
+<script src="~/plugins/jquery/jquery.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+
+<script>
+    loadTable()
+
+    function loadTable() {
+
+        Table01 = $("#tbl").DataTable({
+            //"ajax": {
+            //    "url": "/BobCats/GetAll",
+            //},
+            //responsive: true,
+            //autoWidth: false,
+            "columns": [
+                { "data": "id", "width": "5%" },
+                /*{ "data": "heading", "width": "60%" },*/
+                { "data": "description", "width": "60%" },
+                { "data": "yes", "width": "10%" },
+                { "data": "no", "width": "10%" },
+                { "data": "nA", "width": "10%" },
+                //{
+                //    "data": {
+                //        id: "id", yes: "yes"
+                //    },
+                //    "render": function (data) {
+                //        if (data.yes == true) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input disabled type="checkbox" checked="true" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //        if (data.yes == false) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input onclick=Delete("Task/CompleteTask/${data.id}") type="checkbox" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //    }, "width": "10"
+                //},
+
+                //{
+                //    "data": {
+                //        id: "id", no: "no"
+                //    },
+                //    "render": function (data) {
+                //        if (data.no == true) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input disabled type="checkbox" checked="true" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //        if (data.no == false) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //    }, "width": "10%"
+                //},
+
+                //{
+                //    "data": {
+                //        id: "id", nA: "nA"
+                //    },
+                //    "render": function (data) {
+                //        if (data.nA == true) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input disabled type="checkbox" checked="true" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //        if (data.nA == false) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //    }, "width": "10%"
+                //},
+
+                //{
+                //    "data": "dateCreated",
+                //    'render': function (jsonDate) {
+
+                //        if (jsonDate == "0001-01-01T00:00:00") {
+                //            return " ";
+                //        }
+                //        else {
+                //            var datestr = jsonDate.toString();
+                //            var date = new Date(datestr.substr(0, 10));
+                //            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                //            var time = datestr.substr(11)
+                //            var hr = time.substr(0, 2)
+                //            var min = time.substr(3, 2)
+                //            var sec = time.substr(6, 2);
+                //            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                //        }
+
+                //    }, "width": "50%"
+                //},
+            ]
+        });
+    }
+
+    //function AddTask() {
+    //    var Head = $('#Heading').val();
+    //    var Desc = $('#Description').val();
+
+
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/TemplateBobCats/AddBobCat?Desc=" + Desc + "&Head=" + Head,
+    //        success: function (data) {
+    //            if (data.success) {
+
+    //                $("#exampleModal").modal("toggle")
+    //                swal(data.message, "", "success");
+    //                Table01.ajax.reload();
+
+    //            }
+    //            else {
+    //                toastr.error(data.message);
+    //            }
+    //        }
+    //    });
+
+    //}
+
+    //function Delete(url) {
+    //    swal({
+    //        title: "Are you sure you want to Delete?",
+    //        text: "You will not be able to restore the data!",
+    //        icon: "warning",
+    //        buttons: true,
+    //        dangerMode: true
+    //    }).then((willDelete) => {
+    //        if (willDelete) {
+    //            $.ajax({
+    //                type: "DELETE",
+    //                url: url,
+    //                success: function (data) {
+    //                    if (data.success) {
+    //                        toastr.success(data.message);
+    //                        Table01.ajax.reload();
+    //                        Table02.ajax.reload();
+    //                        Table03.ajax.reload();
+    //                        Table04.ajax.reload();
+    //                    }
+    //                    else {
+    //                        toastr.error(data.message);
+    //                    }
+    //                }
+    //            });
+    //        }
+    //    });
+    //}
+
+    //var editId = 0;
+
+    //function ShowEditModal(id) {
+    //    $("#editModal").modal("toggle");
+
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/TemplateBobCats/GetBobCat?id=" + id,
+    //        success: function (data) {
+    //            document.getElementById("DescriptionEdit").value = data.data.description;
+    //            document.getElementById("ScheduleEdit").value = data.data.schedule;
+    //            /*document.getElementById("TaskTypeEdit").value = data.data.TaskType;*/
+    //            editId = id;
+    //        }
+    //    });
+    //}
+
+    //function EditTask() {
+
+    //    var Heading = $('#HeadingEdit').val();
+    //    var Desc = $('#DescriptionEdit').val();
+
+    //    $.ajax({
+    //        type: "PUT",
+    //        url: "/TemplateBobCats/EditBobCat?Id=" + editId + "&Desc=" + Desc + "&Heading=" + Heading,
+    //        success: function (data) {
+    //            if (data.success) {
+
+    //                $("#editModal").modal("toggle")
+    //                swal(data.message, "", "success");
+    //                Table01.ajax.reload();
+    //            }
+    //            else {
+    //                toastr.error(data.message);
+    //            }
+    //        }
+    //    });
+    //}
+</script>

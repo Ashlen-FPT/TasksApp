@@ -9,7 +9,7 @@ using TasksApp.ViewModels;
 
 namespace TasksApp.Data
 {
-    public class AuditableIdentityContext : IdentityDbContext
+    public abstract class AuditableIdentityContext : IdentityDbContext
     {
         public AuditableIdentityContext()
         {

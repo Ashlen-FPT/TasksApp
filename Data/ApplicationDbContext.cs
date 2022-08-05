@@ -34,5 +34,16 @@ namespace TasksApp.Data
 
         public DbSet<Audit> Audits { get; set; }
 
+        public DbSet<BobCat> BobCats { get; set; }
+
+        public DbSet<TemplateBobCat> TemplateBobCat { get; set; }
+
+        public DbSet<DailyWeigh> DailyWeighs { get; set; }
+
+        public DbSet<DailyCheck> DailyChecks { get; set; }
+
+        public DbSet<Maintenance> Maintenances { get; set; }
+
+        public DbSet<Items> items { get; set; }
     }
 }

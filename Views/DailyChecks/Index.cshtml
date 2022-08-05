@@ -1,0 +1,632 @@
+﻿@model IEnumerable<TasksApp.Models.DailyCheck>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Daily Check list</h1>
+
+<html>
+<head>
+    <style>
+        
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+            table.center {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            input.center{
+                margin-left: auto;
+                margin-right: auto;
+                min-block-size:max-content;
+            }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>
+
+<div class="card text-center" style="width: 100%;">
+    @*<div class="card-title">
+        <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">BobCat</a>
+            </li>
+        </ul>
+    </div>*@
+
+    <div class="card-body">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <table class="center table table-striped table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th></th>
+                            <th>Description</th>
+                            <th>IsDone</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+
+                    <thead>
+                        <tr class="table-info">
+                            <th>1</th>
+                            <th>Check daily report sent by Traffic controller</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Remedy all highlighted mistakes (Changes)</td>
+                            <td><input type="checkbox" /></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>check for accuracy</td>
+                            <td><input type="checkbox" /></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Check for outstanding vehicles from previous day ( IN / out / inner / checked in)</td>
+                            <td><input type="checkbox" /></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>if any vehicles are on list - update and sort issue</td>
+                            <td><input type="checkbox" /></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Check physical documents to reports and make changes</td>
+                            <td><input type="checkbox" /></td>
+                            <td> </td>
+                        </tr>
+
+                    <thead>
+                        <tr class="table-info">
+                            <th>2</th>
+                            <th>Run report on Intranet - Vehicles received</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Check that the amount of vehicles match to system report - run from the cloud</td>
+                            <td><input type="checkbox" /></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>check that tonnage matches to system report</td>
+                            <td><input type="checkbox" /></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Start to compile daily stock report</td>
+                            <td><input type="checkbox" /></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td> Compare to traffic controller report</td>
+                            <td><input type="checkbox" /></td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Transcribe to stock report</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>check that no ticket numbers have been skipped - if skipped numbers report to Gideon for feedback</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+                    </tbody>
+
+                    <thead>
+                        <tr class="table-info">
+                            <th>3</th>
+                            <th>Run train report</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Compare to Consignment notes</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Check that all wagons are on correct contract</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>verify that tonnages match </td>
+                            <td><input type="checkbox" /></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Check and ferify CIG Moisture report to Consignment Note</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                    </tbody>
+
+                    <thead >
+                        <tr>
+                            <th>5</th>
+                            <th>Forward Stock report to Management</th>
+                            <th><input type="checkbox" /></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <thead>
+                        <tr class="table-info">
+                            <th>6</th>
+                            <th>Update Audit Truck - Once all changes are done</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Give 10 min and compare data from Intranet - checking SAGE Reference numbers</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+                    </tbody>
+
+                    <thead>
+                        <tr class="table-info">
+                            <th>7</th>
+                            <th>Send confirmation e-mail to management - re status of report</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>If any vehicles don’t have SAGE numbers - forward mail to Syntricom</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+                    </tbody>
+
+                    <thead>
+                        <tr class="table-info">
+                            <th>8</th>
+                            <th>Update Audit Rail - Once all changes are done</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Give 10 min and compare data from Intranet - checking SAGE Reference numbers</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Send confirmation e-mail to management - re status of report</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>If any vehicles don’t have SAGE numbers - forward mail to Syntricom</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+                    </tbody>
+
+                    <thead>
+                        <tr class="table-info">
+                            <th>9</th>
+                            <th>Run vehicle enroute report</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>do spot check that vehicles are not already received in facility</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Forwad enroute report to TLC and TLG management</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+                    </tbody>
+
+                    <thead>
+                        <tr>
+                            <th>10</th>
+                            <th>Forwad enroute report to TLC and TLG management</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <thead>
+                        <tr class="table-info">
+                            <th>11</th>
+                            <th>Check and sign Documents</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Calibration Certificates</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Toolbox talk</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>HSE daily walk around</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td> FEL  Operator check list</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>Diesel Report</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="text" /></td>
+                        </tr>
+                    </tbody>
+
+                    <thead>
+                        <tr class="table-info">
+                            <th>12</th>
+                            <th>Sit with HSE / Supervisors and Maintenance guy</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Assign duties for the day</td>
+                            <td><input type="checkbox" /></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+
+                    <thead>
+                        <tr>
+                            <th>13</th>
+                            <th>Start looking at Traffic controller / Masskot report to see how many manual capturings are being done daily</th>
+                            <th><input type="checkbox" /></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <thead>
+                        <tr>
+                            <th>14</th>
+                            <th>Capture movemento documents reference numbers to report</th>
+                            <th><input type="checkbox" /></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <thead>
+                        <tr>
+                            <th>15</th>
+                            <th>Do spot checks - verify stock / maintenance material / lubs etc</th>
+                            <th><input type="checkbox" /></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+
+
+<script src="~/plugins/jquery/jquery.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+
+<script>
+    loadTable()
+
+    function loadTable() {
+
+        Table01 = $("#tbl").DataTable({
+            //"ajax": {
+            //    "url": "/BobCats/GetAll",
+            //},
+            //responsive: true,
+            //autoWidth: false,
+            "columns": [
+                { "data": "id", "width": "7%" },
+                /*{ "data": "heading", "width": "60%" },*/
+                { "data": "description", "width": "60%" },
+                { "data": "isDone", "width": "10%" },
+                { "data": "remarks", "width": "50%" },
+           
+                //{
+                //    "data": {
+                //        id: "id", yes: "yes"
+                //    },
+                //    "render": function (data) {
+                //        if (data.yes == true) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input disabled type="checkbox" checked="true" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //        if (data.yes == false) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input onclick=Delete("Task/CompleteTask/${data.id}") type="checkbox" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //    }, "width": "10"
+                //},
+
+                //{
+                //    "data": {
+                //        id: "id", no: "no"
+                //    },
+                //    "render": function (data) {
+                //        if (data.no == true) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input disabled type="checkbox" checked="true" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //        if (data.no == false) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //    }, "width": "10%"
+                //},
+
+                //{
+                //    "data": {
+                //        id: "id", nA: "nA"
+                //    },
+                //    "render": function (data) {
+                //        if (data.nA == true) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input disabled type="checkbox" checked="true" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //        if (data.nA == false) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //    }, "width": "10%"
+                //},
+
+                //{
+                //    "data": "dateCreated",
+                //    'render': function (jsonDate) {
+
+                //        if (jsonDate == "0001-01-01T00:00:00") {
+                //            return " ";
+                //        }
+                //        else {
+                //            var datestr = jsonDate.toString();
+                //            var date = new Date(datestr.substr(0, 10));
+                //            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                //            var time = datestr.substr(11)
+                //            var hr = time.substr(0, 2)
+                //            var min = time.substr(3, 2)
+                //            var sec = time.substr(6, 2);
+                //            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                //        }
+
+                //    }, "width": "50%"
+                //},
+            ]
+        });
+    }
+
+    //function AddTask() {
+    //    var Head = $('#Heading').val();
+    //    var Desc = $('#Description').val();
+
+
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/TemplateBobCats/AddBobCat?Desc=" + Desc + "&Head=" + Head,
+    //        success: function (data) {
+    //            if (data.success) {
+
+    //                $("#exampleModal").modal("toggle")
+    //                swal(data.message, "", "success");
+    //                Table01.ajax.reload();
+
+    //            }
+    //            else {
+    //                toastr.error(data.message);
+    //            }
+    //        }
+    //    });
+
+    //}
+
+    //function Delete(url) {
+    //    swal({
+    //        title: "Are you sure you want to Delete?",
+    //        text: "You will not be able to restore the data!",
+    //        icon: "warning",
+    //        buttons: true,
+    //        dangerMode: true
+    //    }).then((willDelete) => {
+    //        if (willDelete) {
+    //            $.ajax({
+    //                type: "DELETE",
+    //                url: url,
+    //                success: function (data) {
+    //                    if (data.success) {
+    //                        toastr.success(data.message);
+    //                        Table01.ajax.reload();
+    //                        Table02.ajax.reload();
+    //                        Table03.ajax.reload();
+    //                        Table04.ajax.reload();
+    //                    }
+    //                    else {
+    //                        toastr.error(data.message);
+    //                    }
+    //                }
+    //            });
+    //        }
+    //    });
+    //}
+
+    //var editId = 0;
+
+    //function ShowEditModal(id) {
+    //    $("#editModal").modal("toggle");
+
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/TemplateBobCats/GetBobCat?id=" + id,
+    //        success: function (data) {
+    //            document.getElementById("DescriptionEdit").value = data.data.description;
+    //            document.getElementById("ScheduleEdit").value = data.data.schedule;
+    //            /*document.getElementById("TaskTypeEdit").value = data.data.TaskType;*/
+    //            editId = id;
+    //        }
+    //    });
+    //}
+
+    //function EditTask() {
+
+    //    var Heading = $('#HeadingEdit').val();
+    //    var Desc = $('#DescriptionEdit').val();
+
+    //    $.ajax({
+    //        type: "PUT",
+    //        url: "/TemplateBobCats/EditBobCat?Id=" + editId + "&Desc=" + Desc + "&Heading=" + Heading,
+    //        success: function (data) {
+    //            if (data.success) {
+
+    //                $("#editModal").modal("toggle")
+    //                swal(data.message, "", "success");
+    //                Table01.ajax.reload();
+    //            }
+    //            else {
+    //                toastr.error(data.message);
+    //            }
+    //        }
+    //    });
+    //}
+</script>

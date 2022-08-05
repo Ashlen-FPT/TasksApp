@@ -1,0 +1,398 @@
+﻿@model IEnumerable<TasksApp.Models.Maintenance>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>MAINTENANCE DAILY CHECK SHEET</h4>
+
+<style>
+    input.larger {
+        width: 20px;
+        height: 20px;
+    }
+
+    table, td, th {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+</style>
+
+<div class="card text-center" style="width: 100%;">
+
+    <div class="card-body">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <table class="center table table-striped table-hover" id="tbl" style=" word-wrap:break-word; width:70%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>DESCRIPTION</th>
+                            <th type="checkbox" style="width:10%" >OK</th>
+                            <th type="checkbox" style="width:10%">NOT</th>
+                            <th>COMMENTS</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><b>Hydraulic pump</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Hydraulic gauge</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Diesel tank</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Bearings</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b> Conveyor belts</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Screen Mesh condition</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Screen Mesh Tension</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Conveyor Belt Alignment </b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Feed Hopper</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Wear plates</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Grid bars</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Screen Chutes</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Guards condition</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td><b>Machine Condition</b></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td><input type="checkbox" class="larger"/></td>
+                            <td> </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<html>
+<head>
+    <style>
+
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+            table.center {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        input.center {
+            margin-left: auto;
+            margin-right: auto;
+            min-block-size: max-content;
+        }
+    </style>
+</head>
+<body>
+    <p ><b> SHIFT</b><hr width="20%" , size="3"  color="black"  /> </p>
+
+    <p><b> OPERATOR</b><hr width="20%" , size="3"  color="black" /> </p>
+
+    <p><b> DATE</b><hr width="20%" , size="3"  color="black" /> </p>
+</body>
+</html>
+
+
+
+<script src="~/plugins/jquery/jquery.js"></script>
+
+
+<script>
+    loadTable()
+
+    function loadTable() {
+
+        Table01 = $("#tbl").DataTable({
+
+            "columns": [
+                { "data": "description", "width": "40%" },
+                { "data": "ok", "width": "15%" },
+                { "data": "not", "width": "15%" },
+                { "data": "comments", "width": "50%" },
+
+                //{
+                //    "data": {
+                //        id: "id", yes: "yes"
+                //    },
+                //    "render": function (data) {
+                //        if (data.yes == true) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input disabled type="checkbox" checked="true" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //        if (data.yes == false) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input onclick=Delete("Task/CompleteTask/${data.id}") type="checkbox" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //    }, "width": "10"
+                //},
+
+                //{
+                //    "data": {
+                //        id: "id", no: "no"
+                //    },
+                //    "render": function (data) {
+                //        if (data.no == true) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input disabled type="checkbox" checked="true" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //        if (data.no == false) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //    }, "width": "10%"
+                //},
+
+                //{
+                //    "data": {
+                //        id: "id", nA: "nA"
+                //    },
+                //    "render": function (data) {
+                //        if (data.nA == true) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input disabled type="checkbox" checked="true" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //        if (data.nA == false) {
+
+                //            return `
+                //                <div class="text-center">
+                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+
+                //                </div>
+                //               `;
+
+                //        }
+
+                //    }, "width": "10%"
+                //},
+
+                //{
+                //    "data": "dateCreated",
+                //    'render': function (jsonDate) {
+
+                //        if (jsonDate == "0001-01-01T00:00:00") {
+                //            return " ";
+                //        }
+                //        else {
+                //            var datestr = jsonDate.toString();
+                //            var date = new Date(datestr.substr(0, 10));
+                //            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                //            var time = datestr.substr(11)
+                //            var hr = time.substr(0, 2)
+                //            var min = time.substr(3, 2)
+                //            var sec = time.substr(6, 2);
+                //            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                //        }
+
+                //    }, "width": "50%"
+                //},
+            ]
+        });
+    }
+
+        //function AddTask() {
+        //    var Head = $('#Heading').val();
+        //    var Desc = $('#Description').val();
+
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/TemplateBobCats/AddBobCat?Desc=" + Desc + "&Head=" + Head,
+        //        success: function (data) {
+        //            if (data.success) {
+
+        //                $("#exampleModal").modal("toggle")
+        //                swal(data.message, "", "success");
+        //                Table01.ajax.reload();
+
+        //            }
+        //            else {
+        //                toastr.error(data.message);
+        //            }
+        //        }
+        //    });
+
+        //}
+
+        //function Delete(url) {
+        //    swal({
+        //        title: "Are you sure you want to Delete?",
+        //        text: "You will not be able to restore the data!",
+        //        icon: "warning",
+        //        buttons: true,
+        //        dangerMode: true
+        //    }).then((willDelete) => {
+        //        if (willDelete) {
+        //            $.ajax({
+        //                type: "DELETE",
+        //                url: url,
+        //                success: function (data) {
+        //                    if (data.success) {
+        //                        toastr.success(data.message);
+        //                        Table01.ajax.reload();
+        //                        Table02.ajax.reload();
+        //                        Table03.ajax.reload();
+        //                        Table04.ajax.reload();
+        //                    }
+        //                    else {
+        //                        toastr.error(data.message);
+        //                    }
+        //                }
+        //            });
+        //        }
+        //    });
+        //}
+
+        //var editId = 0;
+
+        //function ShowEditModal(id) {
+        //    $("#editModal").modal("toggle");
+
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/TemplateBobCats/GetBobCat?id=" + id,
+        //        success: function (data) {
+        //            document.getElementById("DescriptionEdit").value = data.data.description;
+        //            document.getElementById("ScheduleEdit").value = data.data.schedule;
+        //            /*document.getElementById("TaskTypeEdit").value = data.data.TaskType;*/
+        //            editId = id;
+        //        }
+        //    });
+        //}
+
+        //function EditTask() {
+
+        //    var Heading = $('#HeadingEdit').val();
+        //    var Desc = $('#DescriptionEdit').val();
+
+        //    $.ajax({
+        //        type: "PUT",
+        //        url: "/TemplateBobCats/EditBobCat?Id=" + editId + "&Desc=" + Desc + "&Heading=" + Heading,
+        //        success: function (data) {
+        //            if (data.success) {
+
+        //                $("#editModal").modal("toggle")
+        //                swal(data.message, "", "success");
+        //                Table01.ajax.reload();
+        //            }
+        //            else {
+        //                toastr.error(data.message);
+        //            }
+        //        }
+        //    });
+        //}
+</script>

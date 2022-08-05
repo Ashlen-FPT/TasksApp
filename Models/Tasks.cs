@@ -13,6 +13,8 @@ namespace TasksApp.Models
         [Required(ErrorMessage = "Please enter Description")]
         public string Description { get; set; }
 
+        //public string SubDescription { get; set; }
+
         public bool IsDone { get; set; }
 
         //public bool IsNotDone { get; set; }

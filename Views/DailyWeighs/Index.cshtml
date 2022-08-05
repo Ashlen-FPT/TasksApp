@@ -1,0 +1,132 @@
+﻿@model IEnumerable<TasksApp.Models.DailyWeigh>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>DAILY WEIGHBRIDGE TEST</h4>
+
+<br />
+<br />
+
+<table class="center table table-striped table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:40%; table-layout:fixed">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="row"> Date </th>
+            <td> <input name=" " /> </td>
+        </tr>
+
+        <tr>
+            <th scope="row"> Time </th>
+            <td> <input name=" " /> </td>
+        </tr>
+
+        <tr>
+            <th scope="row"> Supervisor </th>
+            <td> <input name=" " /> </td>
+        </tr>
+    </thead>
+</table>
+
+<br />
+
+
+<p><b>Readings should always show 0.0g</b></p>
+
+<br />
+
+
+
+<table class="center table table-striped table-bordered table-hover" id="tbl1" style=" word-wrap:break-word; width:70%; table-layout:fixed">
+    <thead class="thead-dark">
+        <tr class="table-info">
+            <th>GROSS</th>
+            <th>TARE</th>
+            <th>NET</th>
+            <th>Observations</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+        </tr>
+
+        <tr>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+        </tr>
+
+        <tr>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+        </tr>
+
+        <tr>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+            <td> <input name=" " /> </td>
+        </tr>
+
+</table>
+
+<br />
+<html>
+<head>
+    <style>
+        p {
+            
+            text-align: center;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+            table.center {
+                margin-left: auto;
+                margin-right: auto;
+            }
+    </style>
+</head>
+<body>
+    <p><b> Supervisor Signature</b><hr width="20%" , size="3" , color="black" /> </p>
+</body>
+</html>
+
+<script>
+    loadTable()
+
+    function loadTable() {
+
+        Table01 = $("#tbl").DataTable({
+            
+            "rows": [
+                { "data": "date", "width": "20%" },
+                { "data": "time", "width": "20%" },
+                { "data": "Username", "width": "20%" },
+
+            ]
+        });
+
+        Table02 = $("#tbl1").DataTable({
+            
+            "columns": [
+                { "data": "gross", "width": "20%" },
+                { "data": "tare", "width": "20%" },
+                { "data": "net", "width": "20%" },
+                { "data": "observation", "width": "40%" },
+
+            ]
+        });
+    }
+</script>

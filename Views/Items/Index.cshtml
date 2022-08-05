@@ -1,0 +1,524 @@
+﻿@model IEnumerable<TasksApp.Models.Items>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    table, td, th {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    #order{
+        width:34px;
+    }
+
+</style>
+
+
+
+
+<div class="card text-center" style="width: 100%;">
+    @*<div class="card-title">
+            <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">BobCat</a>
+                </li>
+            </ul>
+        </div>*@
+
+    <div class="card-body">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <table class="center table table-striped" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <tr>
+                        <th rowspan="2" style="width:20%"> <img src="~/Pictures/logo_new.png" /></th>
+                        <td style="width:40%">PRE-START CHECK LIST </td>
+                    </tr>
+
+                    <tr>
+                        <td style="width:40%">FRONT END LOADER/BOBCAT</td>
+                    </tr>
+                </table>
+
+                <br />
+
+
+
+                <table class="center table table-striped table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <tr>
+                        <th style="width:15%">Machine</th>
+                        <td style="width:40%"> </td>
+
+                    </tr>
+
+                    <tr>
+                        <th style="width:15%">Operator</th>
+                        <td style="width:40%"> </td>
+                        <td rowspan="2" style="width:15%"> </td>
+                        <td style="width:20%"> Hours </td>
+                        <td style="width:40%"> </td>
+                    </tr>
+
+                    <tr>
+                        <th style="width:15%">Plant Number</th>
+                        <td style="width:40%"> </td>
+                        
+                        <td style="width:20%"> DATE START WEEK </td>
+                        <td style="width:40%"> </td>
+                    </tr>
+
+                    <tr id="order">
+                        <th style="width:35%">In Order</th>
+                        <td style="width:5%"> </td>
+                        
+                    </tr>
+                    <tr>
+                        <th style="width:35%">Out of Order</th>
+                        <td style="width:5%"> </td>
+                    </tr>
+                </table>
+
+                <br />
+
+
+                <table class="center table table-striped table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <td colspan="2" , style="width:20%"> </td>
+                            <th style="width:4%">M</th>
+                            <th style="width:4%">T</th>
+                            <th style="width:4%">W</th>
+                            <th style="width:4%">T</th>
+                            <th style="width:4%">F</th>
+                            <th style="width:4%">S</th>
+                            <th style="width:4%">S</th>
+                            <td colspan="2" , style="width:20%"> </td>
+                            <th style="width:4%">M</th>
+                            <th style="width:4%">T</th>
+                            <th style="width:4%">W</th>
+                            <th style="width:4%">T</th>
+                            <th style="width:4%">F</th>
+                            <th style="width:4%">S</th>
+                            <th style="width:4%">S</th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="2"> TEST THE BRAKES </th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2"> </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <th rowspan="2" , style="width:20%">SEATS</th>
+                            <td>Condition</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <th rowspan="3"> Windows </th>
+                            <td>Windscreen</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                        </tr>
+
+
+                        <tr>
+                            <td>Belts</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+
+                            <td>Wipers</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <th>OIL</th>
+                            <td>Engine</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>Side windows</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <th rowspan="3">WHEELS</th>
+                            <td>Nuts</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <th>Battery</th>
+                            <td>Terminals</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Tyre Condition </td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+
+                            <th rowspan="5">Safety</th>
+                            <td>Water</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Pressure</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>Car Jack</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <th rowspan="3">LEAKS</th>
+                            <td>Oil</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>Tyre Spanner</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Fuel</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>Triangles</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Water</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>Fire Extinguisher</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <th rowspan="4">LIGHTS</th>
+                            <td>Head</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <th>Hooter</th>
+                            <td> </td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Side</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <th>Service 250HRS</th>
+                            <td> Due date</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Break</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <th rowspan="7">Operator</th>
+                            <td>Alcohol Free</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td> </td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>Drugs Free</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+                        <tr>
+                            <th rowspan="2">Back up alarm</th>
+                            <td></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>Fatigue Free </td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>Fit for work</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <th rowspan="3">Condition</th>
+                            <td>Clean</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>License Valid</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Dirty</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td>Steering OK</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Damaged</td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+
+                            <td></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                            <td><input type="checkbox" /></td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
