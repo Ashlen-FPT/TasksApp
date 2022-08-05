@@ -13,9 +13,9 @@
         </div>
         <ul class="c-sidebar-nav">
             <li class="c-sidebar-nav-item">
-                <a class="c-sidebar-nav-link" asp-action="Index">
+                <a class="c-sidebar-nav-link" asp-controller="Home" asp-action="Index">
 
-                    <span class="c-sidebar-nav-icon fa fa-home fa-lg"></span> &nbsp;Welcome
+                    <span class="c-sidebar-nav-icon fa fa-home fa-lg"></span> &nbsp;Home 
                     <span class="badge badge-info">
 
                         @if (User.IsInRole(SD.Role_Operator.ToString()))
@@ -227,7 +227,7 @@
                 </li>
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="SupervisorCalendar">
-                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        <span class="c-sidebar-nav-icon fa fa-calendar-alt"
                               data-toggle="tooltip"
                               data-placement="bottom"
                               title="Supervisor Operations at a glance"></span>
@@ -238,7 +238,7 @@
 
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="OperatorCalendar">
-                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        <span class="c-sidebar-nav-icon fa fa-calendar-alt"
                               data-toggle="tooltip"
                               data-placement="bottom"
                               title="Operator Operations at a glance"></span>
@@ -287,7 +287,7 @@
 
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="SupervisorCalendar">
-                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        <span class="c-sidebar-nav-icon fa fa-calendar-alt"
                               data-toggle="tooltip"
                               data-placement="bottom"
                               title="Supervisor Operations at a glance"></span>
@@ -298,7 +298,7 @@
 
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="OperatorCalendar">
-                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        <span class="c-sidebar-nav-icon fa fa-calendar-alt"
                               data-toggle="tooltip"
                               data-placement="bottom"
                               title="Operator Operations at a glance"></span>
@@ -337,7 +337,7 @@
 
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="OperatorCalendar">
-                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        <span class="c-sidebar-nav-icon fa fa-calendar-alt"
                               data-toggle="tooltip"
                               data-placement="bottom"
                               title="Operator Operations at a glance"></span>
