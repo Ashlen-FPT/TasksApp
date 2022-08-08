@@ -194,6 +194,7 @@
             float: none; /* Added */
             margin-bottom: 10px; /* Added */
             border-radius: 20px;
+            opacity:0.80;
         }
     </style>
 </head>
@@ -270,5 +271,13 @@
         @section Scripts {
             <partial name="_ValidationScriptsPartial" />
         }
+
+    <script>
+        const btn = document.getElementById('logBTN');
+        btn.style.visibility = 'hidden';
+
+        const btnR = document.getElementById('regBTN');
+        btnR.style.visibility = 'hidden';
+    </script>
 </body>
 </html>
