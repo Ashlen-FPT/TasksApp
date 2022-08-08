@@ -46,6 +46,7 @@
                                 <th>Date Task Completed</th>
                                 <th>Add Comments</th>
                                 <th>Comments</th>
+                                <th>More Info</th>
                             </tr>
                         </thead>
                     </table>
@@ -81,6 +82,7 @@
                                 <th>IsDone</th>
                                 <th>Date Task Completed</th>
                                 <th>Comments</th>
+                                <th>More Info</th>
                             </tr>
                         </thead>
                     </table>
@@ -116,6 +118,7 @@
                                 <th>IsDone</th>
                                 <th>Date Task Completed</th>
                                 <th>Comments</th>
+                                <th>More Info</th>
                             </tr>
                         </thead>
                     </table>
@@ -282,7 +285,7 @@
 
                         }
 
-                    }, "width": "30%"
+                    }, "width": "20%"
                 },
 
                 {
@@ -321,7 +324,19 @@
                                `;
                     }, "width": "40%"
                 },
-                { "data": "comments", "width": "100%" }
+                { "data": "comments", "width": "100%" },
+
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+                        return `
+                                <a href="BobCats/Index" data-id="${data.id}">View Checklist</a>
+                               `;
+                    }, "width": "40%"
+                }
 
             ]
         });
@@ -332,7 +347,7 @@
             },
             "columns": [
                 { "data": "description", "width": "60%" },
-                { "data": "isDone", "width": "30%" },
+                { "data": "isDone", "width": "20%" },
                 {
                     "data": "dateTaskCompleted",
                     'render': function (jsonDate) {
@@ -354,7 +369,20 @@
                     }, "width": "50%"
                 },
 
-                { "data": "comments", "width": "60%" }
+                { "data": "comments", "width": "60%" },
+
+
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+                        return `
+                                <a href="BobCats/Index" data-id="${data.id}">View Detailed Checklist</a>
+                               `;
+                    }, "width": "40%"
+                }
             ]
         });
     }

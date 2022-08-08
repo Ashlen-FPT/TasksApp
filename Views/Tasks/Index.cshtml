@@ -53,6 +53,7 @@
                             <th>Date Task Completed</th>
                             <th>Add Comments</th>
                             <th>Comments</th>
+                            <th> </th>
                         </tr>
                     </thead>
                 </table>
@@ -302,7 +303,20 @@
                                `;
                     }, "width": "40%"
                 },
-                { "data": "comments", "width": "100%" }
+
+                { "data": "comments", "width": "100%" },
+
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+                        return `
+                                <a href="BobCats/Index" data-id="${data.id}">View Data</a>
+                               `;
+                    }, "width": "40%"
+                }
 
             ]
         });
