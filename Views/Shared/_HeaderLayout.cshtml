@@ -33,10 +33,10 @@
             </li>
 
         }
-        else
+        else 
         {
             <li class="nav-item d-none d-sm-inline-block">
-                <a asp-area="Identity" asp-page="/Account/Login" class="nav-link btn btn-success fa fa-user"> Login</a>
+                <a id="logBTN" asp-area="Identity" asp-page="/Account/Login" class="nav-link btn btn-success fa fa-user"> Login</a>
 
             </li>
             <li>
@@ -46,7 +46,7 @@
                 &nbsp;
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a asp-area="Identity" asp-page="/Account/Register" class="nav-link btn btn-warning fa fa-user-plus"> Register </a>
+                <a id="regBTN" asp-area="Identity" asp-page="/Account/Register" class="nav-link btn btn-warning fa fa-user-plus"> Register </a>
             </li>
         }
     </ul>
