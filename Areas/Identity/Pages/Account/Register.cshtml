@@ -15,8 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
     <style>
-        body 
-        {
+        body {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -24,14 +23,14 @@
 
         body {
             font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-            background: #ffffff;
+            /*background: #ffffff;*/
         }
 
         input,
         button {
             border: none;
             outline: none;
-            background: none;
+            /*background: none;*/
             font-family: 'Open Sans', Helvetica, Arial, sans-serif;
         }
 
@@ -48,7 +47,7 @@
             width: 900px;
             height: 550px;
             margin: 0 auto 100px;
-            background: #fff;
+            /*background: #fff;*/
             box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.3), 10px 10px 15px rgba(70, 70, 70, 0.15), inset -10px -10px 15px rgba(255, 255, 255, 0.3), inset 10px 10px 15px rgba(70, 70, 70, 0.15);
         }
 
@@ -71,7 +70,7 @@
             width: 900px;
             height: 100%;
             padding-left: 260px;
-            background: #fff;
+            /*background: #fff;*/
             -webkit-transition: -webkit-transform 1.2s ease-in-out;
             transition: -webkit-transform 1.2s ease-in-out;
             transition: transform 1.2s ease-in-out;
@@ -105,7 +104,7 @@
             padding-top: 360px;
         }
 
-            .img:before {
+        /*      .img:before {
                 content: '';
                 position: absolute;
                 right: 0;
@@ -118,9 +117,9 @@
                 -webkit-transition: -webkit-transform 1.2s ease-in-out;
                 transition: transform 1.2s ease-in-out;
                 transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
-            }
+            }*/
 
-            .img:after {
+        /*        .img:after {
                 content: '';
                 position: absolute;
                 left: 0;
@@ -128,7 +127,7 @@
                 width: 100%;
                 height: 100%;
                 background: rgba(0, 0, 0, 0.6);
-            }
+            }*/
 
         .cont.s--signup .img:before {
             -webkit-transform: translate3d(640px, 0, 0);
@@ -175,7 +174,7 @@
             transform: translateX(0);
         }
 
-        .img__btn {
+        /*     .img__btn {
             overflow: hidden;
             z-index: 2;
             position: relative;
@@ -187,42 +186,42 @@
             text-transform: uppercase;
             font-size: 15px;
             cursor: pointer;
+        }*/
+
+        .img__btn:after {
+            content: '';
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #fff;
+            border-radius: 30px;
         }
 
-            .img__btn:after {
-                content: '';
-                z-index: 2;
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                border: 2px solid #fff;
-                border-radius: 30px;
-            }
+        .img__btn span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: -webkit-transform 1.2s;
+            transition: -webkit-transform 1.2s;
+            transition: transform 1.2s;
+            transition: transform 1.2s, -webkit-transform 1.2s;
+        }
 
-            .img__btn span {
-                position: absolute;
-                left: 0;
-                top: 0;
-                display: -webkit-box;
-                display: flex;
-                -webkit-box-pack: center;
-                justify-content: center;
-                -webkit-box-align: center;
-                align-items: center;
-                width: 100%;
-                height: 100%;
-                -webkit-transition: -webkit-transform 1.2s;
-                transition: -webkit-transform 1.2s;
-                transition: transform 1.2s;
-                transition: transform 1.2s, -webkit-transform 1.2s;
+            .img__btn span.m--in {
+                -webkit-transform: translateY(-72px);
+                transform: translateY(-72px);
             }
-
-                .img__btn span.m--in {
-                    -webkit-transform: translateY(-72px);
-                    transform: translateY(-72px);
-                }
 
         .cont.s--signup .img__btn span.m--in {
             -webkit-transform: translateY(0);
@@ -273,7 +272,7 @@
         .submit {
             margin-top: 40px;
             margin-bottom: 20px;
-            background: #d4af7a;
+            background-color: grey;
             text-transform: uppercase;
         }
 
@@ -310,73 +309,106 @@
             -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
         }
-    
-            
+
+        body {
+            font-family: 'PT Sans', sans-serif !important;
+            background-image: url('/images/slider4.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+        }
+        .card {
+            opacity: 0.90;
+        }
     </style>
 </head>
 
-<body class="text-center">
-    <div class="cont">
-        <div class="form sign-in">
-            <h2> Sign Up Now</h2>
-            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <label>
-                    <input asp-for="Input.FirstName" placeholder="First Name" />
-                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-                </label>
+<body>
+    <div class="container">
+        <div class="row align-items-center vh-20">
+            <div class="col-6 mx-auto">
+                <div class="card shadow border">
+                    <div class="card-body d-flex flex-column align-items-center">
 
-                <label>
-                    <input asp-for="Input.LastName" placeholder="Last Name" />
-                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                </label>
+                        <h2>Register</h2>
+                        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <label>
+                                <input asp-for="Input.FirstName" placeholder="First Name" />
+                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                            </label>
 
-                <label>
-                    <input asp-for="Input.Email" placeholder="Email" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </label>
+                            <label>
+                                <input asp-for="Input.LastName" placeholder="Last Name" />
+                                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                            </label>
 
-                @if (User.IsInRole(SD.Role_Admin))
-                {
-                    <label>
-                        @*<input asp-for="Input.Role" placeholder="Role" />
-                <span asp-validation-for="Input.Role" class="text-danger"></span>*@
-                        @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Please select a role", new { @class = "form-control" })
-                    </label>
-                }
+                            <label>
+                                <input asp-for="Input.Email" placeholder="Email" />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </label>
 
-                    <label>
-                        <input asp-for="Input.Password" placeholder="Password" />
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </label>
+                            @if (User.IsInRole(SD.Role_Admin))
+                            {
+                                <label>
+                                    @*<input asp-for="Input.Role" placeholder="Role" />
+                        <span asp-validation-for="Input.Role" class="text-danger"></span>*@
+                                    @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Please select a role", new { @class = "form-control" })
+                                </label>
+                            }
 
-                    <label>
-                        <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" />
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </label>
+                            <label>
+                                <input asp-for="Input.Password" placeholder="Password" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </label>
 
-                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
-                    {
-                        <div class="form-group">
-                            <label asp-for="Input.Role"></label>
+                            <label>
+                                <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </label>
 
-                        </div>
-                    }
+                            @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                            {
+                                <div class="form-group">
+                                    <label asp-for="Input.Role"></label>
 
-                    <button type="submit" class="submit">Register</button>
-                </form>
+                                </div>
+                            }
+                            <br />
+                            <button type="submit" class="nav-link btn btn-warning" style="color:white;"> Register</button>
+
+                        </form>
+                        <a asp-area="Identity" asp-page="/Account/Login" class="nav-link btn btn-success"> Want to Login ?</a>
+                    </div>
+                    
+                </div>
+            </div>
+            
         </div>
     </div>
+    
+    @*<div class="form sign-in">
+            <div class="card" style="width:100%">
+                <div class="card-body">
 
-
-    <script>
-        document.querySelector('.img__btn').addEventListener('click', function () {
-            document.querySelector('.cont').classList.toggle('s--signup');
-        });
-    </script>
-
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+                </div>
+            </div>
+        </div>*@
 </body>
 </html>
+<script>
+    document.querySelector('.img__btn').addEventListener('click', function () {
+        document.querySelector('.cont').classList.toggle('s--signup');
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<script>
+    const btn = document.getElementById('logBTN');
+    btn.style.visibility = 'hidden';
+
+    const btnR = document.getElementById('regBTN');
+    btnR.style.visibility = 'hidden';
+</script>
