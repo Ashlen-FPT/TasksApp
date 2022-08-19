@@ -321,8 +321,8 @@
                     </a>
 
                     <ul class="c-sidebar-nav-dropdown-items">
-                        <li class="c-sidebar-nav-item">
-                            <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
+                        @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                            <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" asp-controller="PreTasks" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
                                       data-toggle="tooltip"
                                       data-placement="bottom"
@@ -330,7 +330,53 @@
                                 &nbsp;
                                 Operational Tasks
                             </a>
+                        </li>*@
+
+                        
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="BobCats" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Supervisor Tasks"></span>
+                                &nbsp;
+                                Brake test - FEL
+                            </a>
                         </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Items" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Operator Tasks"></span>
+                                &nbsp;
+                                Pre start check list FEL
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="DailyWeighs" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Supervisor Tasks"></span>
+                                &nbsp;
+                                Daily weighbridge test
+                            </a>
+                        </li>
+
+                        @*<li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Supervisor Tasks"></span>
+                                &nbsp;
+                                Calibration register
+                            </a>
+                        </li>*@
+
                     </ul>
 
                 </li>

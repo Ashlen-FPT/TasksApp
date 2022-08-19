@@ -72,7 +72,9 @@ namespace TasksApp.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
-
+            [Required]
+            [Display(Name = "Business Entity")]
+            public string Categories { get; set; }
 
             public string Role { get; set; }
 
@@ -107,7 +109,8 @@ namespace TasksApp.Areas.Identity.Pages.Account
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     Email = Input.Email,
-                    Role = Input.Role
+                    Role = Input.Role,
+                    //Categories = model.Categories
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

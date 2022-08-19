@@ -149,5 +149,203 @@ namespace TasksApp.Controllers
         {
             return _context.DailyWeighs.Any(e => e.Id == id);
         }
+
+        #region API Calls
+
+        [HttpGet]
+        public async Task<IActionResult> GetTasksTodayAsync(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var TasksToday = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks").Where(t => t.ChekList == "Weighbridge Test").ToList();
+
+
+            if (TasksToday.Count == 0)
+            {
+                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "Tasks").Where(t => t.ChekList == "Weighbridge Test").ToList();
+
+                foreach (var task in TemplateTasks)
+                {
+
+                    var Task = new DailyWeigh
+                    {
+                        Description = task.Description,
+                        Date = date,
+                        DateCompleted = new DateTime(),
+                        Schedule = task.Schedule,
+                        TaskType = task.TaskType,
+                        ChekList = task.ChekList
+                    };
+
+                    _context.DailyWeighs.Add(Task);
+
+                }
+            }
+
+            if (TasksToday.Count > 0)
+            {
+                var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "Tasks").Where(t => t.ChekList == "Weighbridge Test").ToList();
+
+                if (TemplateTasks.Count > TasksToday.Count)
+                {
+                    var result = TemplateTasks.Where(p => TasksToday.All(p2 => p2.Description != p.Description)).Where(s => s.TaskType == "Tasks").Where(t => t.ChekList == "Weighbridge Test");
+
+                    foreach (var item in result)
+                    {
+                        var Task = new DailyWeigh
+                        {
+                            Description = item.Description,
+                            DateCreated = date,
+                            Schedule = item.Schedule,
+                            DateCompleted = new DateTime(),
+                            TaskType = item.TaskType,
+                            ChekList = item.ChekList
+                        };
+
+                        _context.DailyWeighs.Add(Task);
+                    }
+
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { data = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "Tasks").Where(c => c.ChekList == "Weighbridge Test") });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var tasks = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks").Where(c => c.ChekList == "Weighbridge Test").ToList();
+            var task = _context.DailyWeighs.FirstOrDefault();
+
+            foreach (var item in tasks)
+            {
+                var status = tasks.All(c => c.IsDone == false);
+                {
+                    //task.Status = "Do-Checklist";
+                    await _context.SaveChangesAsync();
+                }
+            }
+            await _context.SaveChangesAsync();
+            return Json(new { data = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks").Where(c => c.ChekList == "Weighbridge Test") });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetTask(int id)
+        {
+            var task = _context.DailyWeighs.Find(id);
+            return Json(task);
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddTask(int Gross, int Tare, int Net, string Observation)
+        {
+            var Task = new DailyWeigh
+            {
+                Date = DateTime.Today,
+                Time = DateTime.Now,
+                Supervisor = User.Identity.Name,
+                Gross = Gross,
+                Tare = Tare,
+                Net = Net,
+                Observation = Observation
+            };
+
+            _context.Add(Task);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Task added!" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CompleteTask(int id)
+        {
+
+            var task = _context.DailyWeighs.Find(id);
+            task.IsDone = true;
+            task.DateCompleted = DateTime.Now;
+            task.Supervisor = User.Identity.Name;
+            //task.Status = "Partially Completed";
+
+            var date = task.Date;
+
+            var tasks = _context.Tasks.Where(d => d.DateCreated == date).ToList();
+            //bool status = tasks.All(c => c.IsDone == false);
+            foreach (var item in tasks)
+            {
+                //if (item.Status == null)
+                //{
+                //    task.Status = "Do-CheckList";
+                //    await _context.SaveChangesAsync();
+                //}
+
+                if (item.IsDone == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+
+                else
+                {
+
+                    //bool statuses = tasks.All(c => c.IsDone == false);
+                    //{
+                    //    task.Status = "Do-Checklist";
+                    //    await _context.SaveChangesAsync();
+                    //}
+
+                    bool completeTasks = tasks.All(c => c.IsDone == true);
+                    {
+                        if (completeTasks == false)
+                        {
+                            //task.Status = "Partially Completed";
+                            await _context.SaveChangesAsync();
+
+                            return Json(new { success = true, message = "Task Completed!" });
+                        }
+                        else if (completeTasks == true)
+                        {
+                            //task.TasksCompleted = true;
+                            task.DateCompleted = DateTime.Now;
+                            //task.Status = "Completed";
+                        }
+                    }
+
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, message = "All Tasks Completed!" });
+                }
+
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "All Tasks Completed!" });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddComment(int id, string comment)
+        {
+
+
+            var task = _context.DailyWeighs.Find(id);
+
+            task.Comments = comment;
+
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Comment added!" });
+
+        }
+        #endregion
     }
 }

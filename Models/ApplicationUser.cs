@@ -16,5 +16,8 @@ namespace TasksApp.Models
         [NotMapped]
         public string Role { get; set; }
 
+        [Required]
+        public string Categories { get; set; }
+
     }
 }

@@ -30,5 +30,15 @@ namespace TasksApp.Controllers
 
             return View(dashboard);
         }
+
+        public IActionResult TLG_Index()
+        {
+            return View();
+        }
+
+        public IActionResult TG_Index()
+        {
+            return View();
+        }
     }
 }

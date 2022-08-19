@@ -28,144 +28,27 @@
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <table class="table table-striped table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
-                    <thead class="thead-dark">
+                    <thead class="thead-light">
                         <tr class="table-info">
                             <th></th>
-                            <th>General</th>
+                            <th></th>
+                            <th></th>
                             @*<th>Description</th>
-                <th>DateCreated</th>*@
-
+                            <th>DateCreated</th>*@
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Does the operator have a license or authorised to operate machine ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Did the driver do a proper pre-start check ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>Did the operator cautiously and slowly drive up the ramp incline ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>4</td>
-                            <td>Did operator put machine in neutral to check if foot brakes hold machine ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>5</td>
-                            <td>Did machine foot brakes hold machine ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>6</td>
-                            <td>Did operator engage the park brake and lift his/her feet off the foot brake ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>7</td>
-                            <td>Did machine park brakes hold the machine ?</td>
-                        </tr>
-                    </tbody>
-
-                    <thead class="thead-dark">
-                        <tr class="table-info">
-                            <th></th>
-                            <th>
-                                After testing brakes on the incline did they check out the
-                                operator advances to the decline of the ramp.
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>8</td>
-                            <td>Did operator slowly and cautiously advance to the decline of the ramp /</td>
-                        </tr>
-
-                        <tr>
-                            <td>9</td>
-                            <td>Did operator put machine in neutral to check if foot brakes hold machine ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>10</td>
-                            <td>Did machine foot brakes hold machine ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>11</td>
-                            <td> Did the operator engage the park brake and lift his/her feet off the foot brake ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>12</td>
-                            <td>Did machine park brakes hold the machine ?</td>
-                        </tr>
-
-                    </tbody>
-
-                    <thead class="thead-dark">
-                        <tr class="table-info">
-                            <th></th>
-                            <th>
-                                After testing brakes on the decline did they check out operators advances
-                                off the ramp.
-
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>10</td>
-                            <td>
-                                Did operator slowly and cautiously move off the ramp ?
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>11</td>
-                            <td>
-                                Did the operator hand the pre-start check list to the supervisor for signing ?
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                    <thead class="thead-dark">
-                        <tr class="table-info">
-                            <th></th>
-                            <th>
-                                If ever the brakes are found to be faulty.
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>12</td>
-                            <td>Did operator slowly and cautiously move off the ramp ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>13</td>
-                            <td>Did operator immediately notify the supervisor ?</td>
-                        </tr>
-
-                        <tr>
-                            <td>14</td>
-                            <td>Was the machine grounded from all operators ?</td>
-                        </tr>
-
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TaskNo)
+                                    @Html.DisplayFor(modelItem => item.Heading)
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -174,7 +57,7 @@
 </div>
 <br />
 
- Add Task Modal 
+@*Add Task Modal*@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -187,6 +70,11 @@
             <div class="modal-body">
 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label"> Task No </label>
+                    <input id="TaskNo" class="form-control" />
+                </div>
 
                 <div class="form-group">
                     <label style="float:left" class="control-label">Heading</label>
@@ -224,7 +112,7 @@
 </div>
 
 
- Edit Modal 
+@*Edit Modal*@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -237,6 +125,11 @@
             <div class="modal-body">
 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label"> Task No </label>
+                    <input id="TaskNoEdit" class="form-control" />
+                </div>
 
                 <div class="form-group">
                     <label style="float:left" class="control-label">Heading</label>
@@ -277,53 +170,124 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 
 <script>
+
+    $(document).ready(function () {
+        var groupColumn = 2;
+        var table = $('#tbl').DataTable({
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            //order: [[groupColumn, 'asc']],
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        // Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+    });
+
     loadTable()
 
     function loadTable() {
-
+        var groupColumn = 2;
         Table01 = $("#tbl").DataTable({
-            //"ajax": {
-            //    "url": "/TemplateBobCats/GetBobCat",
-            //},
-            //responsive: true,
-            //autoWidth: false,
+            "ajax": {
+                "url": "/templatebobcats/getbobcat",
+            },
+            responsive: true,
+            autoWidth: false,
             "columns": [
-                { "data": "id", "width": "5%" },
-                /*{ "data": "heading", "width": "50%" },*/
-                { "data": "description", "width": "60%" },
+                { "data": "taskNo", "width": "5%" },
+                { "data": "description", "width": "85%" },
+                { "data": "heading", "width": "100%" },
 
-                //{
-                //    "data": "dateCreated",
-                //    'render': function (jsonDate) {
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
 
-                //        if (jsonDate == "0001-01-01T00:00:00") {
-                //            return " ";
-                //        }
-                //        else {
-                //            var datestr = jsonDate.toString();
-                //            var date = new Date(datestr.substr(0, 10));
-                //            var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                //            var time = datestr.substr(11)
-                //            var hr = time.substr(0, 2)
-                //            var min = time.substr(3, 2)
-                //            var sec = time.substr(6, 2);
-                //            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                //        }
 
-                //    }, "width": "50%"
-                //},
-            ]
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Edit BobCat Task">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateBobCats/DeleteBobCat/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete BobCat Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "10%"
+                },
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            //order: [[groupColumn, 'asc']],
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="2">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        // Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
         });
     }
 
     function AddTask() {
+        var T_No = $('#TaskNo').val();
         var Head = $('#Heading').val();
         var Desc = $('#Description').val();
-        
-        
+
+
         $.ajax({
             type: "POST",
-            url: "/TemplateBobCats/AddBobCat?Desc=" + Desc + "&Head=" + Head,
+            url: "/TemplateBobCats/AddBobCat?T_No=" + T_No + "&Desc=" + Desc + "&Head=" + Head,
             success: function (data) {
                 if (data.success) {
 
@@ -356,9 +320,7 @@
                         if (data.success) {
                             toastr.success(data.message);
                             Table01.ajax.reload();
-                            Table02.ajax.reload();
-                            Table03.ajax.reload();
-                            Table04.ajax.reload();
+
                         }
                         else {
                             toastr.error(data.message);
@@ -378,9 +340,10 @@
             type: "GET",
             url: "/TemplateBobCats/GetBobCat?id=" + id,
             success: function (data) {
+                document.getElementById("TaskNoEdit").value = data.data.taskNo;
                 document.getElementById("DescriptionEdit").value = data.data.description;
-                document.getElementById("ScheduleEdit").value = data.data.schedule;
-                /*document.getElementById("TaskTypeEdit").value = data.data.TaskType;*/
+                document.getElementById("HeadingEdit").value = data.data.heading;
+                //document.getElementById("IdEdit").value = data.data.id;
                 editId = id;
             }
         });
@@ -388,12 +351,13 @@
 
     function EditTask() {
 
+        var TaskNo = $('#TaskNoEdit').val();
         var Heading = $('#HeadingEdit').val();
         var Desc = $('#DescriptionEdit').val();
 
         $.ajax({
             type: "PUT",
-            url: "/TemplateBobCats/EditBobCat?Id=" + editId + "&Desc=" + Desc + "&Heading=" + Heading,
+            url: "/TemplateBobCats/EditBobCat?Id=" + editId + "TaskNo=" + TaskNo + "&Desc=" + Desc + "&Heading=" + Heading,
             success: function (data) {
                 if (data.success) {
 

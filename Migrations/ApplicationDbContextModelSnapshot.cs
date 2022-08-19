@@ -300,6 +300,21 @@ namespace TasksApp.Migrations
                     b.ToTable("Audit");
                 });
 
+            modelBuilder.Entity("TasksApp.Models.BE", b =>
+                {
+                    b.Property<int>("iD")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Categories")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("iD");
+
+                    b.ToTable("BEs");
+                });
+
             modelBuilder.Entity("TasksApp.Models.BobCat", b =>
                 {
                     b.Property<int>("Id")
@@ -355,11 +370,29 @@ namespace TasksApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ChekList")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DateCompleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Gross")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Net")
                         .HasColumnType("int");
@@ -367,14 +400,20 @@ namespace TasksApp.Migrations
                     b.Property<string>("Observation")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Schedule")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Supervisor")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Tare")
                         .HasColumnType("int");
 
+                    b.Property<string>("TaskType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("username")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -520,10 +559,17 @@ namespace TasksApp.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("DateAllTaskCompleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateTaskCompleted")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Not")
@@ -532,10 +578,19 @@ namespace TasksApp.Migrations
                     b.Property<bool>("Ok")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Schedule")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Shift")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TasksCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("User")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -754,18 +809,86 @@ namespace TasksApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Brake_Test")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("General")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Heading")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Results")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TaskNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Test_Brake")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TemplateBobCat");
+                });
+
+            modelBuilder.Entity("TasksApp.Models.TemplateDailyCheck", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HeadNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Heading")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SubItems")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TemplateDailyChecks");
+                });
+
+            modelBuilder.Entity("TasksApp.Models.TemplateMain", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Schedule")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TemplateMains");
                 });
 
             modelBuilder.Entity("TasksApp.Models.TemplateTask", b =>
@@ -779,6 +902,9 @@ namespace TasksApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Bi_Annual")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ChekList")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -815,6 +941,10 @@ namespace TasksApp.Migrations
             modelBuilder.Entity("TasksApp.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Categories")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()

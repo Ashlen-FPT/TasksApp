@@ -16,5 +16,6 @@ namespace TasksApp.Models
         public bool IsDone { get; set; }
 
         public string Remarks { get; set; }
+
     }
 }

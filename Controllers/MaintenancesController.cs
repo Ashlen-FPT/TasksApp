@@ -149,5 +149,198 @@ namespace TasksApp.Controllers
         {
             return _context.Maintenances.Any(e => e.Id == id);
         }
+
+        #region API Calls
+
+        [HttpGet]
+        public async Task<IActionResult> GetTasksTodayAsync(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var TasksToday = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+
+
+            if (TasksToday.Count == 0)
+            {
+                var TemplateTasks = _context.TemplateMains.Where(s => s.Schedule == "Daily").ToList();
+
+                foreach (var task in TemplateTasks)
+                {
+
+                    var Task = new Maintenance
+                    {
+                        Description = task.Description,
+                        DateCreated = date,
+                        DateTaskCompleted = new DateTime(),
+                        Schedule = task.Schedule,
+                    };
+
+                    _context.Maintenances.Add(Task);
+
+                }
+            }
+
+            if (TasksToday.Count > 0)
+            {
+                var TemplateTasks = _context.TemplateMains.Where(s => s.Schedule == "Daily").ToList();
+
+                if (TemplateTasks.Count > TasksToday.Count)
+                {
+                    var result = TemplateTasks.Where(p => TasksToday.All(p2 => p2.Description != p.Description));
+
+                    foreach (var item in result)
+                    {
+                        var Task = new Maintenance
+                        {
+                            Description = item.Description,
+                            DateCreated = date,
+                            Schedule = item.Schedule,
+                            DateTaskCompleted = new DateTime(),
+                        };
+
+                        _context.Maintenances.Add(Task);
+                    }
+
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { data = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily")});
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var tasks = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+            var task = _context.Maintenances.FirstOrDefault();
+
+            foreach (var item in tasks)
+            {
+                var status = tasks.All(c => c.Ok == false);
+                {
+                    task.Status = "Do-Checklist";
+                    await _context.SaveChangesAsync();
+                }
+            }
+            await _context.SaveChangesAsync();
+            return Json(new { data = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date)});
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CompleteTask(int id)
+        {
+
+            var task = _context.Maintenances.Find(id);
+            task.Ok = true;
+            //task.Not = true;
+            task.DateTaskCompleted = DateTime.Now;
+            task.User = User.Identity.Name;
+            //task.Status = "Partially Completed";
+
+            var date = task.DateCreated;
+
+            var tasks = _context.Maintenances.Where(d => d.DateCreated == date).ToList();
+            //bool status = tasks.All(c => c.IsDone == false);
+            foreach (var item in tasks)
+            {
+                //if (item.Status == null)
+                //{
+                //    task.Status = "Do-CheckList";
+                //    await _context.SaveChangesAsync();
+                //}
+
+               if (item.Ok == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+
+                else
+                {
+
+                    //bool statuses = tasks.All(c => c.IsDone == false);
+                    //{
+                    //    task.Status = "Do-Checklist";
+                    //    await _context.SaveChangesAsync();
+                    //}
+
+                    bool completeTasks = tasks.All(c => c.Ok == true);
+                    {
+                        if (completeTasks == false)
+                        {
+                           // task.Status = "Partially Completed";
+                            await _context.SaveChangesAsync();
+
+                            return Json(new { success = true, message = "Task Completed!" });
+                        }
+                        else if (completeTasks == true)
+                        {
+                            task.TasksCompleted = true;
+                            task.DateAllTaskCompleted = DateTime.Now;
+                           // task.Status = "Completed";
+                        }
+                    }
+
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, message = "All Tasks Completed!" });
+                }
+
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "All Tasks Completed!" });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CompleteAllTasks(DateTime date)
+        {
+            var task = _context.Maintenances.Where(d => d.DateCreated == date).Where(t => t.Ok == true).ToList();
+
+            foreach (var item in task)
+            {
+                if (item.Ok == true)
+                {
+                    item.TasksCompleted = true;
+                    item.DateAllTaskCompleted = DateTime.Now;
+                }
+
+            }
+            await _context.SaveChangesAsync();
+            return Json(new { success = true, message = "All Tasks Completed!" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddComment(int id, string comment)
+        {
+
+
+            var task = _context.Maintenances.Find(id);
+
+            task.Comments = comment;
+
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Comment added!" });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetTask(int id)
+        {
+            var task = _context.Maintenances.Find(id);
+            return Json(task);
+
+        }
+        #endregion
     }
 }

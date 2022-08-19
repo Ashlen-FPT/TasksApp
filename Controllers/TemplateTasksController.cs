@@ -212,21 +212,22 @@ namespace TasksApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTask(string Desc, string Schedule, string Day, string Month, string TType, string Annual, string Quarter, string Bi_Annually)
+        public async Task<IActionResult> AddTask(string Desc, string Schedule, string Day, string Month, string TType, string Annual, string Quarter, string Bi_Annually, string ChekList)
         {
-            
-            var Task = new TemplateTask 
-            { 
+
+            var Task = new TemplateTask
+            {
                 Description = Desc,
                 Schedule = Schedule,
                 DayOfWeek = Day,
                 Month = Month,
                 Quarterly = Quarter,
                 Bi_Annual = Bi_Annually,
-                Annual =Annual,
+                Annual = Annual,
                 TaskType = TType,
                 DateCreated = DateTime.Now,
-                UserEmail = User.Identity.Name
+                UserEmail = User.Identity.Name,
+                ChekList = ChekList
             
             };
 

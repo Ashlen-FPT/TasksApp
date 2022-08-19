@@ -28,5 +28,7 @@ namespace TasksApp.Models
         public string UserEmail { get; set; }
 
         public string TaskType { get; set; }
+
+        public string ChekList { get; set; }
     }
 }

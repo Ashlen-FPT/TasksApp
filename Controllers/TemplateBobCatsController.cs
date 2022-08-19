@@ -160,11 +160,12 @@ namespace TasksApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBobCat(string Desc, string Head)
+        public async Task<IActionResult> AddBobCat(int T_No, string Desc, string Head)
         {
 
             var bobCat = new TemplateBobCat
             {
+                TaskNo = T_No,
                 Heading = Head,
                 Description = Desc,
                 DateCreated = DateTime.Now,
@@ -179,11 +180,12 @@ namespace TasksApp.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> EditBobCat(int Id, string Desc, string Head)
+        public async Task<IActionResult> EditBobCat(int Id, int TaskNo, string Desc, string Head)
         {
 
             var templateBobcat = await _context.TemplateBobCat.FindAsync(Id);
 
+            templateBobcat.TaskNo = TaskNo;
             templateBobcat.Description = Desc;
             templateBobcat.Heading = Head;
 

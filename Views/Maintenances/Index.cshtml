@@ -6,393 +6,408 @@
 
 <h4>MAINTENANCE DAILY CHECK SHEET</h4>
 
-<style>
-    input.larger {
-        width: 20px;
-        height: 20px;
-    }
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
 
-    table, td, th {
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
+<br />
+<div class="form-group">
+    <label class="control-label">Choose date</label>
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+</div>
 
-</style>
+<br />
 
 <div class="card text-center" style="width: 100%;">
+    <div class="card-title">
+        <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-homes-tab" data-toggle="pill" href="#pills-homes" role="tab" aria-controls="pills-homes" aria-selected="true">Daily</a>
+            </li>
+
+            @*<li class="nav-item">
+                <a class="nav-link" id="pills-profiles-tab" data-toggle="pill" href="#pills-profiles" role="tab" aria-controls="pills-profiles" aria-selected="false">Weekly</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-contacts-tab" data-toggle="pill" href="#pills-contacts" role="tab" aria-controls="pills-contacts" aria-selected="false">Monthly</a>
+            </li>*@
+        </ul>
+    </div>
 
     <div class="card-body">
         <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <table class="center table table-striped table-hover" id="tbl" style=" word-wrap:break-word; width:70%; table-layout:fixed">
+            <div class="tab-pane fade show active" id="pills-homes" role="tabpanel" aria-labelledby="pills-homes-tab">
+
+                <div class="progress">
+                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <br />
+
+                <table id="Table01" class="table table-striped table-bordered table-hover" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
-                            <th>DESCRIPTION</th>
-                            <th type="checkbox" style="width:10%" >OK</th>
-                            <th type="checkbox" style="width:10%">NOT</th>
-                            <th>COMMENTS</th>
+                            <th>Description</th>
+                            <th>Pass</th>
+                            <th>Fail</th>
+                            <th>Date Task Completed</th>
+                            <th>Add Comments</th>
+                            <th>Comments</th>
+                            <th> </th>
                         </tr>
                     </thead>
-
-                    <tbody>
-                        <tr>
-                            <td><b>Hydraulic pump</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Hydraulic gauge</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Diesel tank</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Bearings</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b> Conveyor belts</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Screen Mesh condition</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Screen Mesh Tension</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Conveyor Belt Alignment </b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Feed Hopper</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Wear plates</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Grid bars</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Screen Chutes</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Guards condition</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                        <tr>
-                            <td><b>Machine Condition</b></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td><input type="checkbox" class="larger"/></td>
-                            <td> </td>
-                        </tr>
-
-                    </tbody>
-
                 </table>
             </div>
         </div>
     </div>
 </div>
 
-<html>
-<head>
-    <style>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
+            <div class="modal-body">
+                <form>
 
-            table.center {
-                margin-left: auto;
-                margin-right: auto;
-            }
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Comments:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                </form>
+            </div>
 
-        input.center {
-            margin-left: auto;
-            margin-right: auto;
-            min-block-size: max-content;
-        }
-    </style>
-</head>
-<body>
-    <p ><b> SHIFT</b><hr width="20%" , size="3"  color="black"  /> </p>
-
-    <p><b> OPERATOR</b><hr width="20%" , size="3"  color="black" /> </p>
-
-    <p><b> DATE</b><hr width="20%" , size="3"  color="black" /> </p>
-</body>
-</html>
-
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="SaveComment()" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="~/plugins/jquery/jquery.js"></script>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 
 
 <script>
-    loadTable()
 
-    function loadTable() {
 
-        Table01 = $("#tbl").DataTable({
+    var storedDate = localStorage.getItem('odate');
+    $(document).ready(function () {
+        var date;
+        if (storedDate == null) {
+            date = document.getElementById("datePicker").value;
+        }
+        else if (storedDate != null) {
+            date = storedDate;
+            localStorage.removeItem('odate');
+        }
 
+        loadTable(date);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Maintenances/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progressbar").style.width = p + "%";
+                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                }
+            }
+        });
+
+
+    });
+
+    $('#datePicker').change(function () {
+        var date = document.getElementById("datePicker").value;
+        Table01.destroy();
+        loadTable(date);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Maintenances/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+
+
+
+                if (Number.isNaN(p)) {
+                    console.log(p)
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+                }
+                else if (p == 0) {
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+                }
+
+                else {
+                    document.getElementById("progressbar").style.width = p + "%";
+                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                }
+
+            }
+        });
+
+    });
+
+    function loadTable(date) {
+
+        Table01 = $("#Table01").DataTable({
+            "ajax": {
+                "url": "/Maintenances/GetTasksToday?date=" + date
+            },
             "columns": [
-                { "data": "description", "width": "40%" },
-                { "data": "ok", "width": "15%" },
-                { "data": "not", "width": "15%" },
-                { "data": "comments", "width": "50%" },
+                { "data": "description", "width": "60%" },
+                {
+                    "data": {
+                        id: "id", ok: "ok"
+                    },
+                    "render": function (data) {
+                        if (data.ok == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                               `;
+
+                        }
+
+                        if (data.ok == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("Maintenances/CompleteTask/${data.id}") type="checkbox" />
+
+                                </div>
+                               `;
+
+                        }
+
+                    }, "width": "30%"
+                },
+
+                {
+                    "data": {
+                        id: "id", not: "not"
+                    },
+                    "render": function (data) {
+                        if (data.not == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                               `;
+
+                        }
+
+                        if (data.ok == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("Maintenances/CompleteTask/${data.id}") type="checkbox" />
+
+                                </div>
+                               `;
+
+                        }
+
+                    }, "width": "30%"
+                },
+
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                <div class="text-center">
+                                   <button type="button" class="btn btn-info" onclick="showModal(this)"  data-id="${data.id}" >
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+
+                                </div>
+                               `;
+                    }, "width": "40%"
+                },
+
+                { "data": "comments", "width": "100%" }
 
                 //{
                 //    "data": {
-                //        id: "id", yes: "yes"
+                //        id: "id"
                 //    },
                 //    "render": function (data) {
-                //        if (data.yes == true) {
 
-                //            return `
-                //                <div class="text-center">
-                //                   <input disabled type="checkbox" checked="true" />
-
-                //                </div>
+                //        return `
+                //                <a href="DailyWeighs/Index" data-id="${data.id}">View Detailed</a>
                 //               `;
+                //    }, "width": "40%"
+                //}
 
-                //        }
-
-                //        if (data.yes == false) {
-
-                //            return `
-                //                <div class="text-center">
-                //                   <input onclick=Delete("Task/CompleteTask/${data.id}") type="checkbox" />
-
-                //                </div>
-                //               `;
-
-                //        }
-
-                //    }, "width": "10"
-                //},
-
-                //{
-                //    "data": {
-                //        id: "id", no: "no"
-                //    },
-                //    "render": function (data) {
-                //        if (data.no == true) {
-
-                //            return `
-                //                <div class="text-center">
-                //                   <input disabled type="checkbox" checked="true" />
-
-                //                </div>
-                //               `;
-
-                //        }
-
-                //        if (data.no == false) {
-
-                //            return `
-                //                <div class="text-center">
-                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
-
-                //                </div>
-                //               `;
-
-                //        }
-
-                //    }, "width": "10%"
-                //},
-
-                //{
-                //    "data": {
-                //        id: "id", nA: "nA"
-                //    },
-                //    "render": function (data) {
-                //        if (data.nA == true) {
-
-                //            return `
-                //                <div class="text-center">
-                //                   <input disabled type="checkbox" checked="true" />
-
-                //                </div>
-                //               `;
-
-                //        }
-
-                //        if (data.nA == false) {
-
-                //            return `
-                //                <div class="text-center">
-                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
-
-                //                </div>
-                //               `;
-
-                //        }
-
-                //    }, "width": "10%"
-                //},
-
-                //{
-                //    "data": "dateCreated",
-                //    'render': function (jsonDate) {
-
-                //        if (jsonDate == "0001-01-01T00:00:00") {
-                //            return " ";
-                //        }
-                //        else {
-                //            var datestr = jsonDate.toString();
-                //            var date = new Date(datestr.substr(0, 10));
-                //            var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                //            var time = datestr.substr(11)
-                //            var hr = time.substr(0, 2)
-                //            var min = time.substr(3, 2)
-                //            var sec = time.substr(6, 2);
-                //            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                //        }
-
-                //    }, "width": "50%"
-                //},
             ]
         });
     }
 
-        //function AddTask() {
-        //    var Head = $('#Heading').val();
-        //    var Desc = $('#Description').val();
+    function Delete(url) {
+
+        var uri = url;
+        var res = encodeURI(uri);
+
+        swal({
+            title: "Are you sure you want to complete this task?",
+            text: "You will not be able to restore the data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "GET",
+                    url: res,
+                    success: function (data) {
+                        if (data.success) {
+                            var date = document.getElementById("datePicker").value;
+                            $.ajax({
+                                type: "GET",
+                                dataType: 'json',
+                                url: "/Maintenances/GetAll?date=" + date,
+                                async: false,
+                                success: function (response) {
+                                    console.log(response)
+                                    var count = 0;
+
+                                    for (var i = 0; i < response.data.length; i++) {
+
+                                        if (response.data[i].isDone == true) {
+                                            count += 1;
+                                        }
+
+                                    }
+
+                                    var p = (count / response.data.length) * 100;
+                                    document.getElementById("progressbar").style.width = p + "%";
+                                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                                }
+                            });
+                            toastr.success(data.message);
+                            Table01.ajax.reload();
+
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    var CommentId = 1;
+
+    function showModal(event) {
+
+        $('#exampleModal').modal("toggle");
+
+        CommentId = event.dataset.id
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Maintenances/GetTask?id=" + CommentId,
+            async: false,
+            success: function (response) {
+                document.getElementById("message-text").value = response.comments;
+                console.log(response.comments)
+            }
+        });
+
+    }
+
+    function SaveComment() {
+
+        console.log("save")
+
+        var comment = document.getElementById("message-text").value;
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Maintenances/AddComment?id=" + CommentId + "&comment=" + comment,
+            async: false,
+            success: function (response) {
+                toastr.success(response.message);
+                Table01.ajax.reload();
+            }
+        });
 
 
-        //    $.ajax({
-        //        type: "POST",
-        //        url: "/TemplateBobCats/AddBobCat?Desc=" + Desc + "&Head=" + Head,
-        //        success: function (data) {
-        //            if (data.success) {
+        $('#exampleModal').modal("toggle");
+    }
 
-        //                $("#exampleModal").modal("toggle")
-        //                swal(data.message, "", "success");
-        //                Table01.ajax.reload();
-
-        //            }
-        //            else {
-        //                toastr.error(data.message);
-        //            }
-        //        }
-        //    });
-
-        //}
-
-        //function Delete(url) {
-        //    swal({
-        //        title: "Are you sure you want to Delete?",
-        //        text: "You will not be able to restore the data!",
-        //        icon: "warning",
-        //        buttons: true,
-        //        dangerMode: true
-        //    }).then((willDelete) => {
-        //        if (willDelete) {
-        //            $.ajax({
-        //                type: "DELETE",
-        //                url: url,
-        //                success: function (data) {
-        //                    if (data.success) {
-        //                        toastr.success(data.message);
-        //                        Table01.ajax.reload();
-        //                        Table02.ajax.reload();
-        //                        Table03.ajax.reload();
-        //                        Table04.ajax.reload();
-        //                    }
-        //                    else {
-        //                        toastr.error(data.message);
-        //                    }
-        //                }
-        //            });
-        //        }
-        //    });
-        //}
-
-        //var editId = 0;
-
-        //function ShowEditModal(id) {
-        //    $("#editModal").modal("toggle");
-
-        //    $.ajax({
-        //        type: "GET",
-        //        url: "/TemplateBobCats/GetBobCat?id=" + id,
-        //        success: function (data) {
-        //            document.getElementById("DescriptionEdit").value = data.data.description;
-        //            document.getElementById("ScheduleEdit").value = data.data.schedule;
-        //            /*document.getElementById("TaskTypeEdit").value = data.data.TaskType;*/
-        //            editId = id;
-        //        }
-        //    });
-        //}
-
-        //function EditTask() {
-
-        //    var Heading = $('#HeadingEdit').val();
-        //    var Desc = $('#DescriptionEdit').val();
-
-        //    $.ajax({
-        //        type: "PUT",
-        //        url: "/TemplateBobCats/EditBobCat?Id=" + editId + "&Desc=" + Desc + "&Heading=" + Heading,
-        //        success: function (data) {
-        //            if (data.success) {
-
-        //                $("#editModal").modal("toggle")
-        //                swal(data.message, "", "success");
-        //                Table01.ajax.reload();
-        //            }
-        //            else {
-        //                toastr.error(data.message);
-        //            }
-        //        }
-        //    });
-        //}
 </script>

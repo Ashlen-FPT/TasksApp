@@ -532,6 +532,13 @@ namespace TasksApp.Controllers
 
         }
 
+        public IActionResult GetBobCat()
+        {
+
+            return Json(new { data = _context.TemplateTasks.Where(d => d.Description == "Brake Test FEL - Bobcat").ToList() });
+
+        }
+
         #endregion
     }
 

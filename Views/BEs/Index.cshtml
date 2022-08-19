@@ -1,0 +1,221 @@
+﻿@model IEnumerable<TasksApp.Models.BE>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categories)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categories)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.iD">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.iD">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.iD">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Create two equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 30%;
+        margin: 1%;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+        /* If the text has multiple lines, add the following: */
+        .center p {
+            line-height: 1.5;
+            display: inline-block;
+            vertical-align: middle;
+        }
+</style>
+
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                    Create New
+                </button>
+
+                <h5 class="modal-title" id="staticBackdropLabel">Select Business Entity</h5>
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="modal-body">
+                            <div class="row">
+                                <button class="column btn btn-warning" onclick="NavigateToMCT();">
+                                    <div class="center">
+                                        <h1>
+                                            MCT
+                                        </h1>
+
+                                    </div>
+
+                                </button>
+
+                                <button class="column btn btn-dark" onclick="NavigateToTLG()">
+                                    <div class="center">
+                                        <h1>
+                                            TLG
+                                        </h1>
+
+                                    </div>
+                                </button>
+
+                                <button class="column btn btn-success" onclick="NavigateToTG()">
+                                    <div class="center">
+                                        <h1>
+                                            TG
+                                        </h1>
+
+                                    </div>
+                                </button>
+                            </div>
+
+                        </div>
+                    }
+                </form>
+            </div>
+            @*<div class="modal-footer">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="btn btn-secondary">Login</button>
+            </form>
+
+        </div>*@
+        </div>
+    </div>
+</div>
+
+<!-- Add Task Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Business Entity</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Business Entity</label>
+                    <input id="Categories" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a onclick="AddEntity()" class="btn btn-primary">Create</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#staticBackdrop").modal('show');
+
+    });
+
+function NavigateToGC() {
+
+   @* window.location.href = "GCCustomer/GCBooking/Create";*@
+
+   swal({
+        title: "This feature is currently unavailable!",
+                    icon: "warning",
+                    button: "OK",
+                }).then((value) => {
+
+                });
+    }
+
+
+</script>
+
+
+<script>
+    function NavigateToMCT() {
+
+        //window.location.href = "FruitCustomer/Booking/Create?Choice=Fruit";
+        window.location.href = "Home/Index";
+
+
+    }
+
+    function NavigateToTLG() {
+
+        //window.location.href = "FruitCustomer/Booking/Create?Choice=Fruit";
+        window.location.href = "Home/TLG_Index";
+
+
+    }
+
+    function AddEntity() {
+
+        var Category = $('#Categories').val();
+        
+        $.ajax({
+            type: "POST",
+            url: "/BEs/AddEntity?Category=" + Category,
+            success: function (data) {
+                if (data.success) {
+
+                    $("#exampleModal").modal("toggle")
+                   
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+
+    }
+
+</script>

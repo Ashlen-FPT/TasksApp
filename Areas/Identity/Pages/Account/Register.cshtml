@@ -348,11 +348,17 @@
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </label>
 
+                            @*<label>
+                                @Html.DisplayNameFor(model => model.Categories)
+                                <input asp-for="Input.Categories" placeholder="Company" />
+                                <span asp-validation-for="Input.Categories" class="text-danger"></span>
+                            </label>*@
+
                             @if (User.IsInRole(SD.Role_Admin))
                             {
                                 <label>
                                     @*<input asp-for="Input.Role" placeholder="Role" />
-                        <span asp-validation-for="Input.Role" class="text-danger"></span>*@
+                <span asp-validation-for="Input.Role" class="text-danger"></span>*@
                                     @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Please select a role", new { @class = "form-control" })
                                 </label>
                             }

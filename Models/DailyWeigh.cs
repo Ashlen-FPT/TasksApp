@@ -13,7 +13,7 @@ namespace TasksApp.Models
 
         public DateTime Time { get; set; }
 
-        public string username { get; set; }
+        public string Supervisor { get; set; }
 
         public int Gross { get; set; }
 
@@ -22,5 +22,21 @@ namespace TasksApp.Models
         public int Net { get; set; }
 
         public string Observation { get; set; }
+
+        public string Description { get; set; }
+
+        public string TaskType { get; set; }
+
+        public string Schedule { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public bool IsDone { get; set; }
+
+        public DateTime DateCompleted { get; set; }
+
+        public string Comments { get; set; }
+
+        public string ChekList { get; set; }
     }
 }
