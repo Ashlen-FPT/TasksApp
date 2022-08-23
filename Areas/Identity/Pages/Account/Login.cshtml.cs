@@ -11,6 +11,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using TasksApp.Models;
+using TasksApp.Data;
+using TasksApp.Migrations;
 
 namespace TasksApp.Areas.Identity.Pages.Account
 {
@@ -20,14 +25,16 @@ namespace TasksApp.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly ApplicationDbContext _context;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         [BindProperty]
@@ -44,14 +51,22 @@ namespace TasksApp.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
+            [Display(Name ="Email")]
             public string Email { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Password")]
             public string Password { get; set; }
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+
+            [Required]
+            [Display(Name = "Organization")]
+            public string Entity { get; set; }
+
+            public IEnumerable<SelectListItem> EntityList { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -62,6 +77,16 @@ namespace TasksApp.Areas.Identity.Pages.Account
             }
 
             returnUrl ??= Url.Content("~/");
+
+            Input = new InputModel
+            {
+
+                EntityList = _context.BEs.Select(x => x.Categories).Select(y => new SelectListItem
+                {
+                    Text = y,
+                    Value = y
+                })
+            };
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -76,12 +101,20 @@ namespace TasksApp.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        
+
+            var user = _context.Users.SingleOrDefault(x=>x.UserName==Input.Email);
+
+
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe,lockoutOnFailure: false);
+                if (Input.Entity!=null)
+                {
+                    
+                    ModelState.AddModelError(string.Empty, "You do not belong to this organization");
+                }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

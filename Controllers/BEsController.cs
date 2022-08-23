@@ -34,7 +34,7 @@ namespace TasksApp.Controllers
             }
 
             var bE = await _context.BEs
-                .FirstOrDefaultAsync(m => m.iD == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (bE == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace TasksApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("iD,Categories")] BE bE)
         {
-            if (id != bE.iD)
+            if (id != bE.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace TasksApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BEExists(bE.iD))
+                    if (!BEExists(bE.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace TasksApp.Controllers
             }
 
             var bE = await _context.BEs
-                .FirstOrDefaultAsync(m => m.iD == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (bE == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace TasksApp.Controllers
 
         private bool BEExists(int id)
         {
-            return _context.BEs.Any(e => e.iD == id);
+            return _context.BEs.Any(e => e.Id == id);
         }
 
         [HttpPost]

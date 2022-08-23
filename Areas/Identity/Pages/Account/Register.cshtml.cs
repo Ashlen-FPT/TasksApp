@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using TasksApp.Data;
 using TasksApp.Models;
 
 namespace TasksApp.Areas.Identity.Pages.Account
@@ -26,17 +27,19 @@ namespace TasksApp.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
         public RegisterModel(
            UserManager<IdentityUser> userManager,
            SignInManager<IdentityUser> signInManager,
            ILogger<RegisterModel> logger,
-           IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
+           IEmailSender emailSender, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            _context = context;
         }
 
         [BindProperty]
@@ -73,12 +76,13 @@ namespace TasksApp.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
-            [Display(Name = "Business Entity")]
+            [Display(Name = "Organization")]
             public string Categories { get; set; }
 
             public string Role { get; set; }
 
             public IEnumerable<SelectListItem> RoleList { get; set; }
+            public IEnumerable<SelectListItem> EntityList { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -92,6 +96,12 @@ namespace TasksApp.Areas.Identity.Pages.Account
                     Text = i,
                     Value = i
 
+                }),
+
+                EntityList =_context.BEs.Select(x=>x.Categories).Select(y=> new SelectListItem
+                {
+                    Text=y,
+                    Value=y
                 })
             };
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -110,7 +120,7 @@ namespace TasksApp.Areas.Identity.Pages.Account
                     LastName = Input.LastName,
                     Email = Input.Email,
                     Role = Input.Role,
-                    //Categories = model.Categories
+                    Categories = Input.Categories
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

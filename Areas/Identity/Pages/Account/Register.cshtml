@@ -312,7 +312,7 @@
 
         body {
             font-family: 'PT Sans', sans-serif !important;
-            background-image: url('/images/slider4.jpg');
+            background-image: url('/images/Login.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             margin: 0;
@@ -348,18 +348,19 @@
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </label>
 
-                            @*<label>
-                                @Html.DisplayNameFor(model => model.Categories)
-                                <input asp-for="Input.Categories" placeholder="Company" />
-                                <span asp-validation-for="Input.Categories" class="text-danger"></span>
-                            </label>*@
+                                <label>
+                                    @*<input asp-for="Input.Role" placeholder="Role" />
+                                <span asp-validation-for="Input.Role" class="text-danger"></span>*@
+                                    @Html.DropDownListFor(m => m.Input.Categories, Model.Input.EntityList, "-Select an organization-", new { @class = "form-control" })
+                                </label>
+                            
 
                             @if (User.IsInRole(SD.Role_Admin))
                             {
                                 <label>
                                     @*<input asp-for="Input.Role" placeholder="Role" />
                 <span asp-validation-for="Input.Role" class="text-danger"></span>*@
-                                    @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Please select a role", new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Select a role-", new { @class = "form-control" })
                                 </label>
                             }
 
