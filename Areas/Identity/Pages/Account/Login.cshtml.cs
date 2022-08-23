@@ -61,12 +61,6 @@ namespace TasksApp.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
-
-            [Required]
-            [Display(Name = "Organization")]
-            public string Entity { get; set; }
-
-            public IEnumerable<SelectListItem> EntityList { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -77,16 +71,6 @@ namespace TasksApp.Areas.Identity.Pages.Account
             }
 
             returnUrl ??= Url.Content("~/");
-
-            Input = new InputModel
-            {
-
-                EntityList = _context.BEs.Select(x => x.Categories).Select(y => new SelectListItem
-                {
-                    Text = y,
-                    Value = y
-                })
-            };
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -102,19 +86,11 @@ namespace TasksApp.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            var user = _context.Users.SingleOrDefault(x=>x.UserName==Input.Email);
-
-
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe,lockoutOnFailure: false);
-                if (Input.Entity!=null)
-                {
-                    
-                    ModelState.AddModelError(string.Empty, "You do not belong to this organization");
-                }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
