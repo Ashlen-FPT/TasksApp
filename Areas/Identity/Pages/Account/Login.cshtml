@@ -229,13 +229,6 @@
                             @Html.ValidationMessageFor(x=>x.Input.Password)
                             @*<span asp-validation-for="Input.Password"></span>*@
                         </div>
-                        
-                        <div>
-                            @Html.LabelFor(x=>x.Input.Entity)
-                            @Html.DropDownListFor(x => x.Input.Entity, Model.Input.EntityList, "-Select an organization-", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(x=>x.Input.Entity)
-                           @*<span asp-validation-for="Input.Entity"></span>*@
-                        </div>
 
                         @*<div class="form-group">
                         <input asp-for="Input.RememberMe" type="checkbox"/>

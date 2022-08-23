@@ -21,11 +21,12 @@
 
         <li class="nav-item d-none d-sm-inline-block" style="padding-right:20px;">
 
-            <button type="button" class=" nav-link btn btn-warning fa fa-user-alt " id="buttDis">  Logged In : @User.Identity.Name</button>
-
-
-
+            <button type="button" class=" nav-link btn btn-warning fa fa-user-alt " id="buttDis">  Logged In : @User.FindFirst("Username").Value</button>
         </li>
+            <li class="nav-item d-none d-sm-inline-block" style="padding-right:20px;">
+
+                <button type="button" class=" nav-link btn btn-success fa fa-building " id="buttDis">  Organization : @User.FindFirst("Organization").Value</button>
+            </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                     <button type="submit" class="nav-link btn btn-info fa fa-sign-out-alt"> Log Out</button>
