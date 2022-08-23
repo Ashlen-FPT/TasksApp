@@ -178,18 +178,19 @@ namespace TasksApp.Controllers
             return Json(new { success = true, message = "Sub-Task added!" });
         }
 
-        [HttpPost]
+        
         public async Task<IActionResult> AddSubItem(int id, string Desc, string Head)
         {
-
             var dailyCheck = new TemplateDailyCheck
             {
-                Heading = Head,
-                Description = Desc,  
+                 Heading = Head,
+                 Description = Desc,
             };
+          
 
-            var q = from temp in _context.TemplateDailyChecks select temp.Heading;
-            ViewBag.Heading = q;
+            //ViewBag.Heading = new SelectList(_context.TemplateDailyChecks, "HeadNo", "Heading", dailyCheck.HeadNo);
+            //var q = from temp in _context.TemplateDailyChecks select temp.Heading;
+            //ViewBag.Heading = q;
             //ViewData.["HeadingId"] = new SelectList(_context.TemplateDailyChecks, "Heading", "HeadNo");
             _context.Add(dailyCheck);
             await _context.SaveChangesAsync();

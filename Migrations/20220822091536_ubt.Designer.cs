@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TasksApp.Data;
 
 namespace TasksApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220822091536_ubt")]
+    partial class ubt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -361,29 +363,6 @@ namespace TasksApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DailyChecks");
-                });
-
-            modelBuilder.Entity("TasksApp.Models.DailyChecksSub", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Heading")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TemplateDailyChecksId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TemplateDailyChecksId");
-
-                    b.ToTable("DailyChecksSubs");
                 });
 
             modelBuilder.Entity("TasksApp.Models.DailyWeigh", b =>
@@ -1029,15 +1008,6 @@ namespace TasksApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TasksApp.Models.DailyChecksSub", b =>
-                {
-                    b.HasOne("TasksApp.Models.TemplateDailyCheck", "TemplateDailyChecks")
-                        .WithMany()
-                        .HasForeignKey("TemplateDailyChecksId");
-
-                    b.Navigation("TemplateDailyChecks");
                 });
 #pragma warning restore 612, 618
         }

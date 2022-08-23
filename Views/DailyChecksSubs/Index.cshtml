@@ -1,0 +1,76 @@
+﻿@model IEnumerable<TasksApp.Models.DailyChecksSub>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Daily Check Tasks</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Task Item</label>
+                    <select id="Heading" class="form-control">
+                        <option>
+                            @foreach (var item in Model)
+                            {
+                                @Html.DropDownList("Heading", item.Heading)
+                            }
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Task Sub-Item</label>
+                    <input id="Description" class="form-control" />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a onclick="AddSubTask()" class="btn btn-primary">Create</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function AddSubTask() {
+        var H_No = $('#HeadNo').val();
+        var Head = $("#Heading").val();
+        var Desc = $('#Description').val();
+
+
+        $.ajax({
+            type: "POST",
+            url: "/DailyChecksSubs/AddSubItem?H_No=" + H_No + "&Desc=" + Desc + "&Head=" + Head,
+            success: function (data) {
+                if (data.success) {
+
+                    $("#exampleModal1").modal("toggle")
+                    swal(data.message, "", "success");
+                    Table01.ajax.reload();
+
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+
+    }
+</script>

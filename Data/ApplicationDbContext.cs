@@ -51,5 +51,7 @@ namespace TasksApp.Data
         public DbSet<TemplateDailyCheck> TemplateDailyChecks { get; set; }
 
         public DbSet<TemplateMain> TemplateMains { get; set; }
+
+        public DbSet<DailyChecksSub> DailyChecksSubs { get; set; }
     }
 }
