@@ -49,12 +49,12 @@ namespace TasksApp.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Please enter an email address")]
             [EmailAddress]
             [Display(Name ="Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Please enter an password")]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }

@@ -37,7 +37,7 @@
                         @if (User.IsInRole(SD.Role_Operator.ToString()))
                         {
 
-                            <text>Operator</text>
+                            <text> Good Day @User.FindFirst("Username")?.Value</text>
 
                             @*<span class="fa fa-bell fa-lg"> <span class="count"> &nbsp; </span></span>*@
                             @*<div class="noti-content">
@@ -50,12 +50,12 @@
 
                         else if (User.IsInRole(SD.Role_Supervisor.ToString()))
                         {
-                            <text>Supervisor</text>
+                            <text> Good Day @User.FindFirst("Username")?.Value</text>
                         }
 
                         else if (User.IsInRole(SD.Role_Admin.ToString()))
                         {
-                            <text>Admin</text>
+                            <text> Good Day @User.FindFirst("Username")?.Value</text>
                         }
                     </span>
 
