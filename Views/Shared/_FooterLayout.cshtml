@@ -6,7 +6,15 @@
         
     </div>
     
-    @*<img class="d-none d-md-block" src="~/images/Logo_Final.png" height="20" alt="MCT Logo">*@
+    @if (@User.FindFirst("Organization")?.Value == "MCT"){
+        <img class="d-none d-md-block" src="~/images/Logo_Final.png" height="20" alt="MCT Logo">
+    }
+
+    @if (@User.FindFirst("Organization")?.Value == "TLG")
+    {
+        <img class="d-none d-md-block" src="~/images/TLG.png" height="45" alt="TLG Logo">
+    }
+    
 </footer>
 
 

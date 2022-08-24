@@ -16,8 +16,8 @@ namespace TasksApp.Helpers
         protected override async Task<ClaimsIdentity> GenerateClaimsAsync(ApplicationUser user)
         {
             var identity = await base.GenerateClaimsAsync(user);
-            identity.AddClaim(new Claim("Username",user.FirstName));
-            identity.AddClaim(new Claim("Organization",user.Categories));
+            identity.AddClaim(new Claim("Username",user.FirstName ?? ""));
+            identity.AddClaim(new Claim("Organization",user.Categories ?? ""));
             return identity;
         }
     }

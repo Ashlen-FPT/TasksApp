@@ -1,11 +1,37 @@
-﻿<link rel="icon" type="image/x-icon" href="~/images/Logo.png">
+﻿@if (@User.FindFirst("Organization")?.Value == null)
+{
+    <link rel="icon" type="image/x-icon" href="~/images/building.png">
+}
+
+@if (@User.FindFirst("Organization")?.Value == "MCT"){
+    <link rel="icon" type="image/x-icon" href="~/images/Logo.png">
+}
+
+@if (@User.FindFirst("Organization")?.Value == "TLG")
+{
+    <link rel="icon" type="image/x-icon" href="~/images/favicon-tlg.png">
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]  Check-List</title>
+    @if (@User.FindFirst("Organization")?.Value == null){
+        <title>@ViewData["Title"]  Check-List System</title>
+    }
+
+    @if (@User.FindFirst("Organization")?.Value == "MCT")
+    {
+        <title>@ViewData["Title"]  Check-List System : MCT </title>
+    }
+
+    @if (@User.FindFirst("Organization")?.Value == "TLG")
+    {
+        <title>@ViewData["Title"]  Check-List System : TLG </title>
+    }
+    
 
     <!--Ashlen Integration-->
     <link href="~/css/main.css" rel="stylesheet" />

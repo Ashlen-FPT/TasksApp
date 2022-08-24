@@ -7,15 +7,31 @@
 {
     <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
         <!-- Sidebar content here -->
-        <div class="c-sidebar-brand d-md-down-none csidebar-brandbackground-color">
-            <a href="/Home/Index"><img class="c-sidebar-brand-full" src="~/images/Logo.png" height="46" alt="FPT Group">
-            <img class="c-sidebar-brand-minimized" src="~/images/Logo.png" width="50" height="46" alt="FPT Group"></a>
-        </div>
+        @if (@User.FindFirst("Organization")?.Value == "MCT")
+        {
+            <div class="c-sidebar-brand d-md-down-none csidebar-brandbackground-color">
+                <a href="/Home/Index">
+                    <img class="c-sidebar-brand-full" src="~/images/Logo.png" height="46" alt="MCT">
+                    <img class="c-sidebar-brand-minimized" src="~/images/Logo.png" width="50" height="46" alt="MCT">
+                </a>
+            </div>
+        }
+
+        @if (@User.FindFirst("Organization")?.Value == "TLG")
+        {
+            <div class="c-sidebar-brand d-md-down-none csidebar-brandbackground-color">
+                <a href="/Home/Index">
+                    <img class="c-sidebar-brand-full" src="~/images/TLG.png" height="46" alt="TLG Group">
+                    <img class="c-sidebar-brand-minimized" src="~/images/TLG.png" width="50" height="40" alt="TLG Group">
+                </a>
+            </div>
+        }
+
         <ul class="c-sidebar-nav">
             <li class="c-sidebar-nav-item">
                 <a class="c-sidebar-nav-link" asp-controller="Home" asp-action="Index">
 
-                    <span class="c-sidebar-nav-icon fa fa-home fa-lg"></span> &nbsp;Home 
+                    <span class="c-sidebar-nav-icon fa fa-home fa-lg"></span> &nbsp;Home
                     <span class="badge badge-info">
 
                         @if (User.IsInRole(SD.Role_Operator.ToString()))
@@ -25,9 +41,9 @@
 
                             @*<span class="fa fa-bell fa-lg"> <span class="count"> &nbsp; </span></span>*@
                             @*<div class="noti-content">
-                                    <div class="noti-top-arrow"></div>
-                                    <ul id="notiContent"></ul>
-                                </div>*@
+                    <div class="noti-top-arrow"></div>
+                    <ul id="notiContent"></ul>
+                    </div>*@
 
 
                         }
@@ -50,9 +66,9 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown" id="research" style="display: none">
                     <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Click here for more options"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Click here for more options"></span>
                         &nbsp;
                         Tasks
                     </a>
@@ -60,9 +76,9 @@
                         <li class="c-sidebar-nav-item" id="definedTopic" style="display: none">
                             <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-tasks"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to complete tasks"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to complete tasks"></span>
                                 &nbsp;
                                 Check-List
                             </a>
@@ -75,9 +91,9 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Click here for more checklist options"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Click here for more checklist options"></span>
                         &nbsp;
                         CheckList
                     </a>
@@ -85,9 +101,9 @@
                         <li class="c-sidebar-nav-item">
                             <a class="c-sidebar-nav-link" asp-controller="TemplateTasks" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to Manage Tasks"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to Manage Tasks"></span>
                                 &nbsp;
                                 Tasks Management
                             </a>
@@ -95,9 +111,9 @@
                         <li class="c-sidebar-nav-item">
                             <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view Supervisor Tasks"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view Supervisor Tasks"></span>
                                 &nbsp;
                                 Supervisor Tasks
                             </a>
@@ -105,9 +121,9 @@
                         <li class="c-sidebar-nav-item">
                             <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view active Operator Pre-Tasks"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view active Operator Pre-Tasks"></span>
                                 &nbsp;
                                 Operator Tasks
                             </a>
@@ -115,9 +131,9 @@
                         <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                             <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view and Manage IT Maintenance Categorised CheckList"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view and Manage IT Maintenance Categorised CheckList"></span>
                                 &nbsp;
                                 Maintenance Checklist
                             </a>
@@ -126,9 +142,9 @@
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link" asp-controller="Main_Task" asp-action="Index">
                                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                              data-toggle="tooltip"
-                                              data-placement="bottom"
-                                              title="Click here to Manage Tasks"></span>
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
                                         &nbsp;
                                         Manage Task-List
                                     </a>
@@ -137,9 +153,9 @@
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link" asp-controller="Active_D" asp-action="Index">
                                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                              data-toggle="tooltip"
-                                              data-placement="bottom"
-                                              title="Click here to Manage Tasks"></span>
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
                                         &nbsp;
                                         Active Directory Task-List
                                     </a>
@@ -148,9 +164,9 @@
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link" asp-controller="Hardwares" asp-action="Index">
                                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                              data-toggle="tooltip"
-                                              data-placement="bottom"
-                                              title="Click here to Manage Tasks"></span>
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
                                         &nbsp;
                                         Hardware
                                     </a>
@@ -159,9 +175,9 @@
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link" asp-controller="Networkings" asp-action="Index">
                                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                              data-toggle="tooltip"
-                                              data-placement="bottom"
-                                              title="Click here to Manage Tasks"></span>
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
                                         &nbsp;
                                         OS/Software
                                     </a>
@@ -170,9 +186,9 @@
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link" asp-controller="Securities" asp-action="Index">
                                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                              data-toggle="tooltip"
-                                              data-placement="bottom"
-                                              title="Click here to Manage Tasks"></span>
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
                                         &nbsp;
                                         Networking
                                     </a>
@@ -181,9 +197,9 @@
                                 <li class="c-sidebar-nav-item">
                                     <a class="c-sidebar-nav-link" asp-controller="Softwares" asp-action="Index">
                                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                              data-toggle="tooltip"
-                                              data-placement="bottom"
-                                              title="Click here to Manage Tasks"></span>
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
                                         &nbsp;
                                         Security
                                     </a>
@@ -196,31 +212,31 @@
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link" asp-controller="User" asp-action="Index">
                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Click here to View Users"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Click here to View Users"></span>
                         &nbsp;
                         Users
                     </a>
                 </li>
 
                 @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link" asp-controller="Audits" asp-action="Index">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here to track user activity"></span>
-                            &nbsp;
-                            User Activity Log
-                        </a>
-                    </li>*@
+        <a class="c-sidebar-nav-link" asp-controller="Audits" asp-action="Index">
+        <span class="c-sidebar-nav-icon fa fa-info-circle"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Click here to track user activity"></span>
+        &nbsp;
+        User Activity Log
+        </a>
+        </li>*@
 
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Index">
                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Click here for more"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Click here for more"></span>
                         &nbsp;
                         Dashboard
                     </a>
@@ -228,9 +244,9 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="SupervisorCalendar">
                         <span class="c-sidebar-nav-icon fa fa-calendar-alt"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Supervisor Operations at a glance"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Supervisor Operations at a glance"></span>
                         &nbsp;
                         Supervisor Calendar Overview
                     </a>
@@ -239,9 +255,9 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="OperatorCalendar">
                         <span class="c-sidebar-nav-icon fa fa-calendar-alt"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Operator Operations at a glance"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Operator Operations at a glance"></span>
                         &nbsp;
                         Operator Calendar Overview
                     </a>
@@ -252,9 +268,9 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Click here for more checklist options"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Click here for more checklist options"></span>
                         &nbsp;
                         CheckList
                     </a>
@@ -263,9 +279,9 @@
                         <li class="c-sidebar-nav-item">
                             <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view Supervisor Tasks"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view Supervisor Tasks"></span>
                                 &nbsp;
                                 Supervisor Tasks
                             </a>
@@ -274,9 +290,9 @@
                         <li class="c-sidebar-nav-item">
                             <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view Operator Tasks"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view Operator Tasks"></span>
                                 &nbsp;
                                 Operational Tasks
                             </a>
@@ -288,9 +304,9 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="SupervisorCalendar">
                         <span class="c-sidebar-nav-icon fa fa-calendar-alt"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Supervisor Operations at a glance"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Supervisor Operations at a glance"></span>
                         &nbsp;
                         Supervisor Calendar Overview
                     </a>
@@ -299,9 +315,9 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="OperatorCalendar">
                         <span class="c-sidebar-nav-icon fa fa-calendar-alt"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Operator Operations at a glance"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Operator Operations at a glance"></span>
                         &nbsp;
                         Operator Calendar Overview
                     </a>
@@ -313,32 +329,32 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                         <span class="c-sidebar-nav-icon fa fa-info-circle"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Click here for more checklist options"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Click here for more checklist options"></span>
                         &nbsp;
                         CheckList
                     </a>
 
                     <ul class="c-sidebar-nav-dropdown-items">
                         @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                            <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" asp-controller="PreTasks" asp-action="Index">
-                                <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view Operator Tasks"></span>
-                                &nbsp;
-                                Operational Tasks
-                            </a>
-                        </li>*@
+                <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" asp-controller="PreTasks" asp-action="Index">
+                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Click here to view Operator Tasks"></span>
+                &nbsp;
+                Operational Tasks
+                </a>
+                </li>*@
 
-                        
+
                         <li class="c-sidebar-nav-item">
                             <a class="c-sidebar-nav-link" asp-controller="BobCats" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view Supervisor Tasks"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view Supervisor Tasks"></span>
                                 &nbsp;
                                 Brake test - FEL
                             </a>
@@ -347,9 +363,9 @@
                         <li class="c-sidebar-nav-item">
                             <a class="c-sidebar-nav-link" asp-controller="Items" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view Operator Tasks"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view Operator Tasks"></span>
                                 &nbsp;
                                 Pre start check list FEL
                             </a>
@@ -358,24 +374,24 @@
                         <li class="c-sidebar-nav-item">
                             <a class="c-sidebar-nav-link" asp-controller="DailyWeighs" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view Supervisor Tasks"></span>
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view Supervisor Tasks"></span>
                                 &nbsp;
                                 Daily weighbridge test
                             </a>
                         </li>
 
                         @*<li class="c-sidebar-nav-item">
-                            <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
-                                <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to view Supervisor Tasks"></span>
-                                &nbsp;
-                                Calibration register
-                            </a>
-                        </li>*@
+                <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Click here to view Supervisor Tasks"></span>
+                &nbsp;
+                Calibration register
+                </a>
+                </li>*@
 
                     </ul>
 
@@ -384,9 +400,9 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="OperatorCalendar">
                         <span class="c-sidebar-nav-icon fa fa-calendar-alt"
-                              data-toggle="tooltip"
-                              data-placement="bottom"
-                              title="Operator Operations at a glance"></span>
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Operator Operations at a glance"></span>
                         &nbsp;
                         Operator Calendar Overview
                     </a>
