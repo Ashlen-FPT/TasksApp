@@ -30,27 +30,27 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Tue</a>
+                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-profile" aria-selected="false">Tue</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Wed</a>
+                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-contact" aria-selected="false">Wed</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-quart-tab" data-toggle="pill" href="#pills-quart" role="tab" aria-controls="pills-quart" aria-selected="true">Thu</a>
+                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-quart" aria-selected="true">Thu</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-bi-tab" data-toggle="pill" href="#pills-bi" role="tab" aria-controls="pills-bi" aria-selected="false">Fri</a>
+                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-bi" aria-selected="false">Fri</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-annual-tab" data-toggle="pill" href="#pills-annual" role="tab" aria-controls="pills-annual" aria-selected="false">Sat</a>
+                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-annual" aria-selected="false">Sat</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-annual-tab" data-toggle="pill" href="#pills-annual" role="tab" aria-controls="pills-annual" aria-selected="false">Sun</a>
+                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-annual" aria-selected="false">Sun</a>
             </li>
         </ul>
     </div>
@@ -394,7 +394,7 @@
         document.getElementById('here').innerHTML = data.description;
     }
 
-    loadTable();
+//loadTable();
 
     //$("#Schedule").change(function () {
     //    var Schedule = $('#Schedule').val();
@@ -408,11 +408,99 @@
 
     //});
 
-    function loadTable() {
+    $(document).ready(function () {
+        var day = document.getElementById("pills-home-tab").value;
+        loadTable(day);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/TemplateItems/GetAll?day=" + day,
+            async: false,
+            success: function (response) {
+                //var count = 0;
+
+                //for (var i = 0; i < response.data.length; i++) {
+
+                //    if (response.data[i].isDone == true) {
+                //        count += 1;
+                //    }
+
+                //}
+
+                //var p = (count / response.data.length) * 100;
+                //if (p == 0) {
+                //    document.getElementById("progressbar").style.width = "0%";
+                //    document.getElementById("progressbar").innerHTML = "0%";
+                //}
+                //else {
+                //    document.getElementById("progressbar").style.width = p + "%";
+                //    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                //}
+            }
+        });
+
+
+    });
+
+
+    $('#pills-home-tab').change(function () {
+        var day = document.getElementById("pills-home-tab").value;
+        Table01.destroy();
+        Table02.destroy();
+        Table03.destroy();
+        Table04.destroy();
+        Table05.destroy();
+        Table06.destroy();
+        Table07.destroy();
+        loadTable(day);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/TemplateItems/GetAll?day=" + day,
+            async: false,
+            success: function (response) {
+
+                //var count = 0;
+
+                //for (var i = 0; i < response.data.length; i++) {
+
+                //    if (response.data[i].isDone == true) {
+                //        count += 1;
+                //    }
+
+                //}
+
+                //var p = (count / response.data.length) * 100;
+
+                //if (Number.isNaN(p)) {
+                //    console.log(p)
+                //    document.getElementById("progressbar").style.width = "0%";
+                //    document.getElementById("progressbar").innerHTML = "0%";
+                //}
+                //else if (p == 0) {
+                //    document.getElementById("progressbar").style.width = "0%";
+                //    document.getElementById("progressbar").innerHTML = "0%";
+                //}
+
+                //else {
+                //    document.getElementById("progressbar").style.width = p + "%";
+                //    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                //}
+            }
+
+        });
+
+    });
+
+    
+
+    function loadTable(day) {
         var groupColumn = 1;
         Table01 = $("#tbl").DataTable({
             "ajax": {
-                "url": "/TemplateItems/GetMon",
+                "url": "/TemplateItems/GetMon?day=" + day
             },
             responsive: true,
             autoWidth: false,
@@ -499,7 +587,7 @@
 
         Table02 = $("#tbl2").DataTable({
             "ajax": {
-                "url": "/TemplateItems/GetTue",
+                "url": "/TemplateItems/GetTue?day=" + day,
             },
             responsive: true,
             autoWidth: false,
@@ -589,7 +677,7 @@
 
         Table03 = $("#tbl3").DataTable({
             "ajax": {
-                "url": "/TemplateItems/GetWed",
+                "url": "/TemplateItems/GetWed?day=" + day,
             },
             responsive: true,
             autoWidth: false,
@@ -678,7 +766,7 @@
 
         Table04 = $("#tbl4").DataTable({
             "ajax": {
-                "url": "/TemplateItems/GetThu",
+                "url": "/TemplateItems/GetThu?day=" + day,
             },
             responsive: true,
             autoWidth: false,
@@ -767,7 +855,7 @@
 
         Table05 = $("#tbl5").DataTable({
             "ajax": {
-                "url": "/TemplateItems/GetFri",
+                "url": "/TemplateItems/GetFri?day=" + day,
             },
             responsive: true,
             autoWidth: false,
@@ -856,7 +944,7 @@
 
         Table06 = $("#tbl6").DataTable({
             "ajax": {
-                "url": "/TemplateItems/GetSat",
+                "url": "/TemplateItems/GetSat?day=" + day,
             },
             responsive: true,
             autoWidth: false,
@@ -945,7 +1033,7 @@
 
         Table07 = $("#tbl7").DataTable({
             "ajax": {
-                "url": "/TemplateItems/GetSun",
+                "url": "/TemplateItems/GetSun?day=" + day,
             },
             responsive: true,
             autoWidth: false,
