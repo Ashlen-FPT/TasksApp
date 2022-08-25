@@ -2,7 +2,7 @@
 
 namespace TasksApp.Migrations
 {
-    public partial class ubt : Migration
+    public partial class User1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

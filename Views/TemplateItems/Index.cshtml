@@ -1,0 +1,1192 @@
+﻿@model IEnumerable<TasksApp.Models.TemplateItems>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+
+<style>
+    tr.group,
+    tr.group:hover {
+        background-color: #ddd !important;
+    }
+</style>
+
+<h1>Manage Tasks</h1>
+
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+    Create New
+</button>
+
+<br />
+
+<div class="card text-center" style="width: 100%;">
+    <div class="card-title">
+        <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Mon</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Tue</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Wed</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-quart-tab" data-toggle="pill" href="#pills-quart" role="tab" aria-controls="pills-quart" aria-selected="true">Thu</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-bi-tab" data-toggle="pill" href="#pills-bi" role="tab" aria-controls="pills-bi" aria-selected="false">Fri</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-annual-tab" data-toggle="pill" href="#pills-annual" role="tab" aria-controls="pills-annual" aria-selected="false">Sat</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-annual-tab" data-toggle="pill" href="#pills-annual" role="tab" aria-controls="pills-annual" aria-selected="false">Sun</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-body">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th>
+                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                                <td></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <table class="table table-bordered table-hover" id="tbl2" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th>
+                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <table class="table table-bordered table-hover" id="tbl3" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th>
+                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                                <td></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-quart" role="tabpanel" aria-labelledby="pills-quart-tab">
+                <table class="table table-bordered table-hover" id="tbl4" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th>
+                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                                <td></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-bi" role="tabpanel" aria-labelledby="pills-bi-tab">
+                <table class="table table-bordered table-hover" id="tbl5" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-light">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th>
+                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                                <td></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-annual" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <table class="table table-bordered table-hover" id="tbl6" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th>
+                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                                <td></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-annual" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <table class="table table-bordered table-hover" id="tbl7" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th>
+                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                                <td></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<!-- Add Task Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Main Task Item</label>
+                    <input id="Main" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Schedule</label>
+                    <select id="Schedule" class="form-control">
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a onclick="AddTask()" class="btn btn-primary">Create</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Description</label>
+                    <input id="DescriptionEdit" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Description</label>
+                    <input id="MainEdit" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Schedule</label>
+                    <select id="ScheduleEdit" class="form-control">
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a onclick="EditTask()" class="btn btn-primary">Save</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/plugins/jquery/jquery.js"></script>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+
+<script>
+
+    window.onload = function () {
+        var url = document.location.href,
+            params = url.split('?')[1].split('&'),
+            data = {}, tmp;
+        for (var i = 0, l = params.length; i < l; i++) {
+            tmp = params[i].split('=');
+            data[tmp[0]] = tmp[1];
+        }
+        document.getElementById('here').innerHTML = data.description;
+    }
+
+    loadTable();
+
+    //$("#Schedule").change(function () {
+    //    var Schedule = $('#Schedule').val();
+    //    if (Schedule == "Weekly") {
+    //        document.getElementById("Days").style.display = "block";
+    //    }
+    //    else {
+    //        document.getElementById("Days").style.display = "none";
+    //    }
+    //    var Day = document.querySelector('input[name="fav_language"]:checked');
+
+    //});
+
+    function loadTable() {
+        var groupColumn = 1;
+        Table01 = $("#tbl").DataTable({
+            "ajax": {
+                "url": "/TemplateItems/GetMon",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "50%" },
+                { "data": "main", "width": "50%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateItems/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+            ],
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="6">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table02 = $("#tbl2").DataTable({
+            "ajax": {
+                "url": "/TemplateItems/GetTue",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "50%" },
+                { "data": "main", "width": "50%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateItems/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ],
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+
+        Table03 = $("#tbl3").DataTable({
+            "ajax": {
+                "url": "/TemplateItems/GetWed",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "50%" },
+                { "data": "main", "width": "50%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateItems/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ],
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table04 = $("#tbl4").DataTable({
+            "ajax": {
+                "url": "/TemplateItems/GetThu",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "50%" },
+                { "data": "main", "width": "50%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateItems/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ],
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table05 = $("#tbl5").DataTable({
+            "ajax": {
+                "url": "/TemplateItems/GetFri",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "50%" },
+                { "data": "main", "width": "50%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "user", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateItems/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ],
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table06 = $("#tbl6").DataTable({
+            "ajax": {
+                "url": "/TemplateItems/GetSat",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "50%" },
+                { "data": "main", "width": "50%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateItems/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ],
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table07 = $("#tbl7").DataTable({
+            "ajax": {
+                "url": "/TemplateItems/GetSun",
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "description", "width": "50%" },
+                { "data": "main", "width": "50%" },
+                { "data": "schedule", "width": "20%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+                { "data": "userEmail", "width": "50%" },
+                {
+                    "data": {
+                        id: "id"
+                    },
+                    "render": function (data) {
+
+
+                        return `
+                                        <div class="text-center">
+                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a onclick=Delete("/TemplateItems/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                 </a>
+
+                                        </div>
+                                       `;
+                    }, "width": "30%"
+                },
+
+
+            ],
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+    }
+
+    function AddTask() {
+
+        var main = $('#Main').val();
+        var Desc = $('#Description').val();
+        var Schedule = $('#Schedule').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/TemplateItems/AddTask?main=" + main + "&Desc=" + Desc + "&Schedule=" + Schedule,
+            success: function (data) {
+                if (data.success) {
+
+                    $("#exampleModal").modal("toggle")
+                    swal(data.message, "", "success");
+                    Table01.ajax.reload();
+                    Table02.ajax.reload();
+                    Table03.ajax.reload();
+                    Table04.ajax.reload();
+                    Table05.ajax.reload();
+                    Table06.ajax.reload();
+                    Table07.ajax.reload();
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+
+    }
+
+    function AddSubTask() {
+        var Schedule = $('#Schedule').val();
+        var Head = document.getElementById("heading").value
+        var Description = $('#Description').val();
+
+
+        $.ajax({
+            type: "POST",
+            url: "/TemplateItems/AddSubItem?Schedule=" + Schedule + "&Description=" + Description + "&Head=" + Head,
+            success: function (data) {
+                if (data.success) {
+
+                    $("#exampleModal").modal("toggle")
+                    swal(data.message, "", "success");
+                    Table01.ajax.reload();
+                    Table02.ajax.reload();
+                    Table03.ajax.reload();
+                    Table04.ajax.reload();
+                    Table05.ajax.reload();
+                    Table06.ajax.reload();
+                    Table07.ajax.reload();
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+
+    }
+
+    function Delete(url) {
+        swal({
+            title: "Are you sure you want to Delete?",
+            text: "You will not be able to restore the data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: url,
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success(data.message);
+                            Table01.ajax.reload();
+                            Table02.ajax.reload();
+                            Table03.ajax.reload();
+                            Table04.ajax.reload();
+                            Table05.ajax.reload();
+                            Table06.ajax.reload();
+                            Table07.ajax.reload();
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    var editId = 0;
+
+    function ShowEditModal(id) {
+        $("#editModal").modal("toggle");
+
+        $.ajax({
+            type: "GET",
+            url: "/TemplateItems/GetTask?id=" + id,
+            success: function (data) {
+                document.getElementById("DescriptionEdit").value = data.data.description;
+                document.getElementById("ScheduleEdit").value = data.data.schedule;
+                /*document.getElementById("TaskTypeEdit").value = data.data.TaskType;*/
+                editId = id;
+            }
+        });
+    }
+
+    var itemId = 0;
+    function ShowAddSubModal(id) {
+
+        window.location.href = '@Url.Action("Create", "DailyChecksSubs")',
+            $("#exampleModal2").modal("toggle");
+
+        $.ajax({
+            type: "GET",
+            url: "/DailyChecksSubs/AddSubItem?id=" + id,
+            success: function (data) {
+                document.getElementById("TaskNo").value = data.data.taskNo;
+                document.getElementById("Description").value = data.data.description;
+                document.getElementById("Heading").value = data.data.heading;
+                //document.getElementById("IdEdit").value = data.data.id;
+                itemId = id;
+            }
+        });
+    }
+
+    function EditTask() {
+
+        var Main = $('#MainEdit').val();
+        var Desc = $('#DescriptionEdit').val();
+        var Schedule = $('#ScheduleEdit').val();
+
+        $.ajax({
+            type: "PUT",
+            url: "/TemplateItems/EditTask?Id=" + editId + "&Main=" + Main + "&Desc=" + Desc + "&Schedule=" + Schedule,
+            success: function (data) {
+                if (data.success) {
+
+                    $("#editModal").modal("toggle")
+                    swal(data.message, "", "success");
+                    Table01.ajax.reload();
+                    Table02.ajax.reload();
+                    Table03.ajax.reload();
+                    Table04.ajax.reload();
+                    Table05.ajax.reload();
+                    Table06.ajax.reload();
+                    Table07.ajax.reload();
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+    }
+</script>

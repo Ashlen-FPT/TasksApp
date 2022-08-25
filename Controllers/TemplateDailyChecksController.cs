@@ -160,16 +160,16 @@ namespace TasksApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDailyCheck(int H_No, string Desc, string Head, bool Sub)
+        public async Task<IActionResult> AddDailyCheck(int H_No, string Check, string Head, string Desc)
         {
 
             var dailyCheck = new TemplateDailyCheck
             {
                 HeadNo = H_No,
                 Heading = Head,
+                Checklist = Check,
                 Description = Desc,
-                DateCreated = DateTime.Now,
-                SubItems = Sub
+                UserEmail = User.Identity.Name
             };
 
             _context.Add(dailyCheck);
@@ -178,24 +178,30 @@ namespace TasksApp.Controllers
             return Json(new { success = true, message = "Sub-Task added!" });
         }
 
-        
-        public async Task<IActionResult> AddSubItem(int id, string Desc, string Head)
+
+        //GET: DailyChecksSubs/Create
+        //public IActionResult AddSubItem()
+        //{
+        //    ViewData["HeadingId"] = new SelectList(_context.TemplateDailyChecks, "Id", "Heading");
+        //    return View();
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> AddSubItem(int Id, string Desc, string Head)
         {
             var dailyCheck = new TemplateDailyCheck
             {
-                 Heading = Head,
-                 Description = Desc,
+                Heading = Head,
+                Description = Desc,
+                DateCreated = DateTime.Now,
+                UserEmail = User.Identity.Name
             };
-          
 
-            //ViewBag.Heading = new SelectList(_context.TemplateDailyChecks, "HeadNo", "Heading", dailyCheck.HeadNo);
-            //var q = from temp in _context.TemplateDailyChecks select temp.Heading;
-            //ViewBag.Heading = q;
-            //ViewData.["HeadingId"] = new SelectList(_context.TemplateDailyChecks, "Heading", "HeadNo");
+            //ViewData["HeadingId"] = new SelectList(_context.TemplateDailyChecks, "Id", "Heading", dailyCheck.HeadingId);
             _context.Add(dailyCheck);
             await _context.SaveChangesAsync();
 
-            return Json(new { success = true, message = "Sub-Task added!" });
+            return View();
 
         }
 

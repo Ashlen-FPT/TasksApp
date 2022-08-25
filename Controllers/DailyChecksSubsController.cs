@@ -46,6 +46,8 @@ namespace TasksApp.Controllers
         // GET: DailyChecksSubs/Create
         public IActionResult Create()
         {
+            ViewBag.HeadingId = new SelectList(_context.TemplateDailyChecks, "Heading", "Heading");
+            ViewBag.MainId = new SelectList(_context.TemplateItem, "Main", "Main");
             return View();
         }
 
@@ -54,7 +56,7 @@ namespace TasksApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Heading,Description")] DailyChecksSub dailyChecksSub)
+        public async Task<IActionResult> Create([Bind("Description")] DailyChecksSub dailyChecksSub)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +64,9 @@ namespace TasksApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.HeadingId = new SelectList(_context.TemplateDailyChecks, "Heading", "Heading", dailyChecksSub.HeadingId);
+            ViewBag.MainId = new SelectList(_context.TemplateItem, "Main", "Main", dailyChecksSub.MainId);
             return View(dailyChecksSub);
         }
 
@@ -153,19 +158,42 @@ namespace TasksApp.Controllers
         #region API Calls
 
         [HttpPost]
-        public async Task<IActionResult> AddSubItem(string Desc, string Head)
+        public async Task<IActionResult> AddSubItem(int Id, string Desc, string Head)
         {
             var dailyCheck = new DailyChecksSub
             {
-                Heading = Head,
+               // Heading = Head,
                 Description = Desc,
+                DateCreated = DateTime.Now,
+                UserEmail = User.Identity.Name
             };
 
-            ViewBag.Heading = new SelectList(_context.TemplateDailyChecks, "Heading", "Heading", dailyCheck.Heading);
+            //ViewData["HeadingId"] = new SelectList(_context.TemplateDailyChecks, "Id", "Heading", dailyCheck.HeadingId);
             _context.Add(dailyCheck);
             await _context.SaveChangesAsync();
 
-            return Json(new { success = true, message = "Sub-Task added!" });
+            return View();
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSubItem1(int Id, string Desc, string Main, string Schedule)
+        {
+            var dailyCheck = new DailyChecksSub
+            {
+                Main = Main,
+                Description = Desc,
+                DateCreated = DateTime.Now,
+                UserEmail = User.Identity.Name,
+                Schedule = Schedule
+            };
+
+            //ViewData["HeadingId"] = new SelectList(_context.TemplateDailyChecks, "Id", "Heading", dailyCheck.HeadingId);
+            _context.Add(dailyCheck);
+            await _context.SaveChangesAsync();
+
+            return View();
+
         }
         #endregion
     }
