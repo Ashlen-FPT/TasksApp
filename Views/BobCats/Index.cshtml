@@ -7,58 +7,29 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
 
-@*<h1>Manage Tasks</h1>*@
+<style>
+    tr.group,
+    tr.group:hover {
+        background-color: #ddd !important;
+    }
+</style>
 
-@*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-        Create New
-    </button>*@
+<h1>Tasks</h1>
 
-<br />
-
-<html>
-<head>
-    <style>
-
-
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-
-            table.center {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-        input.center {
-            margin-left: auto;
-            margin-right: auto;
-            min-block-size: max-content;
-        }
-    </style>
-</head>
-<body>
-
-</body>
-</html>
-
-<br />
 <div class="form-group">
     <label class="control-label">Choose date</label>
-    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
 
 </div>
 
-<br />
-
 <div class="card text-center" style="width: 100%;">
     <div class="card-title">
-            <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Daily</a>
-                </li>
-            </ul>
-        </div>
+        @*<ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">BobCat</a>
+            </li>
+        </ul>*@
+    </div>
 
     <div class="card-body">
         <div class="tab-content" id="pills-tabContent">
@@ -69,7 +40,7 @@
                 </div>
                 <br />
 
-                <table class="center table table-striped" id="tbl" style=" word-wrap:break-word; width:70%; table-layout:fixed">
+                <table class="center table table-striped" id="tbl1" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <tr>
                         <th rowspan="2" style="width:20%"> <img src="~/Pictures/logo_new.png" /></th>
                         <td style="width:40%"> <b> STANDARD OPERATING PROCEDURES </b></td>
@@ -81,329 +52,114 @@
                 </table>
 
                 <br />
-
-                @*<p style="left:initial"><b> DATE             :</b><hr width="20%" , size="3" , color="black" /> </p>
-        <p><b> OPERATOR NAME    :</b><hr width="20%" , size="3" , color="black" /> </p>
-        <p><b> SUPERVISOR NAME  :</b><hr width="20%" , size="3" , color="black" /> </p>*@
-
-
-                <table class="center table table-striped" id="tbl" style=" word-wrap:break-word; width:70%; table-layout:fixed">
+                <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
-                            <th style="width:5%"></th>
-                            <th style="width:40%">General</th>
-                            <th style="width:5%">Yes</th>
-                            <th style="width:5%">No</th>
-                            <th style="width:5%">N/A</th>
-                            @*<th>Description</th>
-                    <th>DateCreated</th>*@
-
+                            <th>No.</th>
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>Yes</th>
+                            <th>No</th>
+                            <th>N/A</th>
+                            <th>Date Completed</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Does the operator have a license or authorised to operate machine ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Did the driver do a proper pre-start check ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>Did the operator cautiously and slowly drive up the ramp incline ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>4</td>
-                            <td>Did operator put machine in neutral to check if foot brakes hold machine ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>5</td>
-                            <td>Did machine foot brakes hold machine ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>6</td>
-                            <td>Did operator engage the park brake and lift his/her feet off the foot brake ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>7</td>
-                            <td>Did machine park brakes hold the machine ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-                    </tbody>
-
-                    <thead class="thead-dark">
-                        <tr class="table-info">
-                            <th></th>
-                            <th>
-                                After testing brakes on the incline did they check out the
-                                operator advances to the decline of the ramp.
-                            </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>8</td>
-                            <td>Did operator slowly and cautiously advance to the decline of the ramp /</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>9</td>
-                            <td>Did operator put machine in neutral to check if foot brakes hold machine ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>10</td>
-                            <td>Did machine foot brakes hold machine ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>11</td>
-                            <td> Did the operator engage the park brake and lift his/her feet off the foot brake ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>12</td>
-                            <td>Did machine park brakes hold the machine ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                    </tbody>
-
-                    <thead class="thead-dark">
-                        <tr class="table-info">
-                            <th></th>
-                            <th>
-                                After testing brakes on the decline did they check out operators advances
-                                off the ramp.
-                            </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>10</td>
-                            <td>
-                                Did operator slowly and cautiously move off the ramp ?
-                            </td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>11</td>
-                            <td>
-                                Did the operator hand the pre-start check list to the supervisor for signing ?
-                            </td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                    </tbody>
-
-                    <thead class="thead-dark">
-                        <tr class="table-info">
-                            <th></th>
-                            <th>
-                                If ever the brakes are found to be faulty.
-                            </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>12</td>
-                            <td>Did operator slowly and cautiously move off the ramp ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>13</td>
-                            <td>Did operator immediately notify the supervisor ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <td>14</td>
-                            <td>Was the machine grounded from all operators ?</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                <br />
-                <br />
-
-                <table class="center table table-striped" id="tbl" style=" word-wrap:break-word; width:70%; table-layout:fixed">
-                    <thead class="thead-dark">
-                        <tr class="table-info">
-                            <th style="width:40%">MACHINE OPERATING LOADS / HOURS </th>
-                            <th style="width:10%">No Loads </th>
-                            <th style="width:10%">No Hours</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>Sinter moved to Rail siding</td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-                            <td>Sinter moved to Stock Pad</td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-                            <td>Sinter loading into trucks</td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-                            <td>Manganese moved to Manganese Shed – UMK 1</td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-                            <td>
-                                Manganese moved to Manganese Shed – Tshipi / UMK 2
-                            </td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-                            <td>Manganese loaded into ADT</td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-                            <td>Manganese loaded onto Screen</td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-                            <td>Coke moved to Sinter Plant</td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-                            <td>Coke loaded into ADT</td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-                            <td>Coke loaded onto Screen</td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Number)
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                    @Html.DisplayFor(modelItem => item.Main)
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-<br />
 
+<!-- Add Comment Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
 
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Comments:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="SaveComment()" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="~/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 
 <script>
-    loadTable()
 
-    $('#datePicker').change(function () {
+    $(document).ready(function () {
         var date = document.getElementById("datePicker").value;
-        Table01.destroy();
-        Table02.destroy();
-        Table03.destroy();
         loadTable(date);
 
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/Tasks/GetAll?date=" + date,
+            url: "/BobCats/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progressbar").style.width = p + "%";
+                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                }
+            }
+        });
+
+
+    });
+
+
+    $('#datePicker').change(function () {
+        var date = document.getElementById("datePicker").value;
+        Table01.destroy();
+        loadTable(date);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/BobCats/GetAll?date=" + date,
             async: false,
             success: function (response) {
 
@@ -418,8 +174,6 @@
                 }
 
                 var p = (count / response.data.length) * 100;
-
-
 
                 if (Number.isNaN(p)) {
                     console.log(p)
@@ -441,224 +195,257 @@
 
     });
 
-    function loadTable() {
-
+    function loadTable(date) {
+        var groupColumn = 2;
         Table01 = $("#tbl").DataTable({
-            //"ajax": {
-            //    "url": "/BobCats/GetAll",
-            //},
-            //responsive: true,
-            //autoWidth: false,
+            "ajax": {
+                "url": "/BobCats/GetTasksToday?date=" + date
+            },
             "columns": [
-                { "data": "id", "width": "5%" },
-                /*{ "data": "heading", "width": "60%" },*/
-                { "data": "description", "width": "60%" },
-                { "data": "yes", "width": "10%" },
-                { "data": "no", "width": "10%" },
-                { "data": "nA", "width": "10%" },
-                //{
-                //    "data": {
-                //        id: "id", yes: "yes"
-                //    },
-                //    "render": function (data) {
-                //        if (data.yes == true) {
+                { "data": "number", "width": "10%" },
+                { "data": "description", "width": "50%" },
+                { "data": "main", "width": "50%" },
 
-                //            return `
-                //                <div class="text-center">
-                //                   <input disabled type="checkbox" checked="true" />
+                {
+                    "data": {
+                        id: "id", yes: "yes"
+                    },
+                    "render": function (data) {
+                        if (data.yes == true) {
 
-                //                </div>
-                //               `;
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
 
-                //        }
+                                </div>
+                            `;
 
-                //        if (data.yes == false) {
+                        }
 
-                //            return `
-                //                <div class="text-center">
-                //                   <input onclick=Delete("Task/CompleteTask/${data.id}") type="checkbox" />
+                        if (data.yes == false) {
 
-                //                </div>
-                //               `;
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
 
-                //        }
+                                </div>
+                            `;
 
-                //    }, "width": "10"
-                //},
+                        }
 
-                //{
-                //    "data": {
-                //        id: "id", no: "no"
-                //    },
-                //    "render": function (data) {
-                //        if (data.no == true) {
+                    }, "width": "10%"
+                },
 
-                //            return `
-                //                <div class="text-center">
-                //                   <input disabled type="checkbox" checked="true" />
+                {
+                    "data": {
+                        id: "id", no: "no"
+                    },
+                    "render": function (data) {
+                        if (data.no == true) {
 
-                //                </div>
-                //               `;
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
 
-                //        }
+                                </div>
+                               `;
 
-                //        if (data.no == false) {
+                        }
 
-                //            return `
-                //                <div class="text-center">
-                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+                        if (data.no == false) {
 
-                //                </div>
-                //               `;
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
 
-                //        }
+                                </div>
+                            `;
 
-                //    }, "width": "10%"
-                //},
+                        }
 
-                //{
-                //    "data": {
-                //        id: "id", nA: "nA"
-                //    },
-                //    "render": function (data) {
-                //        if (data.nA == true) {
+                    }, "width": "10%"
+                },
 
-                //            return `
-                //                <div class="text-center">
-                //                   <input disabled type="checkbox" checked="true" />
+                {
+                    "data": {
+                        id: "id", na: "na"
+                    },
+                    "render": function (data) {
+                        if (data.na == true) {
 
-                //                </div>
-                //               `;
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
 
-                //        }
+                                </div>
+                            `;
 
-                //        if (data.nA == false) {
+                        }
 
-                //            return `
-                //                <div class="text-center">
-                //                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+                        if (data.na == false) {
 
-                //                </div>
-                //               `;
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
 
-                //        }
+                                </div>
+                            `;
 
-                //    }, "width": "10%"
-                //},
+                        }
 
-                //{
-                //    "data": "dateCreated",
-                //    'render': function (jsonDate) {
+                    }, "width": "10%"
+                },
 
-                //        if (jsonDate == "0001-01-01T00:00:00") {
-                //            return " ";
-                //        }
-                //        else {
-                //            var datestr = jsonDate.toString();
-                //            var date = new Date(datestr.substr(0, 10));
-                //            var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                //            var time = datestr.substr(11)
-                //            var hr = time.substr(0, 2)
-                //            var min = time.substr(3, 2)
-                //            var sec = time.substr(6, 2);
-                //            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                //        }
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
 
-                //    }, "width": "50%"
-                //},
-            ]
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "30%"
+                },
+
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="6">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        // Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
         });
     }
 
-    //function AddTask() {
-    //    var Head = $('#Heading').val();
-    //    var Desc = $('#Description').val();
+    
+    function Delete(url) {
 
+        var uri = url;
+        var res = encodeURI(uri);
 
-    //    $.ajax({
-    //        type: "POST",
-    //        url: "/TemplateBobCats/AddBobCat?Desc=" + Desc + "&Head=" + Head,
-    //        success: function (data) {
-    //            if (data.success) {
+        swal({
+            title: "Are you sure you want to complete this task?",
+            text: "You will not be able to restore the data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "GET",
+                    url: res,
+                    success: function (data) {
+                        if (data.success) {
+                            var date = document.getElementById("datePicker").value;
+                            $.ajax({
+                                type: "GET",
+                                dataType: 'json',
+                                url: "/BobCats/GetAll?date=" + date,
+                                async: false,
+                                success: function (response) {
+                                    console.log(response)
+                                    var count = 0;
 
-    //                $("#exampleModal").modal("toggle")
-    //                swal(data.message, "", "success");
-    //                Table01.ajax.reload();
+                                    for (var i = 0; i < response.data.length; i++) {
 
-    //            }
-    //            else {
-    //                toastr.error(data.message);
-    //            }
-    //        }
-    //    });
+                                        if (response.data[i].isDone == true) {
+                                            count += 1;
+                                        }
 
-    //}
+                                    }
 
-    //function Delete(url) {
-    //    swal({
-    //        title: "Are you sure you want to Delete?",
-    //        text: "You will not be able to restore the data!",
-    //        icon: "warning",
-    //        buttons: true,
-    //        dangerMode: true
-    //    }).then((willDelete) => {
-    //        if (willDelete) {
-    //            $.ajax({
-    //                type: "DELETE",
-    //                url: url,
-    //                success: function (data) {
-    //                    if (data.success) {
-    //                        toastr.success(data.message);
-    //                        Table01.ajax.reload();
-    //                        Table02.ajax.reload();
-    //                        Table03.ajax.reload();
-    //                        Table04.ajax.reload();
-    //                    }
-    //                    else {
-    //                        toastr.error(data.message);
-    //                    }
-    //                }
-    //            });
-    //        }
-    //    });
-    //}
+                                    var p = (count / response.data.length) * 100;
+                                    document.getElementById("progressbar").style.width = p + "%";
+                                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                                }
+                            });
+                            toastr.success(data.message);
+                            Table01.ajax.reload();
 
-    //var editId = 0;
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    }
 
-    //function ShowEditModal(id) {
-    //    $("#editModal").modal("toggle");
+    //var CommentId = 1;
+
+    //function showModal(event) {
+
+    //    $('#exampleModal').modal("toggle");
+
+    //    CommentId = event.dataset.id
 
     //    $.ajax({
     //        type: "GET",
-    //        url: "/TemplateBobCats/GetBobCat?id=" + id,
-    //        success: function (data) {
-    //            document.getElementById("DescriptionEdit").value = data.data.description;
-    //            document.getElementById("ScheduleEdit").value = data.data.schedule;
-    //            /*document.getElementById("TaskTypeEdit").value = data.data.TaskType;*/
-    //            editId = id;
+    //        dataType: 'json',
+    //        url: "/BobCats/GetTask?id=" + CommentId,
+    //        async: false,
+    //        success: function (response) {
+    //            document.getElementById("message-text").value = response.comments;
+    //            console.log(response.comments)
     //        }
     //    });
+
     //}
 
-    //function EditTask() {
+    //function SaveComment() {
 
-    //    var Heading = $('#HeadingEdit').val();
-    //    var Desc = $('#DescriptionEdit').val();
+    //    console.log("save")
+
+    //    var comment = document.getElementById("message-text").value;
 
     //    $.ajax({
-    //        type: "PUT",
-    //        url: "/TemplateBobCats/EditBobCat?Id=" + editId + "&Desc=" + Desc + "&Heading=" + Heading,
-    //        success: function (data) {
-    //            if (data.success) {
-
-    //                $("#editModal").modal("toggle")
-    //                swal(data.message, "", "success");
-    //                Table01.ajax.reload();
-    //            }
-    //            else {
-    //                toastr.error(data.message);
-    //            }
+    //        type: "GET",
+    //        dataType: 'json',
+    //        url: "/BobCats/AddComment?id=" + CommentId + "&comment=" + comment,
+    //        async: false,
+    //        success: function (response) {
+    //            toastr.success(response.message);
+    //            Table01.ajax.reload();
     //        }
     //    });
-    //}
+
+
+    //    $('#exampleModal').modal("toggle");
 </script>

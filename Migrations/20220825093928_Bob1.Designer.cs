@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TasksApp.Data;
 
 namespace TasksApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220825093928_Bob1")]
+    partial class Bob1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,17 +333,11 @@ namespace TasksApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Main")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("NA")
                         .HasColumnType("bit");
 
                     b.Property<bool>("No")
                         .HasColumnType("bit");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
 
                     b.Property<bool>("Sign1")
                         .HasColumnType("bit");
