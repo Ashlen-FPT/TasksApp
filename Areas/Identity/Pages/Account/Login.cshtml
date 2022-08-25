@@ -41,9 +41,9 @@
             text-align: center;
         }
         /*a, a:focus, a:hover{
-                            text-decoration: none !important;
-                            color:#fff !important;
-                        }*/
+                                    text-decoration: none !important;
+                                    color:#fff !important;
+                                }*/
         .placeholder-fix:focus::-webkit-input-placeholder {
             color: transparent !important;
         }
@@ -202,21 +202,37 @@
         .black {
             color: black;
         }
-                .container{
-          width: 35%;
-          float:right;
-          padding-bottom:12px;
+
+        .container {
+            width: 35%;
+            float: right;
+            padding-bottom: 12px;
         }
 
-        a{
-           
-            font-weight:bold;
+        a {
+            font-weight: bold;
+        }
+
+                .button {
+          background-color: grey; 
+          border: none;
+          color: white;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          cursor: pointer;
+          font-size:100px;
+          border-top-right-radius:5px;
+          border-bottom-right-radius:5px;
+          padding-top: 8px;
         }
     </style>
 </head>
+
 <body class="content">
-    <div class="card" style="width:800px">
+    <div class="card" style="width:500px">
         <div class="card-body">
+
             <header>
 
                 <div class="logo text-center">
@@ -227,36 +243,48 @@
             <br />
             @* <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6 width-1">*@
             <form id="account" method="post">
-                <div class="loginpage">
-                    <div asp-validation-summary="All" class="text-warning"></div>
-                    <div>
-                        <label asp-for="Input.Email" class="black"></label>
-                        <input asp-for="Input.Email" class="form-control" placeholder="Username" />
-                        <span asp-validation-for="Input.Email" class="text-warning"></span>
-                    </div>
-                    <br />
-                    <span asp-validation-for="Input.Password" class="text-warning"></span>
-                    <div>
-                        <label asp-for="Input.Password" class="black"></label>
+                <div asp-validation-summary="All" class="text-warning"></div>
 
-                        <input asp-for="Input.Password" id=password class="form-control" placeholder="Password" type="password" />
-                        <div class="input-group">
-                            <a class="btn btn-outline-secondary" onclick="passwordVisible()"><i id="passwordToggle" class="fas fa-eye-slash"></i></a>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="input-group mb-3">
+                                <label asp-for="Input.Email" class="black"></label>
+                                <input asp-for="Input.Email" class="form-control" placeholder="Username" />
+                                <span asp-validation-for="Input.Email" class="text-warning"></span>
+                            </div>
                         </div>
-
                     </div>
+                </div>
 
 
-                    @*                        <div>
-                    @Html.CheckBoxFor(x=>x.Input.RememberMe)
-                    @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </div>*@
-                    <br />
-                    <div class="action-button">
-                        <button type="submit" class="btn btn-success">Login</button>
-                        <div class="container">
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="nav-link"> Need an account ?</a>
+
+                <label asp-for="Input.Password" class="black"></label>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="input-group mb-3">
+                                <input asp-for="Input.Password" id=password class="form-control" aria-label="password" placeholder="Password" type="password" aria-describedby="basic-addon2" />
+                                <div class="input-group-btn">
+                                    <button class="button button" type="button" onclick="passwordVisible()"><i id="passwordToggle" class="fas fa-eye-slash" style="font-size:20px;padding-bottom:5px;"></i></button>
+        
+                                </div>
+                                <span asp-validation-for="Input.Password" class="text-warning"></span>
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+
+                @*                        <div>
+                @Html.CheckBoxFor(x=>x.Input.RememberMe)
+                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                </div>*@
+                <br />
+                <div class="action-button">
+                    <button type="submit" class="btn btn-success">Login</button>
+                    <div class="container">
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="nav-link"> Need an account ?</a>
                     </div>
                 </div>
 
