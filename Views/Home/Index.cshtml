@@ -5,9 +5,9 @@
     }
 
     .card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
-        margin-bottom: 10px; /* Added */
+        margin: 0 auto;
+        float: none; 
+        margin-bottom: 10px;
         position: absolute;
     }
 </style>
@@ -16,7 +16,21 @@
     <div class="card" style="width:100%">
         <div class="card-body"><center><h1>CHECKLIST SYSTEM</h1></center></div>
     </div>
-    <center><img src="~/images/novo1.png" alt="Task" width="100%" height="900" /></center>
+
+    @if (@User.FindFirst("Organization")?.Value=="MCT")
+    {
+        <center><img src="~/images/novo1.png" alt="Task" width="100%" height="900" /></center>
+    }
+
+    @if (@User.FindFirst("Organization")?.Value == "TLG")
+    {
+        <center><img src="~/images/TLG_Home.jpg" alt="Task" width="100%" height="800" /></center>
+    }
+    @if (@User.FindFirst("Organization")?.Value == null)
+    {
+        <center><img src="~/images/Landing.jpg" alt="Task" width="100%" height="900" /></center>
+    }
+    
 </div>
 
 

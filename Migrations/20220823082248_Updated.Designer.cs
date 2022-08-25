@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TasksApp.Data;
 
 namespace TasksApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220823082248_Updated")]
+    partial class Updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -370,35 +372,18 @@ namespace TasksApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Heading")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HeadingId")
+                    b.Property<int?>("TemplateDailyChecksId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Main")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MainId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Schedule")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HeadingId");
-
-                    b.HasIndex("MainId");
+                    b.HasIndex("TemplateDailyChecksId");
 
                     b.ToTable("DailyChecksSubs");
                 });
@@ -885,9 +870,6 @@ namespace TasksApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Checklist")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -903,41 +885,9 @@ namespace TasksApp.Migrations
                     b.Property<bool>("SubItems")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("TemplateDailyChecks");
-                });
-
-            modelBuilder.Entity("TasksApp.Models.TemplateItems", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Main")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Schedule")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TemplateItem");
                 });
 
             modelBuilder.Entity("TasksApp.Models.TemplateMain", b =>
@@ -1085,21 +1035,11 @@ namespace TasksApp.Migrations
 
             modelBuilder.Entity("TasksApp.Models.DailyChecksSub", b =>
                 {
-                    b.HasOne("TasksApp.Models.TemplateDailyCheck", "TemplateDailyCheck")
+                    b.HasOne("TasksApp.Models.TemplateDailyCheck", "TemplateDailyChecks")
                         .WithMany()
-                        .HasForeignKey("HeadingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TemplateDailyChecksId");
 
-                    b.HasOne("TasksApp.Models.TemplateItems", "TemplateItems")
-                        .WithMany()
-                        .HasForeignKey("MainId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TemplateDailyCheck");
-
-                    b.Navigation("TemplateItems");
+                    b.Navigation("TemplateDailyChecks");
                 });
 #pragma warning restore 612, 618
         }

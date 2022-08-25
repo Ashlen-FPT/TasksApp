@@ -7,7 +7,7 @@ namespace TasksApp.Models
 {
     public class BE
     {
-        public int iD { get; set; }
+        public int Id { get; set; }
 
         public string Categories { get; set; }
 

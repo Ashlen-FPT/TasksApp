@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using TasksApp.Data;
 using TasksApp.Models;
 using TasksApp.Services;
+using TasksApp.Helpers;
 
 namespace TasksApp
 {
@@ -42,7 +43,7 @@ namespace TasksApp
             services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options => {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.SignIn.RequireConfirmedAccount = false;
                 // options.User.RequireUniqueEmail = false;
             })
@@ -51,6 +52,7 @@ namespace TasksApp
 
             services.AddTransient<IEmailSender, MailKitEmailSender>();
             services.AddControllersWithViews();
+            
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -61,6 +63,7 @@ namespace TasksApp
             });
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddMvc();
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

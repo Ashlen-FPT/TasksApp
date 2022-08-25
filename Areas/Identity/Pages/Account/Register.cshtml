@@ -19,9 +19,6 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        body {
             font-family: 'Open Sans', Helvetica, Arial, sans-serif;
             /*background: #ffffff;*/
         }
@@ -105,29 +102,29 @@
         }
 
         /*      .img:before {
-                content: '';
-                position: absolute;
-                right: 0;
-                top: 0;
-                width: 900px;
-                height: 100%;
-                background-image: url('/images/CheckList.jpg');
-                opacity: .8;
-                background-size: cover;
-                -webkit-transition: -webkit-transform 1.2s ease-in-out;
-                transition: transform 1.2s ease-in-out;
-                transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
-            }*/
+                        content: '';
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        width: 900px;
+                        height: 100%;
+                        background-image: url('/images/CheckList.jpg');
+                        opacity: .8;
+                        background-size: cover;
+                        -webkit-transition: -webkit-transform 1.2s ease-in-out;
+                        transition: transform 1.2s ease-in-out;
+                        transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+                    }*/
 
         /*        .img:after {
-                content: '';
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.6);
-            }*/
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.6);
+                    }*/
 
         .cont.s--signup .img:before {
             -webkit-transform: translate3d(640px, 0, 0);
@@ -175,18 +172,18 @@
         }
 
         /*     .img__btn {
-            overflow: hidden;
-            z-index: 2;
-            position: relative;
-            width: 100px;
-            height: 36px;
-            margin: 0 auto;
-            background: transparent;
-            color: #fff;
-            text-transform: uppercase;
-            font-size: 15px;
-            cursor: pointer;
-        }*/
+                    overflow: hidden;
+                    z-index: 2;
+                    position: relative;
+                    width: 100px;
+                    height: 36px;
+                    margin: 0 auto;
+                    background: transparent;
+                    color: #fff;
+                    text-transform: uppercase;
+                    font-size: 15px;
+                    cursor: pointer;
+                }*/
 
         .img__btn:after {
             content: '';
@@ -311,95 +308,137 @@
         }
 
         body {
-            font-family: 'PT Sans', sans-serif !important;
-            background-image: url('/images/slider4.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            margin: 0;
-        }
+                font-family: 'PT Sans', sans-serif !important;
+                background-image: url('/images/Reg.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                margin: 0;
+            }
+
         .card {
-            opacity: 0.90;
+               margin: 0 auto;
+               float: none;
+               margin-bottom: 10px;
+               border-radius: 20px;
+               opacity: 0.90;
+               background-color: grey;
+           }
+           .black{
+               color:black;
+           }
+           .content {
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            text-align: center;
+        }
+        .container{
+          width: 35%;
+          text-align: center;
+          padding-bottom:12px;
+        }
+
+        a{
+            color:yellow;
+            font-weight:bold;
         }
     </style>
 </head>
 
-<body>
-    <div class="container">
-        <div class="row align-items-center vh-20">
-            <div class="col-6 mx-auto">
-                <div class="card shadow border">
-                    <div class="card-body d-flex flex-column align-items-center">
+<body class="content">
+    <div class="card" style="width:800px">
+        <div class="card-body">
+            <header>
 
-                        <h2>Register</h2>
-                        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                            <label>
-                                <input asp-for="Input.FirstName" placeholder="First Name" />
-                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-                            </label>
+                <div class="logo text-center">
+                    <img class="c-sidebar-brand-full" src="~/images/contact.png" height="100" alt="User">
+                </div>
+            </header>
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="All" class="text-warning"></div>
 
-                            <label>
-                                <input asp-for="Input.LastName" placeholder="Last Name" />
-                                <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                            </label>
-
-                            <label>
-                                <input asp-for="Input.Email" placeholder="Email" />
-                                <span asp-validation-for="Input.Email" class="text-danger"></span>
-                            </label>
-
-                            @*<label>
-                                @Html.DisplayNameFor(model => model.Categories)
-                                <input asp-for="Input.Categories" placeholder="Company" />
-                                <span asp-validation-for="Input.Categories" class="text-danger"></span>
-                            </label>*@
-
-                            @if (User.IsInRole(SD.Role_Admin))
-                            {
-                                <label>
-                                    @*<input asp-for="Input.Role" placeholder="Role" />
-                <span asp-validation-for="Input.Role" class="text-danger"></span>*@
-                                    @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Please select a role", new { @class = "form-control" })
-                                </label>
-                            }
-
-                            <label>
-                                <input asp-for="Input.Password" placeholder="Password" />
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                            </label>
-
-                            <label>
-                                <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" />
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                            </label>
-
-                            @if (User.IsInRole(SD.Role_Supervisor.ToString()))
-                            {
-                                <div class="form-group">
-                                    <label asp-for="Input.Role"></label>
-
-                                </div>
-                            }
-                            <br />
-                            <button type="submit" class="nav-link btn btn-warning" style="color:white;"> Register</button>
-
-                        </form>
-                        <a asp-area="Identity" asp-page="/Account/Login" class="nav-link btn btn-success"> Want to Login ?</a>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="Input.FirstName" class="black"></label>
+                            <input asp-for="Input.FirstName" class="form-control" placeholder="First Name" />
+                            <span asp-validation-for="Input.FirstName" class="text-warning"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Input.LastName" class="black"></label>
+                            <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" />
+                            <span asp-validation-for="Input.LastName" class="text-warning"></span>
+                        </div>
                     </div>
-                    
                 </div>
-            </div>
-            
-        </div>
-    </div>
-    
-    @*<div class="form sign-in">
-            <div class="card" style="width:100%">
-                <div class="card-body">
 
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="Input.Email" class="black"></label>
+                            <input asp-for="Input.Email" class="form-control" placeholder="Email" type="email" />
+                            <span asp-validation-for="Input.Email" class="text-warning"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Input.Categories" class="black"></label>
+                            @Html.DropDownListFor(m => m.Input.Categories, Model.Input.EntityList, "- Select an organization -", new { @class = "form-control" })
+                            <span asp-validation-for="Input.Categories" class="text-warning"></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>*@
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="Input.Password" class="black"></label>
+                            <input asp-for="Input.Password" class="form-control" placeholder="Password" type="password" />
+                            <span asp-validation-for="Input.Password" class="text-warning"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Input.ConfirmPassword" class="black"></label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-warning"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                @if (User.IsInRole(SD.Role_Admin))
+                {
+                    <div>
+                        @*<input asp-for="Input.Role" placeholder="Role" />
+                    <span asp-validation-for="Input.Role" class="text-danger"></span>*@
+                        @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Select a role-", new { @class = "form-control" })
+                    </div>
+                }
+
+                @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                {
+                    <div class="form-group">
+                        <label asp-for="Input.Role"></label>
+
+                    </div>
+                }
+                <br />
+                <button type="submit" class="nav-link btn btn-warning" style="color:white;float:center;"> Register</button>
+
+            </form>
+        </div>
+        <div class="container">
+            <a asp-area="Identity" asp-page="/Account/Login" class="nav-link"> Already have an account</a>
+        </div>
+
+    </div>
+
+    @*<div class="form sign-in">
+    <div class="card" style="width:100%">
+    <div class="card-body">
+
+    </div>
+    </div>
+    </div>*@
 </body>
 </html>
 <script>
@@ -411,10 +450,10 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-<script>
-    const btn = document.getElementById('logBTN');
-    btn.style.visibility = 'hidden';
+    <script>
+        const btn = document.getElementById('logBTN');
+        btn.style.visibility = 'hidden';
 
-    const btnR = document.getElementById('regBTN');
-    btnR.style.visibility = 'hidden';
-</script>
+        const btnR = document.getElementById('regBTN');
+        btnR.style.visibility = 'hidden';
+    </script>
