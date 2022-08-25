@@ -343,11 +343,25 @@
             color:yellow;
             font-weight:bold;
         }
+
+                        .button {
+          background-color: black;
+          border: none;
+          color: white;
+          text-align: center;
+          display: inline-block;
+          cursor: pointer;
+          padding-top:4px;
+          border-radius:1px;
+          width:40px;
+          border-top-right-radius:5px;
+          border-bottom-right-radius:5px;
+        }
     </style>
 </head>
 
 <body class="content">
-    <div class="card" style="width:800px">
+    <div class="card" style="width:800px;">
         <div class="card-body">
             <header>
 
@@ -392,8 +406,16 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label asp-for="Input.Password" class="black"></label>
-                            <input asp-for="Input.Password" class="form-control" placeholder="Password" type="password" />
-                            <span asp-validation-for="Input.Password" class="text-warning"></span>
+                            <div class="input-group mb-3">
+                                <input asp-for="Input.Password" id=password class="form-control" aria-label="password" placeholder="Password" type="password" aria-describedby="basic-addon2" />
+                                <div class="input-group-btn" style="padding-top:5px;">
+                                    <button class="button button" type="button" onclick="passwordVisible()"><i id="passwordToggle" class="fas fa-eye-slash"></i></button>
+
+                                </div>
+                                <span asp-validation-for="Input.Password" class="text-warning"></span>
+                            </div>
+@*                            <input asp-for="Input.Password" class="form-control" placeholder="Password" type="password" />
+                            <span asp-validation-for="Input.Password" class="text-warning"></span>*@
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Input.ConfirmPassword" class="black"></label>
@@ -422,7 +444,7 @@
                     </div>
                 }
                 <br />
-                <button type="submit" class="nav-link btn btn-warning" style="color:white;float:center;"> Register</button>
+                <button type="submit" class="nav-link btn btn-warning" style="color:white;"> Register</button>
 
             </form>
         </div>
@@ -456,4 +478,17 @@
 
         const btnR = document.getElementById('regBTN');
         btnR.style.visibility = 'hidden';
+    </script>
+    <script>
+        function passwordVisible() {
+            var x = document.getElementById("password");
+            var passwordToggle = document.getElementById("passwordToggle");
+            if (x.type === "password") {
+                x.type = "text";
+                passwordToggle.className = "fas fa-eye";
+            } else {
+                x.type = "password";
+                passwordToggle.className = "fas fa-eye-slash";
+            }
+        }
     </script>
