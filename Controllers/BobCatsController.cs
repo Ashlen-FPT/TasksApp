@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TasksApp.Data;
@@ -148,11 +149,72 @@ namespace TasksApp.Controllers
         }
 
         #region API Calls
+        [HttpGet]
+        public async Task<IActionResult> GetTasksTodayAsync(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var TasksToday = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+
+
+            if (TasksToday.Count == 0)
+            {
+                var Main_Task = _context.TemplateBobCat.ToList();
+
+                foreach (var task in Main_Task)
+                {
+
+                    var Task = new BobCat
+                    {
+                        Main = task.Heading,
+                        Number = task.TaskNo,
+                        Description = task.Description,
+                        DateCreated = date,
+                        DateTaskCompleted = new DateTime()
+                    };
+
+                    _context.BobCats.Add(Task);
+
+                }
+            }
+
+            if (TasksToday.Count > 0)
+            {
+                var TemplateBobCat = _context.TemplateBobCat.ToList();
+
+                if (TemplateBobCat.Count > TasksToday.Count)
+                {
+                    var result = TemplateBobCat.Where(p => TasksToday.All(p2 => p2.Description != p.Description)).Where(q => TasksToday.All(q2 => q2.Number != q.TaskNo)).Where(x => TasksToday.All(x2 => x2.Main != x.Heading));
+
+                    foreach (var item in result)
+                    {
+                        var Task = new BobCat
+                        {
+                            Main = item.Heading,
+                            Number = item.TaskNo,
+                            Description = item.Description,
+                            DateCreated = date,
+                            DateTaskCompleted = new DateTime()
+                        };
+
+                        _context.BobCats.Add(Task);
+                    }
+
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { data = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date) });
+        }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(DateTime date)
         {
-            return Json(new { data = _context.BobCats.ToList() });
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date) });
 
         }
 
@@ -164,11 +226,13 @@ namespace TasksApp.Controllers
             task.Yes = true;
             task.No = false;
             task.NA = false;
-            //task.Status = "Partialy Complete";
+            task.DateTaskCompleted = DateTime.Now;
+            //task.User = User.Identity.Name;
 
-            ///ar date = task.DateCreated;
+            var date = task.DateCreated;
 
-            var tasks = _context.BobCats.ToList();
+
+            var tasks = _context.BobCats.Where(d => d.DateCreated == date).ToList();
 
             foreach (var item in tasks)
             {
@@ -233,17 +297,40 @@ namespace TasksApp.Controllers
         {
             var task = _context.BobCats.ToList();
 
-            //foreach (var item in task)
-            //{
-            //    if (item.IsDone == true)
-            //    {
-            //        item.TasksCompleted = true;
-            //        item.DateAllTaskCompleted = DateTime.Now;
-            //    }
+            foreach (var item in task)
+            {
+                if (item.Yes == true)
+                {
+                    //item.TasksCompleted = true;
+                    //item.DateAllTaskCompleted = DateTime.Now;
+                }
 
-            //}
+            }
             await _context.SaveChangesAsync();
             return Json(new { success = true, message = "All Tasks Completed!" });
+        }
+
+        //public async Task<IActionResult> AddComment(int id, string comment)
+        //{
+
+
+        //    var task = _context.BobCats.Find(id);
+
+        //    task.Comments = comment;
+
+
+        //    await _context.SaveChangesAsync();
+
+        //    return Json(new { success = true, message = "Comment added!" });
+
+        //}
+
+        [HttpGet]
+        public IActionResult GetTask(int id)
+        {
+            var task = _context.BobCats.Find(id);
+            return Json(task);
+
         }
 
         //[HttpPost]

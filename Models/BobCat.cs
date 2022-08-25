@@ -11,6 +11,22 @@ namespace TasksApp.Models
 
         public string Description { get; set; }
 
+        public string Main { get; set; }
+
+        public int Number { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public DateTime? DateTaskCompleted { get; set; }
+
+        public string UserName1 { get; set; }
+
+        public string UserName2 { get; set; }
+
+        public bool Sign1 { get; set; }
+
+        public bool Sign2 { get; set; }
+
         public bool Yes { get; set; }
 
         public bool No { get; set; }
