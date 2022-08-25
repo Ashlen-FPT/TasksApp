@@ -1,18 +1,18 @@
 ﻿<footer class="c-footer">
 
-    <div style="width:500px; margin:0 auto;">
+    <div style="width:500px;">
          Checklist System
         <span class="footer-tag-styling"> | Copyright &copy; @DateTime.Now.Year | All Rights Reserved.</span>
         
     </div>
     
     @if (@User.FindFirst("Organization")?.Value == "MCT"){
-        <img class="d-none d-md-block" src="~/images/Logo_Final.png" height="20" alt="MCT Logo">
+        <img class="d-none d-md-block" src="~/images/Logo_Final.png" height="20" alt="MCT Logo" style="padding-left:600px;width=100%">
     }
 
     @if (@User.FindFirst("Organization")?.Value == "TLG")
     {
-        <img class="d-none d-md-block" src="~/images/TLG.png" height="45" alt="TLG Logo">
+        <img class="d-none d-md-block" src="~/images/TLG.png" height="45" alt="TLG Logo" style="padding-left:600px;width=100%">
     }
     
 </footer>
