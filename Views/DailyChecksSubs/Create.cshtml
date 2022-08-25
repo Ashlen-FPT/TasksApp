@@ -1,35 +1,183 @@
 ﻿@model TasksApp.Models.DailyChecksSub
 
-@{
-    ViewData["Title"] = "Create";
-}
 
-<h1>Create</h1>
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Daily Check Tasks</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-<h4>DailyChecksSub</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Heading" class="control-label"></label>
-                <input asp-for="Heading" class="form-control" />
-                <span asp-validation-for="Heading" class="text-danger"></span>
+            <div class="modal-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="HeadingId" class="control-label"></label>
+                    <select id="heading" asp-for="HeadingId" class="form-control" asp-items="@ViewBag.HeadingId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input id="Description" asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a onclick="AddSubTask()" class="btn btn-primary" href="@Url.Action("Index", "TemplateDailyChecks")">Create</a>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">Daily Check Tasks</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="MainId" class="control-label"></label>
+                    <select id="Main" asp-for="MainId" class="form-control" asp-items="ViewBag.MainId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" id="test" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Schedule</label>
+                    <select id="Schedule" class="form-control">
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a onclick="AddSubTask1()" class="btn btn-primary" href="@Url.Action("Index", "TemplateItems")">Create</a>
+            </div>
+        </div>
+    </div>
 </div>
 
+
+<script>
+    (function () {
+        'use strict';
+
+        function remoteModal(idModal) {
+            var vm = this;
+            vm.modal = $(idModal);
+
+            if (vm.modal.length == 0) {
+                return false;
+            }
+
+            if (window.location.hash == idModal) {
+                openModal();
+            }
+
+            var services = {
+                open: openModal,
+                close: closeModal
+            };
+
+            return services;
+
+            // method to open modal
+            function openModal() {
+                vm.modal.modal('show');
+            }
+
+            // method to close modal
+            function closeModal() {
+                vm.modal.modal('hide');
+            }
+        }
+        Window.prototype.remoteModal = remoteModal;
+    })();
+
+    $(function () {
+        window.remoteModal('#exampleModal1');
+    });
+
+    $(function () {
+        window.remoteModal('#exampleModal2');
+    });
+
+    function AddSubTask() {
+
+        var H_No = $('#HeadNo').val();
+        var Head = document.getElementById("heading").value
+        var Desc = $('#Description').val();
+
+
+        $.ajax({
+            type: "POST",
+            url: "/TemplateDailyChecks/AddSubItem?H_No=" + H_No + "&Desc=" + Desc + "&Head=" + Head,
+            success: function (data) {
+                if (data.success) {
+
+                    $("#exampleModal1").modal("toggle")
+                    swal(data.message, "", "success");
+                    Table01.ajax.reload();
+
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+
+        //var b = document.getElementById('description').value,
+        //    url = 'https://localhost:44377/TemplateDailyChecks?description' + encodeURIComponent(b);
+
+        //document.location.href = url;
+
+    }
+
+    function AddSubTask1() {
+
+        var Schedule = $('#Schedule').val();
+        var Main = document.getElementById("Main").value
+        var Description = document.getElementById("test").value;
+        console.log(Description);
+
+        $.ajax({
+            type: "POST",
+            url: "/TemplateItems/AddSubItem?Schedule=" + Schedule + "&Main=" + Main + "&Description=" + Description,
+            success: function (data) {
+                if (data.success) {
+
+                    $("#exampleModal2").modal("toggle")
+                    swal(data.message, "", "success");
+                    Table01.ajax.reload();
+
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+    }
+</script>

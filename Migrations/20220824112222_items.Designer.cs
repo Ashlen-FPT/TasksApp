@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TasksApp.Data;
 
 namespace TasksApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220824112222_items")]
+    partial class items
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -302,7 +304,7 @@ namespace TasksApp.Migrations
 
             modelBuilder.Entity("TasksApp.Models.BE", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("iD")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -310,7 +312,7 @@ namespace TasksApp.Migrations
                     b.Property<string>("Categories")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("iD");
 
                     b.ToTable("BEs");
                 });
@@ -370,9 +372,6 @@ namespace TasksApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -382,23 +381,9 @@ namespace TasksApp.Migrations
                     b.Property<int>("HeadingId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Main")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MainId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Schedule")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("HeadingId");
-
-                    b.HasIndex("MainId");
 
                     b.ToTable("DailyChecksSubs");
                 });
@@ -885,9 +870,6 @@ namespace TasksApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Checklist")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -921,10 +903,10 @@ namespace TasksApp.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("DayOfWeek")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Main")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1091,15 +1073,7 @@ namespace TasksApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TasksApp.Models.TemplateItems", "TemplateItems")
-                        .WithMany()
-                        .HasForeignKey("MainId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("TemplateDailyCheck");
-
-                    b.Navigation("TemplateItems");
                 });
 #pragma warning restore 612, 618
         }

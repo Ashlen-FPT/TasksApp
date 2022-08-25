@@ -10,8 +10,8 @@ using TasksApp.Data;
 namespace TasksApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220822092943_I")]
-    partial class I
+    [Migration("20220823111115_User1")]
+    partial class User1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -378,12 +378,12 @@ namespace TasksApp.Migrations
                     b.Property<string>("Heading")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TemplateDailyChecksId")
+                    b.Property<int>("HeadingId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TemplateDailyChecksId");
+                    b.HasIndex("HeadingId");
 
                     b.ToTable("DailyChecksSubs");
                 });
@@ -1035,11 +1035,13 @@ namespace TasksApp.Migrations
 
             modelBuilder.Entity("TasksApp.Models.DailyChecksSub", b =>
                 {
-                    b.HasOne("TasksApp.Models.TemplateDailyCheck", "TemplateDailyChecks")
+                    b.HasOne("TasksApp.Models.TemplateDailyCheck", "TemplateDailyCheck")
                         .WithMany()
-                        .HasForeignKey("TemplateDailyChecksId");
+                        .HasForeignKey("HeadingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("TemplateDailyChecks");
+                    b.Navigation("TemplateDailyCheck");
                 });
 #pragma warning restore 612, 618
         }
