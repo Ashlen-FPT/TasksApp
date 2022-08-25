@@ -25,6 +25,10 @@
         background-size: cover;
         margin: 0;
     }
+    .jumbotron{
+        opacity:0.90;
+        background-color:white;
+    }
 </style>
 @if (!User.Identity.IsAuthenticated)
 {
@@ -34,24 +38,17 @@
         {
             <center><img src="~/images/Landing.jpg" alt="Task" width="100%" height="900" /></center>
         }*@
-        <div class="card" style="width:500px;">
-            <div class="card-body">
-                <center><h2>Checklist System</h2></center>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-6">
-                                <a button asp-area="Identity" asp-page="/Account/Login" class="nav-link btn btn-success fa fa-user"> Login</a>
 
+        <div class="container h-100">
+            <div class="row align-items-center h-100">
+                <div class="col-6 mx-auto">
+                    <div class="jumbotron">
+                        <center><h2 style="padding-bottom:20px;">@DateTime.UtcNow.ToString("dd MMMM yyyy - HH:mm tt")</h2></center>
+                        <center><h2 style="padding-bottom:20px;">Hello , what would you like to do ? </h2></center>
 
-
-                        </div>
-                        <div class="col-md-6">
-
-                                <a button asp-area="Identity" asp-page="/Account/Register" class="nav-link btn btn-warning fa fa-user-plus"> Register </a>
-                        </div>
+                        <p class="text-center"><a button asp-area="Identity" asp-page="/Account/Login" class="nav-link btn btn-success btn-lg fa fa-user"> Login</a>&ensp; <a button asp-area="Identity" asp-page="/Account/Register" class="nav-link btn btn-warning btn-lg fa fa-user-plus"> Register </a></p>
                     </div>
                 </div>
-
             </div>
         </div>
 
