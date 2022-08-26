@@ -9,6 +9,8 @@ namespace TasksApp.Models
     {
         public int Id { get; set; }
 
+        public int Number { get; set; }
+
         public string ReportHeading { get; set; }
 
         public string ReportDesc { get; set; }
@@ -17,5 +19,8 @@ namespace TasksApp.Models
 
         public string Remarks { get; set; }
 
+        public DateTime DateCompleted { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }

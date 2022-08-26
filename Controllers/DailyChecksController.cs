@@ -149,5 +149,147 @@ namespace TasksApp.Controllers
         {
             return _context.DailyChecks.Any(e => e.Id == id);
         }
+
+        #region API Calls
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetTasksTodayAsync(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var TasksToday = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+
+
+            if (TasksToday.Count == 0)
+            {
+                var Main_Task = _context.TemplateDailyChecks.ToList();
+
+                foreach (var task in Main_Task)
+                {
+
+                    var Task = new DailyCheck
+                    {
+                        ReportDesc = task.Description,
+                        ReportHeading = task.Heading,
+                        DateCreated = date,
+                        DateCompleted = new DateTime(),
+                        Number = task.HeadNo,
+                    };
+
+                    _context.DailyChecks.Add(Task);
+
+                }
+            }
+
+            if (TasksToday.Count > 0)
+            {
+                var Main_Task = _context.TemplateDailyChecks.ToList();
+
+                if (Main_Task.Count > TasksToday.Count)
+                {
+                    var result = Main_Task.Where(p => TasksToday.All(p2 => p2.ReportDesc != p.Description)).Where(q => TasksToday.All(q2 => q2.Number != q.HeadNo)).Where(x => TasksToday.All(x2 => x2.ReportHeading != x.Heading));
+
+                    foreach (var item in result)
+                    {
+                        var Task = new DailyCheck
+                        {
+                            ReportDesc = item.Description,
+                            ReportHeading = item.Heading,
+                            DateCreated = date,
+                            DateCompleted = new DateTime(),
+                            Number = item.HeadNo,
+                        };
+
+                        _context.DailyChecks.Add(Task);
+                    }
+
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { data = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date) });
+        }
+
+
+        [HttpGet]
+        public IActionResult GetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date)});
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CompleteTask(int id)
+        {
+
+
+            var task = _context.DailyChecks.Find(id);
+            task.IsDone = true;
+            task.DateCompleted = DateTime.Now;
+            //task.User = User.Identity.Name;
+
+            var date = task.DateCreated;
+
+
+            var tasks = _context.DailyChecks.Where(d => d.DateCreated == date).ToList();
+
+            foreach (var item in tasks)
+            {
+
+                if (item.IsDone == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+
+                //else
+                //{
+
+                //    task.DateAllTaskCompleted = DateTime.Now;
+                //    task.TasksCompleted = true;
+                //}
+
+            }
+
+
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Task Completed!" });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddComment(int id, string comment)
+        {
+
+
+            var task = _context.DailyChecks.Find(id);
+
+            task.Remarks = comment;
+
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Comment added!" });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetTask(int id)
+        {
+            var task = _context.DailyChecks.Find(id);
+            return Json(task);
+
+        }
+
+        #endregion
     }
 }
