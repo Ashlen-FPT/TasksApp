@@ -35,6 +35,7 @@ namespace TasksApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<UserService>();
+            services.AddTransient<BobCatVM>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(60); });
             services.AddDbContext<ApplicationDbContext>(options =>

@@ -251,8 +251,9 @@
                             <div class="input-group mb-3">
                                 <label asp-for="Input.Email" class="black"></label>
                                 <input asp-for="Input.Email" class="form-control" placeholder="Username" />
-                                <span asp-validation-for="Input.Email" class="text-warning"></span>
+                                
                             </div>
+                            <span asp-validation-for="Input.Email" class="text-warning"></span>
                         </div>
                     </div>
                 </div>
@@ -269,17 +270,18 @@
                                     <button class="button button" type="button" onclick="passwordVisible()"><i id="passwordToggle" class="fas fa-eye-slash" style="font-size:20px;padding-bottom:5px;"></i></button>
         
                                 </div>
-                                <span asp-validation-for="Input.Password" class="text-warning"></span>
+                                
                             </div>
+                            <span asp-validation-for="Input.Password" class="text-warning"></span>
                         </div>
                     </div>
                 </div>
 
 
-                @*                        <div>
+                                        <div>
                 @Html.CheckBoxFor(x=>x.Input.RememberMe)
                 @Html.DisplayNameFor(m => m.Input.RememberMe)
-                </div>*@
+                </div>
                 <br />
                 <div class="action-button">
                     <button type="submit" class="btn btn-success">Login</button>
