@@ -11,16 +11,42 @@ namespace TasksApp.Controllers
     public class BobCatsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly BobCatVM _bobCatVM;
 
-        public BobCatsController(ApplicationDbContext context)
+        public BobCatsController(ApplicationDbContext context, BobCatVM bobCatVM)
         {
             _context = context;
+            _bobCatVM = bobCatVM;
         }
 
         // GET: BobCats
         public async Task<IActionResult> Index()
         {
-            return View(await _context.BobCats.ToListAsync());
+            BobCatVM b = new BobCatVM
+            {
+                BobCatList = await _context.BobCats.ToListAsync()
+            };
+            return View(b);
+        }
+
+
+        
+        public async Task<IActionResult> Capture(BobCatVM b)
+        {
+            var date = DateTime.Now.ToShortDateString();
+            var bobCat = new BobCat
+            {
+                DateCreated=Convert.ToDateTime(date),
+                UserName1 = User.FindFirst("Username")?.Value,
+                UserName2 = User.FindFirst("Username")?.Value,
+                Sign1= b.BobCatModel.Sign1,
+                Sign2=b.BobCatModel.Sign2
+            };
+            _context.BobCats.Add(bobCat);
+            await _context.SaveChangesAsync();
+
+            return View();
+            //return Json(new { data = _context.BobCats });
         }
 
         // GET: BobCats/Details/5

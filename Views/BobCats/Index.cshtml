@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TasksApp.Models.BobCat>
+﻿@model BobCatVM
 
 @{
     ViewData["Title"] = "Index";
@@ -50,6 +50,80 @@
                         <td style="width:40%"> <b> BRAKE TEST FEL / BOBCAT </b></td>
                     </tr>
                 </table>
+                @if (User.IsInRole(SD.Role_Operator.ToString()))
+                {
+                    @*Get Date/Time*@
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="input-group mb-3">
+                                    <label asp-for="BobCatModel.DateCreated" class="black"></label>
+                                    : @DateTime.Now.ToString("dd MMMM yyyy")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Get Operator*@
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="BobCatModel.UserName1" class="black"></label>
+                                : @User.FindFirst("Username")?.Value
+
+                            </div>
+                            <div class="col-md-6">
+                                <input type="checkbox" asp-for="BobCatModel.Sign1" />
+                                <label asp-for="BobCatModel.Sign1" class="black"></label>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                {
+
+                    @*Get Date/Time*@
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="input-group mb-3">
+                                    <label asp-for="BobCatModel.DateCreated" class="black"></label>
+                                    : @Html.DisplayFor(x=>x.BobCatModel.DateCreated)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Get Operator*@
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="BobCatModel.UserName1" class="black"></label>
+                                : @Html.DisplayFor(x=>x.BobCatModel.UserName1)
+
+                            </div>
+                            <div class="col-md-6">
+                                @Html.DisplayFor(x=>x.BobCatModel.Sign1)
+                                <label asp-for="BobCatModel.Sign1" class="black"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Get Supervisor*@
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="BobCatModel.UserName2" class="black"></label>
+                                : @User.FindFirst("Username")?.Value
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="BobCatModel.Sign2" type="checkbox" />
+                                <label asp-for="BobCatModel.Sign2" class="black"></label>
+                            </div>
+                        </div>
+                    </div>
+                }
 
                 <br />
                 <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
@@ -66,7 +140,7 @@
                     </thead>
 
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.BobCatList)
                         {
                             <tr>
                                 <td>
