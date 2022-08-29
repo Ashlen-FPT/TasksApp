@@ -425,6 +425,9 @@
                 </li>
             }
 
+            if (User.FindFirst("Organization")?.Value != "TLG")
+            {
+
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                     <span class="c-sidebar-nav-icon fa fa-info-circle"
@@ -460,6 +463,7 @@
                 </ul>
 
             </li>
+            }
 
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="OperatorCalendar">
