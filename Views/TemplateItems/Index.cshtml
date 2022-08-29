@@ -30,27 +30,27 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-profile" aria-selected="false">Tue</a>
+                <a class="nav-link" id="pills-home1-tab" data-toggle="pill" href="#pills-home1" role="tab" aria-controls="pills-home1" aria-selected="false">Tue</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-contact" aria-selected="false">Wed</a>
+                <a class="nav-link" id="pills-home2-tab" data-toggle="pill" href="#pills-home2" role="tab" aria-controls="pills-home2" aria-selected="false">Wed</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-quart" aria-selected="true">Thu</a>
+                <a class="nav-link" id="pills-home3-tab" data-toggle="pill" href="#pills-home3" role="tab" aria-controls="pills-home3" aria-selected="true">Thu</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-bi" aria-selected="false">Fri</a>
+                <a class="nav-link" id="pills-home4-tab" data-toggle="pill" href="#pills-home4" role="tab" aria-controls="pills-home4" aria-selected="false">Fri</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-annual" aria-selected="false">Sat</a>
+                <a class="nav-link" id="pills-home5-tab" data-toggle="pill" href="#pills-home5" role="tab" aria-controls="pills-home5" aria-selected="false">Sat</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-annual" aria-selected="false">Sun</a>
+                <a class="nav-link" id="pills-home6-tab" data-toggle="pill" href="#pills-home6" role="tab" aria-controls="pills-home6" aria-selected="false">Sun</a>
             </li>
         </ul>
     </div>
@@ -74,24 +74,24 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
+                    @*<tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
 
-                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
-                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
-                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
-                                <td></td>
+                            <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                            <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                            <td></td>
 
-                            </tr>
-                        }
-                    </tbody>
+                        </tr>
+                    }
+                </tbody>*@
                 </table>
             </div>
 
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="tab-pane fade" id="pills-home1" role="tabpanel" aria-labelledby="pills-home1-tab">
                 <table class="table table-bordered table-hover" id="tbl2" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
@@ -108,10 +108,24 @@
                             <th></th>
                         </tr>
                     </thead>
+                    @*<tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                            <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                            <td></td>
+
+                        </tr>
+                    }
+                </tbody>*@
                 </table>
             </div>
 
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="tab-pane fade" id="pills-home2" role="tabpanel" aria-labelledby="pills-home2-tab">
                 <table class="table table-bordered table-hover" id="tbl3" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
@@ -128,25 +142,10 @@
                             <th></th>
                         </tr>
                     </thead>
-
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-
-                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
-                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
-                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
-                                <td></td>
-
-                            </tr>
-                        }
-                    </tbody>
                 </table>
             </div>
 
-            <div class="tab-pane fade" id="pills-quart" role="tabpanel" aria-labelledby="pills-quart-tab">
+            <div class="tab-pane fade" id="pills-home3" role="tabpanel" aria-labelledby="pills-home3-tab">
                 <table class="table table-bordered table-hover" id="tbl4" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
@@ -164,25 +163,60 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
+                    @*<tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
 
-                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
-                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
-                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
-                                <td></td>
+                            <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                            <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                            <td></td>
 
-                            </tr>
-                        }
-                    </tbody>
+                        </tr>
+                    }
+                </tbody>*@
                 </table>
             </div>
 
-            <div class="tab-pane fade" id="pills-bi" role="tabpanel" aria-labelledby="pills-bi-tab">
+            <div class="tab-pane fade" id="pills-home4" role="tabpanel" aria-labelledby="pills-home4-tab">
                 <table class="table table-bordered table-hover" id="tbl5" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>Schedule</th>
+                            <th>DateCreated</th>
+                            <th>UserEmail</th>
+                            <th>
+                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    @*<tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                            <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                            <td></td>
+
+                        </tr>
+                    }
+                </tbody>*@
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-home5" role="tabpanel" aria-labelledby="pills-home5-tab">
+                <table class="table table-bordered table-hover" id="tbl6" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-light">
                         <tr class="table-info">
                             <th>Description</th>
@@ -199,59 +233,24 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
+                    @*<tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
 
-                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
-                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
-                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
-                                <td></td>
+                            <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                            <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                            <td></td>
 
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="tab-pane fade" id="pills-annual" role="tabpanel" aria-labelledby="pills-contact-tab">
-                <table class="table table-bordered table-hover" id="tbl6" style=" word-wrap:break-word; width:100%; table-layout:fixed">
-                    <thead class="thead-dark">
-                        <tr class="table-info">
-                            <th>Description</th>
-                            <th>Main</th>
-                            <th>Schedule</th>
-                            <th>DateCreated</th>
-                            <th>UserEmail</th>
-                            <th>
-                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </a>
-                            </th>
-                            <th></th>
                         </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-
-                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
-                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
-                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
-                                <td></td>
-
-                            </tr>
-                        }
-                    </tbody>
+                    }
+                </tbody>*@
                 </table>
             </div>
 
-            <div class="tab-pane fade" id="pills-annual" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="tab-pane fade" id="pills-home6" role="tabpanel" aria-labelledby="pills-home6-tab">
                 <table class="table table-bordered table-hover" id="tbl7" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
@@ -268,20 +267,21 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
 
-                                <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Main)</td>
-                                <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
-                                <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
-                                <td></td>
+                    @*<tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
 
-                            </tr>
-                        }
-                    </tbody>
+                            <td>@Html.DisplayFor(modelItem => item.Schedule)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Main)</td>
+                            <td id="here">@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                            <td></td>
+
+                        </tr>
+                    }
+                </tbody>*@
                 </table>
             </div>
         </div>

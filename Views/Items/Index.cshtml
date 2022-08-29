@@ -4,515 +4,176 @@
     ViewData["Title"] = "Index";
 }
 
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+
 <style>
-    table, td, th {
-        border: 1px solid black;
-        border-collapse: collapse;
+    tr.group,
+    tr.group:hover {
+        background-color: #ddd !important;
     }
-
-    #order{
-        width:34px;
-    }
-
 </style>
 
+<h1>Pre-Start Tasks</h1>
 
+<div class="form-group">
+    <label class="control-label">Choose date</label>
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
 
+</div>
+
+<br />
 
 <div class="card text-center" style="width: 100%;">
-    @*<div class="card-title">
-            <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">BobCat</a>
-                </li>
-            </ul>
-        </div>*@
+    <div class="card-title">
+        <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-Mon-tab" data-toggle="pill" href="#pills-Mon" role="tab" aria-controls="pills-Mon" aria-selected="true">Mon</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-Tues-tab" data-toggle="pill" href="#pills-Tues" role="tab" aria-controls="pills-Tues" aria-selected="false">Tue</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-Wed-tab" data-toggle="pill" href="#pills-Wed" role="tab" aria-controls="pills-Wed" aria-selected="false">Wed</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-Thurs-tab" data-toggle="pill" href="#pills-Thurs" role="tab" aria-controls="pills-Thurs" aria-selected="true">Thu</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-Fri-tab" data-toggle="pill" href="#pills-Fri" role="tab" aria-controls="pills-Fri" aria-selected="false">Fri</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-Sat-tab" data-toggle="pill" href="#pills-Sat" role="tab" aria-controls="pills-Sat" aria-selected="false">Sat</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-Sun-tab" data-toggle="pill" href="#pills-Sun" role="tab" aria-controls="pills-Sun" aria-selected="false">Sun</a>
+            </li>
+        </ul>
+    </div>
 
     <div class="card-body">
         <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <table class="center table table-striped" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
-                    <tr>
-                        <th rowspan="2" style="width:20%"> <img src="~/Pictures/logo_new.png" /></th>
-                        <td style="width:40%">PRE-START CHECK LIST </td>
-                    </tr>
+            <div class="tab-pane fade show active" id="pills-Mon" role="tabpanel" aria-labelledby="pills-Mon-tab">
 
-                    <tr>
-                        <td style="width:40%">FRONT END LOADER/BOBCAT</td>
-                    </tr>
-                </table>
-
+                <div class="progress">
+                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                </div>
                 <br />
-
-
-
-                <table class="center table table-striped table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
-                    <tr>
-                        <th style="width:15%">Machine</th>
-                        <td style="width:40%"> </td>
-
-                    </tr>
-
-                    <tr>
-                        <th style="width:15%">Operator</th>
-                        <td style="width:40%"> </td>
-                        <td rowspan="2" style="width:15%"> </td>
-                        <td style="width:20%"> Hours </td>
-                        <td style="width:40%"> </td>
-                    </tr>
-
-                    <tr>
-                        <th style="width:15%">Plant Number</th>
-                        <td style="width:40%"> </td>
-                        
-                        <td style="width:20%"> DATE START WEEK </td>
-                        <td style="width:40%"> </td>
-                    </tr>
-
-                    <tr id="order">
-                        <th style="width:35%">In Order</th>
-                        <td style="width:5%"> </td>
-                        
-                    </tr>
-                    <tr>
-                        <th style="width:35%">Out of Order</th>
-                        <td style="width:5%"> </td>
-                    </tr>
-                </table>
-
-                <br />
-
-
-                <table class="center table table-striped table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
-                            <td colspan="2" , style="width:20%"> </td>
-                            <th style="width:4%">M</th>
-                            <th style="width:4%">T</th>
-                            <th style="width:4%">W</th>
-                            <th style="width:4%">T</th>
-                            <th style="width:4%">F</th>
-                            <th style="width:4%">S</th>
-                            <th style="width:4%">S</th>
-                            <td colspan="2" , style="width:20%"> </td>
-                            <th style="width:4%">M</th>
-                            <th style="width:4%">T</th>
-                            <th style="width:4%">W</th>
-                            <th style="width:4%">T</th>
-                            <th style="width:4%">F</th>
-                            <th style="width:4%">S</th>
-                            <th style="width:4%">S</th>
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>IsDone</th>
+                            <th>Date Completed</th>
                         </tr>
+                    </thead>
+                </table>
+            </div>
 
-                        <tr>
-                            <th colspan="2"> TEST THE BRAKES </th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td colspan="2"> </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+            <div class="tab-pane" id="pills-Tues" role="tabpanel" aria-labelledby="pills-Tues-tab">
+                <div class="progress">
+                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                </div>
+                <br />
+                <table class="table table-bordered table-hover" id="tbl1" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>IsDone</th>
+                            <th>Date Completed</th>
                         </tr>
+                    </thead>
+                </table>
+            </div>
 
-                        <tr>
-                            <th rowspan="2" , style="width:20%">SEATS</th>
-                            <td>Condition</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <th rowspan="3"> Windows </th>
-                            <td>Windscreen</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
+            <div class="tab-pane fade" id="pills-Wed" role="tabpanel" aria-labelledby="pills-Wed-tab">
+                <div class="progress">
+                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                </div>
+                <br />
+                <table class="table table-bordered table-hover" id="tbl2" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>IsDone</th>
+                            <th>Date Completed</th>
                         </tr>
+                    </thead>
+                </table>
+            </div>
 
-
-                        <tr>
-                            <td>Belts</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-
-                            <td>Wipers</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
+            <div class="tab-pane fade" id="pills-Thurs" role="tabpanel" aria-labelledby="pills-Thurs-tab">
+                <div class="progress">
+                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                </div>
+                <br />
+                <table class="table table-bordered table-hover" id="tbl3" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>IsDone</th>
+                            <th>Date Completed</th>
                         </tr>
+                    </thead>
+                </table>
+            </div>
 
-
-                        <tr>
-                            <th>OIL</th>
-                            <td>Engine</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>Side windows</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
+            <div class="tab-pane fade" id="pills-Fri" role="tabpanel" aria-labelledby="pills-Fri-tab">
+                <div class="progress">
+                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                </div>
+                <br />
+                <table class="table table-bordered table-hover" id="tbl4" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>IsDone</th>
+                            <th>Date Completed</th>
                         </tr>
+                    </thead>
+                </table>
+            </div>
 
-
-                        <tr>
-                            <th rowspan="3">WHEELS</th>
-                            <td>Nuts</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <th>Battery</th>
-                            <td>Terminals</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
+            <div class="tab-pane fade" id="pills-Sat" role="tabpanel" aria-labelledby="pills-Sat-tab">
+                <div class="progress">
+                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                </div>
+                <br />
+                <table class="table table-bordered table-hover" id="tbl5" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>IsDone</th>
+                            <th>Date Completed</th>
                         </tr>
+                    </thead>
+                </table>
+            </div>
 
-
-                        <tr>
-                            <td>Tyre Condition </td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-
-                            <th rowspan="5">Safety</th>
-                            <td>Water</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Pressure</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>Car Jack</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <th rowspan="3">LEAKS</th>
-                            <td>Oil</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>Tyre Spanner</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Fuel</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>Triangles</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Water</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>Fire Extinguisher</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <th rowspan="4">LIGHTS</th>
-                            <td>Head</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <th>Hooter</th>
-                            <td> </td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Side</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <th>Service 250HRS</th>
-                            <td> Due date</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Break</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <th rowspan="7">Operator</th>
-                            <td>Alcohol Free</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <td> </td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>Drugs Free</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-                        <tr>
-                            <th rowspan="2">Back up alarm</th>
-                            <td></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>Fatigue Free </td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <td></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>Fit for work</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <th rowspan="3">Condition</th>
-                            <td>Clean</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>License Valid</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Dirty</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td>Steering OK</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Damaged</td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-
-                            <td></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
-                            <td><input type="checkbox" /></td>
+            <div class="tab-pane fade" id="pills-Sun" role="tabpanel" aria-labelledby="pills-Sun-tab">
+                <div class="progress">
+                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                </div>
+                <br />
+                <table class="table table-bordered table-hover" id="tbl6" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Description</th>
+                            <th>Main</th>
+                            <th>IsDone</th>
+                            <th>Date Completed</th>
                         </tr>
                     </thead>
                 </table>
@@ -521,4 +182,833 @@
     </div>
 </div>
 
+<script src="~/plugins/jquery/jquery.js"></script>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 
+<script>
+
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        console.log(date);
+        loadTable(date);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Items/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progressbar").style.width = p + "%";
+                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                }
+            }
+        });
+
+
+    });
+
+
+    $('#datePicker').change(function () {
+        var date = document.getElementById("datePicker").value;
+        var dayOfWeek = date.getUTCDay();
+        Table01.destroy();
+        Table02.destroy();
+        Table03.destroy();
+        Table04.destroy();
+        Table05.destroy();
+        Table06.destroy();
+        Table07.destroy();
+        loadTable(date);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Items/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+
+                if (Number.isNaN(p))
+                {
+                    console.log(p)
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+                }
+
+                else if (p == 0)
+                {
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+                }
+
+                else
+                {
+                    document.getElementById("progressbar").style.width = p + "%";
+                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                }
+
+            }
+        });
+
+    });
+
+    function loadTable(date) {
+        var groupColumn = 1;
+
+        Table01 = $("#tbl").DataTable({
+            "ajax": {
+                "url": "/Items/GetMon?date=" + date
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "subItem", "width": "50%" },
+                { "data": "checks", "width": "50%" },
+
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                               `;
+
+                        }
+
+                        if (data.isDone == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+
+                                </div>
+                               `;
+
+                        }
+
+                    }, "width": "22%"
+                },
+
+                {
+                    "data": "dateCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="3">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table02 = $("#tbl1").DataTable({
+            "ajax": {
+                "url": "/Items/GetTue?date=" + date
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "subItem", "width": "50%" },
+                { "data": "checks", "width": "50%" },
+
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                               `;
+
+                        }
+
+                        if (data.isDone == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+
+                                </div>
+                               `;
+
+                        }
+
+                    }, "width": "22%"
+                },
+
+                {
+                    "data": "dateCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="3">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table03 = $("#tbl2").DataTable({
+            "ajax": {
+                "url": "/Items/GetWed?date=" + date
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "subItem", "width": "50%" },
+                { "data": "checks", "width": "50%" },
+
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                               `;
+
+                        }
+
+                        if (data.isDone == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+
+                                </div>
+                               `;
+
+                        }
+
+                    }, "width": "22%"
+                },
+
+                {
+                    "data": "dateCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="3">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table04 = $("#tbl3").DataTable({
+            "ajax": {
+                "url": "/Items/GetThu?date=" + date
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "subItem", "width": "50%" },
+                { "data": "checks", "width": "50%" },
+
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                               `;
+
+                        }
+
+                        if (data.isDone == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+
+                                </div>
+                               `;
+
+                        }
+
+                    }, "width": "22%"
+                },
+
+                {
+                    "data": "dateCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="3">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table05 = $("#tbl4").DataTable({
+            "ajax": {
+                "url": "/Items/GetFri?date=" + date
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "subItem", "width": "50%" },
+                { "data": "checks", "width": "50%" },
+
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                               `;
+
+                        }
+
+                        if (data.isDone == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+
+                                </div>
+                               `;
+
+                        }
+
+                    }, "width": "22%"
+                },
+
+                {
+                    "data": "dateCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="3">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table06 = $("#tbl5").DataTable({
+            "ajax": {
+                "url": "/Items/GetSat?date=" + date
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "subItem", "width": "50%" },
+                { "data": "checks", "width": "50%" },
+
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                               `;
+
+                        }
+
+                        if (data.isDone == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+
+                                </div>
+                               `;
+
+                        }
+
+                    }, "width": "22%"
+                },
+
+                {
+                    "data": "dateCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="3">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+
+        Table07 = $("#tbl6").DataTable({
+            "ajax": {
+                "url": "/Items/GetSun?date=" + date
+            },
+            responsive: true,
+            autoWidth: false,
+            "columns": [
+                { "data": "subItem", "width": "50%" },
+                { "data": "checks", "width": "50%" },
+
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                               `;
+
+                        }
+
+                        if (data.isDone == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+
+                                </div>
+                               `;
+
+                        }
+
+                    }, "width": "22%"
+                },
+
+                {
+                    "data": "dateCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //rowGroup: {},
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="3">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
+        //Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
+            }
+        });
+    }
+
+
+    function Delete(url) {
+
+        var uri = url;
+        var res = encodeURI(uri);
+
+        swal({
+            title: "Are you sure you want to complete this task?",
+            text: "You will not be able to restore the data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "GET",
+                    url: res,
+                    success: function (data) {
+                        if (data.success) {
+                            var date = document.getElementById("datePicker").value;
+                            $.ajax({
+                                type: "GET",
+                                dataType: 'json',
+                                url: "/Items/GetAll?date=" + date,
+                                async: false,
+                                success: function (response) {
+                                    console.log(response)
+                                    var count = 0;
+
+                                    for (var i = 0; i < response.data.length; i++) {
+
+                                        if (response.data[i].isDone == true) {
+                                            count += 1;
+                                        }
+
+                                    }
+
+                                    var p = (count / response.data.length) * 100;
+                                    document.getElementById("progressbar").style.width = p + "%";
+                                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                                }
+                            });
+                            toastr.success(data.message);
+                            Table01.ajax.reload();
+
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>

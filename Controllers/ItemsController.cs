@@ -149,5 +149,184 @@ namespace TasksApp.Controllers
         {
             return _context.items.Any(e => e.Id == id);
         }
+
+        #region API Calls
+
+        [HttpGet]
+        public async Task<IActionResult> GetMon(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            //var dateValue = DayOfWeek.Monday;
+            var TasksToday = _context.items.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+
+
+            if (TasksToday.Count == 0)
+            {
+                var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
+
+                foreach (var task in Main_Task)
+                {
+
+                    var Task = new Items
+                    {
+                        SubItem = task.Description,
+                        DateCreated = date,
+                        DateCompleted = new DateTime(),
+                        Schedule = task.Schedule,
+                    };
+
+                    _context.items.Add(Task);
+
+                }
+            }
+
+            if (TasksToday.Count > 0)
+            {
+                var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
+
+                if (Main_Task.Count > TasksToday.Count)
+                {
+                    var result = Main_Task.Where(p => TasksToday.All(p2 => p2.SubItem != p.Description)).Where(p => TasksToday.All(p2 => p2.Schedule != p.Schedule));
+
+                    foreach (var item in result)
+                    {
+                        var Task = new Items
+                        {
+                            SubItem = item.Description,
+                            DateCreated = date,
+                            Schedule = item.Schedule,
+                            DateCompleted = new DateTime(),
+                        };
+
+                        _context.items.Add(Task);
+                    }
+
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
+        }
+
+        [HttpGet]
+        public IActionResult GetTue()
+        {
+
+            return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Tuesday").ToList() });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetWed()
+        {
+
+            return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Wednesday").ToList() });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetThu()
+        {
+            return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Thursday").ToList() });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetFri(DateTime date)
+        {
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var dateValue = oDate.DayOfWeek;
+            var TasksToday = _context.items.Where(d => d.DateCreated.Date == oDate.Date & dateValue == DayOfWeek.Friday).ToList();
+
+
+            if (TasksToday.Count == 0)
+            {
+                var Main_Task = _context.TemplateItem.ToList();
+
+                foreach (var task in Main_Task)
+                {
+
+                    var Task = new Items
+                    {
+                        Checks = task.Main,
+                        SubItem = task.Description,
+                        DateCreated = date,
+                        DateCompleted = new DateTime(),
+                        Schedule = task.Schedule,
+                    };
+
+                    _context.items.Add(Task);
+
+                }
+            }
+
+            if (TasksToday.Count > 0)
+            {
+                var Main_Task = _context.TemplateItem.ToList();
+
+                if (Main_Task.Count > TasksToday.Count)
+                {
+                    var result = Main_Task.Where(p => TasksToday.All(p2 => p2.SubItem != p.Description))/*.Where(x => TasksToday.All(x2 => x2.Checks != x.Main))*/;
+
+                    foreach (var item in result)
+                    {
+                        var Task = new Items
+                        {
+                            Checks = item.Main,
+                            SubItem = item.Description,
+                            DateCreated = date,
+                            Schedule = item.Schedule,
+                            DateCompleted = new DateTime(),
+                        };
+
+                        _context.items.Add(Task);
+                    }
+
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date) });
+        }
+
+        [HttpGet]
+        public IActionResult GetSat()
+        {
+            return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Saturday").ToList() });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetSun()
+        {
+            return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Sunday").ToList() });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date)
+            
+            });
+
+        }
+
+        [HttpGet]
+        public IActionResult GetTask(int id)
+        {
+            var task = _context.items.Find(id);
+            return Json(task);
+
+        }
+        #endregion
     }
 }
