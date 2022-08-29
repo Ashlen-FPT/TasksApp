@@ -269,6 +269,102 @@
         }
         @if (User.IsInRole(SD.Role_Supervisor.ToString()))
         {
+            if (User.FindFirst("Organization")?.Value == "TLG")
+            {
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more checklist options"></span>
+                        &nbsp;
+                        CheckList
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" asp-controller="PreTasks" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Click here to view Operator Tasks"></span>
+                        &nbsp;
+                        Operational Tasks
+                        </a>
+                        </li>*@
+
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="BobCats" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Brake Test - FEL
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Items" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view  Tasks"></span>
+                                &nbsp;
+                                Pre-Start Check List - FEL
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="DailyWeighs" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Daily Weighbridge Test
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="DailyChecks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Daily Checklist
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Maintenances" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Screen Daily Check Sheet
+                            </a>
+                        </li>
+                        @*<li class="c-sidebar-nav-item">
+                        <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Click here to view Supervisor Tasks"></span>
+                        &nbsp;
+                        Calibration register
+                        </a>
+                        </li>*@
+
+                    </ul>
+
+                </li>
+            }
+            if (User.FindFirst("Organization")?.Value != "TLG")
+            {
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                     <span class="c-sidebar-nav-icon fa fa-info-circle"
@@ -304,6 +400,7 @@
                 </ul>
 
             </li>
+            }
 
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="SupervisorCalendar">
@@ -428,41 +525,41 @@
             if (User.FindFirst("Organization")?.Value != "TLG")
             {
 
-            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                          data-toggle="tooltip"
-                          data-placement="bottom"
-                          title="Click here for more checklist options"></span>
-                    &nbsp;
-                    CheckList
-                </a>
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more checklist options"></span>
+                        &nbsp;
+                        CheckList
+                    </a>
 
-                <ul class="c-sidebar-nav-dropdown-items">
-                    <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here to view Supervisor Tasks"></span>
-                            &nbsp;
-                            Supervisor Tasks
-                        </a>
-                    </li>
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Supervisor Tasks"></span>
+                                &nbsp;
+                                Supervisor Tasks
+                            </a>
+                        </li>
 
-                    <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here to view Operator Tasks"></span>
-                            &nbsp;
-                            Operational Tasks
-                        </a>
-                    </li>
-                </ul>
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Operator Tasks"></span>
+                                &nbsp;
+                                Operational Tasks
+                            </a>
+                        </li>
+                    </ul>
 
-            </li>
+                </li>
             }
 
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">

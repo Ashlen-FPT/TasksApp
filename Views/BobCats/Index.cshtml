@@ -59,7 +59,7 @@
                                         <div class="input-group mb-3">
 
                                             @Html.DisplayNameFor(x => x.DateCreated)
-                                            @foreach (var item in Model)
+                                            @foreach (var item in Model.Take(1))
                                             {
                                                 @Html.DisplayFor(x => item.DateCreated)
                                             }
@@ -77,7 +77,7 @@
 
                                     </div>
                                     <div class="col-md-6">
-                                        @foreach (var item in Model)
+                                        @foreach (var item in Model.Take(1))
                                         {
                                             @Html.CheckBoxFor(modelItem => item.Sign1)
                                             @Html.DisplayNameFor(x => x.Sign1)
@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="col-md-6">
 
-                                        @foreach (var item in Model)
+                                        @foreach (var item in Model.Take(1))
                                         {
                                             @Html.CheckBoxFor(modelItem => item.Sign2)
                                             @Html.DisplayNameFor(x => x.Sign2)
