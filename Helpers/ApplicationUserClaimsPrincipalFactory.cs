@@ -17,6 +17,7 @@ namespace TasksApp.Helpers
         {
             var identity = await base.GenerateClaimsAsync(user);
             identity.AddClaim(new Claim("Username",user.FirstName ?? ""));
+            identity.AddClaim(new Claim("Role",user.Role ?? ""));
             identity.AddClaim(new Claim("Organization",user.Categories ?? ""));
             return identity;
         }

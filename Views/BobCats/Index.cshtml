@@ -1,451 +1,534 @@
-﻿@model IEnumerable<TasksApp.Models.BobCat>
+﻿@model  IEnumerable<TasksApp.Models.BobCat>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-<link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
-
-<style>
-    tr.group,
-    tr.group:hover {
-        background-color: #ddd !important;
+    @{
+        ViewData["Title"] = "Index";
     }
-</style>
 
-<h1>Tasks</h1>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
 
-<div class="form-group">
-    <label class="control-label">Choose date</label>
-    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
+    <style>
+        tr.group,
+        tr.group:hover {
+            background-color: #ddd !important;
+        }
+    </style>
 
-</div>
+    <h1>Tasks</h1>
 
-<div class="card text-center" style="width: 100%;">
-    <div class="card-title">
-        @*<ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">BobCat</a>
-            </li>
-        </ul>*@
+    <div class="form-group">
+        <label class="control-label">Choose date</label>
+        <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
+
     </div>
 
-    <div class="card-body">
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
-                <div class="progress">
-                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <br />
-
-                <table class="center table table-striped" id="tbl1" style=" word-wrap:break-word; width:100%; table-layout:fixed">
-                    <tr>
-                        <th rowspan="2" style="width:20%"> <img src="~/Pictures/logo_new.png" /></th>
-                        <td style="width:40%"> <b> STANDARD OPERATING PROCEDURES </b></td>
-                    </tr>
-
-                    <tr>
-                        <td style="width:40%"> <b> BRAKE TEST FEL / BOBCAT </b></td>
-                    </tr>
-                </table>
-
-                <br />
-                <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
-                    <thead class="thead-dark">
-                        <tr class="table-info">
-                            <th>No.</th>
-                            <th>Description</th>
-                            <th>Main</th>
-                            <th>Yes</th>
-                            <th>No</th>
-                            <th>N/A</th>
-                            <th>Date Completed</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Number)
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                    @Html.DisplayFor(modelItem => item.Main)
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+    <div class="card text-center" style="width: 100%;">
+        <div class="card-title">
+            @*<ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">BobCat</a>
+                    </li>
+                </ul>*@
         </div>
-    </div>
-</div>
 
-<!-- Add Comment Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Comment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
+        <div class="card-body">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Comments:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
+                    <div class="progress">
+                        <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" onclick="SaveComment()" class="btn btn-primary">Save</button>
+                    <br />
+
+                    <table class="center table table-striped" id="tbl1" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                        <tr>
+                            <th rowspan="2" style="width:20%"> <img src="~/Pictures/logo_new.png" /></th>
+                            <td style="width:40%"> <b> STANDARD OPERATING PROCEDURES </b></td>
+                        </tr>
+
+                        <tr>
+                            <td style="width:40%"> <b> BRAKE TEST FEL / BOBCAT </b></td>
+                        </tr>
+                    </table>
+                    <form asp-controller="BobCats" asp-action="Capture" id="created">
+                     
+                            @*Get Date/Time*@
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="input-group mb-3">
+
+                                            @Html.DisplayNameFor(x => x.DateCreated)
+                                            @foreach (var item in Model.Take(1))
+                                            {
+                                                @Html.DisplayFor(x => item.DateCreated)
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Get Operator*@
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.DisplayNameFor(x => x.UserName1)
+                                        : @User.FindFirst("Username")?.Value
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        @foreach (var item in Model.Take(1))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Sign1)
+                                            @Html.DisplayNameFor(x => x.Sign1)
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        
+
+                        @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                        {
+
+
+
+                            @*Get Supervisor*@
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.DisplayNameFor(x => x.UserName2)
+                                        : @User.FindFirst("Username")?.Value
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        @foreach (var item in Model.Take(1))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Sign2)
+                                            @Html.DisplayNameFor(x => x.Sign2)
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group">
+
+                            <input type="submit" value="Submit Checklist" class="btn btn-success" id="btnSave" style="float:right;" />
+
+                        </div>
+                    </form>
+                    <br />
+                    <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                        <thead class="thead-dark">
+                            <tr class="table-info">
+                                <th>No.</th>
+                                <th>Description</th>
+                                <th>Main</th>
+                                <th>Yes</th>
+                                <th>No</th>
+                                <th>N/A</th>
+                                <th>Date Completed</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Number)
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                        @Html.DisplayFor(modelItem => item.Main)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="~/plugins/jquery/jquery.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+    <!-- Add Comment Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
 
-<script>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Comments:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="SaveComment()" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    $(document).ready(function () {
-        var date = document.getElementById("datePicker").value;
-        loadTable(date);
+    <script src="~/plugins/jquery/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 
-        $.ajax({
-            type: "GET",
-            dataType: 'json',
-            url: "/BobCats/GetAll?date=" + date,
-            async: false,
-            success: function (response) {
-                var count = 0;
+    <script>
 
-                for (var i = 0; i < response.data.length; i++) {
+        $(document).ready(function () {
+            var date = document.getElementById("datePicker").value;
+            loadTable(date);
 
-                    if (response.data[i].isDone == true) {
-                        count += 1;
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: "/BobCats/GetAll?date=" + date,
+                async: false,
+                success: function (response) {
+                    var count = 0;
+
+                    for (var i = 0; i < response.data.length; i++) {
+
+                        if (response.data[i].isDone == true) {
+                            count += 1;
+                        }
+
+                    }
+
+                    var p = (count / response.data.length) * 100;
+                    if (p == 0) {
+                        document.getElementById("progressbar").style.width = "0%";
+                        document.getElementById("progressbar").innerHTML = "0%";
+                    }
+                    else {
+                        document.getElementById("progressbar").style.width = p + "%";
+                        document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                    }
+                }
+            });
+
+
+        });
+
+
+        $('#datePicker').change(function () {
+            var date = document.getElementById("datePicker").value;
+            Table01.destroy();
+            loadTable(date);
+
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: "/BobCats/GetAll?date=" + date,
+                async: false,
+                success: function (response) {
+
+                    var count = 0;
+
+                    for (var i = 0; i < response.data.length; i++) {
+
+                        if (response.data[i].isDone == true) {
+                            count += 1;
+                        }
+
+                    }
+
+                    var p = (count / response.data.length) * 100;
+
+                    if (Number.isNaN(p)) {
+                        console.log(p)
+                        document.getElementById("progressbar").style.width = "0%";
+                        document.getElementById("progressbar").innerHTML = "0%";
+                    }
+                    else if (p == 0) {
+                        document.getElementById("progressbar").style.width = "0%";
+                        document.getElementById("progressbar").innerHTML = "0%";
+                    }
+
+                    else {
+                        document.getElementById("progressbar").style.width = p + "%";
+                        document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
                     }
 
                 }
+            });
 
-                var p = (count / response.data.length) * 100;
-                if (p == 0) {
-                    document.getElementById("progressbar").style.width = "0%";
-                    document.getElementById("progressbar").innerHTML = "0%";
-                }
-                else {
-                    document.getElementById("progressbar").style.width = p + "%";
-                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
-                }
-            }
         });
 
+        function loadTable(date) {
+            var groupColumn = 2;
+            Table01 = $("#tbl").DataTable({
+                "ajax": {
+                    "url": "/BobCats/GetTasksToday?date=" + date
+                },
+                "columns": [
+                    { "data": "number", "width": "10%" },
+                    { "data": "description", "width": "50%" },
+                    { "data": "main", "width": "50%" },
 
-    });
+                    {
+                        "data": {
+                            id: "id", yes: "yes"
+                        },
+                        "render": function (data) {
+                            if (data.yes == true) {
 
+                                return `
+                                    <div class="text-center">
+                                       <input disabled type="checkbox" checked="true" />
 
-    $('#datePicker').change(function () {
-        var date = document.getElementById("datePicker").value;
-        Table01.destroy();
-        loadTable(date);
+                                    </div>
+                                `;
 
-        $.ajax({
-            type: "GET",
-            dataType: 'json',
-            url: "/BobCats/GetAll?date=" + date,
-            async: false,
-            success: function (response) {
+                            }
 
-                var count = 0;
+                            if (data.yes == false) {
 
-                for (var i = 0; i < response.data.length; i++) {
+                                return `
+                                    <div class="text-center">
+                                       <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
 
-                    if (response.data[i].isDone == true) {
-                        count += 1;
-                    }
+                                    </div>
+                                `;
 
-                }
+                            }
 
-                var p = (count / response.data.length) * 100;
-
-                if (Number.isNaN(p)) {
-                    console.log(p)
-                    document.getElementById("progressbar").style.width = "0%";
-                    document.getElementById("progressbar").innerHTML = "0%";
-                }
-                else if (p == 0) {
-                    document.getElementById("progressbar").style.width = "0%";
-                    document.getElementById("progressbar").innerHTML = "0%";
-                }
-
-                else {
-                    document.getElementById("progressbar").style.width = p + "%";
-                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
-                }
-
-            }
-        });
-
-    });
-
-    function loadTable(date) {
-        var groupColumn = 2;
-        Table01 = $("#tbl").DataTable({
-            "ajax": {
-                "url": "/BobCats/GetTasksToday?date=" + date
-            },
-            "columns": [
-                { "data": "number", "width": "10%" },
-                { "data": "description", "width": "50%" },
-                { "data": "main", "width": "50%" },
-
-                {
-                    "data": {
-                        id: "id", yes: "yes"
+                        }, "width": "10%"
                     },
-                    "render": function (data) {
-                        if (data.yes == true) {
 
-                            return `
-                                <div class="text-center">
-                                   <input disabled type="checkbox" checked="true" />
+                    {
+                        "data": {
+                            id: "id", no: "no"
+                        },
+                        "render": function (data) {
+                            if (data.no == true) {
 
-                                </div>
-                            `;
+                                return `
+                                    <div class="text-center">
+                                       <input disabled type="checkbox" checked="true" />
 
-                        }
+                                    </div>
+                                   `;
 
-                        if (data.yes == false) {
+                            }
 
-                            return `
-                                <div class="text-center">
-                                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+                            if (data.no == false) {
 
-                                </div>
-                            `;
+                                return `
+                                    <div class="text-center">
+                                       <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
 
-                        }
+                                    </div>
+                                `;
 
-                    }, "width": "10%"
-                },
+                            }
 
-                {
-                    "data": {
-                        id: "id", no: "no"
+                        }, "width": "10%"
                     },
-                    "render": function (data) {
-                        if (data.no == true) {
 
-                            return `
-                                <div class="text-center">
-                                   <input disabled type="checkbox" checked="true" />
+                    {
+                        "data": {
+                            id: "id", na: "na"
+                        },
+                        "render": function (data) {
+                            if (data.na == true) {
 
-                                </div>
-                               `;
+                                return `
+                                    <div class="text-center">
+                                       <input disabled type="checkbox" checked="true" />
 
-                        }
+                                    </div>
+                                `;
 
-                        if (data.no == false) {
+                            }
 
-                            return `
-                                <div class="text-center">
-                                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+                            if (data.na == false) {
 
-                                </div>
-                            `;
+                                return `
+                                    <div class="text-center">
+                                       <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
 
-                        }
+                                    </div>
+                                `;
 
-                    }, "width": "10%"
-                },
+                            }
 
-                {
-                    "data": {
-                        id: "id", na: "na"
+                        }, "width": "10%"
                     },
-                    "render": function (data) {
-                        if (data.na == true) {
 
-                            return `
-                                <div class="text-center">
-                                   <input disabled type="checkbox" checked="true" />
+                    {
+                        "data": "dateTaskCompleted",
+                        'render': function (jsonDate) {
 
-                                </div>
-                            `;
+                            if (jsonDate == "0001-01-01T00:00:00") {
+                                return " ";
+                            }
+                            else {
+                                var datestr = jsonDate.toString();
+                                var date = new Date(datestr.substr(0, 10));
+                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                                var time = datestr.substr(11)
+                                var hr = time.substr(0, 2)
+                                var min = time.substr(3, 2)
+                                var sec = time.substr(6, 2);
+                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                            }
 
-                        }
+                        }, "width": "30%"
+                    },
 
-                        if (data.na == false) {
+                ],
 
-                            return `
-                                <div class="text-center">
-                                   <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+                columnDefs: [{ visible: false, targets: groupColumn }],
+                order: [[groupColumn, 'asc']],
+                //displayLength: 25,
+                drawCallback: function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
 
-                                </div>
-                            `;
+                    api
+                        .column(groupColumn, { page: 'current' })
+                        .data()
+                        .each(function (group, i) {
+                            if (last !== group) {
+                                $(rows)
+                                    .eq(i)
+                                    .before('<tr class="group"><td colspan="6">' + group + '</td></tr>');
 
-                        }
-
-                    }, "width": "10%"
+                                last = group;
+                            }
+                        });
                 },
+            });
 
-                {
-                    "data": "dateTaskCompleted",
-                    'render': function (jsonDate) {
+            // Order by the grouping
+            $('#example tbody').on('click', 'tr.group', function () {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                    table.order([groupColumn, 'desc']).draw();
+                } else {
+                    table.order([groupColumn, 'asc']).draw();
+                }
+            });
+        }
 
-                        if (jsonDate == "0001-01-01T00:00:00") {
-                            return " ";
-                        }
-                        else {
-                            var datestr = jsonDate.toString();
-                            var date = new Date(datestr.substr(0, 10));
-                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                            var time = datestr.substr(11)
-                            var hr = time.substr(0, 2)
-                            var min = time.substr(3, 2)
-                            var sec = time.substr(6, 2);
-                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                        }
+        //$(function () {
+        //    $("#btnSave").click(function (e) {
+        //        e.preventDefault();
+        //        swal({
+        //            title: "Save Changes?",
+        //            text: "",
+        //            type: "info",
+        //            showCancelButton: true,
+        //            cancelButtonClass: 'btn-secondary waves-effect',
+        //            confirmButtonClass: 'btn-success waves-effect waves-light',
+        //            confirmButtonText: "Yes",
+        //            closeOnConfirm: false
+        //        }, function () {
+        //            $("#studentForm").submit();
+        //            swal("Saved!", "Your record has been saved.", "success");
+        //        });
+        //    });
+        //});
 
-                    }, "width": "30%"
-                },
+        function Delete(url) {
 
-            ],
+            var uri = url;
+            var res = encodeURI(uri);
 
-            columnDefs: [{ visible: false, targets: groupColumn }],
-            order: [[groupColumn, 'asc']],
-            //displayLength: 25,
-            drawCallback: function (settings) {
-                var api = this.api();
-                var rows = api.rows({ page: 'current' }).nodes();
-                var last = null;
+            swal({
+                title: "Are you sure you want to complete this task?",
+                text: "You will not be able to restore the data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "GET",
+                        url: res,
+                        success: function (data) {
+                            if (data.success) {
+                                var date = document.getElementById("datePicker").value;
+                                $.ajax({
+                                    type: "GET",
+                                    dataType: 'json',
+                                    url: "/BobCats/GetAll?date=" + date,
+                                    async: false,
+                                    success: function (response) {
+                                        console.log(response)
+                                        var count = 0;
 
-                api
-                    .column(groupColumn, { page: 'current' })
-                    .data()
-                    .each(function (group, i) {
-                        if (last !== group) {
-                            $(rows)
-                                .eq(i)
-                                .before('<tr class="group"><td colspan="6">' + group + '</td></tr>');
+                                        for (var i = 0; i < response.data.length; i++) {
 
-                            last = group;
-                        }
-                    });
-            },
-        });
+                                            if (response.data[i].isDone == true) {
+                                                count += 1;
+                                            }
 
-        // Order by the grouping
-        $('#example tbody').on('click', 'tr.group', function () {
-            var currentOrder = table.order()[0];
-            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
-                table.order([groupColumn, 'desc']).draw();
-            } else {
-                table.order([groupColumn, 'asc']).draw();
-            }
-        });
-    }
-
-    
-    function Delete(url) {
-
-        var uri = url;
-        var res = encodeURI(uri);
-
-        swal({
-            title: "Are you sure you want to complete this task?",
-            text: "You will not be able to restore the data!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true
-        }).then((willDelete) => {
-            if (willDelete) {
-                $.ajax({
-                    type: "GET",
-                    url: res,
-                    success: function (data) {
-                        if (data.success) {
-                            var date = document.getElementById("datePicker").value;
-                            $.ajax({
-                                type: "GET",
-                                dataType: 'json',
-                                url: "/BobCats/GetAll?date=" + date,
-                                async: false,
-                                success: function (response) {
-                                    console.log(response)
-                                    var count = 0;
-
-                                    for (var i = 0; i < response.data.length; i++) {
-
-                                        if (response.data[i].isDone == true) {
-                                            count += 1;
                                         }
 
+                                        var p = (count / response.data.length) * 100;
+                                        document.getElementById("progressbar").style.width = p + "%";
+                                        document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
                                     }
+                                });
+                                toastr.success(data.message);
+                                Table01.ajax.reload();
 
-                                    var p = (count / response.data.length) * 100;
-                                    document.getElementById("progressbar").style.width = p + "%";
-                                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
-                                }
-                            });
-                            toastr.success(data.message);
-                            Table01.ajax.reload();
-
+                            }
+                            else {
+                                toastr.error(data.message);
+                            }
                         }
-                        else {
-                            toastr.error(data.message);
-                        }
-                    }
-                });
-            }
-        });
-    }
+                    });
+                }
+            });
+        }
 
-    //var CommentId = 1;
+        //var CommentId = 1;
 
-    //function showModal(event) {
+        //function showModal(event) {
 
-    //    $('#exampleModal').modal("toggle");
+        //    $('#exampleModal').modal("toggle");
 
-    //    CommentId = event.dataset.id
+        //    CommentId = event.dataset.id
 
-    //    $.ajax({
-    //        type: "GET",
-    //        dataType: 'json',
-    //        url: "/BobCats/GetTask?id=" + CommentId,
-    //        async: false,
-    //        success: function (response) {
-    //            document.getElementById("message-text").value = response.comments;
-    //            console.log(response.comments)
-    //        }
-    //    });
+        //    $.ajax({
+        //        type: "GET",
+        //        dataType: 'json',
+        //        url: "/BobCats/GetTask?id=" + CommentId,
+        //        async: false,
+        //        success: function (response) {
+        //            document.getElementById("message-text").value = response.comments;
+        //            console.log(response.comments)
+        //        }
+        //    });
 
-    //}
+        //}
 
-    //function SaveComment() {
+        //function SaveComment() {
 
-    //    console.log("save")
+        //    console.log("save")
 
-    //    var comment = document.getElementById("message-text").value;
+        //    var comment = document.getElementById("message-text").value;
 
-    //    $.ajax({
-    //        type: "GET",
-    //        dataType: 'json',
-    //        url: "/BobCats/AddComment?id=" + CommentId + "&comment=" + comment,
-    //        async: false,
-    //        success: function (response) {
-    //            toastr.success(response.message);
-    //            Table01.ajax.reload();
-    //        }
-    //    });
+        //    $.ajax({
+        //        type: "GET",
+        //        dataType: 'json',
+        //        url: "/BobCats/AddComment?id=" + CommentId + "&comment=" + comment,
+        //        async: false,
+        //        success: function (response) {
+        //            toastr.success(response.message);
+        //            Table01.ajax.reload();
+        //        }
+        //    });
 
 
-    //    $('#exampleModal').modal("toggle");
-</script>
+        //    $('#exampleModal').modal("toggle");
+    </script>
