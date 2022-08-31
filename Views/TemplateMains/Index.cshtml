@@ -12,9 +12,11 @@
 
 <h1>Manage Tasks</h1>
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-    Create New
-</button>
+<div class="form-group" style="padding-right:12px;">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="float:right;">
+        <i class="fa fa-plus"></i> Create New
+    </button>
+</div>
 
 <br />
 
@@ -266,16 +268,16 @@
 
 
                         return `
-                                        <div class="text-center">
-                                                <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a onclick=Delete("/TemplateMains/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                 </a>
+                                            <div class="text-center">
+                                                    <a type="button" class="btn btn-warning" onclick="ShowEditModal(${data.id})">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a onclick=Delete("/TemplateMains/DeleteTask/${data.id}") class="btn btn-danger text-white" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Delete Task">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                     </a>
 
-                                        </div>
-                                       `;
+                                            </div>
+                                           `;
                     }, "width": "30%"
                 },
 
