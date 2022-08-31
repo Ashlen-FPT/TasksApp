@@ -190,14 +190,15 @@
 
 
     $(document).ready(function () {
-        var date = document.getElementById("datePicker").value;
-        console.log(date);
-        loadTable(date);
+        var date = new Date(document.getElementById("datePicker").value)
+        var dayOfWeek = date.getUTCDay();
+        console.log(dayOfWeek);
+        loadTable(date, dayOfWeek);
 
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/Items/GetAll?date=" + date,
+            url: "/Items/GetAll?date=" + date + "dayOfWeek=" + dayOfWeek,
             async: false,
             success: function (response) {
                 var count = 0;
@@ -221,13 +222,11 @@
                 }
             }
         });
-
-
     });
 
 
     $('#datePicker').change(function () {
-        var date = document.getElementById("datePicker").value;
+        var date = new Date(document.getElementById("datePicker").value)
         var dayOfWeek = date.getUTCDay();
         Table01.destroy();
         Table02.destroy();
@@ -236,12 +235,12 @@
         Table05.destroy();
         Table06.destroy();
         Table07.destroy();
-        loadTable(date);
+        loadTable(date, dayOfWeek);
 
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/Items/GetAll?date=" + date,
+            url: "/Items/GetAll?date=" + date + "dayOfWeek=" + dayOfWeek,
             async: false,
             success: function (response) {
 
@@ -281,12 +280,12 @@
 
     });
 
-    function loadTable(date) {
+    function loadTable(date, dayOfWeek) {
         var groupColumn = 1;
 
         Table01 = $("#tbl").DataTable({
             "ajax": {
-                "url": "/Items/GetMon?date=" + date
+                "url": "/Items/GetMon?date=" + date + "dayOfWeek=" + dayOfWeek
             },
             responsive: true,
             autoWidth: false,
@@ -382,7 +381,7 @@
 
         Table02 = $("#tbl1").DataTable({
             "ajax": {
-                "url": "/Items/GetTue?date=" + date
+                "url": "/Items/GetTue?date=" + date + "dayOfWeek=" + dayOfWeek
             },
             responsive: true,
             autoWidth: false,
