@@ -175,12 +175,12 @@ namespace TasksApp.Controllers
 
             var log = new Logs
             {
-                UserName= User.FindFirst("Username").Value,
+                UserName= User.FindFirst("Username")?.Value,
                 UserEmail = User.Identity.Name,
                 LogType = LogTypes.Created,
                 DateTime = DateTime.Now,
                 UpdatedTable = "BobCat",
-                OldData = "",
+                OldData = null,
                 NewData=""
             };
 
