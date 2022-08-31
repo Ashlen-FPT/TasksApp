@@ -1,0 +1,240 @@
+﻿@model TasksApp.ViewModels.DashboardViewModel
+
+<section class="content-header">
+    <center>
+        <h1>
+            Checklist System Dashboard
+            @*<small>Control panel</small>*@
+        </h1>
+    </center>
+    @*<ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>*@
+</section>
+<br />
+<!-- Main content -->
+<div>
+    <!-- Small boxes (Stat box) -->
+    <!--<div class="row">
+        <div class="col-lg-3 col-xs-6">-->
+    <!-- small box -->
+    <!--<div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>@Model.templateTasks_count</h3>
+                <p>Tasks</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-tasks"></i>
+            </div>
+            <a href="@(Url.Action("Index","TemplateTasks"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>-->
+    <!-- ./col -->
+    <!--<div class="col-lg-3 col-xs-6">-->
+    <!-- small box -->
+    <!--<div class="small-box bg-green">
+            <div class="inner">
+                <h3>@Model.tasks_count<sup style="font-size: 20px"></sup></h3>
+                <p>Supervisor Tasks</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-tasks"></i>
+            </div>
+            <a href="@(Url.Action("Index","Tasks"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>-->
+    <!-- ./col -->
+    <!--<div class="col-lg-3 col-xs-6">-->
+    <!-- small box -->
+    <!--<div class="small-box bg-yellow">
+            <div class="inner">
+                <h3>@Model.preTasks_count</h3>
+                <p>Operator Pre-Tasks</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-tasks"></i>
+            </div>
+            <a href="@(Url.Action("Index","PreTasks"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>-->
+    <!-- ./col -->
+    <!--<div class="col-lg-3 col-xs-6">-->
+    <!-- small box -->
+    <!--<div class="small-box bg-red">
+            <div class="inner">
+                <h3>65</h3>
+                <p>This Month</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>-->
+    <!-- ./col -->
+    <!--</div>-->
+    <!-- /.row -->
+    <!-- Main row -->
+    <div class="row">
+        <!-- Left col -->
+        <section class="col-lg-6 connectedSortable">
+            <!-- Custom tabs (Charts with tabs)-->
+            <!-- DONUT CHART -->
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Total Tasks On The System</h3>
+                    @*<div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>*@
+                </div>
+                <div class="box-body chart-responsive">
+                    <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </section>
+
+        <!--<section class="col-lg-6 connectedSortable">-->
+        <!-- Custom tabs (Charts with tabs)-->
+        <!-- DONUT CHART -->
+        <!--<div class="box box-danger">
+        <div class="box-header with-border">
+            <h3 class="box-title">Area Chart</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body chart-responsive">
+            <div class="chart" id="sales-charts" style="height: 300px; position: relative;"></div>
+        </div>-->
+        <!-- /.box-body -->
+        <!--</div>-->
+        <!-- /.nav-tabs-custom -->
+        <!--</section>-->
+        <section class="col-lg-6 connectedSortable">
+            <div class="row">
+                <div class="col-lg-4 col-xs-7">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+
+                            <p>Total Tasks</p>
+                            <h3>@Model.bobCats_count</h3>
+                        </div>
+                        <div class="icon" style="padding-top:12px;">
+                            <i class="fa fa-tasks fa-xs"></i>
+                        </div>
+                        <a href="@(Url.Action("Index","BobCats"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-7">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+
+                            <p>Total Supervisor Tasks</p>
+                            <h3>@Model.dailyChecks_count<sup style="font-size: 20px"></sup></h3>
+                        </div>
+                        <div class="icon" style="padding-top:12px;">
+                            <i class="fa fa-tasks fa-xs"></i>
+                        </div>
+                        <a href="@(Url.Action("Index","DailyChecks"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-xs-7">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+
+                            <p>Total Supervisor Tasks</p>
+                            <h3>@Model.dailyWeighs_count<sup style="font-size: 20px"></sup></h3>
+                        </div>
+                        <div class="icon" style="padding-top:12px;">
+                            <i class="fa fa-tasks fa-xs"></i>
+                        </div>
+                        <a href="@(Url.Action("Index","DailyWeighs"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-xs-7">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <p>Total Supervisor Tasks</p>
+                            <h3>@Model.items_count<sup style="font-size: 20px"></sup></h3>
+                        </div>
+                        <div class="icon" style="padding-top:12px;">
+                            <i class="fa fa-tasks fa-xs"></i>
+                        </div>
+                        <a href="@(Url.Action("Index","Items"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+       
+                <div class="col-lg-4 col-xs-7">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+
+                            <p>Total Operator Tasks</p>
+                            <h3>@Model.maintanance_count</h3>
+                        </div>
+                        <div class="icon" style="padding-top:12px;">
+                            <i class="fa fa-tasks fa-xs"></i>
+                        </div>
+                        <a href="@(Url.Action("Index","Maintenances"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <!-- /.row (main row) -->
+</div>
+
+<!-- Morris.js charts -->
+<script src="bower_components/raphael/raphael.min.js"></script>
+<script src="bower_components/morris.js/morris.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+
+<script>
+  $(function () {
+    "use strict";
+    //DONUT CHART
+    var donut = new Morris.Donut({
+        element: 'sales-chart',
+        resize: true,
+        colors: ["#3c8dbc", "#f56954", "#00a65a", "#3c8dbc", "#f56954"],
+        data: [
+            {label: "All Tasks", value: @Model.bobCats_count},
+            {label: "Supervisor Tasks", value: @Model.dailyChecks_count},
+            { label: "Operator Tasks", value: @Model.dailyWeighs_count},
+            {label: "Supervisor Tasks", value: @Model.items_count},
+            {label: "Operator Tasks", value: @Model.maintanance_count}
+      ] ,
+      hideHover: 'auto'
+    });
+
+      //BAR CHART
+      var area = new Morris.Bar({
+          element: 'sales-charts',
+          resize: true,
+          data: [
+              { y: "Tasks", a: @Model.bobCats_count, b: @Model.dailyChecks_count, c: @Model.dailyWeighs_count, d:@Model.items_count, e:@Model.maintanance_count}
+          ],
+          xkey: 'y',
+          ykeys: ["a", "b", "c", "d", "e"],
+          labels: ["All Tasks", "S_Tasks", "O_Tasks", "D_Tasks", "B_Tasks"],
+          lineColors: ["#3c8dbc", "#f56954", "#00a65a", "#3c8dbc", "#f56954"],
+          hideHover: 'auto'
+       });
+  });
+</script>
+
+

@@ -297,15 +297,40 @@
                 </li>*@
 
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                    <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Index">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
                         <span class="c-sidebar-nav-icon fa fa-info-circle"
                               data-toggle="tooltip"
                               data-placement="bottom"
-                              title="Click here for more"></span>
+                              title="Click here for more checklist options"></span>
                         &nbsp;
                         Dashboard
                     </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="TLG_Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Checklist Dashboard
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Tasks Checkbox
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="SupervisorCalendar">
                         <span class="c-sidebar-nav-icon fa fa-calendar-alt"

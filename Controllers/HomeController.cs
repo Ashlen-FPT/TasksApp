@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Linq;
+﻿using System.Linq;
 using TasksApp.Data;
-using TasksApp.Models;
-using TasksApp.Services;
 using TasksApp.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace TasksApp.Controllers
 {
@@ -33,7 +31,15 @@ namespace TasksApp.Controllers
 
         public IActionResult TLG_Index()
         {
-            return View();
+            DashboardViewModel TLG_dashboard = new DashboardViewModel();
+
+            TLG_dashboard.bobCats_count = _context.BobCats.Count();
+            TLG_dashboard.dailyChecks_count = _context.DailyChecks.Count();
+            TLG_dashboard.dailyWeighs_count = _context.DailyWeighs.Count();
+            TLG_dashboard.items_count = _context.items.Count();
+            TLG_dashboard.maintanance_count = _context.Maintenances.Count();
+
+            return View(TLG_dashboard);
         }
 
         public IActionResult TG_Index()
