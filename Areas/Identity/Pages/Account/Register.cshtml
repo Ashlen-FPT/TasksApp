@@ -397,7 +397,7 @@
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Input.Categories" class="black"></label>
-                            @Html.DropDownListFor(m => m.Input.Categories, Model.Input.EntityList, "- Select an organization -", new {@class = "form-control" })
+                            @Html.DropDownListFor(m => m.Input.Categories, Model.Input.EntityList, "- Select an organization -", new { @class = "form-control" })
                             <span asp-validation-for="Input.Categories" class="text-warning"></span>
                         </div>
                     </div>
@@ -441,7 +441,7 @@
                     <div>
                         @*<input asp-for="Input.Role" placeholder="Role" />
                             <span asp-validation-for="Input.Role" class="text-danger"></span>*@
-                        @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Select a role-", new { @class = "select2" , data_live_search=true})
+                        @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Select a role-", new { @class = "form-control"})
                     </div>
                 }
 

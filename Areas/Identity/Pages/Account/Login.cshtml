@@ -250,7 +250,7 @@
                             <div class="input-group mb-3">
                                 <label asp-for="Input.Email" class="black"></label>
                                 <input asp-for="Input.Email" class="form-control" placeholder="Username" />
-                                
+
                             </div>
                             <span asp-validation-for="Input.Email" class="text-warning"></span>
                         </div>
@@ -267,9 +267,9 @@
                                 <input asp-for="Input.Password" id=password class="form-control" aria-label="password" placeholder="Password" type="password" aria-describedby="basic-addon2" />
                                 <div class="input-group-btn">
                                     <button class="button button" type="button" onclick="passwordVisible()"><i id="passwordToggle" class="fas fa-eye-slash" style="font-size:20px;padding-bottom:5px;"></i></button>
-        
+
                                 </div>
-                                
+
                             </div>
                             <span asp-validation-for="Input.Password" class="text-warning"></span>
                         </div>
@@ -277,9 +277,9 @@
                 </div>
 
 
-                                        <div>
-                @Html.CheckBoxFor(x=>x.Input.RememberMe)
-                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                <div>
+                    @Html.CheckBoxFor(x => x.Input.RememberMe)
+                    @Html.DisplayNameFor(m => m.Input.RememberMe)
                 </div>
                 <br />
                 <div class="action-button">
@@ -292,29 +292,29 @@
 
 
                 @*<ul class="page-links">
-                <li>
+                    <li>
 
-                </li>
+                    </li>
 
-                </ul>*@
+                    </ul>*@
 
             </form>
         </div>
 
 
         @*<div class="row">
-        <ul class="page-links">*@
+            <ul class="page-links">*@
         @*<li>
-        <a asp-page="./ForgotPassword">Forgot your password?</a>
-        </li>*@
+            <a asp-page="./ForgotPassword">Forgot your password?</a>
+            </li>*@
         @*<li>
-        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
-        </li>*@
+            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
+            </li>*@
         @*<li>
-        <a  asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-        </li>*@
+            <a  asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+            </li>*@
         @*</ul>
-        </div>*@
+            </div>*@
 
     </div>
     @*    </div>*@
@@ -324,25 +324,35 @@
         <partial name="_ValidationScriptsPartial" />
     }
 
-        <script>
-            const btn = document.getElementById('logBTN');
-            btn.style.visibility = 'hidden';
+    <script>
+        const btn = document.getElementById('logBTN');
+        btn.style.visibility = 'hidden';
 
-            const btnR = document.getElementById('regBTN');
-            btnR.style.visibility = 'hidden';
-        </script>
-        <script>
-            function passwordVisible() {
-                var x = document.getElementById("password");
-                var passwordToggle = document.getElementById("passwordToggle");
-                if (x.type === "password") {
-                    x.type = "text";
-                    passwordToggle.className = "fas fa-eye";
-                } else {
-                    x.type = "password";
-                    passwordToggle.className = "fas fa-eye-slash";
-                }
+        const btnR = document.getElementById('regBTN');
+        btnR.style.visibility = 'hidden';
+    </script>
+    <script>
+        function passwordVisible() {
+            var x = document.getElementById("password");
+            var passwordToggle = document.getElementById("passwordToggle");
+            if (x.type === "password") {
+                x.type = "text";
+                passwordToggle.className = "fas fa-eye";
+            } else {
+                x.type = "password";
+                passwordToggle.className = "fas fa-eye-slash";
             }
-        </script>
-    </body>
+        }
+    </script>
+
+    <script type="text/javascript">
+        function preventBack() {
+            window.history.forward();
+        }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () {
+            null
+        };
+    </script>
+</body>
     </html>
