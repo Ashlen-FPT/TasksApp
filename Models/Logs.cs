@@ -21,5 +21,7 @@ namespace TasksApp.Models
         public string OldData { get; set; }
 
         public string NewData { get; set; }
+
+        public string Entity { get; set; }
     }
 }
