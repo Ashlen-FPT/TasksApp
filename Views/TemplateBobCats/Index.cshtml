@@ -228,7 +228,7 @@
         var groupColumn = 2;
         Table01 = $("#tbl").DataTable({
             "ajax": {
-                "url": "/templatebobcats/getbobcat",
+                "url": "/templatebobcats/getbobcats",
             },
             responsive: true,
             autoWidth: false,
@@ -366,12 +366,12 @@
     function EditTask() {
 
         var TaskNo = $('#TaskNoEdit').val();
-        var Heading = $('#HeadingEdit').val();
+        var Head = $('#HeadingEdit').val();
         var Desc = $('#DescriptionEdit').val();
 
         $.ajax({
             type: "PUT",
-            url: "/TemplateBobCats/EditBobCat?Id=" + editId + "TaskNo=" + TaskNo + "&Desc=" + Desc + "&Heading=" + Heading,
+            url: "/TemplateBobCats/EditBobCat?Id=" + editId + "TaskNo=" + TaskNo + "&Desc=" + Desc + "&Head=" + Head,
             success: function (data) {
                 if (data.success) {
 

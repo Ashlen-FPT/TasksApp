@@ -153,9 +153,17 @@ namespace TasksApp.Controllers
         #region API Calls
 
         [HttpGet]
-        public IActionResult GetBobCat()
+        public IActionResult GetBobCats()
         {
             return Json(new { data = _context.TemplateBobCat.ToList() });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBobCatAsync(int id)
+        {
+            var templateTask = await _context.TemplateBobCat.FindAsync(id);
+            return Json(new { data = templateTask });
 
         }
 
