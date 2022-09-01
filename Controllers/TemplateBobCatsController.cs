@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
+using TasksApp.Enums;
 using TasksApp.Models;
 
 namespace TasksApp.Controllers
@@ -172,7 +173,19 @@ namespace TasksApp.Controllers
 
             };
 
+            var log = new Logs
+            {
+                UserName= User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                LogType = LogTypes.Created,
+                DateTime = DateTime.Now,
+                UpdatedTable = "BobCat",
+                OldData = null,
+                NewData=""
+            };
+
             _context.Add(bobCat);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync();
 
             return Json(new { success = true, message = "Sub-Task added!" });
