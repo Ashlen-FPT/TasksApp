@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
+using TasksApp.Enums;
 using TasksApp.Models;
 
 namespace TasksApp.Controllers
@@ -155,6 +156,21 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetDailyCheck()
         {
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateDailyCheck",
+                OldData = "Read TemplateDailyCheck",
+                NewData = null
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
             return Json(new { data = _context.TemplateDailyChecks.ToList() });
 
         }
@@ -172,7 +188,20 @@ namespace TasksApp.Controllers
                 UserEmail = User.Identity.Name
             };
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Created,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateDailyCheck",
+                OldData = "New Task",
+                NewData = $"{ "Heading No: " + dailyCheck.HeadNo + "Heading: " + dailyCheck.Heading + "Checklist: " + dailyCheck.Checklist + "Description: " + dailyCheck.Description + "UserEmail: " + dailyCheck.UserEmail}"
+            };
+
             _context.Add(dailyCheck);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync();
 
             return Json(new { success = true, message = "Sub-Task added!" });
@@ -208,6 +237,10 @@ namespace TasksApp.Controllers
         [HttpPut]
         public async Task<IActionResult> EditDailyCheck(int Id, int H_No, string Desc, string Head, bool Sub)
         {
+            var existingHeadNo = _context.TemplateDailyChecks.Find(Id).HeadNo;
+            var existingDescription = _context.TemplateDailyChecks.Find(Id).HeadNo;
+            var existingHeading = _context.TemplateDailyChecks.Find(Id).HeadNo;
+            var existingSubItems = _context.TemplateDailyChecks.Find(Id).SubItems;
 
             var templateDailyCheck = await _context.TemplateDailyChecks.FindAsync(Id);
 
@@ -216,7 +249,20 @@ namespace TasksApp.Controllers
             templateDailyCheck.Heading = Head;
             templateDailyCheck.SubItems = Sub;
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Updated,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateDailyCheck",
+                OldData = $"{ "Heading No: " + existingHeadNo + "Heading: " + existingHeading + "Description: " + existingDescription + "Sub Items: " + existingSubItems}",
+                NewData = $"{ "Heading No: " + templateDailyCheck.HeadNo + "Heading: " + templateDailyCheck.Heading +"Description: " + templateDailyCheck.Description + "Sub Items: " + templateDailyCheck.SubItems}"
+            };
+
             _context.Update(templateDailyCheck);
+            _context.Logs.Add(log);
 
             await _context.SaveChangesAsync();
 
@@ -236,7 +282,20 @@ namespace TasksApp.Controllers
         public async Task<IActionResult> DeleteDailyCheck(int id)
         {
             var templateDailyCheck = await _context.TemplateDailyChecks.FindAsync(id);
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Deleted,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateBobCat",
+                OldData = $"{ "Heading No: " + templateDailyCheck.HeadNo + "Heading: " + templateDailyCheck.Heading + "Description: " + templateDailyCheck.Description + "Sub Items: " + templateDailyCheck.SubItems}",
+                NewData = "Task Removed"
+            };
             _context.TemplateDailyChecks.Remove(templateDailyCheck);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync();
             return Json(new { success = true, message = "Sub-Task deleted!" });
         }

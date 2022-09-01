@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using TasksApp.Services;
+using TasksApp.Enums;
 
 namespace TasksApp.Controllers
 {
@@ -162,6 +163,21 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetDaily()
         {
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateTasks",
+                OldData= "Read TemplateTasks",
+                NewData=null
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
 
             return Json(new { data = _context.TemplateTasks.Where(s => s.Schedule == "Daily").ToList()});
 
@@ -231,7 +247,20 @@ namespace TasksApp.Controllers
             
             };
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Created,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateTasks",
+                OldData = "New Task",
+                NewData = $"{ "Description: " + Task.Description + "Schedule: " + Task.Schedule +"Day Of Week:"+Task.DayOfWeek+" Month :"+Task.Month+"Quarterly :"+Task.Quarterly+"Bi Annual :"+Task.Bi_Annual+"Annual :"+Task.Annual+"Task Type :"+Task.TaskType+ "Date Created: " + Task.DateCreated + "UserEmail: " + Task.UserEmail +"Checklist :"+Task.ChekList}"
+            };
+
             _context.Add(Task);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync(_userService.GetUser());
 
             return Json(new { success = true, message = "Task added!" });
@@ -241,13 +270,29 @@ namespace TasksApp.Controllers
         [HttpPut]
         public async Task<IActionResult> EditTask(int Id, string Desc, string Schedule)
         {
+            var existingDescription = _context.TemplateTasks.Find(Id).Description;
+            var existingSchedule = _context.TemplateTasks.Find(Id).Schedule;
 
             var templateTask = await _context.TemplateTasks.FindAsync(Id);
 
             templateTask.Description = Desc;
             templateTask.Schedule = Schedule;
 
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Created,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateTasks",
+                OldData = $"{ "Description: " + existingDescription + "Schedule: " + existingSchedule}",
+                NewData = $"{ "Description: " + templateTask.Description + "Schedule: " + templateTask.Schedule}"
+            };
+
             _context.Update(templateTask);
+            _context.Logs.Add(log);
             
             await _context.SaveChangesAsync(_userService.GetUser());
 
@@ -267,7 +312,21 @@ namespace TasksApp.Controllers
         public async Task<IActionResult> DeleteTask(int id)
         {
             var templateTask = await _context.TemplateTasks.FindAsync(id);
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Created,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateTasks",
+                OldData = $"{ "Description: " + templateTask.Description + "Schedule: " + templateTask.Schedule}",
+                NewData = "Task Removed"
+            };
+
             _context.TemplateTasks.Remove(templateTask);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync(_userService.GetUser());
             return Json(new { success = true, message = "Task deleted!" });
         }

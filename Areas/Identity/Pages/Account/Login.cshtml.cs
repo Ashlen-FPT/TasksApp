@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using TasksApp.Models;
 using TasksApp.Data;
 using TasksApp.Migrations;
+using TasksApp.Enums;
 
 namespace TasksApp.Areas.Identity.Pages.Account
 {
@@ -65,6 +66,8 @@ namespace TasksApp.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+           
+
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -93,7 +96,24 @@ namespace TasksApp.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe,lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+
+                    var log = new Logs
+                    {
+                        UserName = "Ashlen",
+                        UserEmail = Input.Email,
+                        Entity = "TLG",
+                        LogType = LogTypes.LoggedIn,
+                        DateTime = DateTime.Now,
+                        UpdatedTable = null,
+                        OldData = "User Logged In",
+                        NewData = null
+                    };
+
+                    _context.Logs.Add(log);
+                    _context.SaveChanges();
+
                     _logger.LogInformation("User logged in.");
+                    
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
