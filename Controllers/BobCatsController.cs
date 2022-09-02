@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TasksApp.Data;
+using TasksApp.Enums;
 using TasksApp.Models;
 
 namespace TasksApp.Controllers
@@ -20,7 +21,7 @@ namespace TasksApp.Controllers
         // GET: BobCats
         public async Task<IActionResult> Index()
         {
-        
+
             return View(await _context.BobCats.ToListAsync());
         }
 
@@ -224,6 +225,20 @@ namespace TasksApp.Controllers
 
                 }
             }
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "BobCat",
+                OldData = "Read BobCat Checklist",
+                NewData = null
+            };
+
+            _context.Logs.Add(log);
 
             await _context.SaveChangesAsync();
 

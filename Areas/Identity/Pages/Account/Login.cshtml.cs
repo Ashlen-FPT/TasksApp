@@ -96,12 +96,13 @@ namespace TasksApp.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe,lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = _context.ApplicationUsers.SingleOrDefault(x => x.Email == Input.Email);
 
                     var log = new Logs
                     {
-                        UserName = "Ashlen",
+                        UserName = user.FirstName,
                         UserEmail = Input.Email,
-                        Entity = "TLG",
+                        Entity = user.Categories,
                         LogType = LogTypes.LoggedIn,
                         DateTime = DateTime.Now,
                         UpdatedTable = null,

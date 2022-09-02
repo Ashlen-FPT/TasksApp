@@ -1,31 +1,35 @@
 ﻿@model IEnumerable<TasksApp.Models.Logs>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
 <link href="~/css/DataTable/datatables.min.css" rel="stylesheet" />
+<style>
+    tr {
+        outline: thin solid black;
+    }
+    td {
+        outline: thin solid black;
+    }
+</style>
 
 <center><h1>System Logs</h1></center>
 
-<div class="card-body" name="form1" action="index.cshtml" method="get">
-    <div class="card-body">
+<div class="card-body">
+    <div class="card-body" style="background-color:white;">
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
-                            <th>@Html.DisplayNameFor(model => model.UserName)</th>
-                            <th>@Html.DisplayNameFor(model => model.UserEmail)</th>
-                            <th>@Html.DisplayNameFor(model => model.Entity)</th>
-                            <th>@Html.DisplayNameFor(model => model.LogType)</th>
-                            <th>@Html.DisplayNameFor(model => model.UpdatedTable)</th>
-                            <th>@Html.DisplayNameFor(model => model.OldData)</th>
-                            <th>@Html.DisplayNameFor(model => model.NewData)</th>
+
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Organization</th>
+                            <th>Log Type</th>
+                            <th>Affected Table</th>
+                            <th>Old Data</th>
+                            <th>New Data</th>
 
                         </tr>
                     </thead>
@@ -67,5 +71,15 @@
             </div>
         </div>
     </div>
-    </div>
-    <script src="~/js/DataTable/datatables.min.js"></script>
+</div>
+<script src="~/js/DataTable/datatables.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#tbl").DataTable();
+    })
+
+</script>
+
