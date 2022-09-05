@@ -21,9 +21,9 @@
 
 
 
-        <table class="table table-striped table-datatable" id="tbl">
-            <thead @*class="thead-dark"*@>
-                <tr @*class="table-info"*@>
+        <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+            <thead class="thead-dark">
+                <tr class="table-info">
 
                     <th>Username</th>
                     <th>Email</th>
@@ -59,7 +59,10 @@
 
 
                         <td>
-                            @Html.DisplayFor(modelItem => item.DateTime)
+                            @{ 
+                                var date = item.DateTime.ToString(" dd MMMM yyyy - HH:mm tt");
+                            }
+                            @Html.DisplayFor(modelItem=>date)
                         </td>
 
                         <td>
@@ -88,24 +91,35 @@
 <script>
 
     $(document).ready(function () {
-
+        var today = new Date();
+        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        console.log(date);
         $('#tbl').DataTable({
+            "lengthMenu": [10, 25, 50, 75, 100],
             dom: 'Bfrtip',
             buttons: [
                 {
+                    extend: 'pageLength',
+                },
+                {
                     extend: 'copy',
+                    title: 'System Logs - Checklist System_' + date
                 },
                 {
                     extend: 'excel',
+                    title: 'System Logs - Checklist System_' + date
                 },
                 {
                     extend: 'pdf',
+                    title: 'System Logs - Checklist System_'+ date
                 },
                 {
                     extend: 'csv',
+                    title: 'System Logs - Checklist System_' + date
                 },
                 {
                     extend: 'print',
+                    title: 'System Logs - Checklist System_' + date
                 }
             ]
         });

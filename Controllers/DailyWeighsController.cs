@@ -291,6 +291,21 @@ namespace TasksApp.Controllers
 
             var date = task.Date;
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "DailyWeighs",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
             var tasks = _context.Tasks.Where(d => d.DateCreated == date).ToList();
             //bool status = tasks.All(c => c.IsDone == false);
             foreach (var item in tasks)

@@ -251,6 +251,21 @@ namespace TasksApp.Controllers
 
             var date = task.DateCreated;
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "DailyChecks",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
 
             var tasks = _context.DailyChecks.Where(d => d.DateCreated == date).ToList();
 

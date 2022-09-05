@@ -267,6 +267,21 @@ namespace TasksApp.Controllers
 
             var date = task.DateCreated;
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "BobCat",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
 
             var tasks = _context.BobCats.Where(d => d.DateCreated == date).ToList();
 
@@ -320,7 +335,6 @@ namespace TasksApp.Controllers
                 }
 
             }
-
 
             await _context.SaveChangesAsync();
 
