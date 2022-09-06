@@ -177,6 +177,7 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateCompleted = new DateTime(),
                         Number = task.HeadNo,
+                        Status = "Do-Checklist : DailyCheck"
                     };
 
                     _context.DailyChecks.Add(Task);
@@ -247,6 +248,7 @@ namespace TasksApp.Controllers
             var task = _context.DailyChecks.Find(id);
             task.IsDone = true;
             task.DateCompleted = DateTime.Now;
+            task.Status = "Partially Completed : DailyCheck";
             //task.User = User.Identity.Name;
 
             var date = task.DateCreated;
@@ -268,6 +270,13 @@ namespace TasksApp.Controllers
 
 
             var tasks = _context.DailyChecks.Where(d => d.DateCreated == date).ToList();
+
+            if (tasks.All(c => c.IsDone == true))
+            {
+                task.DateAllTaskCompleted = DateTime.Now;
+                task.Status = "Completed : DailyCheck";
+                _context.SaveChanges();
+            }
 
             foreach (var item in tasks)
             {

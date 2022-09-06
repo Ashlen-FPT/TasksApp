@@ -22,5 +22,9 @@ namespace TasksApp.Models
         public DateTime DateCompleted { get; set; }
 
         public DateTime DateCreated { get; set; }
+
+        public string Status { get; set; }
+
+        public DateTime? DateAllTaskCompleted { get; set; }
     }
 }

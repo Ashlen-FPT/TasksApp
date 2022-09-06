@@ -194,7 +194,7 @@ namespace TasksApp.Controllers
                         Description = task.Description,
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
-                        Status = "Do-Checklist"
+                        Status = "Do-Checklist : BobCat"
                     };
 
                     _context.BobCats.Add(Task);
@@ -267,7 +267,7 @@ namespace TasksApp.Controllers
             task.No = false;
             task.NA = false;
             task.DateTaskCompleted = DateTime.Now;
-            task.Status = "Partially Completed";
+            task.Status = "Partially Completed : BobCat";
             task.isDone = true;
             //task.User = User.Identity.Name;
             var date = task.DateCreated;
@@ -295,7 +295,7 @@ namespace TasksApp.Controllers
             if(tasks.All(c => c.isDone == true))
             {
                 task.DateAllTaskCompleted = DateTime.Now;
-                task.Status = "Completed";
+                task.Status = "Completed : BobCat";
                 _context.SaveChanges();
             }
 
