@@ -3,6 +3,8 @@ using System.Linq;
 using TasksApp.Data;
 using TasksApp.ViewModels;
 using TasksApp.Models;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace TasksApp.Controllers
 {
@@ -26,23 +28,34 @@ namespace TasksApp.Controllers
             return View(dashboard);
         }
 
-        public IActionResult TLG_Index()
+        public IActionResult TLG_Index(DateTime date)
         {
+            DateTime oDate = Convert.ToDateTime(date);
             DashboardViewModel TLG_dashboard = new DashboardViewModel();
 
-            TLG_dashboard.bobCats_count = _context.BobCats.Count();
-            TLG_dashboard.dailyChecks_count = _context.DailyChecks.Count();
-            TLG_dashboard.dailyWeighs_count = _context.DailyWeighs.Count();
-            TLG_dashboard.items_count = _context.items.Count();
-            TLG_dashboard.maintanance_count = _context.Maintenances.Count();
+            TLG_dashboard.bobCats_count = _context.BobCats.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
+            TLG_dashboard.dailyChecks_count = _context.DailyChecks.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
+            TLG_dashboard.dailyWeighs_count = _context.DailyWeighs.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
+            TLG_dashboard.items_count = _context.items.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
+            TLG_dashboard.maintanance_count = _context.Maintenances.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
 
+            var dailyChecks = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+            //TLG_dashboard.dailyChecks_progress = dailyCheck;
             return View(TLG_dashboard);
+        }
+
+        [HttpGet]
+        public IActionResult GetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date) });
+
         }
 
         public IActionResult SupervisorCalendar()
         {
-
-
             var query = _context.Tasks.Where(x => x.Status != null).Select(t => new Tasks
             {
                 DateCreated = t.DateCreated,
@@ -67,13 +80,10 @@ namespace TasksApp.Controllers
             return View();
         }
 
-
-
         public ActionResult Test()
         {
             return View();
         }
-
-        
+       
     }
 }

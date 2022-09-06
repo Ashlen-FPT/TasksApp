@@ -22,5 +22,7 @@ namespace TasksApp.ViewModels
         public int preTasks_count { get; set; }
 
         public int maintanance_count { get; set; }
+
+        public int dailyChecks_progress { get; set; }
     }
 }

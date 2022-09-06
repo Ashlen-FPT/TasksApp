@@ -235,7 +235,7 @@ namespace TasksApp.Controllers
         {
             DateTime oDate = Convert.ToDateTime(date);
 
-            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date) });
+            return Json(new { data = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date) });
 
         }
 

@@ -1,121 +1,173 @@
 ﻿@model TasksApp.ViewModels.DashboardViewModel
 
 <section class="content-header">
-    <center>
-        <h1>
-            Checklist System Dashboard
-            @*<small>Control panel</small>*@
-        </h1>
-    </center>
+    
     @*<ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Dashboard</li>
         </ol>*@
 </section>
-<br />
+
 <!-- Main content -->
-<div>
+
+@*<div class="form-group">
     
-       
-            <div class="row">
-                <div class="col-lg-2 col-xs-4">
-                    <!-- small box -->
-                    <div class="small-box bg-aqua">
-                        <div class="inner">
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
+</div>*@
 
-                            <p>Total Tasks</p>
-                            <h3>@Model.bobCats_count</h3>
-                        </div>
-                        <div class="icon" style="padding-top:12px;">
-                            <i class="fa fa-tasks fa-xs"></i>
-                        </div>
-                        <a href="@(Url.Action("Index","BobCats"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+<div id="dashboard">
+    <section class="content">
+
+        <div class="row justify-content-center" >
+            <div class="col-lg-2 col-xs-4">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+
+                        <p>Brake Test FEL CheckList</p>
+                        <h3>@Model.bobCats_count</h3>
                     </div>
-                </div>
-                <div class="col-lg-2 col-xs-4" style="width:100%">
-                    <div class="small-box bg-purple">
-                        <div class="inner">
 
-                            <p>Total Supervisor Tasks</p>
-                            <h3>@Model.dailyChecks_count<sup style="font-size: 20px"></sup></h3>
-                        </div>
-                        <div class="icon" style="padding-top:12px;">
-                            <i class="fa fa-tasks fa-xs"></i>
-                        </div>
-                        <a href="@(Url.Action("Index","DailyChecks"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
                     </div>
+                    <a href="@(Url.Action("Index","BobCats"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
-
-                <div class="col-lg-2 col-xs-4">
-                    <div class="small-box bg-red">
-                        <div class="inner">
-
-                            <p>Total Supervisor Tasks</p>
-                            <h3>@Model.dailyWeighs_count<sup style="font-size: 20px"></sup></h3>
-                        </div>
-                        <div class="icon" style="padding-top:12px;">
-                            <i class="fa fa-tasks fa-xs"></i>
-                        </div>
-                        <a href="@(Url.Action("Index","DailyWeighs"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-xs-4">
-                    <div class="small-box bg-green">
-                        <div class="inner">
-                            <p>Total Supervisor Tasks</p>
-                            <h3>@Model.items_count<sup style="font-size: 20px"></sup></h3>
-                        </div>
-                        <div class="icon" style="padding-top:12px;">
-                            <i class="fa fa-tasks fa-xs"></i>
-                        </div>
-                        <a href="@(Url.Action("Index","Items"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-xs-4">
-                    <!-- small box -->
-                    <div class="small-box bg-yellow">
-                        <div class="inner">
-
-                            <p>Total Operator Tasks</p>
-                            <h3>@Model.maintanance_count</h3>
-                        </div>
-                        <div class="icon" style="padding-top:12px;">
-                            <i class="fa fa-tasks fa-xs"></i>
-                        </div>
-                        <a href="@(Url.Action("Index","Maintenances"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="col-lg-2 col-xs-4" style="width:100%">
+                <div class="small-box bg-warning">
+                    <div class="inner">
+
+                        <p>Daily CheckList</p>
+                        <h3>@Model.dailyChecks_count<sup style="font-size: 20px"></sup></h3>
+                    </div>
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
+                    </div>
+                    <a href="@(Url.Action("Index","DailyChecks"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-xs-4">
+                <div class="small-box bg-success">
+                    <div class="inner">
+
+                        <p>Daily Weighbridge Test</p>
+                        <h3>@Model.dailyWeighs_count<sup style="font-size: 20px"></sup></h3>
+                    </div>
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
+                    </div>
+                    <a href="@(Url.Action("Index","DailyWeighs"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-xs-4">
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <p>Pre-start Checklist FEL</p>
+                        <h3>@Model.items_count<sup style="font-size: 20px"></sup></h3>
+                    </div>
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
+                    </div>
+                    <a href="@(Url.Action("Index","Items"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-xs-4">
+                <!-- small box -->
+                <div class="small-box bg-purple">
+                    <div class="inner">
+                        <p>Maintenance Checklist</p>
+                        <h3>@Model.maintanance_count</h3>
+                    </div>
+
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
+                    </div>
+                    <a href="@(Url.Action("Index","Maintenances"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
         
-    
 
-    <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-6 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <!-- DONUT CHART -->
-            <div class="box box-danger">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Total Tasks On The System</h3>
-                    @*<div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>*@
+        <div class="row">
+         <!-- Left col -->
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Total Tasks On The System</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="text-center">
+                                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                                </p>
+                                <div class="chart">
+                                    <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <p class="text-center">
+                                    <strong>Checklist Completion</strong>
+                                </p>
+
+                                <span class="progress-text">Brake Test FEL CheckList</span>
+                                <div class="progress">
+                                    <div id="progress1" class="progress-bar progress-bar-aqua" role="progressbar" aria-valuemax="100">
+                                        <a href="@Url.Action("CompleteTask", "BobCats")#progressbar" data-target="#progressbar">
+                                           
+                                        </a>
+                                    </div>
+                                </div>
+                                <br />
+
+                                <span class="progress-text">Daily CheckList</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemax="100">
+                                        <a href="DailyChecks/Index.cshtml?id=progressbar" data-target="#progressbar">
+                                            
+                                        </a>
+                                    </div>
+                                </div>
+                                <br />
+
+                                <span class="progress-text">Weighbridge Test</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar"aria-valuemin="0" aria-valuemax="100" id="progressbar3">
+
+                                    </div>
+                                </div>
+                                <br />
+
+                                <span class="progress-text">Pre-start Checklist FEL</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemax="100" id="progressbar4">
+
+                                    </div>
+                                </div>
+                                <br />
+
+                                <span class="progress-text">Maintenance Checklist</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuemax="100" id="progressbar5">
+
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="box-body chart-responsive">
-                    <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
-                </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.nav-tabs-custom -->
-        </section>
-    </div>
-    <!-- /.row (main row) -->
+        </div>
+    </section>
 </div>
 
 <!-- Morris.js charts -->
@@ -126,37 +178,186 @@
 
 
 <script>
-  $(function () {
-    "use strict";
-    //DONUT CHART
-    var donut = new Morris.Donut({
-        element: 'sales-chart',
-        resize: true,
-        colors: ["#3c8dbc", "#f56954", "#00a65a", "#3c8dbc", "#f56954"],
-        data: [
-            {label: "All Tasks", value: @Model.bobCats_count},
-            {label: "Supervisor Tasks", value: @Model.dailyChecks_count},
-            { label: "Operator Tasks", value: @Model.dailyWeighs_count},
-            {label: "Supervisor Tasks", value: @Model.items_count},
-            {label: "Operator Tasks", value: @Model.maintanance_count}
-      ] ,
-      hideHover: 'auto'
+
+    $(function () {
+        $("progress2").onChange(function (e) {
+            $("progress").load("DailyChecks/Index", function () {
+                alert("page content has been loaded");
+            });
+        });
+    })
+
+
+    $(function () {
+        "use strict";
+        //DONUT CHART
+        var donut = new Morris.Donut({
+            element: 'sales-chart',
+            resize: true,
+            colors: ["#33B3FF", "#f0ad4e", "#22bb33", "#bb2124", "#5D3FD3"],
+            data: [
+                { label: "Brake Test FEL Checklist", value: @Model.bobCats_count},
+                { label: "Daily CheckList", value: @Model.dailyChecks_count},
+                { label: "Weighbridge Test", value: @Model.dailyWeighs_count},
+                { label: "Pre-start Checklist FEL", value: @Model.items_count},
+                { label: "Maintenance Checklist", value: @Model.maintanance_count}
+            ],
+        hideHover: 'auto'
+        });
+
+
+
+        //BAR CHART
+        var area = new Morris.Bar({
+            element: 'sales-charts',
+            resize: true,
+            data: [
+                { y: "Tasks", a: @Model.bobCats_count, b: @Model.dailyChecks_count, c: @Model.dailyWeighs_count, d:@Model.items_count, e:@Model.maintanance_count}
+            ],
+            xkey: 'y',
+            ykeys: ["a", "b", "c", "d", "e"],
+            labels: ["All Tasks", "S_Tasks", "O_Tasks", "D_Tasks", "B_Tasks"],
+            lineColors: ["#3c8dbc", "#f56954", "#00a65a", "#3c8dbc", "#f56954"],
+             hideHover: 'auto'
+        });
     });
 
-      //BAR CHART
-      var area = new Morris.Bar({
-          element: 'sales-charts',
-          resize: true,
-          data: [
-              { y: "Tasks", a: @Model.bobCats_count, b: @Model.dailyChecks_count, c: @Model.dailyWeighs_count, d:@Model.items_count, e:@Model.maintanance_count}
-          ],
-          xkey: 'y',
-          ykeys: ["a", "b", "c", "d", "e"],
-          labels: ["All Tasks", "S_Tasks", "O_Tasks", "D_Tasks", "B_Tasks"],
-          lineColors: ["#3c8dbc", "#f56954", "#00a65a", "#3c8dbc", "#f56954"],
-          hideHover: 'auto'
-       });
-  });
+    //$(document).ready(function () {
+    //    $('#dashboard').load('Dashboard/TLG_Index.cshtml');
+    //    var date = document.getElementById("datePicker").value;
+        
+
+    //    $.ajax({
+    //        type: "GET",
+    //        dataType: 'json',
+    //        url: "/Dashboard/TLG_Index?date=" + date,
+    //        async: false,
+    //        success: function (response) {
+    //            var count = 0;
+
+    //            for (var i = 0; i < response.data.length; i++) {
+
+    //                if (response.data[i].isDone == true) {
+    //                    count += 1;
+    //                }
+
+    //            }
+
+    //            var p = (count / response.data.length) * 100;
+    //            if (p == 0) {
+    //                document.getElementById("progressbar").style.width = "0%";
+    //                document.getElementById("progressbar").innerHTML = "0%";
+    //            }
+    //            else {
+    //                document.getElementById("progressbar").style.width = p + "%";
+    //                document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+    //            }
+    //        }
+    //    });
+
+
+    //});
+
+
+    //$('#datePicker').change(function () {
+    //    var date = document.getElementById("datePicker").value;
+    //    Table01.destroy();
+    //    loadTable(date);
+
+    //    $.ajax({
+    //        type: "GET",
+    //        dataType: 'json',
+    //        url: "/ Dashboard / TLG_Index ? date = " + date,
+    //        async: false,
+    //        success: function (response) {
+
+    //            var count = 0;
+
+    //            for (var i = 0; i < response.data.length; i++) {
+
+    //                if (response.data[i].isDone == true) {
+    //                    count += 1;
+    //                }
+
+    //            }
+
+    //            var p = (count / response.data.length) * 100;
+
+    //            if (Number.isNaN(p)) {
+    //                console.log(p)
+    //                document.getElementById("progressbar").style.width = "0%";
+    //                document.getElementById("progressbar").innerHTML = "0%";
+    //            }
+    //            else if (p == 0) {
+    //                document.getElementById("progressbar").style.width = "0%";
+    //                document.getElementById("progressbar").innerHTML = "0%";
+    //            }
+
+    //            else {
+    //                document.getElementById("progressbar").style.width = p + "%";
+    //                document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+    //            }
+
+    //        }
+    //    });
+
+    //});
+    //    $.ajax({
+    //        type: "GET",
+    //        dataType: 'json',
+    //        url: "/BobCats/GetAll",
+    //        async: false,
+    //        success: function (response) {
+    //            var count = 0;
+
+    //            for (var i = 0; i < response.data.length; i++) {
+
+    //                if (response.data[i].isDone == true) {
+    //                    count += 1;
+    //                }
+
+    //            }
+
+    //            var p = (count / response.data.length) * 100;
+    //            if (p == 0) {
+    //                document.getElementById("progressbar1").style.width = "0%";
+    //                document.getElementById("progressbar1").innerHTML = "0%";
+    //            }
+    //            else {
+    //                document.getElementById("progressbar1").style.width = p + "%";
+    //                document.getElementById("progressbar1").innerHTML = Math.round(p) + "%";
+    //            }
+    //        }
+    //    });
+    
+
+    //$.ajax({
+    //    type: "GET",
+    //    dataType: 'json',
+    //    url: "/DailyChecks/GetAll",
+    //    async: false,
+    //    success: function (response) {
+    //        var count = 0;
+
+    //        for (var i = 0; i < response.data.length; i++) {
+
+    //            if (response.data[i].isDone == true) {
+    //                count += 1;
+    //            }
+
+    //        }
+
+    //        var p = (count / response.data.length) * 100;
+    //        if (p == 0) {
+    //            document.getElementById("progressbar2").style.width = "0%";
+    //            document.getElementById("progressbar2").innerHTML = "0%";
+    //        }
+    //        else {
+    //            document.getElementById("progressbar2").style.width = p + "%";
+    //            document.getElementById("progressbar2").innerHTML = Math.round(p) + "%";
+    //        }
+    //    }
+    //});
 </script>
 
 
