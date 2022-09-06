@@ -193,7 +193,8 @@ namespace TasksApp.Controllers
                         Number = task.TaskNo,
                         Description = task.Description,
                         DateCreated = date,
-                        DateTaskCompleted = new DateTime()
+                        DateTaskCompleted = new DateTime(),
+                        Status = "Do-Checklist"
                     };
 
                     _context.BobCats.Add(Task);
@@ -217,7 +218,8 @@ namespace TasksApp.Controllers
                             Number = item.TaskNo,
                             Description = item.Description,
                             DateCreated = date,
-                            DateTaskCompleted = new DateTime()
+                            DateTaskCompleted = new DateTime(),
+                            Status = "Do-Checklist"
                         };
 
                         _context.BobCats.Add(Task);
@@ -238,7 +240,9 @@ namespace TasksApp.Controllers
                 NewData = null
             };
 
+
             _context.Logs.Add(log);
+            
 
             await _context.SaveChangesAsync();
 
@@ -263,9 +267,13 @@ namespace TasksApp.Controllers
             task.No = false;
             task.NA = false;
             task.DateTaskCompleted = DateTime.Now;
+            task.Status = "Partially Completed";
+            task.isDone = true;
             //task.User = User.Identity.Name;
-
             var date = task.DateCreated;
+
+
+            
 
             var log = new Logs
             {
@@ -278,12 +286,18 @@ namespace TasksApp.Controllers
                 OldData = null,
                 NewData = "Task Completed"
             };
-
             _context.Logs.Add(log);
             _context.SaveChanges();
 
 
             var tasks = _context.BobCats.Where(d => d.DateCreated == date).ToList();
+
+            if(tasks.All(c => c.isDone == true))
+            {
+                task.DateAllTaskCompleted = DateTime.Now;
+                task.Status = "Completed";
+                _context.SaveChanges();
+            }
 
             foreach (var item in tasks)
             {

@@ -5,6 +5,7 @@ using TasksApp.ViewModels;
 using TasksApp.Models;
 using System;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace TasksApp.Controllers
 {
@@ -54,28 +55,63 @@ namespace TasksApp.Controllers
 
         }
 
-        public IActionResult SupervisorCalendar()
+        public IActionResult OperatorCalendar()
         {
-            var query = _context.Tasks.Where(x => x.Status != null).Select(t => new Tasks
-            {
-                DateCreated = t.DateCreated,
-                Status = t.Status,
-            }).ToList();
+            //var query = _context.PreTasks.Where(x => x.Status != null).Select(t => new PreTasks
+            //{
+            //    DateCreated = t.DateCreated,
+            //    Status = t.Status,
+            //}).ToList();
 
-            ViewData["SupervisorEvents"] = query;
+            //ViewData["OperatorEvents"] = query;
+
+            var BobCats = _context.BobCats.ToList();
+            //.Select(t => new BobCat
+            // {
+            //     DateCreated = t.DateCreated,
+            //     Status = t.Status,
+            // }).ToList();
+           var query = new List<BobCat>();
+            if (BobCats.Any(x => x.Status == "Do-Checklist"))
+            {
+                query= BobCats.Where(x => x.Status == "Do-Checklist").Take(1).ToList();
+            }
+            
+                if (BobCats.Any(x => x.Status == "Partially Completed"))
+            {
+                query = BobCats.Where(x => x.Status == "Partially Completed").Take(1).ToList();
+            }
+
+            if (BobCats.Any(x => x.Status == "Completed"))
+            {
+                query = BobCats.Where(x => x.Status == "Completed").Take(1).ToList();
+            }
+
+
+            ViewData["BobCat"] = query;
 
             return View();
         }
 
-        public IActionResult OperatorCalendar()
+        public IActionResult SupervisorCalendar()
         {
-            var query = _context.PreTasks.Where(x => x.Status != null).Select(t => new PreTasks
+            //var query = _context.Tasks.Where(x => x.Status != null).Select(t => new Tasks
+            //{
+            //    DateCreated = t.DateCreated,
+            //    Status = t.Status,
+            //}).ToList();
+
+            //ViewData["SupervisorEvents"] = query;
+
+            var BobCats = _context.BobCats.Where(x => x.Status != null).Select(t => new BobCat
             {
                 DateCreated = t.DateCreated,
                 Status = t.Status,
             }).ToList();
 
-            ViewData["OperatorEvents"] = query;
+
+
+            ViewData["BobCat"] = BobCats;
 
             return View();
         }
@@ -84,6 +120,6 @@ namespace TasksApp.Controllers
         {
             return View();
         }
-       
+
     }
 }
