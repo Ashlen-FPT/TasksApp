@@ -18,7 +18,8 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @if (@User.FindFirst("Organization")?.Value == null){
+    @if (@User.FindFirst("Organization")?.Value == null)
+    {
         <title>@ViewData["Title"]  Check-List System</title>
     }
 
@@ -31,7 +32,9 @@
     {
         <title>@ViewData["Title"]  Check-List System : TLG </title>
     }
-    
+
+    <link href="~/css/DataTable/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/css/DataTable/buttons.bootstrap4.min.css" rel="stylesheet" />
 
     <!--Ashlen Integration-->
     <link href="~/css/main.css" rel="stylesheet" />
@@ -54,6 +57,8 @@
     <link rel="stylesheet" href="~/dist/css/skins/skin-blue.min.css">
     <!-- jQuery 3 -->
     <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/DataTable/jquery-3.6.0.js"></script>
+    <script src="~/js/DataTable/jquery.dataTables.min.js"></script>
 
     @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
     @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
@@ -87,6 +92,16 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
+    <script src="~/js/DataTable/jquery.dataTables.js"></script>
+    @*<script src="~/js/DataTable/dataTables.bootstrap4.min.js"></script>*@
+    <script src="~/js/DataTable/dataTables.buttons.min.js"></script>
+    @*<script src="~/js/DataTable/buttons.bootstrap4.min.js"></script>*@
+    <script src="~/js/DataTable/pdfmake.min.js"></script>
+    <script src="~/js/DataTable/jszip.min.js"></script>
+    <script src="~/js/DataTable/vfs_fonts.js"></script>
+    <script src="~/js/DataTable/buttons.html5.min.js"></script>
+    <script src="~/js/DataTable/buttons.print.min.js"></script>
+    <script src="~/js/DataTable/buttons.colVis.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 

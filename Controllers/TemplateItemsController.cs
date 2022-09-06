@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using TasksApp.Enums;
 
 namespace TasksApp.Controllers
 {
@@ -153,6 +154,20 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetMon()
         {
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateItem",
+                OldData = "Read TemplateItem",
+                NewData = null
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
 
             return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList() });
 
@@ -161,6 +176,7 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetTue()
         {
+            
 
             return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Tuesday").ToList() });
 
@@ -169,6 +185,7 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetWed()
         {
+            
 
             return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Wednesday").ToList() });
 
@@ -177,6 +194,8 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetThu()
         {
+           
+
             return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Thursday").ToList() });
 
         }
@@ -184,6 +203,8 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetFri()
         {
+            
+
             return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Friday").ToList() });
 
         }
@@ -191,6 +212,8 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetSat()
         {
+            
+
             return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Saturday").ToList() });
 
         }
@@ -198,6 +221,7 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetSun()
         {
+
             return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Sunday").ToList() });
 
         }
@@ -216,7 +240,20 @@ namespace TasksApp.Controllers
 
             };
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Created,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateItem",
+                OldData = "New Task",
+                NewData = $"{ "Main: " + Task.Main + "Schedule: " + Task.Schedule + "Date Created: " + Task.DateCreated + "UserEmail: " + Task.UserEmail}"
+            };
+
             _context.Add(Task);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync();
 
             return Json(new { success = true, message = "Task added!" });
@@ -235,8 +272,21 @@ namespace TasksApp.Controllers
                 UserEmail = User.Identity.Name
             };
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Created,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateItem",
+                OldData = "New Sub Item",
+                NewData = $"{ "Main: " + dailyCheck.Main + "Schedule: " + dailyCheck.Schedule + "Date Created: " + dailyCheck.DateCreated + "UserEmail: " +dailyCheck.UserEmail + "Description: " + dailyCheck.Description  }"
+            };
+
             //ViewData["HeadingId"] = new SelectList(_context.TemplateDailyChecks, "Id", "Heading", dailyCheck.HeadingId);
             _context.Add(dailyCheck);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync();
 
             return View();
@@ -246,6 +296,10 @@ namespace TasksApp.Controllers
         [HttpPut]
         public async Task<IActionResult> EditTask(int Id, string Desc, string Schedule, string Main)
         {
+            var existingMain = _context.TemplateItem.Find(Id).Main;
+            var existingDescription = _context.TemplateItem.Find(Id).Description;
+            var existingSchedule = _context.TemplateItem.Find(Id).Schedule;
+
 
             var templateTask = await _context.TemplateItem.FindAsync(Id);
 
@@ -253,8 +307,20 @@ namespace TasksApp.Controllers
             templateTask.Description = Desc;
             templateTask.Schedule = Schedule;
 
-            _context.Update(templateTask);
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Updated,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateItem",
+                OldData = $"{ "Main : " + existingMain + " Description: " + existingDescription + " Schedule: " + existingSchedule}",
+                NewData = $"{  "Main : " + templateTask.Main + " Description: " + templateTask.Description + " Schedule: " + templateTask.Schedule}"
+            };
 
+            _context.Update(templateTask);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync();
 
             return Json(new { success = true, message = "Task Updated!" });
@@ -273,7 +339,21 @@ namespace TasksApp.Controllers
         public async Task<IActionResult> DeleteTask(int id)
         {
             var templateTask = await _context.TemplateItem.FindAsync(id);
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Deleted,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateItem",
+                OldData = $"{  "Main : " + templateTask.Main + " Description: " + templateTask.Description + " Schedule: " + templateTask.Schedule}",
+                NewData = "Task Removed"
+            };
+
             _context.TemplateItem.Remove(templateTask);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync();
             return Json(new { success = true, message = "Task deleted!" });
         }

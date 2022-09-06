@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
+using TasksApp.Enums;
 using TasksApp.Models;
 
 namespace TasksApp.Controllers
@@ -244,6 +245,21 @@ namespace TasksApp.Controllers
             //task.Status = "Partially Completed";
 
             var date = task.DateCreated;
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "BobCat",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
 
             var tasks = _context.Maintenances.Where(d => d.DateCreated == date).ToList();
             //bool status = tasks.All(c => c.IsDone == false);

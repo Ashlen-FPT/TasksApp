@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using TasksApp.Data;
+using TasksApp.Enums;
 using TasksApp.Models;
 
 namespace TasksApp.Areas.Identity.Pages.Account
@@ -125,6 +126,21 @@ namespace TasksApp.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    var log = new Logs
+                    {
+                        UserName = Input.FirstName,
+                        UserEmail = Input.Email,
+                        Entity = Input.Categories,
+                        LogType = LogTypes.Created,
+                        DateTime = DateTime.Now,
+                        UpdatedTable = null,
+                        OldData = "New User Created",
+                        NewData = null
+                    };
+
+                    _context.Logs.Add(log);
+                    _context.SaveChanges();
+
                     _logger.LogInformation("User created a new account with password.");
 
 

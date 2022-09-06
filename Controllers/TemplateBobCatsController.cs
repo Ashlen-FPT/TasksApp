@@ -156,6 +156,21 @@ namespace TasksApp.Controllers
         [HttpGet]
         public IActionResult GetBobCats()
         {
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateBobCat",
+                OldData = "Read TemplateBobCat",
+                NewData = null
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
             return Json(new { data = _context.TemplateBobCat.ToList() });
 
         }
@@ -185,11 +200,12 @@ namespace TasksApp.Controllers
             {
                 UserName= User.FindFirst("Username")?.Value,
                 UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
                 LogType = LogTypes.Created,
                 DateTime = DateTime.Now,
-                UpdatedTable = "BobCat",
-                OldData = null,
-                NewData=""
+                UpdatedTable = "TemplateBobCat",
+                OldData = "New Task",
+                NewData= $"{ "Task No: " + bobCat.TaskNo + "Description: " + bobCat.Description + "Heading: " + bobCat.Heading}"
             };
 
             _context.Add(bobCat);
@@ -203,14 +219,30 @@ namespace TasksApp.Controllers
         [HttpPut]
         public async Task<IActionResult> EditBobCat(int Id, int TaskNo, string Desc, string Head)
         {
-
+            var existingTaskNo = _context.TemplateBobCat.Find(Id).TaskNo;
+            var existingDesc = _context.TemplateBobCat.Find(Id).Description;
+            var existingHead = _context.TemplateBobCat.Find(Id).Heading;
             var templateBobcat = await _context.TemplateBobCat.FindAsync(Id);
 
             templateBobcat.TaskNo = TaskNo;
             templateBobcat.Description = Desc;
             templateBobcat.Heading = Head;
 
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity= User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Updated,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateBobCat",
+                OldData = $"{ "Task No: "+ existingTaskNo + " Description: "+ existingDesc + " Heading: " + existingHead}",
+                NewData = $"{ "Task No: " + templateBobcat.TaskNo + "Description: " + templateBobcat.Description + "Heading: " + templateBobcat.Heading}"
+            };
+            
             _context.Update(templateBobcat);
+            _context.Logs.Add(log);
 
             await _context.SaveChangesAsync();
 
@@ -229,8 +261,23 @@ namespace TasksApp.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteBobCat(int id)
         {
+
             var templateBobcat = await _context.TemplateBobCat.FindAsync(id);
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Deleted,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateBobCat",
+                OldData = $"{ "Task No: " + templateBobcat.TaskNo + "Description: " + templateBobcat.Description + "Heading: " + templateBobcat.Heading}",
+                NewData = "Task Removed"
+            };
+
             _context.TemplateBobCat.Remove(templateBobcat);
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync();
             return Json(new { success = true, message = "Sub-Task deleted!" });
         }

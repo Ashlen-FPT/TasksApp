@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using TasksApp.Data;
+using TasksApp.Enums;
 using TasksApp.Models;
 
 namespace TasksApp.Areas.Identity.Pages.Account
@@ -16,11 +18,13 @@ namespace TasksApp.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public LogoutModel(SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger , ApplicationDbContext context)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         public void OnGet()
@@ -29,8 +33,22 @@ namespace TasksApp.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.LoggedOut,
+                DateTime = DateTime.Now,
+                UpdatedTable = null,
+                OldData = "User Logged Out",
+                NewData = null
+            };
+
+            _context.Logs.Add(log);
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+            _context.SaveChanges();
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);

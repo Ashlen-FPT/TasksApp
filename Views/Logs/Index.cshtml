@@ -1,0 +1,135 @@
+﻿@model IEnumerable<TasksApp.Models.Logs>
+@*<link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />*@
+
+
+<style>
+    tr {
+        outline: thin solid black;
+    }
+
+    td {
+        outline: thin solid black;
+    }
+</style>
+
+<center><h1>System Logs</h1></center>
+
+<div class="card-body">
+
+    <div class="card-body" style="background-color:white;">
+
+
+
+        <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+            <thead class="thead-dark">
+                <tr class="table-info">
+
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Organization</th>
+                    <th>Log Type</th>
+                    <th>Date & Time</th>
+                    <th>Affected Table</th>
+                    <th>Old Data</th>
+                    <th>New Data</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserEmail)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Entity)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LogType)
+                        </td>
+
+
+                        <td>
+                            @{ 
+                                var date = item.DateTime.ToString(" dd MMMM yyyy - HH:mm tt");
+                            }
+                            @Html.DisplayFor(modelItem=>date)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdatedTable)
+                        </td>
+
+                        <td>
+                            <div style="word-wrap:break-word;">@Html.DisplayFor(ModelItem => item.OldData) </div>
+                        </td>
+
+                        <td>
+                            <div style="word-wrap:break-word;">@Html.DisplayFor(ModelItem => item.NewData) </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/DataTable/datatables.min.js"></script>
+<script src="~/js/DataTable/jquery-3.6.0.js"></script>
+<link type="text/css" href="~/css/DataTable/datatables.min.css" rel="stylesheet">
+
+
+
+<script>
+
+    $(document).ready(function () {
+        var today = new Date();
+        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        console.log(date);
+        $('#tbl').DataTable({
+            "lengthMenu": [10, 25, 50, 75, 100],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'pageLength',
+                },
+                {
+                    extend: 'copy',
+                    title: 'System Logs - Checklist System_' + date,
+                    text:'<i class= "fa fa-copy"></i> Copy'
+                },
+                {
+                    extend: 'excel',
+                    title: 'System Logs - Checklist System_' + date,
+                    text: '<i class= "fa fa-file-excel-o"></i> Excel'
+                },
+                {
+                    extend: 'pdf',
+                    title: 'System Logs - Checklist System_' + date,
+                    text: '<i class= "fa fa-file-pdf-o"></i> PDF'
+                },
+                {
+                    extend: 'csv',
+                    title: 'System Logs - Checklist System_' + date,
+                    text: '<i class= "fa fa-file-csv"></i> CSV'
+                },
+                {
+                    extend: 'print',
+                    title: 'System Logs - Checklist System_' + date,
+                    text: '<i class= "fa fa-print"></i> Print'
+                }
+            ]
+        });
+    });
+</script>
+
+
+

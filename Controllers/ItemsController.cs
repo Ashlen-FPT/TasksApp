@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
+using TasksApp.Enums;
 using TasksApp.Models;
 
 namespace TasksApp.Controllers
@@ -208,6 +209,19 @@ namespace TasksApp.Controllers
 
                     }
                 }
+                var log = new Logs
+                {
+                    UserName = User.FindFirst("Username")?.Value,
+                    UserEmail = User.Identity.Name,
+                    Entity = User.FindFirst("Organization")?.Value,
+                    LogType = LogTypes.Read,
+                    DateTime = DateTime.Now,
+                    UpdatedTable = "Items",
+                    OldData = "Read Items Checklist - Monday",
+                    NewData = null
+                };
+
+                _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
                 return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
@@ -277,6 +291,19 @@ namespace TasksApp.Controllers
 
                     }
                 }
+                var log = new Logs
+                {
+                    UserName = User.FindFirst("Username")?.Value,
+                    UserEmail = User.Identity.Name,
+                    Entity = User.FindFirst("Organization")?.Value,
+                    LogType = LogTypes.Read,
+                    DateTime = DateTime.Now,
+                    UpdatedTable = "Items",
+                    OldData = "Read Items Checklist - Tuesday",
+                    NewData = null
+                };
+
+                _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
                 return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
@@ -347,6 +374,20 @@ namespace TasksApp.Controllers
 
                     }
                 }
+
+                var log = new Logs
+                {
+                    UserName = User.FindFirst("Username")?.Value,
+                    UserEmail = User.Identity.Name,
+                    Entity = User.FindFirst("Organization")?.Value,
+                    LogType = LogTypes.Read,
+                    DateTime = DateTime.Now,
+                    UpdatedTable = "Items",
+                    OldData = "Read Items Checklist - Wednesday",
+                    NewData = null
+                };
+
+                _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
                 return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
@@ -426,6 +467,19 @@ namespace TasksApp.Controllers
                 return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Wednesday").ToList() });
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Items",
+                OldData = "Read Items Checklist - Thursday",
+                NewData = null
+            };
+
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync();
             return Json(new { data = _context.items.Where(s => s.Schedule == "Monday") });
 
@@ -487,6 +541,19 @@ namespace TasksApp.Controllers
 
                     }
                 }
+                var log = new Logs
+                {
+                    UserName = User.FindFirst("Username")?.Value,
+                    UserEmail = User.Identity.Name,
+                    Entity = User.FindFirst("Organization")?.Value,
+                    LogType = LogTypes.Read,
+                    DateTime = DateTime.Now,
+                    UpdatedTable = "Items",
+                    OldData = "Read Items Checklist - Friday",
+                    NewData = null
+                };
+
+                _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
                 return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
@@ -556,6 +623,19 @@ namespace TasksApp.Controllers
 
                     }
                 }
+                var log = new Logs
+                {
+                    UserName = User.FindFirst("Username")?.Value,
+                    UserEmail = User.Identity.Name,
+                    Entity = User.FindFirst("Organization")?.Value,
+                    LogType = LogTypes.Read,
+                    DateTime = DateTime.Now,
+                    UpdatedTable = "Items",
+                    OldData = "Read Items Checklist - Saturday",
+                    NewData = null
+                };
+
+                _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
                 return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
@@ -626,6 +706,19 @@ namespace TasksApp.Controllers
 
                     }
                 }
+                var log = new Logs
+                {
+                    UserName = User.FindFirst("Username")?.Value,
+                    UserEmail = User.Identity.Name,
+                    Entity = User.FindFirst("Organization")?.Value,
+                    LogType = LogTypes.Read,
+                    DateTime = DateTime.Now,
+                    UpdatedTable = "Items",
+                    OldData = "Read Items Checklist - Sunday",
+                    NewData = null
+                };
+
+                _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
                 return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
