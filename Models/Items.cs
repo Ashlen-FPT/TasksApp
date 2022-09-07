@@ -37,5 +37,9 @@ namespace TasksApp.Models
 
         public bool IsDone { get; set; }
 
+        public string Status { get; set; }
+
+        public DateTime? DateAllTaskCompleted { get; set; }
+
     }
 }

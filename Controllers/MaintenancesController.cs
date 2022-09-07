@@ -175,6 +175,7 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
                         Schedule = task.Schedule,
+                        Status = "Do-Checklist : Maintenance"
                     };
 
                     _context.Maintenances.Add(Task);
@@ -198,6 +199,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             Schedule = item.Schedule,
                             DateTaskCompleted = new DateTime(),
+                            Status = "Do-Checklist : Maintenance"
                         };
 
                         _context.Maintenances.Add(Task);
@@ -220,14 +222,14 @@ namespace TasksApp.Controllers
             var tasks = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).ToList();
             var task = _context.Maintenances.FirstOrDefault();
 
-            foreach (var item in tasks)
-            {
-                var status = tasks.All(c => c.Ok == false);
-                {
-                    task.Status = "Do-Checklist";
-                    await _context.SaveChangesAsync();
-                }
-            }
+            //foreach (var item in tasks)
+            //{
+            //    var status = tasks.All(c => c.Ok == false);
+            //    {
+            //        task.Status = "Do-Checklist";
+            //        await _context.SaveChangesAsync();
+            //    }
+            //}
             await _context.SaveChangesAsync();
             return Json(new { data = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date)});
 
@@ -243,6 +245,8 @@ namespace TasksApp.Controllers
             task.DateTaskCompleted = DateTime.Now;
             task.User = User.Identity.Name;
             //task.Status = "Partially Completed";
+            task.Status = "Partially Completed : Maintenance";
+            task.IsDone = true;
 
             var date = task.DateCreated;
 
@@ -253,7 +257,7 @@ namespace TasksApp.Controllers
                 Entity = User.FindFirst("Organization")?.Value,
                 LogType = LogTypes.Completed,
                 DateTime = DateTime.Now,
-                UpdatedTable = "BobCat",
+                UpdatedTable = "Maintenance",
                 OldData = null,
                 NewData = "Task Completed"
             };
@@ -263,6 +267,13 @@ namespace TasksApp.Controllers
 
             var tasks = _context.Maintenances.Where(d => d.DateCreated == date).ToList();
             //bool status = tasks.All(c => c.IsDone == false);
+
+            if (tasks.All(c => c.IsDone == true))
+            {
+                task.DateAllTaskCompleted = DateTime.Now;
+                task.Status = "Completed : Maintenance";
+                _context.SaveChanges();
+            }
             foreach (var item in tasks)
             {
                 //if (item.Status == null)

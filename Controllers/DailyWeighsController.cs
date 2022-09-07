@@ -176,7 +176,8 @@ namespace TasksApp.Controllers
                         DateCompleted = new DateTime(),
                         Schedule = task.Schedule,
                         TaskType = task.TaskType,
-                        ChekList = task.ChekList
+                        ChekList = task.ChekList,
+                        Status = "Do-Checklist : DailyWeighs"
                     };
 
                     _context.DailyWeighs.Add(Task);
@@ -288,6 +289,7 @@ namespace TasksApp.Controllers
             task.DateCompleted = DateTime.Now;
             task.Supervisor = User.Identity.Name;
             //task.Status = "Partially Completed";
+            task.Status = "Partially Completed : DailyWeighs";
 
             var date = task.Date;
 
@@ -308,6 +310,12 @@ namespace TasksApp.Controllers
 
             var tasks = _context.Tasks.Where(d => d.DateCreated == date).ToList();
             //bool status = tasks.All(c => c.IsDone == false);
+            if (tasks.All(c => c.IsDone == true))
+            {
+                task.DateAllTaskCompleted = DateTime.Now;
+                task.Status = "Completed : DailyWeighs";
+                _context.SaveChanges();
+            }
             foreach (var item in tasks)
             {
                 //if (item.Status == null)

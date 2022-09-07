@@ -178,6 +178,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist : Items"
                         };
 
                         _context.items.Add(Task);
@@ -260,6 +261,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist : Items"
                         };
 
                         _context.items.Add(Task);
@@ -343,6 +345,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist : Items"
                         };
 
                         _context.items.Add(Task);
@@ -427,6 +430,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist : Items"
                         };
 
                         _context.items.Add(Task);
@@ -510,6 +514,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist : Items"
                         };
 
                         _context.items.Add(Task);
@@ -592,6 +597,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist : Items"
                         };
 
                         _context.items.Add(Task);
@@ -675,6 +681,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist : Items"
                         };
 
                         _context.items.Add(Task);
