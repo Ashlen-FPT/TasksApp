@@ -297,7 +297,7 @@ namespace TasksApp.Controllers
 
                 if (ItemDate == Ddate)
                 {
-                    task.DateAllTaskCompleted = DateTime.Now;
+                    task.DateAllCompleted = DateTime.Now;
                     ChangeStatus.Status = "Completed : Maintenances";
                 }
             }

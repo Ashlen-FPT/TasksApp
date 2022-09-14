@@ -137,12 +137,13 @@
 
     $(document).ready(function () {
         var date = document.getElementById("datePicker").value;
+        console.log(date)
         loadTable(date);
 
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/DailyChecks/GetAll?date=" + getDate,
+            url: "/DailyChecks/Index?date=" + getDate,
             async: false,
             success: function (response) {
                 var count = 0;
@@ -179,7 +180,7 @@
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/DailyChecks/GetAll?date=" + date,
+            url: "/DailyChecks/Index?date=" + date,
             async: false,
             success: function (response) {
 
