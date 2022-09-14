@@ -178,6 +178,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist"
                         };
 
                         _context.items.Add(Task);
@@ -202,6 +203,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 Schedule = item.Schedule,
                                 DateCompleted = new DateTime(),
+                                Status = "Do-Checklist"
                             };
 
                             _context.items.Add(Task);
@@ -260,6 +262,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist"
                         };
 
                         _context.items.Add(Task);
@@ -284,6 +287,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 Schedule = item.Schedule,
                                 DateCompleted = new DateTime(),
+                                Status = "Do-Checklist"
                             };
 
                             _context.items.Add(Task);
@@ -343,6 +347,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist"
                         };
 
                         _context.items.Add(Task);
@@ -367,6 +372,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 Schedule = item.Schedule,
                                 DateCompleted = new DateTime(),
+                                Status = "Do-Checklist"
                             };
 
                             _context.items.Add(Task);
@@ -427,6 +433,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist"
                         };
 
                         _context.items.Add(Task);
@@ -451,6 +458,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 Schedule = item.Schedule,
                                 DateCompleted = new DateTime(),
+                                Status = "Do-Checklist"
                             };
 
                             _context.items.Add(Task);
@@ -510,6 +518,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist"
                         };
 
                         _context.items.Add(Task);
@@ -534,6 +543,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 Schedule = item.Schedule,
                                 DateCompleted = new DateTime(),
+                                Status = "Do-Checklist"
                             };
 
                             _context.items.Add(Task);
@@ -592,6 +602,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist"
                         };
 
                         _context.items.Add(Task);
@@ -616,6 +627,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 Schedule = item.Schedule,
                                 DateCompleted = new DateTime(),
+                                Status = "Do-Checklist"
                             };
 
                             _context.items.Add(Task);
@@ -675,6 +687,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            Status = "Do-Checklist"
                         };
 
                         _context.items.Add(Task);
@@ -699,6 +712,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 Schedule = item.Schedule,
                                 DateCompleted = new DateTime(),
+                                Status = "Do-Checklist"
                             };
 
                             _context.items.Add(Task);
@@ -744,6 +758,76 @@ namespace TasksApp.Controllers
             });
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> CompleteTask(int id)
+        {
+
+            var task = _context.items.Find(id);
+            task.DateCompleted = DateTime.Now;
+            task.Status = "Partially Completed";
+            task.IsDone = true;
+            task.UserName = User.Identity.Name;
+            var date = task.DateCreated;
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Items",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
+
+            var tasks = _context.items.Where(d => d.DateCreated == date).ToList();
+
+            if (tasks.All(c => c.IsDone == true))
+            {
+                task.DateAllTaskCompleted = DateTime.Now;
+                task.Status = "Completed";
+                _context.SaveChanges();
+            }
+            foreach (var item in tasks)
+            {
+
+                if (item.IsDone == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "All Tasks Completed!" });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CompleteAllTasks(DateTime date)
+        {
+            var task = _context.items.Where(d => d.DateCreated == date).Where(t => t.IsDone == true).ToList();
+
+            foreach (var item in task)
+            {
+                if (item.IsDone == true)
+                {
+                    //item.TasksCompleted = true;
+                    item.DateAllTaskCompleted = DateTime.Now;
+                }
+
+            }
+            await _context.SaveChangesAsync();
+            return Json(new { success = true, message = "All Tasks Completed!" });
+        }
+
 
         [HttpGet]
         public IActionResult GetTask(int id)

@@ -23,17 +23,15 @@ namespace TasksApp.Models
 
         public string Shift { get; set; }
 
-        //public DateTime Date { get; set; }
-
-        public DateTime? DateTaskCompleted { get; set; }
-
         public bool TasksCompleted { get; set; }
 
         public string Status { get; set; }
 
-        public DateTime? DateAllTaskCompleted { get; set; }
+        public DateTime DateAllCompleted { get; set; }
 
         public DateTime DateCreated { get; set; }
+
+        public DateTime DateCompleted { get; set; }
 
         public string User { get; set; }
     }

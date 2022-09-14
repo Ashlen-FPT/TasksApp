@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Models;
 using TasksApp.Data;
-using TasksApp.Migrations;
+//using TasksApp.Migrations;
 using TasksApp.Enums;
 
 namespace TasksApp.Areas.Identity.Pages.Account

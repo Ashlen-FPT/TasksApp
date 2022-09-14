@@ -56,5 +56,7 @@ namespace TasksApp.Data
 
         public DbSet<TemplateItems> TemplateItem { get; set; }
         public DbSet<Logs> Logs { get; set; }
+
+        public DbSet <Report> reports { get; set; }
     }
 }

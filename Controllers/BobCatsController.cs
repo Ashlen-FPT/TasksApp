@@ -269,7 +269,7 @@ namespace TasksApp.Controllers
             task.DateTaskCompleted = DateTime.Now;
             task.Status = "Partially Completed";
             task.isDone = true;
-            //task.User = User.Identity.Name;
+            task.UserName1 = User.Identity.Name;
             var date = task.DateCreated;
 
 

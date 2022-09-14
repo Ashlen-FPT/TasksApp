@@ -159,7 +159,6 @@ namespace TasksApp.Controllers
         {
 
             DateTime oDate = Convert.ToDateTime(date);
-
             var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskCategory == "Active_D").ToList();
 
 
@@ -178,7 +177,7 @@ namespace TasksApp.Controllers
                         Schedule = task.Schedule,
                         TaskCategory = task.TaskCategory
                     };
-
+                    
                     _context.Active_D.Add(Task);
 
                 }

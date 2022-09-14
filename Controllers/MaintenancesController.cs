@@ -173,8 +173,9 @@ namespace TasksApp.Controllers
                     {
                         Description = task.Description,
                         DateCreated = date,
-                        DateTaskCompleted = new DateTime(),
+                        DateAllCompleted = new DateTime(),
                         Schedule = task.Schedule,
+                        Status = "Do-Checklist"
                     };
 
                     _context.Maintenances.Add(Task);
@@ -197,7 +198,8 @@ namespace TasksApp.Controllers
                             Description = item.Description,
                             DateCreated = date,
                             Schedule = item.Schedule,
-                            DateTaskCompleted = new DateTime(),
+                            DateAllCompleted = new DateTime(),
+                            Status = "Do-Checklist"
                         };
 
                         _context.Maintenances.Add(Task);
@@ -239,10 +241,11 @@ namespace TasksApp.Controllers
 
             var task = _context.Maintenances.Find(id);
             task.Ok = true;
-            //task.Not = true;
-            task.DateTaskCompleted = DateTime.Now;
+            task.Not = false;
+            task.DateCompleted = DateTime.Now;
+            //task.DateAllCompleted = DateTime.Now;
             task.User = User.Identity.Name;
-            //task.Status = "Partially Completed";
+            task.Status = "Partially Completed";
 
             var date = task.DateCreated;
 
@@ -253,7 +256,7 @@ namespace TasksApp.Controllers
                 Entity = User.FindFirst("Organization")?.Value,
                 LogType = LogTypes.Completed,
                 DateTime = DateTime.Now,
-                UpdatedTable = "BobCat",
+                UpdatedTable = "Maintenance",
                 OldData = null,
                 NewData = "Task Completed"
             };
@@ -262,52 +265,23 @@ namespace TasksApp.Controllers
             _context.SaveChanges();
 
             var tasks = _context.Maintenances.Where(d => d.DateCreated == date).ToList();
-            //bool status = tasks.All(c => c.IsDone == false);
+
+            if (tasks.All(c => c.Ok == true))
+            {
+                task.DateAllCompleted = DateTime.Now;
+                task.Status = "Completed";
+                _context.SaveChanges();
+            }
+            
             foreach (var item in tasks)
             {
-                //if (item.Status == null)
-                //{
-                //    task.Status = "Do-CheckList";
-                //    await _context.SaveChangesAsync();
-                //}
 
-               if (item.Ok == false)
+                if (item.Ok == false)
                 {
                     await _context.SaveChangesAsync();
 
                     return Json(new { success = true, message = "Task Completed!" });
                 }
-
-                else
-                {
-
-                    //bool statuses = tasks.All(c => c.IsDone == false);
-                    //{
-                    //    task.Status = "Do-Checklist";
-                    //    await _context.SaveChangesAsync();
-                    //}
-
-                    bool completeTasks = tasks.All(c => c.Ok == true);
-                    {
-                        if (completeTasks == false)
-                        {
-                           // task.Status = "Partially Completed";
-                            await _context.SaveChangesAsync();
-
-                            return Json(new { success = true, message = "Task Completed!" });
-                        }
-                        else if (completeTasks == true)
-                        {
-                            task.TasksCompleted = true;
-                            task.DateAllTaskCompleted = DateTime.Now;
-                           // task.Status = "Completed";
-                        }
-                    }
-
-                    await _context.SaveChangesAsync();
-                    return Json(new { success = true, message = "All Tasks Completed!" });
-                }
-
             }
 
             await _context.SaveChangesAsync();
@@ -326,7 +300,7 @@ namespace TasksApp.Controllers
                 if (item.Ok == true)
                 {
                     item.TasksCompleted = true;
-                    item.DateAllTaskCompleted = DateTime.Now;
+                    item.DateAllCompleted = DateTime.Now;
                 }
 
             }

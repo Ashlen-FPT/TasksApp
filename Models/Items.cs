@@ -31,6 +31,10 @@ namespace TasksApp.Models
 
         public DateTime DateCompleted { get; set; }
 
+        public DateTime DateAllTaskCompleted { get; set; }
+
+        public string Status { get; set; }
+
         public bool OutOfOrder { get; set; }
 
         public string Schedule { get; set; }

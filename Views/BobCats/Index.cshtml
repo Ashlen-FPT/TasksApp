@@ -184,6 +184,7 @@
 
     $(document).ready(function () {
         var date = document.getElementById("datePicker").value;
+        console.log(date);
         loadTable(date);
 
         $.ajax({
@@ -220,6 +221,7 @@
 
     $('#datePicker').change(function () {
         var date = document.getElementById("datePicker").value;
+        console.log(date);
         Table01.destroy();
         loadTable(date);
 
@@ -293,7 +295,7 @@
 
                             return `
                                     <div class="text-center">
-                                       <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+                                       <input onclick=Delete("/BobCats/CompleteTask/${data.id}") type="checkbox" />
 
                                     </div>
                                 `;
@@ -323,7 +325,7 @@
 
                             return `
                                     <div class="text-center">
-                                       <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+                                       <input onclick=Delete("/BobCats/CompleteTask/${data.id}") type="checkbox" />
 
                                     </div>
                                 `;
@@ -353,7 +355,7 @@
 
                             return `
                                     <div class="text-center">
-                                       <input onclick=Delete("BobCats/CompleteTask/${data.id}") type="checkbox" />
+                                       <input onclick=Delete("/BobCats/CompleteTask/${data.id}") type="checkbox" />
 
                                     </div>
                                 `;

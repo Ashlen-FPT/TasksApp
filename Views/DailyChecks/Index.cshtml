@@ -388,7 +388,7 @@
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/Daily/Checks/AddComment?id=" + CommentId + "&comment=" + comment,
+            url: "/DailyChecks/AddComment?id=" + CommentId + "&comment=" + comment,
             async: false,
             success: function (response) {
                 toastr.success(response.message);

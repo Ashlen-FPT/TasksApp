@@ -190,8 +190,10 @@
 
 
     $(document).ready(function () {
-        var date = new Date(document.getElementById("datePicker").value)
-        var dayOfWeek = date.getUTCDay();
+        var date = document.getElementById("datePicker").value;
+        var dateD = new Date(document.getElementById("datePicker").value);
+        var dayOfWeek = dateD.getUTCDay();
+
         console.log(dayOfWeek);
         loadTable(date, dayOfWeek);
 
@@ -226,8 +228,11 @@
 
 
     $('#datePicker').change(function () {
-        var date = new Date(document.getElementById("datePicker").value)
-        var dayOfWeek = date.getUTCDay();
+        var date = document.getElementById("datePicker").value;
+        var dateD = new Date(document.getElementById("datePicker").value);
+        var dayOfWeek = dateD.getUTCDay();
+        console.log(dayOfWeek);
+
         Table01.destroy();
         Table02.destroy();
         Table03.destroy();
@@ -235,7 +240,7 @@
         Table05.destroy();
         Table06.destroy();
         Table07.destroy();
-        loadTable(date, dayOfWeek);
+        loadTable(date);
 
         $.ajax({
             type: "GET",
@@ -285,7 +290,7 @@
 
         Table01 = $("#tbl").DataTable({
             "ajax": {
-                "url": "/Items/GetMon?date=" + date + "dayOfWeek=" + dayOfWeek
+                "url": "/Items/GetMon?date=" + date
             },
             responsive: true,
             autoWidth: false,
@@ -381,7 +386,7 @@
 
         Table02 = $("#tbl1").DataTable({
             "ajax": {
-                "url": "/Items/GetTue?date=" + date + "dayOfWeek=" + dayOfWeek
+                "url": "/Items/GetTue?date=" + date
             },
             responsive: true,
             autoWidth: false,
@@ -409,7 +414,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;

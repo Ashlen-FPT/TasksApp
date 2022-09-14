@@ -217,7 +217,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Maintenances/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Maintenances/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -247,7 +247,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Maintenances/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Maintenances/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -258,7 +258,7 @@
                 },
 
                 {
-                    "data": "dateTaskCompleted",
+                    "data": "dateCompleted",
                     'render': function (jsonDate) {
 
                         if (jsonDate == "0001-01-01T00:00:00") {
