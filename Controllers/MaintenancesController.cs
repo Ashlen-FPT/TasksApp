@@ -222,14 +222,14 @@ namespace TasksApp.Controllers
             var tasks = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).ToList();
             var task = _context.Maintenances.FirstOrDefault();
 
-            foreach (var item in tasks)
-            {
-                var status = tasks.All(c => c.Ok == false);
-                {
-                    task.Status = "Do-Checklist";
-                    await _context.SaveChangesAsync();
-                }
-            }
+            //foreach (var item in tasks)
+            //{
+            //    var status = tasks.All(c => c.Ok == false);
+            //    {
+            //        task.Status = "Do-Checklist";
+            //        await _context.SaveChangesAsync();
+            //    }
+            //}
             await _context.SaveChangesAsync();
             return Json(new { data = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date)});
 
@@ -272,7 +272,7 @@ namespace TasksApp.Controllers
                 task.Status = "Completed";
                 _context.SaveChanges();
             }
-            
+
             foreach (var item in tasks)
             {
 

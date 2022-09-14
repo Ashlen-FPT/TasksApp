@@ -57,63 +57,166 @@ namespace TasksApp.Controllers
 
         public IActionResult OperatorCalendar()
         {
-            //var query = _context.PreTasks.Where(x => x.Status != null).Select(t => new PreTasks
-            //{
-            //    DateCreated = t.DateCreated,
-            //    Status = t.Status,
-            //}).ToList();
-
-            //ViewData["OperatorEvents"] = query;
-
+            //BobCats
             var BobCats = _context.BobCats.ToList();
-            //.Select(t => new BobCat
-            // {
-            //     DateCreated = t.DateCreated,
-            //     Status = t.Status,
-            // }).ToList();
-           var query = new List<BobCat>();
-            if (BobCats.Any(x => x.Status == "Do-Checklist"))
+            var queryBobCats = new List<BobCat>();
+            var today = DateTime.Today;
+            var yesterday = today.AddDays(-1);
+
+            if (BobCats.Any(x => x.Status.StartsWith("D")))
             {
-                query= BobCats.Where(x => x.Status == "Do-Checklist").Take(1).ToList();
+                queryBobCats = BobCats.Where(x => x.DateCreated == today).Where(x => x.Status.StartsWith("D")).Take(1).ToList();            
             }
-            
-                if (BobCats.Any(x => x.Status == "Partially Completed"))
+            else if (BobCats.Any(x => x.Status.StartsWith("P")))
             {
-                query = BobCats.Where(x => x.Status == "Partially Completed").Take(1).ToList();
+                queryBobCats = BobCats.Where(x => x.DateCreated == today).Where(x => x.Status.StartsWith("P")).Take(1).ToList();
+            }
+            else if(BobCats.Any(x => x.Status.StartsWith("C")))
+            {
+                queryBobCats = BobCats.Where(x => x.DateCreated == today).Where(x => x.Status.StartsWith("C")).Take(1).ToList();
+            }
+            ViewData["BobCat"] = queryBobCats;
+
+            //DailyChecks
+
+            var DailyCheck = _context.DailyChecks.ToList();
+            var queryDailyChecks = new List<DailyCheck>();
+            if (DailyCheck.Any(x => x.Status.StartsWith("D")))
+            {
+                queryDailyChecks = DailyCheck.Where(x => x.Status.StartsWith("D")).Take(1).ToList();
             }
 
-            if (BobCats.Any(x => x.Status == "Completed"))
+            if (DailyCheck.Any(x => x.Status.StartsWith("P")))
             {
-                query = BobCats.Where(x => x.Status == "Completed").Take(1).ToList();
+                queryDailyChecks = DailyCheck.Where(x => x.Status.StartsWith("P")).Take(1).ToList();
             }
 
+            if (DailyCheck.Any(x => x.Status.StartsWith("C")))
+            {
+                queryDailyChecks = DailyCheck.Where(x => x.Status.StartsWith("C")).Take(1).ToList();
+            }
 
-            ViewData["BobCat"] = query;
+            ViewData["DailyCheck"] = queryDailyChecks;
+
+            //DailyWeighs
+
+            var DailyWeighs = _context.DailyWeighs.ToList();
+            var queryDailyWeighs = new List<DailyWeigh>();
+            if (DailyWeighs.Any(x => x.Status.StartsWith("D")))
+            {
+                queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("D")).Take(1).ToList();
+            }
+
+            if (DailyWeighs.Any(x => x.Status.StartsWith("P")))
+            {
+                queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("P")).Take(1).ToList();
+            }
+
+            if (DailyWeighs.Any(x => x.Status.StartsWith("C")))
+            {
+                queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("C")).Take(1).ToList();
+            }
+
+            ViewData["DailyWeighs"] = queryDailyWeighs;
+
+            //Items - TODO
+
+
 
             return View();
         }
 
         public IActionResult SupervisorCalendar()
         {
-            //var query = _context.Tasks.Where(x => x.Status != null).Select(t => new Tasks
-            //{
-            //    DateCreated = t.DateCreated,
-            //    Status = t.Status,
-            //}).ToList();
-
-            //ViewData["SupervisorEvents"] = query;
-
-            var BobCats = _context.BobCats.Where(x => x.Status != null).Select(t => new BobCat
+            //BobCats
+            var BobCats = _context.BobCats.ToList();
+            var queryBobCats = new List<BobCat>();
+            if (BobCats.Any(x => x.Status.StartsWith("D")))
             {
-                DateCreated = t.DateCreated,
-                Status = t.Status,
-            }).ToList();
+                queryBobCats = BobCats.Where(x => x.Status.StartsWith("D")).Take(1).ToList();
+            }
+
+            if (BobCats.Any(x => x.Status.StartsWith("P")))
+            {
+                queryBobCats = BobCats.Where(x => x.Status.StartsWith("P")).Take(1).ToList();
+            }
+
+            if (BobCats.Any(x => x.Status.StartsWith("C")))
+            {
+                queryBobCats = BobCats.Where(x => x.Status.StartsWith("C")).Take(1).ToList();
+            }
+
+            ViewData["BobCat"] = queryBobCats;
+
+            //DailyChecks
+
+            var DailyCheck = _context.DailyChecks.ToList();
+            var queryDailyChecks = new List<DailyCheck>();
+            if (DailyCheck.Any(x => x.Status.StartsWith("D")))
+            {
+                queryDailyChecks = DailyCheck.Where(x => x.Status.StartsWith("D")).Take(1).ToList();
+            }
+
+            if (DailyCheck.Any(x => x.Status.StartsWith("P")))
+            {
+                queryDailyChecks = DailyCheck.Where(x => x.Status.StartsWith("P")).Take(1).ToList();
+            }
+
+            if (DailyCheck.Any(x => x.Status.StartsWith("C")))
+            {
+                queryDailyChecks = DailyCheck.Where(x => x.Status.StartsWith("C")).Take(1).ToList();
+            }
+
+            ViewData["DailyCheck"] = queryDailyChecks;
+
+            //DailyWeighs
+
+            var DailyWeighs = _context.DailyWeighs.ToList();
+            var queryDailyWeighs = new List<DailyWeigh>();
+            if (DailyWeighs.Any(x => x.Status.StartsWith("D")))
+            {
+                queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("D")).Take(1).ToList();
+            }
+
+            if (DailyWeighs.Any(x => x.Status.StartsWith("P")))
+            {
+                queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("P")).Take(1).ToList();
+            }
+
+            if (DailyWeighs.Any(x => x.Status.StartsWith("C")))
+            {
+                queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("C")).Take(1).ToList();
+            }
+
+            ViewData["DailyWeighs"] = queryDailyWeighs;
 
 
 
-            ViewData["BobCat"] = BobCats;
+            //Maintenances
+
+            var Maintenances = _context.Maintenances.ToList();
+            var queryMaintenances = new List<Maintenance>();
+            if (Maintenances.Any(x => x.Status.StartsWith("D")))
+            {
+                queryMaintenances = Maintenances.Where(x => x.Status.StartsWith("D")).Take(1).ToList();
+            }
+
+            if (Maintenances.Any(x => x.Status.StartsWith("P")))
+            {
+                queryMaintenances = Maintenances.Where(x => x.Status.StartsWith("P")).Take(1).ToList();
+            }
+
+            if (Maintenances.Any(x => x.Status.StartsWith("C")))
+            {
+                queryMaintenances = Maintenances.Where(x => x.Status.StartsWith("C")).Take(1).ToList();
+            }
+
+            ViewData["Maintenances"] = queryMaintenances;
+
 
             return View();
+
+
         }
 
         public ActionResult Test()

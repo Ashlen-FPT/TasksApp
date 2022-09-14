@@ -38,5 +38,9 @@ namespace TasksApp.Models
         public string Comments { get; set; }
 
         public string ChekList { get; set; }
+
+        public string Status { get; set; }
+
+        public DateTime? DateAllTaskCompleted { get; set; }
     }
 }

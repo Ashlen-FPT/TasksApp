@@ -34,5 +34,6 @@ namespace TasksApp.Models
         public DateTime DateCompleted { get; set; }
 
         public string User { get; set; }
+        public bool IsDone { get; set; }
     }
 }

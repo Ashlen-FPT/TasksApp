@@ -1,24 +1,51 @@
-﻿@*@model IEnumerable<TasksApp.Models.Tasks>*@
-@{
-    ViewBag.Title = "Calendar";
+﻿@{
+    ViewBag.Title = "Operator Calendar";
 
-    var events = (IEnumerable<TasksApp.Models.BobCat>)ViewData["BobCat"];
-    var length = events.Count();
+    var bobCats = (IEnumerable<TasksApp.Models.BobCat>)ViewData["BobCat"];
+    var lengthBob = bobCats.Count();
+
+    var dailyCheck = (IEnumerable<TasksApp.Models.DailyCheck>)ViewData["DailyCheck"];
+    var lengthDailyCheck = dailyCheck.Count();
+
+    var dailyWeighs = (IEnumerable<TasksApp.Models.DailyWeigh>)ViewData["DailyWeighs"];
+    var lengthDailyWeighs = dailyWeighs.Count();
 }
 
 
 <section class="content-header">
     <h1>
-        Calendar Overview
+        Operator Calendar Overview
     </h1>
 </section>
 <br />
-<table id="table" hidden>
-    @for (int i = 0; i < length; i++)
+<table id="table1"hidden>
+    @for (int i = 0; i < lengthBob; i++)
     {
         <tr>
-            <td>@Html.Encode(events.ElementAt(i).Status)</td>
-            <td>@Html.Encode(events.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
+            <td>@Html.Encode(bobCats.ElementAt(i).Status)</td>
+            <td>@Html.Encode(bobCats.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
+        </tr>
+
+    }
+</table>
+
+<table id="table2" hidden>
+    @for (int i = 0; i < lengthDailyCheck; i++)
+    {
+        <tr>
+            <td>@Html.Encode(dailyCheck.ElementAt(i).Status)</td>
+            <td>@Html.Encode(dailyCheck.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
+        </tr>
+
+    }
+</table>
+
+<table id="table3" hidden>
+    @for (int i = 0; i < lengthDailyWeighs; i++)
+    {
+        <tr>
+            <td>@Html.Encode(dailyWeighs.ElementAt(i).Status)</td>
+            <td>@Html.Encode(dailyWeighs.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
         </tr>
 
     }
@@ -30,29 +57,32 @@
 
 <script>
 
-    let eventsArr = loadData();
+    let eventsBobCat = loadBobCat();
+    let eventsDailyCheck = loadDailyCheck();
+    let eventsDailyWeighs = loadDailyWeighs();
     let calendar = initCalendar();
-    function loadData() {
-        var url = '/PreTasks/Index';
+    //BobCat
+    function loadBobCat() {
+        var url = '/BobCats/Index';
         var bgColor = '';
         var date = document.getElementById("calendar");
-        let eventsArr = [];
-        let data = document.getElementById("table");
+        let eventsBobCat = [];
+        let data = document.getElementById("table1");
         let trElem = data.getElementsByTagName("tr");
         for (let tr of trElem) {
             let tdElems = tr.getElementsByTagName("td");
 
-            if (tdElems[0].innerText == "Do-Checklist") {
+            if (tdElems[0].textContent.startsWith("D")) {
                 bgColor = 'red';
-               
+
 
             }
             else
-                if (tdElems[0].innerText == "Partially Completed") {
+                if (tdElems[0].textContent.startsWith("P")) {
                     bgColor = 'orange';
                 }
                 else
-                    if (tdElems[0].innerText == "Completed") {
+                    if (tdElems[0].textContent.startsWith("C")) {
                         bgColor = 'green';
                     }
             let eventObj = {
@@ -63,12 +93,90 @@
                 date: date,
 
             }
-            eventsArr.push(eventObj);
+            eventsBobCat.push(eventObj);
         }
 
-        return eventsArr;
+        return eventsBobCat;
+    }
+    //DailyCheck
+    
+    function loadDailyCheck() {
+        var url = '/DailyChecks/Index';
+        var bgColor = '';
+        var date = document.getElementById("calendar");
+        let eventsDailyCheck = [];
+        let data = document.getElementById("table2");
+        let trElem = data.getElementsByTagName("tr");
+        for (let tr of trElem) {
+            let tdElems = tr.getElementsByTagName("td");
+
+            if (tdElems[0].textContent.startsWith("D")) {
+                bgColor = 'red';
+
+
+            }
+            else
+                if (tdElems[0].textContent.startsWith("P")) {
+                    bgColor = 'orange';
+                }
+                else
+                    if (tdElems[0].textContent.startsWith("C")) {
+                        bgColor = 'green';
+                    }
+            let eventObj = {
+                title: tdElems[0].innerText,
+                start: tdElems[1].innerText,
+                color: bgColor,
+                url: url,
+                date: date,
+
+            }
+            eventsDailyCheck.push(eventObj);
+        }
+
+        return eventsDailyCheck;
     }
 
+    //DailyWeighs
+    
+    function loadDailyWeighs() {
+        var url = '/DailyWeighs/Index';
+        var bgColor = '';
+        var date = document.getElementById("calendar");
+        let eventsDailyWeighs = [];
+        let data = document.getElementById("table3");
+        let trElem = data.getElementsByTagName("tr");
+        for (let tr of trElem) {
+            let tdElems = tr.getElementsByTagName("td");
+
+            if (tdElems[0].textContent.startsWith("D")) {
+                bgColor = 'red';
+
+
+            }
+            else
+                if (tdElems[0].textContent.startsWith("P")) {
+                    bgColor = 'orange';
+                }
+                else
+                    if (tdElems[0].textContent.startsWith("C")) {
+                        bgColor = 'green';
+                    }
+            let eventObj = {
+                title: tdElems[0].innerText,
+                start: tdElems[1].innerText,
+                color: bgColor,
+                url: url,
+                date: date,
+
+            }
+            eventsDailyWeighs.push(eventObj);
+        }
+
+        return eventsDailyWeighs;
+    }
+
+    
     function initCalendar() {
         var calendarEl = document.getElementById('calendar');
         let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -87,8 +195,7 @@
                 }
             },
 
-            events: eventsArr,
-
+            eventSources: [eventsBobCat, eventsDailyCheck, eventsDailyWeighs]
 
         });
         calendar.render();

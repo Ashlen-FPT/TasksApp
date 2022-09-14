@@ -161,7 +161,7 @@ namespace TasksApp.Controllers
             {
                 DateTime oDate = Convert.ToDateTime(date);
 
-                
+
                 var TasksToday = _context.items.Where(d => d.DateCreated.Date == oDate.Date & dateValue == DayOfWeek.Monday).ToList();
 
                 if (TasksToday.Count == 0)
@@ -227,7 +227,7 @@ namespace TasksApp.Controllers
                 await _context.SaveChangesAsync();
                 return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
-            
+
             if (dateValue != DayOfWeek.Monday)
             {
                 return Json(new { data = _context.TemplateItem.Where(s => s.Schedule == "Wednesday").ToList() });
@@ -330,7 +330,7 @@ namespace TasksApp.Controllers
             {
                 DateTime oDate = Convert.ToDateTime(date);
 
-                
+
                 var TasksToday = _context.items.Where(d => d.DateCreated.Date == oDate.Date & dateValue == DayOfWeek.Wednesday).ToList();
 
                 if (TasksToday.Count == 0)
@@ -754,7 +754,7 @@ namespace TasksApp.Controllers
             DateTime oDate = Convert.ToDateTime(date);
 
             return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date)
-            
+
             });
 
         }

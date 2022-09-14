@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TasksApp.Data;
 
 namespace TasksApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220907101848_UpdatedItems")]
+    partial class UpdatedItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -379,7 +381,7 @@ namespace TasksApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateAllTaskCompleted")
+                    b.Property<DateTime?>("DateAllTaskCompleted")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateCompleted")
@@ -404,9 +406,6 @@ namespace TasksApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -567,7 +566,7 @@ namespace TasksApp.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateAllTaskCompleted")
+                    b.Property<DateTime?>("DateAllTaskCompleted")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateCompleted")
@@ -704,13 +703,13 @@ namespace TasksApp.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateAllCompleted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateCompleted")
+                    b.Property<DateTime?>("DateAllTaskCompleted")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateTaskCompleted")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -827,39 +826,6 @@ namespace TasksApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PreTasks");
-                });
-
-            modelBuilder.Entity("TasksApp.Models.Report", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AssignedTo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Checklist")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DateCompleted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("TaskCompleted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("reports");
                 });
 
             modelBuilder.Entity("TasksApp.Models.Security", b =>
