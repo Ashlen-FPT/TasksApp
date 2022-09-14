@@ -17,8 +17,8 @@
 <h1>Pre-Start Tasks</h1>
 
 <div class="form-group">
-    <label class="control-label">Choose date</label>
-    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+    @*<label class="control-label">Choose date</label>*@
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" readonly />
 
 </div>
 
@@ -28,7 +28,7 @@
     <div class="card-title">
         <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="pills-Mon-tab" data-toggle="pill" href="#pills-Mon" role="tab" aria-controls="pills-Mon" aria-selected="true">Mon</a>
+                <a class="nav-link" id="pills-Mon-tab" data-toggle="pill" href="#pills-Mon" role="tab" aria-controls="pills-Mon" aria-selected="false">Mon</a>
             </li>
 
             <li class="nav-item">
@@ -40,7 +40,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="pills-Thurs-tab" data-toggle="pill" href="#pills-Thurs" role="tab" aria-controls="pills-Thurs" aria-selected="true">Thu</a>
+                <a class="nav-link" id="pills-Thurs-tab" data-toggle="pill" href="#pills-Thurs" role="tab" aria-controls="pills-Thurs" aria-selected="false">Thu</a>
             </li>
 
             <li class="nav-item">
@@ -77,7 +77,7 @@
                 </table>
             </div>
 
-            <div class="tab-pane" id="pills-Tues" role="tabpanel" aria-labelledby="pills-Tues-tab">
+            <div class="tab-pane fade" id="pills-Tues" role="tabpanel" aria-labelledby="pills-Tues-tab">
                 <div class="progress">
                     <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
                 </div>
@@ -188,12 +188,44 @@
 
 <script>
 
+    const btn = document.getElementById('pills-Tues');
+
 
     $(document).ready(function () {
         var date = document.getElementById("datePicker").value;
         var dateD = new Date(document.getElementById("datePicker").value);
         var dayOfWeek = dateD.getUTCDay();
 
+        if (dayOfWeek == 1) {
+            $("#pills-Mon-tab").addClass("nav-link active").siblings().removeClass("nav-link");
+            $("#pills-Mon").addClass("show active").siblings().removeClass("show active");
+        }
+
+        if (dayOfWeek == 2) {
+            $("#pills-Tues-tab").addClass("nav-link active").siblings().removeClass("nav-link");
+            $("#pills-Tues").addClass("show active").siblings().removeClass("show active");
+        }
+
+        if (dayOfWeek == 3) {
+            $("#pills-Wed-tab").addClass("nav-link active").siblings().removeClass("nav-link");
+            $("#pills-Wed").addClass("show active").siblings().removeClass("show active");
+        }
+        if (dayOfWeek == 4) {
+            $("#pills-Thurs-tab").addClass("nav-link active").siblings().removeClass("nav-link");
+            $("#pills-Thurs").addClass("show active").siblings().removeClass("show active");
+        }
+        if (dayOfWeek == 5) {
+            $("#pills-Fri-tab").addClass("nav-link active").siblings().removeClass("nav-link");
+            $("#pills-Fri").addClass("show active").siblings().removeClass("show active");
+        }
+        if (dayOfWeek == 6) {
+            $("#pills-Sat-tab").addClass("nav-link active").siblings().removeClass("nav-link");
+            $("#pills-Sat").addClass("show active").siblings().removeClass("show active");
+        }
+        if (dayOfWeek == 7) {
+            $("#pills-Sun-tab").addClass("nav-link active").siblings().removeClass("nav-link");
+            $("#pills-Sun").addClass("show active").siblings().removeClass("show active");
+        }
         console.log(dayOfWeek);
         loadTable(date, dayOfWeek);
 
@@ -261,21 +293,18 @@
 
                 var p = (count / response.data.length) * 100;
 
-                if (Number.isNaN(p))
-                {
+                if (Number.isNaN(p)) {
                     console.log(p)
                     document.getElementById("progressbar").style.width = "0%";
                     document.getElementById("progressbar").innerHTML = "0%";
                 }
 
-                else if (p == 0)
-                {
+                else if (p == 0) {
                     document.getElementById("progressbar").style.width = "0%";
                     document.getElementById("progressbar").innerHTML = "0%";
                 }
 
-                else
-                {
+                else {
                     document.getElementById("progressbar").style.width = p + "%";
                     document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
                 }
@@ -287,7 +316,8 @@
 
     function loadTable(date, dayOfWeek) {
         var groupColumn = 1;
-
+        var day = localStorage.getItem('Day');
+        /*console.log(day);*/
         Table01 = $("#tbl").DataTable({
             "ajax": {
                 "url": "/Items/GetMon?date=" + date
@@ -318,7 +348,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -510,7 +540,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -606,7 +636,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -702,7 +732,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -798,7 +828,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -894,7 +924,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Items/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;

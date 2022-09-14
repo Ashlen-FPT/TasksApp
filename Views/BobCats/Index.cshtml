@@ -19,7 +19,7 @@
 
 <div class="form-group">
     <label class="control-label">Choose date</label>
-    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;"/>
 </div>
 
 <div class="card text-center" style="width: 100%;">
@@ -181,6 +181,34 @@
 <script src="~/js/DataTable/datatables.min.js"></script>
 
 <script>
+    var Tdate = document.getElementById("datePicker").value;
+    var selectedDate = localStorage.getItem('opDate');
+    var getDate;
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    var formatedDate = formatDate(selectedDate);
+
+    if (selectedDate != null) {
+        getDate = selectedDate;
+        $("#datePicker").val(formatedDate).trigger("change");
+    }
+    if (selectedDate == null) {
+        getDate = Tdate;
+    }
+    console.log(formatedDate);
 
     $(document).ready(function () {
         var date = document.getElementById("datePicker").value;
@@ -218,7 +246,7 @@
 
     });
 
-
+    
     $('#datePicker').change(function () {
         var date = document.getElementById("datePicker").value;
         console.log(date);
@@ -258,13 +286,17 @@
                     document.getElementById("progressbar").style.width = p + "%";
                     document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
                 }
-
             }
         });
 
     });
 
+    
     function loadTable(date) {
+        
+        /*console.log(opStoreDate);*/
+        /*var date2 = document.getElementById("datePicker").value;*/
+       /*console.log(date);*/
         var groupColumn = 2;
         Table01 = $("#tbl").DataTable({
             "ajax": {
@@ -282,6 +314,7 @@
                     "render": function (data) {
                         if (data.yes == true) {
 
+                           
                             return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
@@ -292,6 +325,7 @@
                         }
 
                         if (data.yes == false) {
+                            
 
                             return `
                                     <div class="text-center">
@@ -420,6 +454,7 @@
                 table.order([groupColumn, 'asc']).draw();
             }
         });
+        localStorage.removeItem('opDate');
     }
 
     //$(function () {
@@ -445,7 +480,6 @@
 
         var uri = url;
         var res = encodeURI(uri);
-
         swal({
             title: "Are you sure you want to complete this task?",
             text: "You will not be able to restore the data!",
@@ -535,4 +569,5 @@
 
 
         //    $('#exampleModal').modal("toggle");
+    
 </script>

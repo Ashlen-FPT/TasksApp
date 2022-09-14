@@ -165,7 +165,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count == 0)
             {
                 var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "Tasks").Where(t => t.ChekList == "Weighbridge Test").ToList();
-
+                var last = TemplateTasks.LastOrDefault();
                 foreach (var task in TemplateTasks)
                 {
 
@@ -177,8 +177,12 @@ namespace TasksApp.Controllers
                         Schedule = task.Schedule,
                         TaskType = task.TaskType,
                         ChekList = task.ChekList,
-                        Status = "Do-Checklist : DailyWeighs"
+                        Status = "Task : Incomplete"
                     };
+                    if (task == last)
+                    {
+                        Task.Status = "Do-Checklist : DailyWeighs";
+                    }
 
                     _context.DailyWeighs.Add(Task);
 
@@ -283,15 +287,33 @@ namespace TasksApp.Controllers
         [HttpGet]
         public async Task<IActionResult> CompleteTask(int id)
         {
-
+            var Main_Task = _context.TemplateTasks.ToList();
+            var DailyWeighs = _context.DailyWeighs.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.DailyWeighs.Find(id).DateCreated;
             var task = _context.DailyWeighs.Find(id);
+            //Get Last Item & Change Status
+            var items = DailyWeighs.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var ChangeStatus = _context.DailyWeighs.Find(ItemId);
+
+            
             task.IsDone = true;
             task.DateCompleted = DateTime.Now;
             task.Supervisor = User.Identity.Name;
             //task.Status = "Partially Completed";
-            task.Status = "Partially Completed : DailyWeighs";
+            task.Status = "Task : Completed";
+            DateCreation = task.Date;
+            //var date = task.Date;
 
-            var date = task.Date;
+            if (ItemDate == Ddate)
+            {
+                ChangeStatus.Status = "Partially Completed : DailyWeighs";
+            }
 
             var log = new Logs
             {
@@ -308,13 +330,16 @@ namespace TasksApp.Controllers
             _context.Logs.Add(log);
             _context.SaveChanges();
 
-            var tasks = _context.Tasks.Where(d => d.DateCreated == date).ToList();
+            var tasks = _context.Tasks.Where(d => d.DateCreated == DateCreation).ToList();
             //bool status = tasks.All(c => c.IsDone == false);
             if (tasks.All(c => c.IsDone == true))
             {
-                task.DateAllTaskCompleted = DateTime.Now;
-                task.Status = "Completed : DailyWeighs";
-                _context.SaveChanges();
+
+                if (ItemDate == Ddate)
+                {
+                    task.DateAllTaskCompleted = DateTime.Now;
+                    ChangeStatus.Status = "Completed : DailyWeighs";
+                }
             }
             foreach (var item in tasks)
             {

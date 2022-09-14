@@ -165,6 +165,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count == 0)
             {
                 var TemplateTasks = _context.TemplateMains.Where(s => s.Schedule == "Daily").ToList();
+                var last = TemplateTasks.LastOrDefault();
 
                 foreach (var task in TemplateTasks)
                 {
@@ -175,8 +176,12 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateAllCompleted = new DateTime(),
                         Schedule = task.Schedule,
-                        Status = "Do-Checklist"
+                        Status = "Task : Incomplete"
                     };
+                    if (task == last)
+                    {
+                        Task.Status = "Do-Checklist : Maintenances";
+                    }
 
                     _context.Maintenances.Add(Task);
 
@@ -238,16 +243,36 @@ namespace TasksApp.Controllers
         [HttpGet]
         public async Task<IActionResult> CompleteTask(int id)
         {
-
+            var Main_Task = _context.TemplateMains.ToList();
+            var Maintenances = _context.Maintenances.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.Maintenances.Find(id).DateCreated;
             var task = _context.Maintenances.Find(id);
+            //Get Last Item & Change Status
+            var items = Maintenances.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var ChangeStatus = _context.Maintenances.Find(ItemId);
+
+
             task.Ok = true;
             task.Not = false;
             task.DateCompleted = DateTime.Now;
             //task.DateAllCompleted = DateTime.Now;
             task.User = User.Identity.Name;
-            task.Status = "Partially Completed";
+            //task.Status = "Partially Completed";
+            task.Status = "Task : Completed";
+            task.IsDone = true;
+            DateCreation = task.DateCreated;
+            //var date = task.DateCreated;
 
-            var date = task.DateCreated;
+            if (ItemDate == Ddate)
+            {
+                ChangeStatus.Status = "Partially Completed : Maintenances";
+            }
 
             var log = new Logs
             {
@@ -264,13 +289,17 @@ namespace TasksApp.Controllers
             _context.Logs.Add(log);
             _context.SaveChanges();
 
-            var tasks = _context.Maintenances.Where(d => d.DateCreated == date).ToList();
+            var tasks = _context.Maintenances.Where(d => d.DateCreated == DateCreation).ToList();
+            //bool status = tasks.All(c => c.IsDone == false);
 
             if (tasks.All(c => c.Ok == true))
             {
-                task.DateAllCompleted = DateTime.Now;
-                task.Status = "Completed";
-                _context.SaveChanges();
+
+                if (ItemDate == Ddate)
+                {
+                    task.DateAllTaskCompleted = DateTime.Now;
+                    ChangeStatus.Status = "Completed : Maintenances";
+                }
             }
 
             foreach (var item in tasks)

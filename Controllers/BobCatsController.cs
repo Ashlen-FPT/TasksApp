@@ -183,6 +183,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count == 0)
             {
                 var Main_Task = _context.TemplateBobCat.ToList();
+                var last = Main_Task.LastOrDefault();
 
                 foreach (var task in Main_Task)
                 {
@@ -194,12 +195,16 @@ namespace TasksApp.Controllers
                         Description = task.Description,
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
-                        Status = "Do-Checklist : BobCat"
+                        Status = "Task : Incomplete"
                     };
-
+                    if (task == last)
+                    {
+                        Task.Status = "Do-Checklist : BobCat";
+                    }
                     _context.BobCats.Add(Task);
 
                 }
+
             }
 
             if (TasksToday.Count > 0)
@@ -219,7 +224,7 @@ namespace TasksApp.Controllers
                             Description = item.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
-                            Status = "Do-Checklist"
+                            //Status = "Do-Checklist"
                         };
 
                         _context.BobCats.Add(Task);
@@ -242,7 +247,7 @@ namespace TasksApp.Controllers
 
 
             _context.Logs.Add(log);
-            
+
 
             await _context.SaveChangesAsync();
 
@@ -261,19 +266,37 @@ namespace TasksApp.Controllers
         [HttpGet]
         public async Task<IActionResult> CompleteTask(int id)
         {
+            var Main_Task = _context.TemplateBobCat.ToList();
+            var BobCats = _context.BobCats.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.BobCats.Find(id).DateCreated;
+            var Btasks = _context.BobCats.Find(id);
+            //Get Last Item & Change Status
+            var items = BobCats.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var ChangeStatus = _context.BobCats.Find(ItemId);
 
-            var task = _context.BobCats.Find(id);
-            task.Yes = true;
-            task.No = false;
-            task.NA = false;
-            task.DateTaskCompleted = DateTime.Now;
-            task.Status = "Partially Completed : BobCat";
-            task.isDone = true;
-            task.UserName1 = User.Identity.Name;
-            var date = task.DateCreated;
 
 
-            
+            Btasks.Yes = true;
+            Btasks.No = false;
+            Btasks.NA = false;
+            Btasks.DateTaskCompleted = DateTime.Now;
+            Btasks.isDone = true;
+            DateCreation = Btasks.DateCreated;
+            Btasks.Status = "Task : Completed";
+
+
+            if (ItemDate == Ddate)
+            {
+                ChangeStatus.Status = "Partially Completed : BobCat";
+            }
+
+
 
             var log = new Logs
             {
@@ -290,13 +313,17 @@ namespace TasksApp.Controllers
             _context.SaveChanges();
 
 
-            var tasks = _context.BobCats.Where(d => d.DateCreated == date).ToList();
 
-            if(tasks.All(c => c.isDone == true))
+            var tasks = _context.BobCats.Where(d => d.DateCreated == DateCreation).ToList();
+
+            if (tasks.All(c => c.isDone == true))
             {
-                task.DateAllTaskCompleted = DateTime.Now;
-                task.Status = "Completed : BobCat";
-                _context.SaveChanges();
+
+                if (ItemDate == Ddate)
+                {
+                    Btasks.DateAllTaskCompleted = DateTime.Now;
+                    ChangeStatus.Status = "Completed : BobCat";
+                }
             }
 
             foreach (var item in tasks)

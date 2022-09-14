@@ -20,7 +20,7 @@
 
 <div class="form-group">
     <label class="control-label">Choose date</label>
-    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
 
 </div>
 
@@ -105,6 +105,36 @@
 
 <script>
 
+    var Tdate = document.getElementById("datePicker").value;
+    var selectedDate = localStorage.getItem('opDate');
+    var getDate;
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    var formatedDate = formatDate(selectedDate);
+
+    if (selectedDate != null) {
+        getDate = selectedDate;
+        $("#datePicker").val(formatedDate).trigger("change");
+    }
+    if (selectedDate == null) {
+        getDate = Tdate;
+    }
+
+    console.log(formatedDate);
+
     $(document).ready(function () {
         var date = document.getElementById("datePicker").value;
         loadTable(date);
@@ -112,7 +142,7 @@
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/DailyChecks/GetAll?date=" + date,
+            url: "/DailyChecks/GetAll?date=" + getDate,
             async: false,
             success: function (response) {
                 var count = 0;
@@ -216,7 +246,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/DailyChecks/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                             `;
@@ -291,7 +321,7 @@
                     });
             },
         });
-
+        localStorage.removeItem('opDate');
         // Order by the grouping
         $('#example tbody').on('click', 'tr.group', function () {
             var currentOrder = table.order()[0];
@@ -301,6 +331,8 @@
                 table.order([groupColumn, 'asc']).draw();
             }
         });
+
+        
     }
 
 
