@@ -59,7 +59,7 @@ namespace TasksApp.Controllers
                 var bob = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest).ToList();
                 //var bob = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == DateTime.MaxValue).ToList();
 
-                if (bobcat.All(s => s.Status == "Do-Checklist"))
+                if (bobcat.Any(s => s.Status.StartsWith("D")))
                 {
                     var bobcats = bobcat.Take(1);
 
@@ -82,7 +82,7 @@ namespace TasksApp.Controllers
                     }
                 }
 
-                else if (bobcat.Any(s => s.Status != "Do-Checklist"))
+                else if (bobcat.Any(s => !s.Status.StartsWith("D")))
                 {
                     foreach (var tasks in bob)
                     {
@@ -109,7 +109,7 @@ namespace TasksApp.Controllers
                 DateTime latest1 = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
                 var daily = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest1).ToList();
 
-                if (dailyCheck.All(s => s.Status == "Do-Checklist"))
+                if (dailyCheck.Any(s => s.Status.StartsWith("D")))
                 {
 
                     foreach (var task in dailyChecks)
@@ -131,7 +131,7 @@ namespace TasksApp.Controllers
                     }
                 }
 
-                else if (dailyCheck.Any(s => s.Status != "Do-Checklist"))
+                else if (dailyCheck.Any(s => !s.Status.StartsWith("D")))
                 {
                     foreach (var tasks in daily)
                     {
@@ -158,7 +158,7 @@ namespace TasksApp.Controllers
                 DateTime latest2 = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
                 var main = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest2).ToList();
 
-                if (maintenance.All(s => s.Status == "Do-Checklist"))
+                if (maintenance.Any(s => s.Status.StartsWith("D")))
                 {
 
                     foreach (var task in maintenances)
@@ -180,7 +180,7 @@ namespace TasksApp.Controllers
                     }
                 }
 
-                else if (maintenance.Any(s => s.Status != "Do-Checklist"))
+                else if (maintenance.Any(s => !s.Status.StartsWith("D")))
                 {
                     foreach (var tasks in main)
                     {
@@ -207,7 +207,7 @@ namespace TasksApp.Controllers
                 DateTime latest3 = (DateTime)_context.items.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
                 var item1 = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest3).ToList();
 
-                if (item.All(s => s.Status == "Do-Checklist"))
+                if (item.Any(s => s.Status.StartsWith("D")))
                 {
 
                     foreach (var task in items)
@@ -229,7 +229,7 @@ namespace TasksApp.Controllers
                     }
                 }
 
-                else if (item.Any(s => s.Status != "Do-Checklist"))
+                else if (item.Any(s => !s.Status.StartsWith("D")))
                 {
                     foreach (var tasks in item1)
                     {
@@ -260,7 +260,7 @@ namespace TasksApp.Controllers
                 
                 //if (bobcat.Count >= ReportsToday.Count)
                 //{
-                    if (bobcat.All(s => s.Status == "Do-Checklist"))
+                    if (bobcat.Any(s => s.Status.StartsWith("D")))
                     {
                         //var bobcats = bobcat.Take(1);
                         var result = bobcat.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
@@ -282,7 +282,7 @@ namespace TasksApp.Controllers
                             await _context.SaveChangesAsync();
                         }
                     }
-                    else if (bobcat.Any(s => s.Status != "Do-Checklist"))
+                    else if (bobcat.Any(s => !s.Status.StartsWith("D")))
                     {
                         var result = bobcat.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateTaskCompleted == latest).ToList();
                         foreach (var tasks in result)
@@ -312,7 +312,7 @@ namespace TasksApp.Controllers
 
                 //if (bobcat.Count >= ReportsToday.Count)
                 //{
-                if (dailyCheck.All(s => s.Status == "Do-Checklist"))
+                if (dailyCheck.Any(s => s.Status.StartsWith("D")))
                 {
                     //var bobcats = bobcat.Take(1);
                     var result = dailyCheck.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
@@ -334,7 +334,7 @@ namespace TasksApp.Controllers
                         await _context.SaveChangesAsync();
                     }
                 }
-                else if (dailyCheck.Any(s => s.Status != "Do-Checklist"))
+                else if (dailyCheck.Any(s => !s.Status.StartsWith("D")))
                 {
                     DateTime latest1 = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
                     var daily = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest1).ToList();
@@ -366,7 +366,7 @@ namespace TasksApp.Controllers
 
                 //if (bobcat.Count >= ReportsToday.Count)
                 //{
-                if (maintenance.All(s => s.Status == "Do-Checklist"))
+                if (maintenance.Any(s => s.Status.StartsWith("D")))
                 {
                     //var bobcats = bobcat.Take(1);
                     var result = maintenance.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
@@ -388,7 +388,7 @@ namespace TasksApp.Controllers
                         await _context.SaveChangesAsync();
                     }
                 }
-                else if (maintenance.Any(s => s.Status != "Do-Checklist"))
+                else if (maintenance.Any(s => !s.Status.StartsWith("D")))
                 {
                     var result = maintenance.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateCompleted == latest).ToList();
                     foreach (var tasks in result)
@@ -420,7 +420,7 @@ namespace TasksApp.Controllers
 
                 //if (bobcat.Count >= ReportsToday.Count)
                 //{
-                if (item.All(s => s.Status == "Do-Checklist"))
+                if (item.Any(s => s.Status.StartsWith("D")))
                 {
                     //var bobcats = bobcat.Take(1);
                     var result = item.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
@@ -442,7 +442,7 @@ namespace TasksApp.Controllers
                         await _context.SaveChangesAsync();
                     }
                 }
-                else if (item.Any(s => s.Status != "Do-Checklist"))
+                else if (item.Any(s => !s.Status.StartsWith("D")))
                 {
                     var result = item.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateCompleted == latest).ToList();
                     foreach (var tasks in result)
@@ -486,7 +486,7 @@ namespace TasksApp.Controllers
             {
                 var bobcat = _context.BobCats.Where(d => d.DateCreated == DateTime.Now.AddDays(-7) && d.DateCreated <= oDate.Date).ToList();
                 var bob = _context.BobCats.Where(d => d.DateCreated.Date == DateTime.Now.AddDays(-7) && d.DateCreated <= oDate.Date).Where(d => d.DateTaskCompleted == DateTime.MaxValue).ToList();
-                if (bobcat.All(s => s.Status == "Do-Checklist"))
+                if (bobcat.Any(s => s.Status.StartsWith("D")))
                 {
                     var bobcats = bobcat.Take(1);
 
@@ -535,7 +535,7 @@ namespace TasksApp.Controllers
                 var dailyChecks = dailyCheck.Take(1);
                 var daily = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == DateTime.MaxValue).ToList();
 
-                if (dailyCheck.All(s => s.Status == "Do-Checklist"))
+                if (dailyCheck.Any(s => s.Status.StartsWith("D")))
                 {
 
                     foreach (var task in dailyChecks)
@@ -583,7 +583,7 @@ namespace TasksApp.Controllers
                 var maintenances = maintenance.Take(1);
                 var main = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == DateTime.MaxValue).ToList();
 
-                if (maintenance.All(s => s.Status == "Do-Checklist"))
+                if (maintenance.Any(s => s.Status.StartsWith("D")))
                 {
 
                     foreach (var task in maintenances)
@@ -631,7 +631,7 @@ namespace TasksApp.Controllers
                 var items = item.Take(1);
                 var items1 = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == DateTime.MaxValue).ToList();
 
-                if (item.All(s => s.Status == "Do-Checklist"))
+                if (item.Any(s => s.Status.StartsWith("D")))
                 {
 
                     foreach (var task in items)
