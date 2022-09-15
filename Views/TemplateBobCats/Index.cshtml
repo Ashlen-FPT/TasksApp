@@ -306,6 +306,8 @@
                 if (data.success) {
 
                     $("#exampleModal").modal("toggle")
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
                     swal(data.message, "", "success");
                     Table01.ajax.reload();
 
