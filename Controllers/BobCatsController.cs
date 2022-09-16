@@ -21,19 +21,12 @@ namespace TasksApp.Controllers
         // GET: BobCats
         public async Task<IActionResult> Index()
         {
-
             return View(await _context.BobCats.ToListAsync());
         }
-
-
-
         public async Task<IActionResult> Capture(BobCat b)
         {
-            var date = DateTime.Now.ToShortDateString();
             var bobCat = new BobCat
             {
-                DateCreated = Convert.ToDateTime(date),
-                UserName1 = User.FindFirst("Username")?.Value,
                 UserName2 = User.FindFirst("Username")?.Value,
                 Sign1 = b.Sign1,
                 Sign2 = b.Sign2
@@ -195,7 +188,8 @@ namespace TasksApp.Controllers
                         Description = task.Description,
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
-                        Status = "Task : Incomplete"
+                        Status = "Task : Incomplete",
+                        UserName1= User.FindFirst("Username")?.Value
                     };
                     if (task == last)
                     {

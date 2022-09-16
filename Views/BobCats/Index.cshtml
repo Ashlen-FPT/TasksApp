@@ -19,7 +19,7 @@
 
 <div class="form-group">
     <label class="control-label">Choose date</label>
-    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;"/>
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
 </div>
 
 <div class="card text-center" style="width: 100%;">
@@ -57,12 +57,10 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="input-group mb-3">
+                                    @Html.DisplayName("Date Created :")
 
-                                    @Html.DisplayNameFor(x => x.DateCreated)
-                                    @foreach (var item in Model.Take(1))
-                                    {
-                                        @Html.DisplayFor(x => item.DateCreated)
-                                    }
+                                    <p id="variableDate" style="padding-left:5px;"> @DateTime.Now.Date.ToString("yyyy-MM-dd")</p>
+
                                 </div>
                             </div>
                         </div>
@@ -72,15 +70,20 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6">
-                                @Html.DisplayNameFor(x => x.UserName1)
-                                : @User.FindFirst("Username")?.Value
+                                @foreach (var item in Model.Take(1))
+                                {
+                                    @Html.DisplayNameFor(x => x.UserName1)
+                                    @Html.DisplayFor(modelItem => item.UserName1)
+
+                                }
 
                             </div>
                             <div class="col-md-6">
                                 @foreach (var item in Model.Take(1))
                                 {
-                                    @Html.CheckBoxFor(modelItem => item.Sign1)
                                     @Html.DisplayNameFor(x => x.Sign1)
+                                    @Html.CheckBoxFor(modelItem => item.Sign1)
+
                                 }
                             </div>
                         </div>
@@ -97,14 +100,15 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     @Html.DisplayNameFor(x => x.UserName2)
-                                    : @User.FindFirst("Username")?.Value
+                                    @User.FindFirst("Username")?.Value
                                 </div>
                                 <div class="col-md-6">
 
                                     @foreach (var item in Model.Take(1))
                                     {
-                                        @Html.CheckBoxFor(modelItem => item.Sign2)
                                         @Html.DisplayNameFor(x => x.Sign2)
+                                        @Html.CheckBoxFor(modelItem => item.Sign2)
+
                                     }
                                 </div>
                             </div>
@@ -204,11 +208,22 @@
     if (selectedDate != null) {
         getDate = selectedDate;
         $("#datePicker").val(formatedDate).trigger("change");
+        document.getElementById("variableDate").innerHTML = formatedDate;
     }
     if (selectedDate == null) {
         getDate = Tdate;
     }
     console.log(formatedDate);
+
+    $("#datePicker").on("change", function () {
+        var select = $(this).val();
+        document.getElementById("variableDate").innerHTML = select;
+        return select;
+
+    });
+
+
+
 
     $(document).ready(function () {
         var date = document.getElementById("datePicker").value;
@@ -246,7 +261,7 @@
 
     });
 
-    
+
     $('#datePicker').change(function () {
         var date = document.getElementById("datePicker").value;
         console.log(date);
@@ -291,12 +306,12 @@
 
     });
 
-    
+
     function loadTable(date) {
-        
+
         /*console.log(opStoreDate);*/
         /*var date2 = document.getElementById("datePicker").value;*/
-       /*console.log(date);*/
+        /*console.log(date);*/
         var groupColumn = 2;
         Table01 = $("#tbl").DataTable({
             "ajax": {
@@ -314,7 +329,7 @@
                     "render": function (data) {
                         if (data.yes == true) {
 
-                           
+
                             return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
@@ -325,7 +340,7 @@
                         }
 
                         if (data.yes == false) {
-                            
+
 
                             return `
                                     <div class="text-center">
@@ -569,5 +584,5 @@
 
 
         //    $('#exampleModal').modal("toggle");
-    
+
 </script>
