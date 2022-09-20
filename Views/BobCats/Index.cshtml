@@ -57,7 +57,7 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="input-group mb-3">
-                                    @Html.DisplayName("Date Created :")
+                                    @Html.DisplayName("Date Checklist Created :")
 
                                     <p id="variableDate" style="padding-left:5px;"> @DateTime.Now.Date.ToString("yyyy-MM-dd")</p>
 
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                     }
-                    @foreach (var item in Model.Where(x => x.DateCreated == DateTime.Today))
+                    @foreach (var item in Model.Where(x => x.DateCreated == DateTime.Today).Take(1))
                     {
 
                         if (item.Sign1 == false || item.Sign2 == false)
