@@ -16,21 +16,21 @@ namespace TasksApp.Models
 
         public int Number { get; set; }
 
-        [Display(Name = "Date")]
+        [Display(Name = "Date : ")]
         public DateTime DateCreated { get; set; }
 
         public DateTime? DateTaskCompleted { get; set; }
 
-        [Display(Name="Operator")]
+        [Display(Name="Operator : ")]
         public string UserName1 { get; set; }
 
-        [Display(Name = "Supervisor")]
+        [Display(Name = "Supervisor : ")]
         public string UserName2 { get; set; }
 
-        [Display(Name = "Operator Sign off")]
+        [Display(Name = "Operator Sign Off ")]
         public bool Sign1 { get; set; }
 
-        [Display(Name = "Supervisor Sign off")]
+        [Display(Name = "Supervisor Sign Off ")]
         public bool Sign2 { get; set; }
 
         public bool Yes { get; set; }

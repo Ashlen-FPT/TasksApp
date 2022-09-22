@@ -440,8 +440,8 @@
                 {
                     <div>
                         @*<input asp-for="Input.Role" placeholder="Role" />
-                            <span asp-validation-for="Input.Role" class="text-danger"></span>*@
-                        @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Select a role-", new { @class = "form-control"})
+                        <span asp-validation-for="Input.Role" class="text-danger"></span>*@
+                        @Html.DropDownListFor(m => m.Input.Role, Model.Input.RoleList, "-Select a role-", new { @class = "form-control" })
                     </div>
                 }
 
@@ -457,9 +457,13 @@
 
             </form>
         </div>
-        <div class="container">
-            <a asp-area="Identity" asp-page="/Account/Login" class="nav-link"> Already have an account</a>
-        </div>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="container">
+                <a asp-area="Identity" asp-page="/Account/Login" class="nav-link"> Already have an account</a>
+            </div>
+        }
+
 
     </div>
 

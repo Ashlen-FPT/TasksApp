@@ -56,7 +56,7 @@ namespace TasksApp.Controllers
 
         }
 
-        public IActionResult OperatorCalendar()
+        public IActionResult Calendar()
         {
             //BobCats
             var BobCats = _context.BobCats.ToList();
@@ -96,76 +96,17 @@ namespace TasksApp.Controllers
 
             ViewData["Items"] = queryItems;
 
-
-
-
-            var log = new Logs
+            if (User.IsInRole(SD.Role_Supervisor.ToString())||User.IsInRole(SD.Role_Admin.ToString()))
             {
-                UserName = User.FindFirst("Username")?.Value,
-                UserEmail = User.Identity.Name,
-                Entity = User.FindFirst("Organization")?.Value,
-                LogType = LogTypes.Read,
-                DateTime = DateTime.Now,
-                UpdatedTable = null,
-                OldData = "User Read Operator Calendar",
-                NewData = null
-            };
+                //Maintenances
 
-            _context.Logs.Add(log);
-            _context.SaveChanges();
+                var Maintenances = _context.Maintenances.ToList();
+                var queryMaintenances = new List<Maintenance>();
 
-            return View();
-        }
+                queryMaintenances = Maintenances.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
 
-        public IActionResult SupervisorCalendar()
-        {
-            //BobCats
-            var BobCats = _context.BobCats.ToList();
-            var queryBobCats = new List<BobCat>();
-
-            queryBobCats = BobCats.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
-
-
-
-            ViewData["BobCat"] = queryBobCats;
-
-            //DailyChecks
-
-            var DailyCheck = _context.DailyChecks.ToList();
-            var queryDailyChecks = new List<DailyCheck>();
-
-            queryDailyChecks = DailyCheck.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
-
-            ViewData["DailyChecks"] = queryDailyChecks;
-
-            //DailyWeighs
-
-            var DailyWeighs = _context.DailyWeighs.ToList();
-            var queryDailyWeighs = new List<DailyWeigh>();
-
-            queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
-
-            ViewData["DailyWeighs"] = queryDailyWeighs;
-
-
-
-            //Maintenances
-
-            var Maintenances = _context.Maintenances.ToList();
-            var queryMaintenances = new List<Maintenance>();
-
-            queryMaintenances = Maintenances.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
-
-            ViewData["Maintenances"] = queryMaintenances;
-
-            //Items
-
-            var Items = _context.items.ToList();
-            var queryItems = new List<Items>();
-
-            queryItems = Items.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
-
-            ViewData["Items"] = queryItems;
+                ViewData["Maintenances"] = queryMaintenances;
+            }
 
 
 
@@ -178,20 +119,13 @@ namespace TasksApp.Controllers
                 LogType = LogTypes.Read,
                 DateTime = DateTime.Now,
                 UpdatedTable = null,
-                OldData = "User Read Supervisor Calendar",
+                OldData = "User Read Calendar",
                 NewData = null
             };
 
             _context.Logs.Add(log);
             _context.SaveChanges();
 
-            return View();
-
-
-        }
-
-        public ActionResult Test()
-        {
             return View();
         }
 
