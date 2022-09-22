@@ -807,7 +807,7 @@ namespace TasksApp.Controllers
             }
             else
             {
-                digit = 1;
+                digit = 2;
             }
             var items = Items.Where((x, i) => i % count == count - digit);
             var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();

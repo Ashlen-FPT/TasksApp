@@ -35,8 +35,8 @@
     var dailyCheck = (IEnumerable<TasksApp.Models.DailyCheck>)ViewData["DailyChecks"];
     var lengthDailyCheck = dailyCheck.Count();
 
-    var dailyWeighs = (IEnumerable<TasksApp.Models.DailyWeigh>)ViewData["DailyWeighs"];
-    var lengthDailyWeighs = dailyWeighs.Count();
+    //var dailyWeighs = (IEnumerable<TasksApp.Models.DailyWeigh>)ViewData["DailyWeighs"];
+    //var lengthDailyWeighs = dailyWeighs.Count();
 
     var items = (IEnumerable<TasksApp.Models.Items>)ViewData["Items"];
     var lengthItems = items.Count();
@@ -63,7 +63,7 @@
         }
     </table>
 
-    <table id="table3" hidden>
+    @*<table id="table3" hidden>
         @for (int i = 0; i < lengthDailyWeighs; i++)
         {
             <tr>
@@ -72,7 +72,7 @@
             </tr>
 
         }
-    </table>
+    </table>*@
 
     <table id="table4" hidden>
         @for (int i = 0; i < lengthItems; i++)
@@ -88,7 +88,7 @@
     <script>
         let eventsBobCat = loadBobCat();
         let eventsDailyCheck = loadDailyCheck();
-        let eventsDailyWeighs = loadDailyWeighs();
+        /*let eventsDailyWeighs = loadDailyWeighs();*/
         let eventsItems = loadItems();
 
         let calendar = initCalendar();
@@ -171,42 +171,42 @@
 
         //DailyWeighs
 
-        function loadDailyWeighs() {
-            var url = '/DailyWeighs/Index';
-            var bgColor = '';
-            var date = document.getElementById("calendar");
-            let eventsDailyWeighs = [];
-            let data = document.getElementById("table3");
-            let trElem = data.getElementsByTagName("tr");
-            for (let tr of trElem) {
-                let tdElems = tr.getElementsByTagName("td");
+        //function loadDailyWeighs() {
+        //    var url = '/DailyWeighs/Index';
+        //    var bgColor = '';
+        //    var date = document.getElementById("calendar");
+        //    let eventsDailyWeighs = [];
+        //    let data = document.getElementById("table3");
+        //    let trElem = data.getElementsByTagName("tr");
+        //    for (let tr of trElem) {
+        //        let tdElems = tr.getElementsByTagName("td");
 
-                if (tdElems[0].textContent.startsWith("D")) {
-                    bgColor = 'red';
+        //        if (tdElems[0].textContent.startsWith("D")) {
+        //            bgColor = 'red';
 
 
-                }
-                else
-                    if (tdElems[0].textContent.startsWith("P")) {
-                        bgColor = 'orange';
-                    }
-                    else
-                        if (tdElems[0].textContent.startsWith("C")) {
-                            bgColor = 'green';
-                        }
-                let eventObj = {
-                    title: tdElems[0].innerText,
-                    start: tdElems[1].innerText,
-                    color: bgColor,
-                    url: url,
-                    date: date,
+        //        }
+        //        else
+        //            if (tdElems[0].textContent.startsWith("P")) {
+        //                bgColor = 'orange';
+        //            }
+        //            else
+        //                if (tdElems[0].textContent.startsWith("C")) {
+        //                    bgColor = 'green';
+        //                }
+        //        let eventObj = {
+        //            title: tdElems[0].innerText,
+        //            start: tdElems[1].innerText,
+        //            color: bgColor,
+        //            url: url,
+        //            date: date,
 
-                }
-                eventsDailyWeighs.push(eventObj);
-            }
+        //        }
+        //        eventsDailyWeighs.push(eventObj);
+        //    }
 
-            return eventsDailyWeighs;
-        }
+        //    return eventsDailyWeighs;
+        //}
 
         //Items
 
@@ -269,7 +269,7 @@
                         console.log(opStoreDate);
                     }
                 },
-                eventSources: [eventsBobCat, eventsDailyCheck, eventsDailyWeighs, eventsItems]
+                eventSources: [eventsBobCat, eventsDailyCheck, /*eventsDailyWeighs,*/ eventsItems]
 
             });
 
@@ -292,8 +292,8 @@
     var dailyCheck = (IEnumerable<TasksApp.Models.DailyCheck>)ViewData["DailyChecks"];
     var lengthDailyCheck = dailyCheck.Count();
 
-    var dailyWeighs = (IEnumerable<TasksApp.Models.DailyWeigh>)ViewData["DailyWeighs"];
-    var lengthDailyWeighs = dailyWeighs.Count();
+    //var dailyWeighs = (IEnumerable<TasksApp.Models.DailyWeigh>)ViewData["DailyWeighs"];
+    //var lengthDailyWeighs = dailyWeighs.Count();
 
     var items = (IEnumerable<TasksApp.Models.Items>)ViewData["Items"];
     var lengthItems = items.Count();
@@ -323,7 +323,7 @@
         }
     </table>
 
-    <table id="table3" hidden>
+    @*<table id="table3" hidden>
         @for (int i = 0; i < lengthDailyWeighs; i++)
         {
             <tr>
@@ -332,7 +332,7 @@
             </tr>
 
         }
-    </table>
+    </table>*@
 
     <table id="table4" hidden>
         @for (int i = 0; i < lengthItems; i++)
@@ -359,7 +359,7 @@
     <script>
         let eventsBobCat = loadBobCat();
         let eventsDailyCheck = loadDailyCheck();
-        let eventsDailyWeighs = loadDailyWeighs();
+        /*let eventsDailyWeighs = loadDailyWeighs();*/
         let eventsItems = loadItems();
         let eventsMaintenances = loadMaintenances();
         let calendar = initCalendar();
@@ -442,42 +442,42 @@
 
         //DailyWeighs
 
-        function loadDailyWeighs() {
-            var url = '/DailyWeighs/Index';
-            var bgColor = '';
-            var date = document.getElementById("calendar");
-            let eventsDailyWeighs = [];
-            let data = document.getElementById("table3");
-            let trElem = data.getElementsByTagName("tr");
-            for (let tr of trElem) {
-                let tdElems = tr.getElementsByTagName("td");
+        //function loadDailyWeighs() {
+        //    var url = '/DailyWeighs/Index';
+        //    var bgColor = '';
+        //    var date = document.getElementById("calendar");
+        //    let eventsDailyWeighs = [];
+        //    let data = document.getElementById("table3");
+        //    let trElem = data.getElementsByTagName("tr");
+        //    for (let tr of trElem) {
+        //        let tdElems = tr.getElementsByTagName("td");
 
-                if (tdElems[0].textContent.startsWith("D")) {
-                    bgColor = 'red';
+        //        if (tdElems[0].textContent.startsWith("D")) {
+        //            bgColor = 'red';
 
 
-                }
-                else
-                    if (tdElems[0].textContent.startsWith("P")) {
-                        bgColor = 'orange';
-                    }
-                    else
-                        if (tdElems[0].textContent.startsWith("C")) {
-                            bgColor = 'green';
-                        }
-                let eventObj = {
-                    title: tdElems[0].innerText,
-                    start: tdElems[1].innerText,
-                    color: bgColor,
-                    url: url,
-                    date: date,
+        //        }
+        //        else
+        //            if (tdElems[0].textContent.startsWith("P")) {
+        //                bgColor = 'orange';
+        //            }
+        //            else
+        //                if (tdElems[0].textContent.startsWith("C")) {
+        //                    bgColor = 'green';
+        //                }
+        //        let eventObj = {
+        //            title: tdElems[0].innerText,
+        //            start: tdElems[1].innerText,
+        //            color: bgColor,
+        //            url: url,
+        //            date: date,
 
-                }
-                eventsDailyWeighs.push(eventObj);
-            }
+        //        }
+        //        eventsDailyWeighs.push(eventObj);
+        //    }
 
-            return eventsDailyWeighs;
-        }
+        //    return eventsDailyWeighs;
+        //}
 
         //Items
 
@@ -578,7 +578,7 @@
                         console.log(opStoreDate);
                     }
                 },
-                eventSources: [eventsBobCat, eventsDailyCheck, eventsDailyWeighs, eventsItems,eventsMaintenances]
+                eventSources: [eventsBobCat, eventsDailyCheck, /*eventsDailyWeighs,*/ eventsItems,eventsMaintenances]
 
             });
 

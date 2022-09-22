@@ -79,12 +79,12 @@ namespace TasksApp.Controllers
 
             //DailyWeighs
 
-            var DailyWeighs = _context.DailyWeighs.ToList();
-            var queryDailyWeighs = new List<DailyWeigh>();
+            //var DailyWeighs = _context.DailyWeighs.ToList();
+            //var queryDailyWeighs = new List<DailyWeigh>();
 
-            queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
+            //queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
 
-            ViewData["DailyWeighs"] = queryDailyWeighs;
+            //ViewData["DailyWeighs"] = queryDailyWeighs;
 
 
             //Items
