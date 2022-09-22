@@ -46,6 +46,22 @@ namespace TasksApp.Controllers
             return View(TLG_dashboard);
         }
 
+        public IActionResult MCT_IT_Index(DateTime date)
+        {
+            DateTime oDate = Convert.ToDateTime(date);
+            DashboardViewModel MCT_IT_dashboard = new DashboardViewModel();
+
+            MCT_IT_dashboard.active_count = _context.Active_D.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
+            MCT_IT_dashboard.hardware_count = _context.Hardware.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
+            MCT_IT_dashboard.networking_count = _context.Networking.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
+            MCT_IT_dashboard.security_count = _context.Security.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
+            MCT_IT_dashboard.software_count = _context.Software.Where(d => d.DateCreated.Date == DateTime.Now.Date).Count();
+
+            var dailyChecks = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+            //TLG_dashboard.dailyChecks_progress = dailyCheck;
+            return View(MCT_IT_dashboard);
+        }
+
         [HttpGet]
         public IActionResult GetAll(DateTime date)
         {
@@ -79,12 +95,12 @@ namespace TasksApp.Controllers
 
             //DailyWeighs
 
-            var DailyWeighs = _context.DailyWeighs.ToList();
-            var queryDailyWeighs = new List<DailyWeigh>();
+            //var DailyWeighs = _context.DailyWeighs.ToList();
+            //var queryDailyWeighs = new List<DailyWeigh>();
 
-            queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
+            //queryDailyWeighs = DailyWeighs.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
 
-            ViewData["DailyWeighs"] = queryDailyWeighs;
+            //ViewData["DailyWeighs"] = queryDailyWeighs;
 
 
             //Items

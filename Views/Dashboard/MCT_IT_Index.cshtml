@@ -1,0 +1,221 @@
+﻿@model TasksApp.ViewModels.DashboardViewModel
+
+<section class="content-header">
+
+    @*<ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>*@
+</section>
+
+<!-- Main content -->
+@*<div class="form-group">
+
+        <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
+    </div>*@
+
+<div id="dashboard">
+    <section class="content">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-xs-4">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+
+                        <p>Active Directory CheckList</p>
+                        <h3>@Model.active_count</h3>
+                    </div>
+
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
+                    </div>
+                    <a href="@(Url.Action("Index","Active_D"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-xs-4" style="width:100%">
+                <div class="small-box bg-warning">
+                    <div class="inner">
+
+                        <p>Hardware CheckList</p>
+                        <h3>@Model.hardware_count<sup style="font-size: 20px"></sup></h3>
+                    </div>
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
+                    </div>
+                    <a href="@(Url.Action("Index","Hardwares"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-xs-4">
+                <div class="small-box bg-success">
+                    <div class="inner">
+
+                        <p>Networking Checklist</p>
+                        <h3>@Model.networking_count<sup style="font-size: 20px"></sup></h3>
+                    </div>
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
+                    </div>
+                    <a href="@(Url.Action("Index","Networks"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-xs-4">
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <p>Security Checklist</p>
+                        <h3>@Model.security_count<sup style="font-size: 20px"></sup></h3>
+                    </div>
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
+                    </div>
+                    <a href="@(Url.Action("Index","Securities"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-xs-4">
+                <!-- small box -->
+                <div class="small-box bg-purple">
+                    <div class="inner">
+                        <p>Software Checklist</p>
+                        <h3>@Model.software_count</h3>
+                    </div>
+
+                    <div class="icon" style="padding-top:12px;">
+                        <i class="fa fa-tasks fa-xs"></i>
+                    </div>
+                    <a href="@(Url.Action("Index","Softwares"))" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <!-- Left col -->
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Total Tasks On The System</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                             
+                                <div class="chart">
+                                    <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <p class="text-center">
+                                    <strong>Checklist Completion</strong>
+                                </p>
+
+                                <span class="progress-text">Active Directory CheckList</span>
+                                <div class="progress">
+                                    <div id="progress1" class="progress-bar progress-bar-aqua" role="progressbar" aria-valuemax="100">
+                                        <a href="@Url.Action("CompleteTask", "Active_D")#progressbar" data-target="#progressbar">
+
+                                        </a>
+                                    </div>
+                                </div>
+                                <br />
+
+                                <span class="progress-text">Hardware CheckList</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemax="100">
+                                        <a href="DailyChecks/Index.cshtml?id=progressbar" data-target="#progressbar">
+
+                                        </a>
+                                    </div>
+                                </div>
+                                <br />
+
+                                <span class="progress-text">Networking Checklist</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progressbar3">
+
+                                    </div>
+                                </div>
+                                <br />
+
+                                <span class="progress-text">Security Checklist</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemax="100" id="progressbar4">
+
+                                    </div>
+                                </div>
+                                <br />
+
+                                <span class="progress-text">Software Checklist</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuemax="100" id="progressbar5">
+
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Morris.js charts -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+<script src="bower_components/raphael/raphael.min.js"></script>
+<script src="bower_components/morris.js/morris.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+
+<script>
+
+    //$(function () {
+    //    $("progress2").onChange(function (e) {
+    //        $("progress").load("DailyChecks/Index", function () {
+    //            alert("page content has been loaded");
+    //        });
+    //    });
+    //})
+
+
+    $(function () {
+        "use strict";
+        //DONUT CHART
+        var donut = new Morris.Donut({
+            element: 'sales-chart',
+            resize: true,
+            colors: ["#33B3FF", "#f0ad4e", "#22bb33", "#bb2124", "#5D3FD3"],
+            data: [
+                { label: "Active Directory Checklist", value: @Model.active_count},
+                { label: "Hardware Checklist", value: @Model.hardware_count},
+                { label: "Networking Checklist", value: @Model.networking_count},
+                { label: "Security Checklist", value: @Model.security_count},
+                { label: "Software Checklist", value: @Model.software_count}
+            ],
+            hideHover: 'auto'
+        });
+
+
+
+        //BAR CHART
+        var area = new Morris.Bar({
+            element: 'sales-charts',
+            resize: true,
+            data: [
+                { y: "Tasks", a: @Model.active_count, b: @Model.hardware_count, c: @Model.networking_count, d:@Model.security_count, e:@Model.software_count}
+            ],
+            xkey: 'y',
+            ykeys: ["a", "b", "c", "d", "e"],
+            labels: ["All Tasks", "S_Tasks", "O_Tasks", "D_Tasks", "B_Tasks"],
+            lineColors: ["#3c8dbc", "#f56954", "#00a65a", "#3c8dbc", "#f56954"],
+            hideHover: 'auto'
+        });
+    });
+</script>
