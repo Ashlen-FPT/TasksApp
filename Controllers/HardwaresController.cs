@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
+using TasksApp.Enums;
 using TasksApp.Models;
 using TasksApp.Services;
 
@@ -210,6 +211,18 @@ namespace TasksApp.Controllers
 
                 }
             }
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Hardware",
+                OldData = "Read Hardware Daily Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 
@@ -275,6 +288,18 @@ namespace TasksApp.Controllers
 
 
             }
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Hardware",
+                OldData = "Read Hardware Weekly Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 
@@ -394,6 +419,19 @@ namespace TasksApp.Controllers
                 }
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Hardware",
+                OldData = "Read Hardware Monthly Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
+
             await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Hardware") });
@@ -511,6 +549,19 @@ namespace TasksApp.Controllers
                 }
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Hardware",
+                OldData = "Read Hardware Quarterly Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
+
             await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
@@ -627,6 +678,18 @@ namespace TasksApp.Controllers
                     }
                 }
             }
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Hardware",
+                OldData = "Read Hardware Bi-Annual Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 
@@ -745,6 +808,19 @@ namespace TasksApp.Controllers
                 }
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Hardware",
+                OldData = "Read Hardware Annual Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
+
             await _context.SaveChangesAsync();
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
@@ -795,6 +871,19 @@ namespace TasksApp.Controllers
 
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Hardware",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+            _context.Logs.Add(log);
+
             await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { success = true, message = "Task Completed!" });
@@ -810,6 +899,19 @@ namespace TasksApp.Controllers
 
             task.Comments = comment;
 
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Updated,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Hardware",
+                OldData = null,
+                NewData = "Added Comment : " + comment
+            };
+            _context.Logs.Add(log);
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 

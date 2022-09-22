@@ -23,20 +23,6 @@ namespace TasksApp.Controllers
         {
             return View(await _context.BobCats.ToListAsync());
         }
-        //public async Task<IActionResult> Capture(BobCat b)
-        //{
-        //    var bobCat = new BobCat
-        //    {
-        //        UserName2 = User.FindFirst("Username")?.Value,
-        //        Sign1 = b.Sign1,
-        //        Sign2 = b.Sign2
-        //    };
-        //    _context.BobCats.Add(bobCat);
-        //    await _context.SaveChangesAsync();
-
-        //    return View();
-
-        //}
 
         // GET: BobCats/Details/5
         public async Task<IActionResult> Details(int? id)

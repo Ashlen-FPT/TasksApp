@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
+using TasksApp.Enums;
 using TasksApp.Models;
 using TasksApp.Services;
 
@@ -211,6 +212,19 @@ namespace TasksApp.Controllers
                 }
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Security",
+                OldData = "Read Security Daily Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
+
             await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Security") });
@@ -276,6 +290,18 @@ namespace TasksApp.Controllers
                 }
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Security",
+                OldData = "Read Security Weekly Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
             await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
@@ -397,6 +423,19 @@ namespace TasksApp.Controllers
                 }
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Security",
+                OldData = "Read Security Monthly Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
+
             await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Security") });
@@ -513,6 +552,19 @@ namespace TasksApp.Controllers
                     }
                 }
             }
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Security",
+                OldData = "Read Security Quarterly Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 
@@ -631,6 +683,19 @@ namespace TasksApp.Controllers
                 }
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Security",
+                OldData = "Read Security Bi-Annual Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
+
             await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
@@ -748,6 +813,19 @@ namespace TasksApp.Controllers
                 }
             }
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Security",
+                OldData = "Read Security Annual Checklist",
+                NewData = null
+            };
+            _context.Logs.Add(log);
+
             await _context.SaveChangesAsync(_userServices.GetUser());
 
             return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
@@ -799,6 +877,18 @@ namespace TasksApp.Controllers
             }
 
 
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Security",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+            _context.Logs.Add(log);
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 
@@ -814,6 +904,19 @@ namespace TasksApp.Controllers
             var task = _context.Security.Find(id);
 
             task.Comments = comment;
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Updated,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Security",
+                OldData = null,
+                NewData = "Added Comment : " + comment
+            };
+            _context.Logs.Add(log);
 
 
             await _context.SaveChangesAsync(_userServices.GetUser());
