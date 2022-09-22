@@ -422,7 +422,7 @@ namespace TasksApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetThuAsync(DateTime date, DayOfWeek dayOfWeek)
+        public async Task<IActionResult> GetThuAsync(DateTime date/*, DayOfWeek dayOfWeek*/)
         {
             var dateValue = DateTime.Now.DayOfWeek;
             if (dateValue == DayOfWeek.Thursday)

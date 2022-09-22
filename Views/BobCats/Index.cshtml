@@ -50,83 +50,44 @@
                         <td style="width:40%"> <b> BRAKE TEST FEL / BOBCAT </b></td>
                     </tr>
                 </table>
-                <form asp-controller="BobCats" asp-action="Capture" id="created">
+                @*Get Date/Time*@
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="input-group mb-3">
+                                @Html.DisplayName("Date Checklist Created :")
 
-                    @*Get Date/Time*@
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <div class="input-group mb-3">
-                                    @Html.DisplayName("Date Checklist Created :")
+                                <p id="variableDate" style="padding-left:5px;"> @DateTime.Now.Date.ToString("yyyy-MM-dd")</p>
 
-                                    <p id="variableDate" style="padding-left:5px;"> @DateTime.Now.Date.ToString("yyyy-MM-dd")</p>
-
-                                </div>
                             </div>
                         </div>
                     </div>
-
-                    @*Get Operator*@
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                @Html.DisplayNameFor(x => x.UserName1)
-                                @foreach (var item in Model.Take(1))
-                                {
-                                    @Html.DisplayFor(modelItem => item.UserName1)
-
-                                }
-
-                            </div>
-                            <div class="col-md-6">
-                                @Html.DisplayNameFor(x => x.Sign1)
-                                @foreach (var item in Model.Take(1))
-                                {
-                                    @Html.CheckBoxFor(modelItem => item.Sign1)
-
-                                }
-                            </div>
-                        </div>
-                    </div>
+                </div>
 
 
-                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
-                    {
+                
+                <table class="table table-bordered table-hover" id="signOffTbl" style="width:100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th colspan="5" style="text-align:center;"><h2>SignOff Checklist</h2></th>
+                        </tr>
+                        <tr>
+                            <th>Operator Name</th>
 
+                            @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                            {
+                                <th>Supervisor Name</th>
+                            }
 
-
-                        @*Get Supervisor*@
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @Html.DisplayNameFor(x => x.UserName2)
-                                    @User.FindFirst("Username")?.Value
-                                </div>
-                                <div class="col-md-6">
-                                    @Html.DisplayNameFor(x => x.Sign2)
-                                    @foreach (var item in Model.Take(1))
-                                    {
-                                        @Html.CheckBoxFor(modelItem => item.Sign2)
-
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    @foreach (var item in Model.Where(x => x.DateCreated == DateTime.Today).Take(1))
-                    {
-
-                        if (item.Sign1 == false || item.Sign2 == false)
-                        {
-                            <div class="form-group">
-
-                                <input type="submit" value="Submit Checklist" class="btn btn-success" id="btnSave" style="float:right;" />
-
-                            </div>
-                        }
-                    }
-
-                </form>
+                            <th>Operator Signature</th>
+                            @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                            {
+                                <th>Supervisor Signature</th>
+                            }
+                            <th>Last Updated</th>
+                        </tr>
+                    </thead>
+                </table>
                 <br />
                 <br />
                 <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
@@ -210,17 +171,16 @@
         return [year, month, day].join('-');
     }
 
-    var formatedDate = formatDate(selectedDate);
+    var formattedDate = formatDate(selectedDate);
 
     if (selectedDate != null) {
         getDate = selectedDate;
-        $("#datePicker").val(formatedDate).trigger("change");
-        document.getElementById("variableDate").innerHTML = formatedDate;
+        $("#datePicker").val(formattedDate).trigger("change");
+        document.getElementById("variableDate").innerHTML = formattedDate;
     }
     if (selectedDate == null) {
         getDate = Tdate;
     }
-    console.log(formatedDate);
 
     $("#datePicker").on("change", function () {
         var select = $(this).val();
@@ -230,12 +190,12 @@
     });
 
 
-
-
     $(document).ready(function () {
         var date = document.getElementById("datePicker").value;
-        console.log(date);
+        /*console.log(date);*/
         loadTable(date);
+        loadSignTable(date);
+
 
         $.ajax({
             type: "GET",
@@ -274,6 +234,7 @@
         console.log(date);
         Table01.destroy();
         loadTable(date);
+        loadSignTable(date);
 
         $.ajax({
             type: "GET",
@@ -312,6 +273,135 @@
         });
 
     });
+
+    function loadSignTable(date) {
+
+        /*var groupColumn = 2;*/
+        Table02 = $("#signOffTbl").DataTable({
+            "paging": false,
+            "searching": false,
+            "info": false,
+            "ordering": false,
+            "ajax": {
+                "url": "/BobCats/GetSignOffs?date=" + date
+            },
+            "columns": [
+                { "data": "userName1", "width": "20%" },
+                /*{ "data": "userName2", "width": "20%" },*/
+
+                                        @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+            {
+                            <text>
+                {
+
+                    "data": {
+                       userName2: "userName2"
+                    },
+                    "render": function (data) {
+                        return`@if (User.IsInRole(SD.Role_Supervisor.ToString())) {
+                            @User.FindFirst("Username")?.Value
+                            }`
+
+                    }, "width": "20%"
+                },
+                </text>
+            }
+
+
+                {
+                    "data": {
+                        id: "id", sign1: "sign1"
+                    },
+                    "render": function (data) {
+                        if (data.sign1 == true) {
+
+
+                            return `
+                                    <div class="text-center">
+                                       <input disabled type="checkbox" checked="true" />
+
+                                    </div>
+                                `;
+
+                        }
+
+                        if (data.sign1 == false) {
+
+
+                            return `
+                                    <div class="text-center">
+                                       <input onclick=Delete("/BobCats/SignOff/${data.id}") type="checkbox" />
+
+                                    </div>
+                                `;
+
+                        }
+
+                    }, "width": "20%"
+                },
+                @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+            {
+                <text>
+                {
+                    "data": {
+                        id: "id", sign2: "sign2"
+                    },
+
+
+                    "render": function (data) {
+                        if (data.sign2 == true) {
+
+                            return `
+                                    <div class="text-center">
+                                       <input disabled type="checkbox" checked="true" />
+
+                                    </div>
+                                   `;
+
+                        }
+
+                        if (data.sign2 == false) {
+
+                            return `
+                                    <div class="text-center">
+                                       <input onclick=Delete("/BobCats/SignOff/${data.id}") type="checkbox" />
+
+                                    </div>
+                                `;
+
+                        }
+
+                    }, "width": "20%"
+                },
+
+                </text>
+            }
+                
+
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "30%"
+                },
+
+            ],
+        });
+    }
 
 
     function loadTable(date) {
@@ -540,6 +630,7 @@
                             });
                             toastr.success(data.message);
                             Table01.ajax.reload();
+                            Table02.ajax.reload();
 
                         }
                         else {

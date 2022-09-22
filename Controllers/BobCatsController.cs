@@ -23,20 +23,20 @@ namespace TasksApp.Controllers
         {
             return View(await _context.BobCats.ToListAsync());
         }
-        public async Task<IActionResult> Capture(BobCat b)
-        {
-            var bobCat = new BobCat
-            {
-                UserName2 = User.FindFirst("Username")?.Value,
-                Sign1 = b.Sign1,
-                Sign2 = b.Sign2
-            };
-            _context.BobCats.Add(bobCat);
-            await _context.SaveChangesAsync();
+        //public async Task<IActionResult> Capture(BobCat b)
+        //{
+        //    var bobCat = new BobCat
+        //    {
+        //        UserName2 = User.FindFirst("Username")?.Value,
+        //        Sign1 = b.Sign1,
+        //        Sign2 = b.Sign2
+        //    };
+        //    _context.BobCats.Add(bobCat);
+        //    await _context.SaveChangesAsync();
 
-            return View();
+        //    return View();
 
-        }
+        //}
 
         // GET: BobCats/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -165,6 +165,121 @@ namespace TasksApp.Controllers
 
         #region API Calls
         [HttpGet]
+        public IActionResult GetSignOffs(DateTime date)
+        {
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var SignsToday = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).ToList().Take(1);
+
+            return Json(new { data = SignsToday });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SignOff(int id)
+        {
+            var Main_Task = _context.TemplateBobCat.ToList();
+            var BobCats = _context.BobCats.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.BobCats.Find(id).DateCreated;
+            var ChangeAllSignatures = _context.BobCats.Where(x => x.DateCreated == Ddate).ToList();
+            var Btasks = _context.BobCats.Find(id);
+            //Get Last Item & Save Signature
+            var items = BobCats.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var SaveSignature = _context.BobCats.Find(ItemId);
+
+
+            if (User.IsInRole(SD.Role_Operator.ToString()))
+            {
+                //Btasks.Sign1 = true;
+                //Btasks.Sign2 = Btasks.Sign2;
+                foreach (var item in ChangeAllSignatures)
+                {
+                    item.Sign1 = true;
+                }
+
+                var log = new Logs
+                {
+                    UserName = User.FindFirst("Username")?.Value,
+                    UserEmail = User.Identity.Name,
+                    Entity = User.FindFirst("Organization")?.Value,
+                    LogType = LogTypes.Completed,
+                    DateTime = DateTime.Now,
+                    UpdatedTable = "BobCat",
+                    OldData = null,
+                    NewData = "Checklist Signed By Operator"
+                };
+                _context.Logs.Add(log);
+
+            }
+            else
+            if (User.IsInRole(SD.Role_Supervisor.ToString()))
+            {
+                Btasks.Sign1 = Btasks.Sign1;
+                foreach (var item in ChangeAllSignatures)
+                {
+                    item.Sign2 = true;
+                    item.UserName2= User.FindFirst("Username")?.Value;
+                }
+
+                var log = new Logs
+                {
+                    UserName = User.FindFirst("Username")?.Value,
+                    UserEmail = User.Identity.Name,
+                    Entity = User.FindFirst("Organization")?.Value,
+                    LogType = LogTypes.Completed,
+                    DateTime = DateTime.Now,
+                    UpdatedTable = "BobCat",
+                    OldData = null,
+                    NewData = "Checklist Signed By Supervisor"
+                };
+                _context.Logs.Add(log);
+            }
+            Btasks.DateTaskCompleted = DateTime.Now;
+            _context.SaveChanges();
+
+
+
+            var tasks = _context.BobCats.Where(d => d.DateCreated == DateCreation).ToList();
+
+
+            //    foreach (var item in tasks)
+            //    {
+
+            //        if (item.Sign1 == true)
+            //    {
+
+            //        return Json(new { success = true, message = "Operator Signed" });
+            //    }
+
+            //    if (item.Sign2 == true)
+            //    {
+
+            //        return Json(new { success = true, message = "Supervisor Signed" });
+            //    }
+
+            //}
+            if (User.IsInRole(SD.Role_Operator.ToString()))
+            {
+                return Json(new { success = true, message = "Operator Signed" });
+            }
+
+            if (User.IsInRole(SD.Role_Supervisor.ToString()))
+            {
+                return Json(new { success = true, message = "Supervisor Signed" });
+            }
+
+                await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Checklist SignOffs Completed" });
+
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetTasksTodayAsync(DateTime date)
         {
 
@@ -189,7 +304,7 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
                         Status = "Task : Incomplete",
-                        UserName1= User.FindFirst("Username")?.Value
+                        UserName1 = User.FindFirst("Username")?.Value
                     };
                     if (task == last)
                     {
