@@ -161,7 +161,6 @@ namespace TasksApp.Controllers
 
             var TasksToday = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks").Where(t => t.ChekList == "Weighbridge Test").ToList();
 
-
             if (TasksToday.Count == 0)
             {
                 var TemplateTasks = _context.TemplateTasks.Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "Tasks").Where(t => t.ChekList == "Weighbridge Test").ToList();
@@ -235,24 +234,12 @@ namespace TasksApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync(DateTime date)
+        public IActionResult GetAll(DateTime date)
         {
 
             DateTime oDate = Convert.ToDateTime(date);
 
-            var tasks = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks").Where(c => c.ChekList == "Weighbridge Test").ToList();
-            var task = _context.DailyWeighs.FirstOrDefault();
-
-            foreach (var item in tasks)
-            {
-                var status = tasks.All(c => c.IsDone == false);
-                {
-                    //task.Status = "Do-Checklist";
-                    await _context.SaveChangesAsync();
-                }
-            }
-            await _context.SaveChangesAsync();
-            return Json(new { data = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskType == "Tasks").Where(c => c.ChekList == "Weighbridge Test") });
+            return Json(new { data = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date) });
 
         }
 
@@ -265,23 +252,107 @@ namespace TasksApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddTask(int Gross, int Tare, int Net, string Observation)
+        public async Task<IActionResult> AddTask(int Id,int Gross, int Tare, int Net, string Observation, DateTime date)
         {
-            var Task = new DailyWeigh
+            DateTime oDate = Convert.ToDateTime(date);
+            
+            var tasks = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+            //var task = _context.DailyWeighs.Find(Id);
+
+            //task.Date = Convert.ToDateTime(date);
+            //task.Time = DateTime.Now;
+            //task.Supervisor = User.Identity.Name;
+            //task.Gross = Gross;
+            //task.Tare = Tare;
+            //task.Net = Net;
+            //task.Observation = Observation;
+            //task.DateCreated = date;
+            //_context.Add(task);
+            
+
+            if (tasks.Count == 0)
             {
-                Date = DateTime.Today,
-                Time = DateTime.Now,
-                Supervisor = User.Identity.Name,
-                Gross = Gross,
-                Tare = Tare,
-                Net = Net,
-                Observation = Observation
-            };
 
-            _context.Add(Task);
+                var Task = new DailyWeigh
+                {
+                    Date = date,
+                    Time = DateTime.Now,
+                    Supervisor = User.Identity.Name,
+                    Gross = Gross, 
+                    Tare = Tare,
+                    Net = Net,
+                    Observation = Observation,
+                    DateCreated = date,
+                    DateCompleted = DateTime.Now
+                };
+
+                _context.Add(Task);
+            }
+
+            if (tasks.Count != 0)
+            {
+
+                var Task = new DailyWeigh
+                {
+                    Date = date,
+                    Time = DateTime.Now,
+                    Supervisor = User.Identity.Name,
+                    Gross = Gross,
+                    Tare = Tare,
+                    Net = Net,
+                    Observation = Observation,
+                    DateCreated = date,
+                    DateCompleted = DateTime.Now
+                };
+
+                _context.Add(Task);
+            }
+
+            if (tasks.Count > 0)
+            {
+
+                var results = tasks.Where(p => tasks.All(p2 => p2.Date == p.Date)).Where(x => tasks.All(x2 => x2.Time == x.Time));
+                foreach (var item in results)
+                {
+                    var Task = new DailyWeigh
+                    {
+                        Date = date,
+                        Time = DateTime.Now,
+                        Supervisor = User.Identity.Name,
+                        Gross = Gross,
+                        Tare = Tare,
+                        Net = Net,
+                        Observation = Observation,
+                        DateCreated = date,
+                        DateCompleted  = DateTime.Now
+
+                    };
+                    _context.Add(Task);
+                }
+
+                var result = tasks.Where(p => tasks.All(p2 => p2.Date == p.Date)).Where(x => tasks.All(x2 => x2.Time == x.Time)).Where(r => tasks.All(r2 => r2.Gross == 0));
+                foreach (var item in result)
+                {
+                    var Task = new DailyWeigh
+                    {
+                        Date = date,
+                        Time = DateTime.Now,
+                        Supervisor = User.Identity.Name,
+                        Gross = Gross + Gross,
+                        Tare = Tare,
+                        Net = Net,
+                        Observation = Observation,
+                        DateCreated = date,
+                        DateCompleted = DateTime.Now
+
+                    };
+                    _context.Update(Task);
+                }
+
+            }
+
             await _context.SaveChangesAsync();
-
-            return Json(new { success = true, message = "Task added!" });
+            return Json(new { success = true, message = "Sub-Task added!" });
         }
 
         [HttpGet]
