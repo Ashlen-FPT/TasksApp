@@ -26,5 +26,10 @@ namespace TasksApp.Models
         public string Schedule { get; set; }
 
         public string TaskCategory { get; set; }
+
+        //public DateTime DateAllTaskCompleted { get; set; }
+
+        //public string Status { get; set; }
+
     }
 }
