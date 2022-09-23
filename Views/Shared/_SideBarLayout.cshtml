@@ -27,641 +27,260 @@
             </div>
         }
 
-        <ul class="c-sidebar-nav">
-            <li class="c-sidebar-nav-item">
-                <a class="c-sidebar-nav-link" asp-controller="Home" asp-action="Index">
+    <ul class="c-sidebar-nav">
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" asp-controller="Home" asp-action="Index">
 
-                    <span class="c-sidebar-nav-icon fa fa-home fa-lg"></span> &nbsp;Home
-                    <span class="badge badge-info">
+                <span class="c-sidebar-nav-icon fa fa-home fa-lg"></span> &nbsp;Home
+                <span class="badge badge-info">
 
-                        @if (User.IsInRole(SD.Role_Operator.ToString()))
-                        {
+                    @if (User.IsInRole(SD.Role_Operator.ToString()))
+                    {
 
-                            <text> Good Day @User.FindFirst("Username")?.Value</text>
+                        <text> Good Day @User.FindFirst("Username")?.Value</text>
 
-                            @*<span class="fa fa-bell fa-lg"> <span class="count"> &nbsp; </span></span>*@
-                            @*<div class="noti-content">
-                                <div class="noti-top-arrow"></div>
-                                <ul id="notiContent"></ul>
-                                </div>*@
+                        @*<span class="fa fa-bell fa-lg"> <span class="count"> &nbsp; </span></span>*@
+                        @*<div class="noti-content">
+                        <div class="noti-top-arrow"></div>
+                        <ul id="notiContent"></ul>
+                        </div>*@
 
 
-                        }
+                    }
 
-                        else if (User.IsInRole(SD.Role_Supervisor.ToString()))
-                        {
-                            <text> Good Day @User.FindFirst("Username")?.Value</text>
-                        }
+                    else if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                    {
+                        <text> Good Day @User.FindFirst("Username")?.Value</text>
+                    }
 
-                        else if (User.IsInRole(SD.Role_Admin.ToString()))
-                        {
-                            <text> Good Day @User.FindFirst("Username")?.Value</text>
-                        }
-                    </span>
+                    else if (User.IsInRole(SD.Role_Admin.ToString()))
+                    {
+                        <text> Good Day @User.FindFirst("Username")?.Value</text>
+                    }
+                </span>
 
-                </a>
-            </li>
-            @if (User.IsInRole(SD.Role_Operator.ToString()))
+            </a>
+        </li>
+        @*MCT Organization*@
+        @if (User.IsInRole(SD.Role_Admin.ToString()))
+        {
+
+            if (User.FindFirst("Organization")?.Value == "MCT")
             {
-                if (User.FindFirst("Organization")?.Value == "TLG")
-                {
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown" id="research" style="display: none">
-                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here for more options"></span>
-                            &nbsp;
-                            Tasks
-                        </a>
-                        <ul class="c-sidebar-nav-dropdown-items">
-                            <li class="c-sidebar-nav-item" id="definedTopic" style="display: none">
-                                <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-tasks"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to complete tasks"></span>
-                                    &nbsp;
-                                    Check-List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                }
-
-            }
-            @if (User.IsInRole(SD.Role_Admin.ToString()))
-            {
-
-                if (User.FindFirst("Organization")?.Value == "TLG")
-                {
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here for more checklist options"></span>
-                            &nbsp;
-                            Checklist Management
-                        </a>
-
-                        <ul class="c-sidebar-nav-dropdown-items">
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="TemplateBobCats" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to Manage Tasks"></span>
-                                    &nbsp;
-                                    Brake Test Checklist
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="TemplateDailyChecks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to Manage Tasks"></span>
-                                    &nbsp;
-                                    Screen Daily Checks
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="TemplateItems" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to Manage Tasks"></span>
-                                    &nbsp;
-                                    Pre-Start Checklist
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="TemplateMains" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to Manage Tasks"></span>
-                                    &nbsp;
-                                    Maintenance Daily Check
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here to view and Manage IT Maintenance Categorised CheckList"></span>
-                            &nbsp;
-                            Checklist Management
-                        </a>
-
-                        <ul class="c-sidebar-nav-dropdown-items">
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="TemplateTasks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to Manage Tasks"></span>
-                                    &nbsp;
-                                    Tasks Management
-                                </a>
-                            </li>
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Supervisor Tasks"></span>
-                                    &nbsp;
-                                    Supervisor Tasks
-                                </a>
-                            </li>
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view active Operator Pre-Tasks"></span>
-                                    &nbsp;
-                                    Operator Tasks
-                                </a>
-                            </li>
-                            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                                <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view and Manage IT Maintenance Categorised CheckList"></span>
-                                    &nbsp;
-                                    IT Maintenance Checklist
-                                </a>
-
-                                <ul class="c-sidebar-nav-dropdown-items">
-                                    <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link" asp-controller="Main_Task" asp-action="Index">
-                                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                                  data-toggle="tooltip"
-                                                  data-placement="bottom"
-                                                  title="Click here to Manage Tasks"></span>
-                                            &nbsp;
-                                            Manage Task-List
-                                        </a>
-                                    </li>
-
-                                    <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link" asp-controller="Active_D" asp-action="Index">
-                                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                                  data-toggle="tooltip"
-                                                  data-placement="bottom"
-                                                  title="Click here to Manage Tasks"></span>
-                                            &nbsp;
-                                            Active Directory Task-List
-                                        </a>
-                                    </li>
-
-                                    <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link" asp-controller="Hardwares" asp-action="Index">
-                                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                                  data-toggle="tooltip"
-                                                  data-placement="bottom"
-                                                  title="Click here to Manage Tasks"></span>
-                                            &nbsp;
-                                            Hardware
-                                        </a>
-                                    </li>
-
-                                    <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link" asp-controller="Networkings" asp-action="Index">
-                                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                                  data-toggle="tooltip"
-                                                  data-placement="bottom"
-                                                  title="Click here to Manage Tasks"></span>
-                                            &nbsp;
-                                            Networking
-                                        </a>
-                                    </li>
-
-                                    <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link" asp-controller="Securities" asp-action="Index">
-                                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                                  data-toggle="tooltip"
-                                                  data-placement="bottom"
-                                                  title="Click here to Manage Tasks"></span>
-                                            &nbsp;
-                                            Security
-                                        </a>
-                                    </li>
-
-                                    <li class="c-sidebar-nav-item">
-                                        <a class="c-sidebar-nav-link" asp-controller="Softwares" asp-action="Index">
-                                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                                  data-toggle="tooltip"
-                                                  data-placement="bottom"
-                                                  title="Click here to Manage Tasks"></span>
-                                            &nbsp;
-                                            Software
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link" asp-controller="User" asp-action="Index">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here to View Users"></span>
-                            &nbsp;
-                            Users
-                        </a>
-                    </li>
-
-                    @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link" asp-controller="Audits" asp-action="Index">
-                        <span class="c-sidebar-nav-icon fa fa-info-circle"
-                        data-toggle="tooltip"
-                        data-placement="bottom"
-                        title="Click here to track user activity"></span>
-                        &nbsp;
-                        User Activity Log
-                        </a>
-                        </li>*@
-
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here for more checklist options"></span>
-                            &nbsp;
-                            Dashboard
-                        </a>
-
-                        <ul class="c-sidebar-nav-dropdown-items">
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="TLG_Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to Manage Tasks"></span>
-                                    &nbsp;
-                                    Checklist Dashboard
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="MCT_IT_Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to Manage Tasks"></span>
-                                    &nbsp;
-                                    MCT Dashboard
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to Manage Tasks"></span>
-                                    &nbsp;
-                                    Tasks Dashboard
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-
-                        <a class="c-sidebar-nav-link" asp-controller="Logs" asp-action="Index">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click for more"></span>
-                            &nbsp;
-                            System Logs
-                        </a>
-                    </li>
-
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-
-                        <a class="c-sidebar-nav-link" asp-controller="Reports" asp-action="Index">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click for more"></span>
-                            &nbsp;
-                            System Reports
-                        </a>
-                    </li>
-
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Calendar">
-                            <span class="c-sidebar-nav-icon fa fa-calendar-alt"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Operator Operations at a glance"></span>
-                            &nbsp;
-                            Calendar Overview
-                        </a>
-                    </li>
-                }
-            }
-
-            @if (User.IsInRole(SD.Role_Supervisor.ToString()))
-            {
-                if (User.FindFirst("Organization")?.Value == "TLG")
-                {
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here for more checklist options"></span>
-                            &nbsp;
-                            CheckList
-                        </a>
-
-                        <ul class="c-sidebar-nav-dropdown-items">
-                            @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                                <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" asp-controller="PreTasks" asp-action="Index">
-                                <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                data-toggle="tooltip"
-                                data-placement="bottom"
-                                title="Click here to view Operator Tasks"></span>
-                                &nbsp;
-                                Operational Tasks
-                                </a>
-                                </li>*@
-
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="BobCats" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Tasks"></span>
-                                    &nbsp;
-                                    Brake Test - FEL
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Items" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view  Tasks"></span>
-                                    &nbsp;
-                                    Pre-Start Check List - FEL
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="DailyWeighs" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Tasks"></span>
-                                    &nbsp;
-                                    Daily Weighbridge Test
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="DailyChecks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Tasks"></span>
-                                    &nbsp;
-                                    Daily Checklist
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Maintenances" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Tasks"></span>
-                                    &nbsp;
-                                    Screen Daily Check Sheet
-                                </a>
-                            </li>
-                            @*<li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
-                                <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                data-toggle="tooltip"
-                                data-placement="bottom"
-                                title="Click here to view Supervisor Tasks"></span>
-                                &nbsp;
-                                Calibration register
-                                </a>
-                                </li>*@
-
-                        </ul>
-
-                    </li>
-                }
-                if (User.FindFirst("Organization")?.Value != "TLG")
-                {
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here for more checklist options"></span>
-                            &nbsp;
-                            CheckList
-                        </a>
-
-                        <ul class="c-sidebar-nav-dropdown-items">
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Supervisor Tasks"></span>
-                                    &nbsp;
-                                    Supervisor Tasks
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Operator Tasks"></span>
-                                    &nbsp;
-                                    Operational Tasks
-                                </a>
-                            </li>
-                        </ul>
-
-                    </li>
-                }
 
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                    <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Calendar">
-                        <span class="c-sidebar-nav-icon fa fa-calendar-alt"
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
                               data-toggle="tooltip"
                               data-placement="bottom"
-                              title="Operator Operations at a glance"></span>
+                              title="Click here to view and Manage IT Maintenance Categorised CheckList"></span>
                         &nbsp;
-                        Calendar Overview
+                        Checklist Management
                     </a>
-                </li>
-            }
 
-            @if (User.IsInRole(SD.Role_Operator.ToString()))
-            {
-                if (User.FindFirst("Organization")?.Value == "TLG")
-                {
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here for more checklist options"></span>
-                            &nbsp;
-                            CheckList
-                        </a>
-
-                        <ul class="c-sidebar-nav-dropdown-items">
-                            @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                                <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" asp-controller="PreTasks" asp-action="Index">
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="TemplateTasks" asp-action="Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                data-toggle="tooltip"
-                                data-placement="bottom"
-                                title="Click here to view Operator Tasks"></span>
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
                                 &nbsp;
-                                Operational Tasks
-                                </a>
-                                </li>*@
+                                Tasks Management
+                            </a>
+                        </li>
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Supervisor Tasks"></span>
+                                &nbsp;
+                                Supervisor Tasks
+                            </a>
+                        </li>
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view active Operator Pre-Tasks"></span>
+                                &nbsp;
+                                Operator Tasks
+                            </a>
+                        </li>
+                        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                            <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view and Manage IT Maintenance Categorised CheckList"></span>
+                                &nbsp;
+                                IT Maintenance Checklist
+                            </a>
 
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="BobCats" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Tasks"></span>
-                                    &nbsp;
-                                    Brake Test - FEL
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Items" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view  Tasks"></span>
-                                    &nbsp;
-                                    Pre-Start Check List - FEL
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="DailyWeighs" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Tasks"></span>
-                                    &nbsp;
-                                    Daily Weighbridge Test
-                                </a>
-                            </li>
-
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="DailyChecks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Tasks"></span>
-                                    &nbsp;
-                                    Daily Checklist
-                                </a>
-                            </li>
-
-                            @*<li class="c-sidebar-nav-item">
-                                    <a class="c-sidebar-nav-link" asp-controller="Maintenances" asp-action="Index">
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Main_Task" asp-action="Index">
                                         <span class="c-sidebar-nav-icon fa fa-info-circle"
                                               data-toggle="tooltip"
                                               data-placement="bottom"
-                                              title="Click here to view Tasks"></span>
+                                              title="Click here to Manage Tasks"></span>
                                         &nbsp;
-                                        Screen Daily Check Sheet
+                                        Manage Task-List
+                                    </a>
+                                </li>
+
+                                @*<li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Active_D" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Active Directory Task-List
+                                    </a>
+                                </li>
+
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Hardwares" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Hardware
+                                    </a>
+                                </li>
+
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Networkings" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Networking
+                                    </a>
+                                </li>
+
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Securities" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Security
+                                    </a>
+                                </li>
+
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Softwares" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Software
                                     </a>
                                 </li>*@
-                            @*<li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="User" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to View Users"></span>
+                        &nbsp;
+                        Users
+                    </a>
+                </li>
+
+                @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-link" asp-controller="Audits" asp-action="Index">
+                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Click here to track user activity"></span>
+                &nbsp;
+                User Activity Log
+                </a>
+                </li>*@
+
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more checklist options"></span>
+                        &nbsp;
+                        Dashboard
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="TLG_Index">
                                 <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                data-toggle="tooltip"
-                                data-placement="bottom"
-                                title="Click here to view Supervisor Tasks"></span>
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
                                 &nbsp;
-                                Calibration register
-                                </a>
-                                </li>*@
+                                Checklist Dashboard
+                            </a>
+                        </li>
 
-                        </ul>
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="MCT_IT_Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                MCT Dashboard
+                            </a>
+                        </li>
 
-                    </li>
-                }
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Tasks Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-                if (User.FindFirst("Organization")?.Value != "TLG")
-                {
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
 
-                    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                            <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                  data-toggle="tooltip"
-                                  data-placement="bottom"
-                                  title="Click here for more checklist options"></span>
-                            &nbsp;
-                            CheckList
-                        </a>
+                    <a class="c-sidebar-nav-link" asp-controller="Logs" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click for more"></span>
+                        &nbsp;
+                        System Logs
+                    </a>
+                </li>
 
-                        <ul class="c-sidebar-nav-dropdown-items">
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Supervisor Tasks"></span>
-                                    &nbsp;
-                                    Supervisor Tasks
-                                </a>
-                            </li>
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
 
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
-                                    <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                          data-toggle="tooltip"
-                                          data-placement="bottom"
-                                          title="Click here to view Operator Tasks"></span>
-                                    &nbsp;
-                                    Operational Tasks
-                                </a>
-                            </li>
-                        </ul>
-
-                    </li>
-                }
+                    <a class="c-sidebar-nav-link" asp-controller="Reports" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click for more"></span>
+                        &nbsp;
+                        System Reports
+                    </a>
+                </li>
 
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                     <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Calendar">
@@ -674,7 +293,698 @@
                     </a>
                 </li>
             }
-        </ul>
+        }
+
+        @if (User.IsInRole(SD.Role_Operator.ToString()))
+        {
+            if (User.FindFirst("Organization")?.Value == "MCT")
+            {
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view and Manage IT Maintenance Categorised CheckList"></span>
+                        &nbsp;
+                        IT Maintenance Checklist
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Active_D" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Active Directory Task-List
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Hardwares" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Hardware
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Networkings" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Networking
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Securities" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Security
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Softwares" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Software
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+        }
+
+        @*TLG Organization*@
+        @if (User.IsInRole(SD.Role_Operator.ToString()))
+        {
+            if (User.FindFirst("Organization")?.Value == "TLG")
+            {
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown" id="research" style="display: none">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more options"></span>
+                        &nbsp;
+                        Tasks
+                    </a>
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item" id="definedTopic" style="display: none">
+                            <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-tasks"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to complete tasks"></span>
+                                &nbsp;
+                                Check-List
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+
+        }
+        @if (User.IsInRole(SD.Role_Admin.ToString()))
+        {
+
+            if (User.FindFirst("Organization")?.Value == "TLG")
+            {
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more checklist options"></span>
+                        &nbsp;
+                        Checklist Management
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="TemplateBobCats" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Brake Test Checklist
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="TemplateDailyChecks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Screen Daily Checks
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="TemplateItems" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Pre-Start Checklist
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="TemplateMains" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Maintenance Daily Check
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to view and Manage IT Maintenance Categorised CheckList"></span>
+                        &nbsp;
+                        Checklist Management
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="TemplateTasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Tasks Management
+                            </a>
+                        </li>
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Supervisor Tasks"></span>
+                                &nbsp;
+                                Supervisor Tasks
+                            </a>
+                        </li>
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view active Operator Pre-Tasks"></span>
+                                &nbsp;
+                                Operator Tasks
+                            </a>
+                        </li>
+                        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                            <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view and Manage IT Maintenance Categorised CheckList"></span>
+                                &nbsp;
+                                IT Maintenance Checklist
+                            </a>
+
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Main_Task" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Manage Task-List
+                                    </a>
+                                </li>
+
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Active_D" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Active Directory Task-List
+                                    </a>
+                                </li>
+
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Hardwares" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Hardware
+                                    </a>
+                                </li>
+
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Networkings" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Networking
+                                    </a>
+                                </li>
+
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Securities" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Security
+                                    </a>
+                                </li>
+
+                                <li class="c-sidebar-nav-item">
+                                    <a class="c-sidebar-nav-link" asp-controller="Softwares" asp-action="Index">
+                                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              title="Click here to Manage Tasks"></span>
+                                        &nbsp;
+                                        Software
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="User" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to View Users"></span>
+                        &nbsp;
+                        Users
+                    </a>
+                </li>
+
+                @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-link" asp-controller="Audits" asp-action="Index">
+                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Click here to track user activity"></span>
+                &nbsp;
+                User Activity Log
+                </a>
+                </li>*@
+
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more checklist options"></span>
+                        &nbsp;
+                        Dashboard
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="TLG_Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Checklist Dashboard
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="MCT_IT_Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                MCT Dashboard
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to Manage Tasks"></span>
+                                &nbsp;
+                                Tasks Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+
+                    <a class="c-sidebar-nav-link" asp-controller="Logs" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click for more"></span>
+                        &nbsp;
+                        System Logs
+                    </a>
+                </li>
+
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+
+                    <a class="c-sidebar-nav-link" asp-controller="Reports" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click for more"></span>
+                        &nbsp;
+                        System Reports
+                    </a>
+                </li>
+
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Calendar">
+                        <span class="c-sidebar-nav-icon fa fa-calendar-alt"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Operator Operations at a glance"></span>
+                        &nbsp;
+                        Calendar Overview
+                    </a>
+                </li>
+            }
+        }
+
+        @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+        {
+            if (User.FindFirst("Organization")?.Value == "TLG")
+            {
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more checklist options"></span>
+                        &nbsp;
+                        CheckList
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" asp-controller="PreTasks" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Click here to view Operator Tasks"></span>
+                        &nbsp;
+                        Operational Tasks
+                        </a>
+                        </li>*@
+
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="BobCats" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Brake Test - FEL
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Items" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view  Tasks"></span>
+                                &nbsp;
+                                Pre-Start Check List - FEL
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="DailyWeighs" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Daily Weighbridge Test
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="DailyChecks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Daily Checklist
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Maintenances" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Screen Daily Check Sheet
+                            </a>
+                        </li>
+                        @*<li class="c-sidebar-nav-item">
+                        <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Click here to view Supervisor Tasks"></span>
+                        &nbsp;
+                        Calibration register
+                        </a>
+                        </li>*@
+
+                    </ul>
+
+                </li>
+            }
+            if (User.FindFirst("Organization")?.Value != "TLG")
+            {
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more checklist options"></span>
+                        &nbsp;
+                        CheckList
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Supervisor Tasks"></span>
+                                &nbsp;
+                                Supervisor Tasks
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Operator Tasks"></span>
+                                &nbsp;
+                                Operational Tasks
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+            }
+
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Calendar">
+                    <span class="c-sidebar-nav-icon fa fa-calendar-alt"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Operator Operations at a glance"></span>
+                    &nbsp;
+                    Calendar Overview
+                </a>
+            </li>
+        }
+
+        @if (User.IsInRole(SD.Role_Operator.ToString()))
+        {
+            if (User.FindFirst("Organization")?.Value == "TLG")
+            {
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more checklist options"></span>
+                        &nbsp;
+                        CheckList
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" asp-controller="PreTasks" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Click here to view Operator Tasks"></span>
+                        &nbsp;
+                        Operational Tasks
+                        </a>
+                        </li>*@
+
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="BobCats" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Brake Test - FEL
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Items" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view  Tasks"></span>
+                                &nbsp;
+                                Pre-Start Check List - FEL
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="DailyWeighs" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Daily Weighbridge Test
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="DailyChecks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Daily Checklist
+                            </a>
+                        </li>
+
+                        @*<li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Maintenances" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Tasks"></span>
+                                &nbsp;
+                                Screen Daily Check Sheet
+                            </a>
+                        </li>*@
+                        @*<li class="c-sidebar-nav-item">
+                        <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Click here to view Supervisor Tasks"></span>
+                        &nbsp;
+                        Calibration register
+                        </a>
+                        </li>*@
+
+                    </ul>
+
+                </li>
+            }
+
+            if (User.FindFirst("Organization")?.Value != "TLG")
+            {
+
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here for more checklist options"></span>
+                        &nbsp;
+                        CheckList
+                    </a>
+
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="Tasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Supervisor Tasks"></span>
+                                &nbsp;
+                                Supervisor Tasks
+                            </a>
+                        </li>
+
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link" asp-controller="PreTasks" asp-action="Index">
+                                <span class="c-sidebar-nav-icon fa fa-info-circle"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Click here to view Operator Tasks"></span>
+                                &nbsp;
+                                Operational Tasks
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+            }
+
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Calendar">
+                    <span class="c-sidebar-nav-icon fa fa-calendar-alt"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Operator Operations at a glance"></span>
+                    &nbsp;
+                    Calendar Overview
+                </a>
+            </li>
+        }
+    </ul>
         <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
     </div>
 }
