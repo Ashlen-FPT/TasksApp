@@ -145,5 +145,20 @@ namespace TasksApp.Controllers
             return View();
         }
 
+        public IActionResult ITCalendar()
+        {
+            //Active_D
+            var Active_D = _context.Active_D.ToList();
+            var queryActive_D = new List<Active_D>();
+
+            queryActive_D = Active_D.Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
+
+
+
+            ViewData["ActiveD"] = queryActive_D;
+
+            return View();
+        }
+
     }
 }
