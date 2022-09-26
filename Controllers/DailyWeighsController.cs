@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TasksApp.Data;
 using TasksApp.Enums;
 using TasksApp.Models;
+using TasksApp.Services;
 
 namespace TasksApp.Controllers
 {
@@ -278,12 +279,13 @@ namespace TasksApp.Controllers
                     Date = date,
                     Time = DateTime.Now,
                     Supervisor = User.Identity.Name,
-                    Gross = Gross, 
+                    Gross = Gross,
                     Tare = Tare,
                     Net = Net,
                     Observation = Observation,
                     DateCreated = date,
-                    DateCompleted = DateTime.Now
+                    DateCompleted = DateTime.Now,
+                    DateAllTaskCompleted = new DateTime()
                 };
 
                 _context.Add(Task);
@@ -302,7 +304,8 @@ namespace TasksApp.Controllers
                     Net = Net,
                     Observation = Observation,
                     DateCreated = date,
-                    DateCompleted = DateTime.Now
+                    DateCompleted = DateTime.Now,
+                    DateAllTaskCompleted = new DateTime()
                 };
 
                 _context.Add(Task);
@@ -324,7 +327,8 @@ namespace TasksApp.Controllers
                         Net = Net,
                         Observation = Observation,
                         DateCreated = date,
-                        DateCompleted  = DateTime.Now
+                        DateCompleted  = DateTime.Now,
+                        DateAllTaskCompleted = new DateTime()
 
                     };
                     _context.Add(Task);
@@ -343,7 +347,9 @@ namespace TasksApp.Controllers
                         Net = Net,
                         Observation = Observation,
                         DateCreated = date,
-                        DateCompleted = DateTime.Now
+                        DateCompleted = DateTime.Now,
+                        DateAllTaskCompleted = new DateTime()
+
 
                     };
                     _context.Update(Task);
@@ -352,7 +358,58 @@ namespace TasksApp.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return Json(new { success = true, message = "Sub-Task added!" });
+            return Json(new { success = true, message = "Weighbridge Test added!"});
+        }
+
+        [HttpGet]
+        public IActionResult GetSignOff(DateTime date)
+        {
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var SignsToday = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date).ToList().Take(1);
+
+            return Json(new { data = SignsToday });
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> Sign(int id)
+        {
+
+            DateTime oDate = _context.DailyWeighs.Find(id).DateCreated;
+            var Signature = _context.DailyWeighs.Find(id);
+            var sign = _context.DailyWeighs.Where(x => x.DateCreated == oDate).ToList();
+
+            if (User.IsInRole(SD.Role_Supervisor.ToString()))
+            {
+                foreach (var item in sign)
+                {
+                        item.IsDone = true;
+                        item.Supervisor = User.Identity.Name;
+                }
+            }
+
+            //var date = Signature.DateCreated;
+
+
+            //var tasks = _context.Tasks.Where(d => d.DateCreated == date).ToList();
+
+            //foreach (var item in tasks)
+            //{
+
+            //    if (item.IsDone == false)
+            //    {
+            //        await _context.SaveChangesAsync();
+
+            //        return Json(new { success = true, message = "Task Completed!" });
+            //    }
+
+            //}
+            Signature.DateAllTaskCompleted = DateTime.Now;
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Supervisor Signed Off" });
+
         }
 
         [HttpGet]
