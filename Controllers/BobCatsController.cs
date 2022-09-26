@@ -379,11 +379,13 @@ namespace TasksApp.Controllers
             var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
             var ChangeStatus = _context.BobCats.Find(ItemId);
 
+            var date = Btasks.DateCreated;
+            var task = _context.BobCats.Where(d => d.DateCreated == date).ToList();
 
 
-            Btasks.Yes = Btasks.Yes;
-            Btasks.No = Btasks.No;
-            Btasks.NA = Btasks.NA;
+            Btasks.Yes = true;
+            Btasks.No = false;
+            Btasks.NA = false;
             Btasks.DateTaskCompleted = DateTime.Now;
             Btasks.isDone = true;
             DateCreation = Btasks.DateCreated;
@@ -394,21 +396,6 @@ namespace TasksApp.Controllers
             {
                 ChangeStatus.Status = "Partially Completed : BobCat";
             }
-
-            //if (Btasks.Yes == true)
-            //{
-
-            //}
-            //else if (Btasks.No == true)
-            //{
-
-            //}
-
-            //else if (Btasks.NA == true)
-            //{
-
-            //}
-
 
             var log = new Logs
             {
@@ -440,11 +427,100 @@ namespace TasksApp.Controllers
 
             foreach (var item in tasks)
             {
-                //if (item.Status == null)
-                //{
-                //    task.Status = "Do-CheckList";
-                //    await _context.SaveChangesAsync();
-                //}
+
+                if (item.Yes == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+
+                else if (item.No == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+
+                else if (item.NA == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                }
+
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "All Tasks Completed!" });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CompleteTaskNo(int id)
+        {
+            var Main_Task = _context.TemplateBobCat.ToList();
+            var BobCats = _context.BobCats.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.BobCats.Find(id).DateCreated;
+            var Btasks = _context.BobCats.Find(id);
+            //Get Last Item & Change Status
+            var items = BobCats.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var ChangeStatus = _context.BobCats.Find(ItemId);
+
+            var date = Btasks.DateCreated;
+            var task = _context.BobCats.Where(d => d.DateCreated == date).ToList();
+
+
+            Btasks.Yes = false;
+            Btasks.No = true;
+            Btasks.NA = false;
+            Btasks.DateTaskCompleted = DateTime.Now;
+            Btasks.isDone = true;
+            DateCreation = Btasks.DateCreated;
+            Btasks.Status = "Task : Completed";
+
+
+            if (ItemDate == Ddate)
+            {
+                ChangeStatus.Status = "Partially Completed : BobCat";
+            }
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "BobCat",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
+
+
+            var tasks = _context.BobCats.Where(d => d.DateCreated == DateCreation).ToList();
+
+            if (tasks.All(c => c.isDone == true))
+            {
+
+                if (ItemDate == Ddate)
+                {
+                    Btasks.DateAllTaskCompleted = DateTime.Now;
+                    ChangeStatus.Status = "Completed : BobCat";
+                }
+            }
+
+            foreach (var item in tasks)
+            {
 
                 if (item.Yes == false)
                 {
@@ -466,25 +542,102 @@ namespace TasksApp.Controllers
 
                     return Json(new { success = true, message = "Task Completed!" });
 
+                }
 
-                    //else
-                    //{
-                    //    bool completeTasks = tasks.All(c => c.IsDone == true);
-                    //    {
-                    //        if (completeTasks == false)
-                    //        {
+            }
 
-                    //            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-                    //            return Json(new { success = true, message = "Task Completed!" });
-                    //        }
-                    //        else if (completeTasks == true)
-                    //        {
-                    //            task.TasksCompleted = true;
-                    //            task.DateAllTaskCompleted = DateTime.Now;
-                    //            task.Status = "Completed";
-                    //        }
-                    //    }
+            return Json(new { success = true, message = "All Tasks Completed!" });
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CompleteTaskNA(int id)
+        {
+            var Main_Task = _context.TemplateBobCat.ToList();
+            var BobCats = _context.BobCats.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.BobCats.Find(id).DateCreated;
+            var Btasks = _context.BobCats.Find(id);
+            //Get Last Item & Change Status
+            var items = BobCats.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var ChangeStatus = _context.BobCats.Find(ItemId);
+
+            var date = Btasks.DateCreated;
+            var task = _context.BobCats.Where(d => d.DateCreated == date).ToList();
+
+
+            Btasks.Yes = false;
+            Btasks.No = false;
+            Btasks.NA = true;
+            Btasks.DateTaskCompleted = DateTime.Now;
+            Btasks.isDone = true;
+            DateCreation = Btasks.DateCreated;
+            Btasks.Status = "Task : Completed";
+
+
+            if (ItemDate == Ddate)
+            {
+                ChangeStatus.Status = "Partially Completed : BobCat";
+            }
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "BobCat",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
+
+
+            var tasks = _context.BobCats.Where(d => d.DateCreated == DateCreation).ToList();
+
+            if (tasks.All(c => c.isDone == true))
+            {
+
+                if (ItemDate == Ddate)
+                {
+                    Btasks.DateAllTaskCompleted = DateTime.Now;
+                    ChangeStatus.Status = "Completed : BobCat";
+                }
+            }
+
+            foreach (var item in tasks)
+            {
+
+                if (item.Yes == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+
+                else if (item.No == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+
+                else if (item.NA == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+
                 }
 
             }

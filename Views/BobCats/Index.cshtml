@@ -96,7 +96,7 @@
                             <th>No.</th>
                             <th>Description</th>
                             <th>Main</th>
-                            <th>Yes</th>
+                            <th>Yes </th>
                             <th>No</th>
                             <th>N/A</th>
                             <th>Date Completed</th>
@@ -353,7 +353,7 @@
 
                             return `
                                     <div class="text-center">
-                                       <input disabled type="checkbox" checked="true" />
+                                       <input disabled type="checkbox" checked="true"  />
 
                                     </div>
                                    `;
@@ -426,13 +426,13 @@
                     "render": function (data) {
                         if (data.yes == true) {
 
-
                             return `
+                                    
                                     <div class="text-center">
-                                       <input disabled type="checkbox" checked="true" />
+                                       <input disabled type="checkbox" checked="true" id="myCheck1" />
 
                                     </div>
-                                `;
+                            `;
 
                         }
 
@@ -441,13 +441,12 @@
 
                             return `
                                     <div class="text-center">
-                                       <input onclick=Delete("/BobCats/CompleteTask/${data.id}") type="checkbox" id=check />
+                                       <input onclick=Delete("/BobCats/CompleteTask/${data.id}") type="checkbox" id=check id="myCheck1" />
 
                                     </div>
                                 `;
                           
                         }
-
                     }, "width": "10%"
                 },
 
@@ -471,7 +470,7 @@
 
                             return `
                                     <div class="text-center">
-                                       <input onclick=Delete("/BobCats/CompleteTask/${data.id}") type="checkbox" />
+                                       <input onclick=Delete("/BobCats/CompleteTaskNo/${data.id}") type="checkbox" />
 
                                     </div>
                                 `;
@@ -501,7 +500,7 @@
 
                             return `
                                     <div class="text-center">
-                                       <input onclick=Delete("/BobCats/CompleteTask/${data.id}") type="checkbox" />
+                                       <input onclick=Delete("/BobCats/CompleteTaskNA/${data.id}") type="checkbox" />
 
                                     </div>
                                 `;
