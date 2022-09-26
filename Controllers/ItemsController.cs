@@ -811,7 +811,7 @@ namespace TasksApp.Controllers
             {
                 digit = 2;
             }
-            var items = Items.Where((x, i) => i % count == count - digit);
+            var items = Items.Where((x, i) => i % count == count - 1);
             var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
             var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
             var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
