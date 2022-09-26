@@ -166,6 +166,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count == 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Active_D").ToList();
+                var last = Main_Task.LastOrDefault();
 
                 foreach (var task in Main_Task)
                 {
@@ -176,9 +177,15 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
                         Schedule = task.Schedule,
-                        TaskCategory = task.TaskCategory
+                        TaskCategory = task.TaskCategory,
+                        Status = "Task : Incomplete",
+                        User = User.FindFirst("Username")?.Value
                     };
-                    
+
+                    if (task == last)
+                    {
+                        Task.Status = "Do-Checklist : Active Directory";
+                    }
                     _context.Active_D.Add(Task);
 
                 }
@@ -888,17 +895,43 @@ namespace TasksApp.Controllers
         [HttpGet]
         public async Task<IActionResult> CompleteTask(int id)
         {
-
-
+            var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Active_D").ToList();
+            var AD = _context.Active_D.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.Active_D.Find(id).DateCreated;
             var task = _context.Active_D.Find(id);
+            //Get Last Item & Change Status
+            var items = AD.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var ChangeStatus = _context.Active_D.Find(ItemId);
+
+            
             task.IsDone = true;
             task.DateTaskCompleted = DateTime.Now;
-            task.User = User.Identity.Name;
+            task.User = User.FindFirst("Username")?.Value;
+            DateCreation = task.DateCreated;
+            task.Status = "Task : Completed";
 
-            var date = task.DateCreated;
+            if (ItemDate == Ddate)
+            {
+                ChangeStatus.Status = "Partially Completed : Active Directory";
+            }
 
+            var tasks = _context.Active_D.Where(d => d.DateCreated == DateCreation).ToList();
 
-            var tasks = _context.Tasks.Where(d => d.DateCreated == date).ToList();
+            if (tasks.All(c => c.IsDone == true))
+            {
+
+                if (ItemDate == Ddate)
+                {
+                    task.DateAllTaskCompleted = DateTime.Now;
+                    ChangeStatus.Status = "Completed : Active Directory";
+                }
+            }
 
             foreach (var item in tasks)
             {

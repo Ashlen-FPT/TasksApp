@@ -22,7 +22,24 @@ namespace TasksApp.Controllers
         // GET: Logs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Logs.ToListAsync());
+            var logs = new List<Logs>();
+
+            if (User.IsInRole(SD.Role_Admin.ToString()))
+            {
+                if (User.FindFirst("Organization")?.Value == "MCT")
+                {
+                    logs = await _context.Logs.Where(x => x.Entity == "MCT").ToListAsync();
+                }
+            }
+
+            if (User.IsInRole(SD.Role_Admin.ToString()))
+            {
+                if (User.FindFirst("Organization")?.Value == "TLG")
+                {
+                    logs = await _context.Logs.Where(x => x.Entity == "TLG").ToListAsync();
+                }
+            }
+            return View(logs);
         }
 
         // GET: Logs/Details/5
