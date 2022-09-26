@@ -187,7 +187,26 @@ namespace TasksApp.Controllers
                 //Btasks.Sign2 = Btasks.Sign2;
                 foreach (var item in ChangeAllSignatures)
                 {
-                    item.Sign1 = true;
+                    bool completion = ChangeAllSignatures.All(c => c.isDone == true);
+                    {
+                        if (completion == false)
+                        { 
+                            item.Sign1 = false;
+
+                            await _context.SaveChangesAsync();
+
+                            return Json(new { warning = true, message = "Please Complete All Checklist Items!" });
+                        }
+
+                        if (completion == true)
+                        {
+                            item.Sign1 = true;
+                            item.DateAllTaskCompleted = DateTime.Now;
+                        }
+                        await _context.SaveChangesAsync();
+                        return Json(new { success = true, message = "Operator Signed!" });
+                    }
+                    
                 }
 
                 var log = new Logs
@@ -227,7 +246,7 @@ namespace TasksApp.Controllers
                 };
                 _context.Logs.Add(log);
             }
-            Btasks.DateAllTaskCompleted = DateTime.Now;
+            //Btasks.DateAllTaskCompleted = DateTime.Now;
             _context.SaveChanges();
 
 
