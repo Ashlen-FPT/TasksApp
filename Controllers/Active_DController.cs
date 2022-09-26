@@ -921,7 +921,7 @@ namespace TasksApp.Controllers
                 ChangeStatus.Status = "Partially Completed : Active Directory";
             }
 
-            var tasks = _context.Tasks.Where(d => d.DateCreated == DateCreation).ToList();
+            var tasks = _context.Active_D.Where(d => d.DateCreated == DateCreation).ToList();
 
             if (tasks.All(c => c.IsDone == true))
             {

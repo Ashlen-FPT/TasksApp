@@ -170,6 +170,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count == 0)
             {
                 var TemplateTasks = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Networking").ToList();
+                var last = TemplateTasks.LastOrDefault();
 
                 foreach (var task in TemplateTasks)
                 {
@@ -180,8 +181,15 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
                         Schedule = task.Schedule,
-                        TaskCategory = task.TaskCategory
+                        TaskCategory = task.TaskCategory,
+                        Status = "Task : Incomplete",
+                        User = User.FindFirst("Username")?.Value
                     };
+
+                    if (task == last)
+                    {
+                        Task.Status = "Do-Checklist : Networks";
+                    }
 
                     _context.Networking.Add(Task);
 
@@ -847,17 +855,43 @@ namespace TasksApp.Controllers
         [HttpGet]
         public async Task<IActionResult> CompleteTask(int id)
         {
-
-
+            var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Networking").ToList();
+            var Network = _context.Networking.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.Networking.Find(id).DateCreated;
             var task = _context.Networking.Find(id);
+            //Get Last Item & Change Status
+            var items = Network.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var ChangeStatus = _context.Networking.Find(ItemId);
+
             task.IsDone = true;
             task.DateTaskCompleted = DateTime.Now;
-            task.User = User.Identity.Name;
+            task.User = User.FindFirst("Username")?.Value;
+            DateCreation = task.DateCreated;
+            task.Status = "Task : Completed";
 
-            var date = task.DateCreated;
+            if (ItemDate == Ddate)
+            {
+                ChangeStatus.Status = "Partially Completed : Networks";
+            }
 
 
-            var tasks = _context.Networking.Where(d => d.DateCreated == date).ToList();
+            var tasks = _context.Networking.Where(d => d.DateCreated == DateCreation).ToList();
+
+            if (tasks.All(c => c.IsDone == true))
+            {
+
+                if (ItemDate == Ddate)
+                {
+                    task.DateAllTaskCompleted = DateTime.Now;
+                    ChangeStatus.Status = "Completed : Networks";
+                }
+            }
 
             foreach (var item in tasks)
             {

@@ -30,6 +30,18 @@
     var activeD = (IEnumerable<TasksApp.Models.Active_D>)ViewData["ActiveD"];
     var lengthActive = activeD.Count();
 
+    var hardware = (IEnumerable<TasksApp.Models.Hardware>)ViewData["Hardware"];
+    var lengthHardware = hardware.Count();
+
+    var network = (IEnumerable<TasksApp.Models.Networking>)ViewData["Network"];
+    var lengthNetwork = network.Count();
+
+    var security = (IEnumerable<TasksApp.Models.Security>)ViewData["Security"];
+    var lengthSecurity = security.Count();
+
+    var software = (IEnumerable<TasksApp.Models.Software>)ViewData["Software"];
+    var lengthSoftware = software.Count();
+
 }
 
 <table id="table1" hidden>
@@ -43,17 +55,65 @@
     }
 </table>
 
+<table id="table2" hidden>
+    @for (int i = 0; i < lengthHardware; i++)
+    {
+        <tr>
+            <td>@Html.Encode(hardware.ElementAt(i).Status)</td>
+            <td>@Html.Encode(hardware.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
+        </tr>
+
+    }
+</table>
+
+<table id="table3" hidden>
+    @for (int i = 0; i < lengthNetwork; i++)
+    {
+        <tr>
+            <td>@Html.Encode(network.ElementAt(i).Status)</td>
+            <td>@Html.Encode(network.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
+        </tr>
+
+    }
+</table>
+
+<table id="table4" hidden>
+    @for (int i = 0; i < lengthSecurity; i++)
+    {
+        <tr>
+            <td>@Html.Encode(security.ElementAt(i).Status)</td>
+            <td>@Html.Encode(security.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
+        </tr>
+
+    }
+</table>
+
+<table id="table5" hidden>
+    @for (int i = 0; i < lengthSoftware; i++)
+    {
+        <tr>
+            <td>@Html.Encode(software.ElementAt(i).Status)</td>
+            <td>@Html.Encode(software.ElementAt(i).DateCreated.ToString("yyyy-MM-dd"))</td>
+        </tr>
+
+    }
+</table>
+
 <script>
     let eventsActiveD = loadActiveD();
+    let eventsHardware = loadHardware();
+    let eventsNetwork = loadNetwork();
+    let eventsSecurity = loadSecurity();
+    let eventsSoftware = loadSoftware();
 
     let calendar = initCalendar();
 
-    //BobCat
+    //Active_D
     function loadActiveD() {
         var url = '/Active_D/Index';
         var bgColor = '';
         var date = document.getElementById("calendar");
-        let eventsBobCat = [];
+        let eventsActiveD = [];
         let data = document.getElementById("table1");
         let trElem = data.getElementsByTagName("tr");
         for (let tr of trElem) {
@@ -80,10 +140,162 @@
                 date: date,
 
             }
-            eventsBobCat.push(eventObj);
+            eventsActiveD.push(eventObj);
         }
 
-        return eventsBobCat;
+        return eventsActiveD;
+    }
+
+    //Hardware
+    function loadHardware() {
+        var url = '/Hardware/Index';
+        var bgColor = '';
+        var date = document.getElementById("calendar");
+        let eventsHardware = [];
+        let data = document.getElementById("table2");
+        let trElem = data.getElementsByTagName("tr");
+        for (let tr of trElem) {
+            let tdElems = tr.getElementsByTagName("td");
+
+            if (tdElems[0].textContent.startsWith("D")) {
+                bgColor = 'red';
+
+
+            }
+            else
+                if (tdElems[0].textContent.startsWith("P")) {
+                    bgColor = 'orange';
+                }
+                else
+                    if (tdElems[0].textContent.startsWith("C")) {
+                        bgColor = 'green';
+                    }
+            let eventObj = {
+                title: tdElems[0].innerText,
+                start: tdElems[1].innerText,
+                color: bgColor,
+                url: url,
+                date: date,
+
+            }
+            eventsHardware.push(eventObj);
+        }
+
+        return eventsHardware;
+    }
+
+    //Network
+    function loadNetwork() {
+        var url = '/Network/Index';
+        var bgColor = '';
+        var date = document.getElementById("calendar");
+        let eventsNetwork = [];
+        let data = document.getElementById("table3");
+        let trElem = data.getElementsByTagName("tr");
+        for (let tr of trElem) {
+            let tdElems = tr.getElementsByTagName("td");
+
+            if (tdElems[0].textContent.startsWith("D")) {
+                bgColor = 'red';
+
+
+            }
+            else
+                if (tdElems[0].textContent.startsWith("P")) {
+                    bgColor = 'orange';
+                }
+                else
+                    if (tdElems[0].textContent.startsWith("C")) {
+                        bgColor = 'green';
+                    }
+            let eventObj = {
+                title: tdElems[0].innerText,
+                start: tdElems[1].innerText,
+                color: bgColor,
+                url: url,
+                date: date,
+
+            }
+            eventsNetwork.push(eventObj);
+        }
+
+        return eventsNetwork;
+    }
+
+    //Security
+    function loadSecurity() {
+        var url = '/Security/Index';
+        var bgColor = '';
+        var date = document.getElementById("calendar");
+        let eventsSecurity = [];
+        let data = document.getElementById("table4");
+        let trElem = data.getElementsByTagName("tr");
+        for (let tr of trElem) {
+            let tdElems = tr.getElementsByTagName("td");
+
+            if (tdElems[0].textContent.startsWith("D")) {
+                bgColor = 'red';
+
+
+            }
+            else
+                if (tdElems[0].textContent.startsWith("P")) {
+                    bgColor = 'orange';
+                }
+                else
+                    if (tdElems[0].textContent.startsWith("C")) {
+                        bgColor = 'green';
+                    }
+            let eventObj = {
+                title: tdElems[0].innerText,
+                start: tdElems[1].innerText,
+                color: bgColor,
+                url: url,
+                date: date,
+
+            }
+            eventsSecurity.push(eventObj);
+        }
+
+        return eventsSecurity;
+    }
+
+    //Software
+    function loadSoftware() {
+        var url = '/Software/Index';
+        var bgColor = '';
+        var date = document.getElementById("calendar");
+        let eventsSoftware = [];
+        let data = document.getElementById("table5");
+        let trElem = data.getElementsByTagName("tr");
+        for (let tr of trElem) {
+            let tdElems = tr.getElementsByTagName("td");
+
+            if (tdElems[0].textContent.startsWith("D")) {
+                bgColor = 'red';
+
+
+            }
+            else
+                if (tdElems[0].textContent.startsWith("P")) {
+                    bgColor = 'orange';
+                }
+                else
+                    if (tdElems[0].textContent.startsWith("C")) {
+                        bgColor = 'green';
+                    }
+            let eventObj = {
+                title: tdElems[0].innerText,
+                start: tdElems[1].innerText,
+                color: bgColor,
+                url: url,
+                date: date,
+
+            }
+            eventsSoftware.push(eventObj);
+        }
+
+        return eventsSoftware;
     }
 
 
@@ -108,7 +320,7 @@
                     console.log(opStoreDate);
                 }
             },
-            eventSources: [eventsActiveD]
+            eventSources: [eventsActiveD , eventsHardware, eventsNetwork , eventsSecurity , eventsSoftware ]
 
         });
 

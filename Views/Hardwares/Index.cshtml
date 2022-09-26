@@ -48,7 +48,7 @@
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
                 <div class="progress">
-                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" id="progressbar1" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <br />
                 <table id="Table01" class="table table-striped table-bordered table-hover" style=" word-wrap:break-word; width:100%; table-layout:fixed">
@@ -66,7 +66,7 @@
 
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="progress">
-                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" id="progressbar2" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <br />
                 <table id="Table02" class="table table-striped table-bordered table-hover" style=" word-wrap:break-word; width:100%; table-layout:fixed">
@@ -85,7 +85,7 @@
 
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                 <div class="progress">
-                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" id="progressbar3" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <br />
 
@@ -104,7 +104,7 @@
 
             <div class="tab-pane fade" id="pills-quart" role="tabpanel" aria-labelledby="pills-quart-tab">
                 <div class="progress">
-                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" id="progressbar4" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <br />
 
@@ -123,7 +123,7 @@
 
             <div class="tab-pane fade" id="pills-bi" role="tabpanel" aria-labelledby="pills-bi-tab">
                 <div class="progress">
-                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" id="progressbar5" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <br />
 
@@ -142,7 +142,7 @@
 
             <div class="tab-pane fade" id="pills-annually" role="tabpanel" aria-labelledby="pills-annually-tab">
                 <div class="progress">
-                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" id="progressbar6" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <br />
 
@@ -198,6 +198,34 @@
 
 <script>
 
+    var Tdate = document.getElementById("datePicker").value;
+    var selectedDate = localStorage.getItem('opDate');
+    var getDate;
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    var formattedDate = formatDate(selectedDate);
+
+    if (selectedDate != null) {
+        getDate = selectedDate;
+        $("#datePicker").val(formattedDate).trigger("change");
+    }
+    if (selectedDate == null) {
+        getDate = Tdate;
+    }
+
 
     $(document).ready(function () {
         var date = document.getElementById("datePicker").value;
@@ -221,12 +249,42 @@
 
                 var p = (count / response.data.length) * 100;
                 if (p == 0) {
-                    document.getElementById("progressbar").style.width = "0%";
-                    document.getElementById("progressbar").innerHTML = "0%";
+                    document.getElementById("progressbar1").style.width = "0%";
+                    document.getElementById("progressbar1").innerHTML = "0%";
+
+                    document.getElementById("progressbar2").style.width = "0%";
+                    document.getElementById("progressbar2").innerHTML = "0%";
+
+                    document.getElementById("progressbar3").style.width = "0%";
+                    document.getElementById("progressbar3").innerHTML = "0%";
+
+                    document.getElementById("progressbar4").style.width = "0%";
+                    document.getElementById("progressbar4").innerHTML = "0%";
+
+                    document.getElementById("progressbar5").style.width = "0%";
+                    document.getElementById("progressbar5").innerHTML = "0%";
+
+                    document.getElementById("progressbar6").style.width = "0%";
+                    document.getElementById("progressbar6").innerHTML = "0%";
                 }
                 else {
-                    document.getElementById("progressbar").style.width = p + "%";
-                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                    document.getElementById("progressbar1").style.width = p + "%";
+                    document.getElementById("progressbar1").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar2").style.width = p + "%";
+                    document.getElementById("progressbar2").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar3").style.width = p + "%";
+                    document.getElementById("progressbar3").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar4").style.width = p + "%";
+                    document.getElementById("progressbar4").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar5").style.width = p + "%";
+                    document.getElementById("progressbar5").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar6").style.width = p + "%";
+                    document.getElementById("progressbar6").innerHTML = Math.round(p) + "%";
                 }
             }
         });
@@ -264,21 +322,64 @@
 
                 var p = (count / response.data.length) * 100;
 
-
-
                 if (Number.isNaN(p)) {
                     console.log(p)
-                    document.getElementById("progressbar").style.width = "0%";
-                    document.getElementById("progressbar").innerHTML = "0%";
+                    document.getElementById("progressbar1").style.width = "0%";
+                    document.getElementById("progressbar1").innerHTML = "0%";
+
+                    document.getElementById("progressbar2").style.width = "0%";
+                    document.getElementById("progressbar2").innerHTML = "0%";
+
+                    document.getElementById("progressbar3").style.width = "0%";
+                    document.getElementById("progressbar3").innerHTML = "0%";
+
+                    document.getElementById("progressbar4").style.width = "0%";
+                    document.getElementById("progressbar4").innerHTML = "0%";
+
+                    document.getElementById("progressbar5").style.width = "0%";
+                    document.getElementById("progressbar5").innerHTML = "0%";
+
+                    document.getElementById("progressbar6").style.width = "0%";
+                    document.getElementById("progressbar6").innerHTML = "0%";
                 }
                 else if (p == 0) {
-                    document.getElementById("progressbar").style.width = "0%";
-                    document.getElementById("progressbar").innerHTML = "0%";
+                    document.getElementById("progressbar1").style.width = "0%";
+                    document.getElementById("progressbar1").innerHTML = "0%";
+
+                    document.getElementById("progressbar2").style.width = "0%";
+                    document.getElementById("progressbar2").innerHTML = "0%";
+
+                    document.getElementById("progressbar3").style.width = "0%";
+                    document.getElementById("progressbar3").innerHTML = "0%";
+
+                    document.getElementById("progressbar4").style.width = "0%";
+                    document.getElementById("progressbar4").innerHTML = "0%";
+
+                    document.getElementById("progressbar5").style.width = "0%";
+                    document.getElementById("progressbar5").innerHTML = "0%";
+
+                    document.getElementById("progressbar6").style.width = "0%";
+                    document.getElementById("progressbar6").innerHTML = "0%";
                 }
 
                 else {
-                    document.getElementById("progressbar").style.width = p + "%";
-                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                    document.getElementById("progressbar1").style.width = p + "%";
+                    document.getElementById("progressbar1").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar2").style.width = p + "%";
+                    document.getElementById("progressbar2").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar3").style.width = p + "%";
+                    document.getElementById("progressbar3").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar4").style.width = p + "%";
+                    document.getElementById("progressbar4").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar5").style.width = p + "%";
+                    document.getElementById("progressbar5").innerHTML = Math.round(p) + "%";
+
+                    document.getElementById("progressbar6").style.width = p + "%";
+                    document.getElementById("progressbar6").innerHTML = Math.round(p) + "%";
                 }
 
             }
@@ -314,7 +415,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Hardwares/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Hardwares/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -366,6 +467,7 @@
 
             ]
         });
+        localStorage.removeItem('opDate');
 
         Table02 = $("#Table02").DataTable({
             "ajax": {
@@ -393,7 +495,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Hardwares/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Hardwares/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -471,7 +573,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Hardwares/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Hardwares/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -549,7 +651,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Hardwares/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Hardwares/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -627,7 +729,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Hardwares/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Hardwares/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -705,7 +807,7 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("Hardwares/CompleteTask/${data.id}") type="checkbox" />
+                                   <input onclick=Delete("/Hardwares/CompleteTask/${data.id}") type="checkbox" />
 
                                 </div>
                                `;
@@ -795,8 +897,23 @@
                                     }
 
                                     var p = (count / response.data.length) * 100;
-                                    document.getElementById("progressbar").style.width = p + "%";
-                                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                                    document.getElementById("progressbar1").style.width = p + "%";
+                                    document.getElementById("progressbar1").innerHTML = Math.round(p) + "%";
+
+                                    document.getElementById("progressbar2").style.width = p + "%";
+                                    document.getElementById("progressbar2").innerHTML = Math.round(p) + "%";
+
+                                    document.getElementById("progressbar3").style.width = p + "%";
+                                    document.getElementById("progressbar3").innerHTML = Math.round(p) + "%";
+
+                                    document.getElementById("progressbar4").style.width = p + "%";
+                                    document.getElementById("progressbar4").innerHTML = Math.round(p) + "%";
+
+                                    document.getElementById("progressbar5").style.width = p + "%";
+                                    document.getElementById("progressbar5").innerHTML = Math.round(p) + "%";
+
+                                    document.getElementById("progressbar6").style.width = p + "%";
+                                    document.getElementById("progressbar6").innerHTML = Math.round(p) + "%";
                                 }
                             });
                             toastr.success(data.message);

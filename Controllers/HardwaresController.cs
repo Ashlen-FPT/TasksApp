@@ -169,6 +169,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count == 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Hardware").ToList();
+                var last = Main_Task.LastOrDefault();
 
                 foreach (var task in Main_Task)
                 {
@@ -179,8 +180,15 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
                         Schedule = task.Schedule,
-                        TaskCategory = task.TaskCategory
+                        TaskCategory = task.TaskCategory,
+                        Status = "Task : Incomplete",
+                        User = User.FindFirst("Username")?.Value
                     };
+
+                    if (task == last)
+                    {
+                        Task.Status = "Do-Checklist : Hardware";
+                    }
 
                     _context.Hardware.Add(Task);
 
@@ -194,6 +202,7 @@ namespace TasksApp.Controllers
                 if (Main_Task.Count > TasksToday.Count)
                 {
                     var result = Main_Task.Where(p => TasksToday.All(p2 => p2.Description != p.Description)).Where(s => s.TaskCategory == "Hardware");
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var item in result)
                     {
@@ -203,7 +212,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             Schedule = item.Schedule,
                             DateTaskCompleted = new DateTime(),
-                            TaskCategory = item.TaskCategory
+                            TaskCategory = item.TaskCategory,
                         };
 
                         _context.Hardware.Add(Task);
@@ -840,17 +849,43 @@ namespace TasksApp.Controllers
         [HttpGet]
         public async Task<IActionResult> CompleteTask(int id)
         {
-
-
+            var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Hardware").ToList();
+            var Hardware = _context.Hardware.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.Hardware.Find(id).DateCreated;
             var task = _context.Hardware.Find(id);
+            //Get Last Item & Change Status
+            var items = Hardware.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var ChangeStatus = _context.Hardware.Find(ItemId);
+
+
             task.IsDone = true;
             task.DateTaskCompleted = DateTime.Now;
-            task.User = User.Identity.Name;
+            task.User = User.FindFirst("Username")?.Value;
+            DateCreation = task.DateCreated;
+            task.Status = "Task : Completed";
 
-            var date = task.DateCreated;
+            if (ItemDate == Ddate)
+            {
+                ChangeStatus.Status = "Partially Completed : Hardware";
+            }
 
+            var tasks = _context.Hardware.Where(d => d.DateCreated == DateCreation).ToList();
 
-            var tasks = _context.Hardware.Where(d => d.DateCreated == date).ToList();
+            if (tasks.All(c => c.IsDone == true))
+            {
+
+                if (ItemDate == Ddate)
+                {
+                    task.DateAllTaskCompleted = DateTime.Now;
+                    ChangeStatus.Status = "Completed : Hardware";
+                }
+            }
 
             foreach (var item in tasks)
             {
