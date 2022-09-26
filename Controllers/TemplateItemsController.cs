@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using TasksApp.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TasksApp.Controllers
 {
+    [Authorize]
     public class TemplateItemsController : Controller
     {
         private readonly ApplicationDbContext _context;

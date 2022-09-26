@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -9,6 +10,7 @@ using TasksApp.Models;
 
 namespace TasksApp.Controllers
 {
+    [Authorize]
     public class BobCatsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -225,7 +227,7 @@ namespace TasksApp.Controllers
                 };
                 _context.Logs.Add(log);
             }
-            Btasks.DateTaskCompleted = DateTime.Now;
+            //Btasks.DateTaskCompleted = DateTime.Now;
             _context.SaveChanges();
 
 
@@ -377,9 +379,9 @@ namespace TasksApp.Controllers
 
 
 
-            Btasks.Yes = true;
-            Btasks.No = false;
-            Btasks.NA = false;
+            Btasks.Yes = Btasks.Yes;
+            Btasks.No = Btasks.No;
+            Btasks.NA = Btasks.NA;
             Btasks.DateTaskCompleted = DateTime.Now;
             Btasks.isDone = true;
             DateCreation = Btasks.DateCreated;
@@ -391,6 +393,19 @@ namespace TasksApp.Controllers
                 ChangeStatus.Status = "Partially Completed : BobCat";
             }
 
+            //if (Btasks.Yes == true)
+            //{
+
+            //}
+            //else if (Btasks.No == true)
+            //{
+
+            //}
+
+            //else if (Btasks.NA == true)
+            //{
+
+            //}
 
 
             var log = new Logs
