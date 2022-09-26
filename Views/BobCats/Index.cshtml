@@ -379,7 +379,7 @@
                 
 
                 {
-                    "data": "dateTaskCompleted",
+                    "data": "dateAllTaskCompleted",
                     'render': function (jsonDate) {
 
                         if (jsonDate == "0001-01-01T00:00:00") {
@@ -441,11 +441,11 @@
 
                             return `
                                     <div class="text-center">
-                                       <input onclick=Delete("/BobCats/CompleteTask/${data.id}") type="checkbox" />
+                                       <input onclick=Delete("/BobCats/CompleteTask/${data.id}") type="checkbox" id=check />
 
                                     </div>
                                 `;
-
+                          
                         }
 
                     }, "width": "10%"

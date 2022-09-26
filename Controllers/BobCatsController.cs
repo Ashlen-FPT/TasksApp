@@ -227,7 +227,7 @@ namespace TasksApp.Controllers
                 };
                 _context.Logs.Add(log);
             }
-            //Btasks.DateTaskCompleted = DateTime.Now;
+            Btasks.DateAllTaskCompleted = DateTime.Now;
             _context.SaveChanges();
 
 
@@ -292,7 +292,8 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
                         Status = "Task : Incomplete",
-                        UserName1 = User.FindFirst("Username")?.Value
+                        UserName1 = User.FindFirst("Username")?.Value,
+                        DateAllTaskCompleted = new DateTime()
                     };
                     if (task == last)
                     {
@@ -321,6 +322,7 @@ namespace TasksApp.Controllers
                             Description = item.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
+                            DateAllTaskCompleted = new DateTime()
                             //Status = "Do-Checklist"
                         };
 
