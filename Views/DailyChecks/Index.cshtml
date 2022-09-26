@@ -143,7 +143,7 @@
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/DailyChecks/Index?date=" + getDate,
+            url: "/DailyChecks/GetAll?date=" + date,
             async: false,
             success: function (response) {
                 var count = 0;
@@ -180,7 +180,7 @@
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/DailyChecks/Index?date=" + date,
+            url: "/DailyChecks/GetAll?date=" + date,
             async: false,
             success: function (response) {
 
