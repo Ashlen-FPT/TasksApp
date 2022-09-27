@@ -320,7 +320,7 @@ namespace TasksApp.Controllers
 
                         var Task = new MReport
                         {
-                            Checklist = "Items",
+                            Checklist = "Software",
                             Status = task.Status,
                             DateCreated = date,
                             DateCompleted = task.DateAllTaskCompleted,
@@ -341,7 +341,7 @@ namespace TasksApp.Controllers
 
                         var Task = new MReport
                         {
-                            Checklist = "Items",
+                            Checklist = "Software",
                             Status = tasks.Status,
                             DateCreated = date,
                             DateCompleted = tasks.DateAllTaskCompleted,
@@ -369,7 +369,7 @@ namespace TasksApp.Controllers
 
                         var Task = new MReport
                         {
-                            Checklist = "Items",
+                            Checklist = "Security",
                             Status = task.Status,
                             DateCreated = date,
                             DateCompleted = task.DateAllTaskCompleted,
@@ -390,7 +390,7 @@ namespace TasksApp.Controllers
 
                         var Task = new MReport
                         {
-                            Checklist = "Items",
+                            Checklist = "Security",
                             Status = tasks.Status,
                             DateCreated = date,
                             DateCompleted = tasks.DateAllTaskCompleted,
