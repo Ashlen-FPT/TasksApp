@@ -58,5 +58,7 @@ namespace TasksApp.Data
         public DbSet<Logs> Logs { get; set; }
 
         public DbSet <Report> reports { get; set; }
+
+        public DbSet<MReport> mreports { get; set; }
     }
 }
