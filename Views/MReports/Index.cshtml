@@ -4,68 +4,404 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Checklist)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCompleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssignedTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TaskCompleted)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Checklist)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCompleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignedTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskCompleted)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<style>
+    tr {
+        outline: thin solid black;
+    }
+
+    td {
+        outline: thin solid black;
+    }
+</style>
+
+<h1>Reports</h1>
+
+
+<div class="form-group">
+    <label class="control-label">Choose date</label>
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+</div>
+
+
+
+<div class="card text-center" style="width: 100%;">
+    <div class="card-title">
+        <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-homes-tab" data-toggle="pill" href="#pills-homes" role="tab" aria-controls="pills-homes" aria-selected="true">Daily</a>
+            </li>
+
+            @*<li class="nav-item">
+                <a class="nav-link" id="pills-profiles-tab" data-toggle="pill" href="#pills-profiles" role="tab" aria-controls="pills-profiles" aria-selected="false">Weekly</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="pills-contacts-tab" data-toggle="pill" href="#pills-contacts" role="tab" aria-controls="pills-contacts" aria-selected="false">Monthly</a>
+            </li>*@
+        </ul>
+    </div>
+
+    <div class="card-body">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-homes" role="tabpanel" aria-labelledby="pills-homes-tab">
+                <table class="table table-bordered table-hover" id="Table01" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Checklist Name</th>
+                            <th>Assigned To</th>
+                            <th>Status</th>
+                            <th>Date Checklist Created</th>
+                            <th>Date Checklist Updated</th>
+                            <th>Completed By</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            @*<div class="tab-pane fade" id="pills-profiles" role="tabpanel" aria-labelledby="pills-profiles-tab">
+                <table class="table table-bordered table-hover" id="Table02" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Checklist Name</th>
+                            <th>Assigned To</th>
+                            <th>Status</th>
+                            <th>Date Checklist Created</th>
+                            <th>Date Checklist Updated</th>
+                            <th>Completed By</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="pills-contacts" role="tabpanel" aria-labelledby="pills-contacts-tab">
+                <table class="table table-bordered table-hover" id="Table03" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                    <thead class="thead-dark">
+                        <tr class="table-info">
+                            <th>Checklist Name</th>
+                            <th>Assigned To</th>
+                            <th>Status</th>
+                            <th>Date Checklist Created</th>
+                            <th>Date Checklist Updated</th>
+                            <th>Completed By</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/DataTable/datatables.min.js"></script>
+<script src="~/js/DataTable/jquery-3.6.0.js"></script>
+<link type="text/css" href="~/css/DataTable/datatables.min.css" rel="stylesheet">
+
+
+<script>
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        loadTable(date);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/MReports/GetReport?date=" + date,
+            async: false,
+            success: function (response) {
+
+            }
+        });
+
+
+    });
+
+
+    $('#datePicker').change(function () {
+        var date = document.getElementById("datePicker").value;
+        Table01.destroy();
+
+        loadTable(date);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/MReports/GetReport?date=" + date,
+            async: false,
+            success: function (response) {
+
+            }
+        });
+
+    });
+
+    function loadTable(date) {
+
+        Table01 = $("#Table01").DataTable({
+
+            "lengthMenu": [10, 25, 50, 75, 100],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'pageLength',
+                },
+                {
+                    extend: 'copy',
+                    title: 'Daily Report - Checklist System_' + date,
+                    text: '<i class= "fa fa-copy"></i> Copy'
+                },
+                {
+                    extend: 'excel',
+                    title: 'Daily Report - Checklist System_' + date,
+                    text: '<i class= "fa fa-file-excel-o"></i> Excel'
+                },
+                {
+                    extend: 'pdf',
+                    title: 'Daily Report - Checklist System_' + date,
+                    text: '<i class= "fa fa-file-pdf-o"></i> PDF'
+                },
+                {
+                    extend: 'csv',
+                    title: 'Daily Report - Checklist System_' + date,
+                    text: '<i class= "fa fa-file-csv"></i> CSV'
+                },
+                {
+                    extend: 'print',
+                    title: 'Daily Report - Checklist System_' + date,
+                    text: '<i class= "fa fa-print"></i> Print'
+                }
+            ],
+
+            "ajax": {
+                "url": "/MReports/GetReport?date=" + date
+            },
+            "columns": [
+                { "data": "checklist", "width": "60%" },
+                { "data": "assignedTo", "width": "45%" },
+                { "data": "status", "width": "60%" },
+
+                {
+                    "data": "dateCreated",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+
+                {
+                    "data": "taskCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+
+                { "data": "userName", "width": "60%" }
+            ]
+        });
+
+        //Table02 = $("#Table02").DataTable({
+        //    "lengthMenu": [10, 25, 50, 75, 100],
+        //    dom: 'Bfrtip',
+        //    buttons: [
+        //        {
+        //            extend: 'pageLength',
+        //        },
+        //        {
+        //            extend: 'copy',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-copy"></i> Copy'
+        //        },
+        //        {
+        //            extend: 'excel',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-excel-o"></i> Excel'
+        //        },
+        //        {
+        //            extend: 'pdf',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-pdf-o"></i> PDF'
+        //        },
+        //        {
+        //            extend: 'csv',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-csv"></i> CSV'
+        //        },
+        //        {
+        //            extend: 'print',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-print"></i> Print'
+        //        }
+        //    ],
+
+        //    "ajax": {
+        //        "url": "/MReports/GetWeeklyReport?date=" + date
+        //    },
+        //    "columns": [
+        //        { "data": "checklist", "width": "60%" },
+        //        { "data": "assignedTo", "width": "45%" },
+        //        { "data": "status", "width": "60%" },
+
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+
+        //        {
+        //            "data": "taskCompleted",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+
+        //        { "data": "userName", "width": "50%" }
+        //    ]
+        //});
+
+        //Table03 = $("#Table03").DataTable({
+        //    "lengthMenu": [10, 25, 50, 75, 100],
+        //    dom: 'Bfrtip',
+        //    buttons: [
+        //        {
+        //            extend: 'pageLength',
+        //        },
+        //        {
+        //            extend: 'copy',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-copy"></i> Copy'
+        //        },
+        //        {
+        //            extend: 'excel',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-excel-o"></i> Excel'
+        //        },
+        //        {
+        //            extend: 'pdf',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-pdf-o"></i> PDF'
+        //        },
+        //        {
+        //            extend: 'csv',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-csv"></i> CSV'
+        //        },
+        //        {
+        //            extend: 'print',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-print"></i> Print'
+        //        }
+        //    ],
+
+        //    "ajax": {
+        //        "url": "/MReports/GetMonthlyReport?date=" + date
+        //    },
+        //    "columns": [
+        //        { "data": "checklist", "width": "60%" },
+        //        { "data": "assignedTo", "width": "45%" },
+        //        { "data": "status", "width": "60%" },
+
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+
+        //        {
+        //            "data": "taskCompleted",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+
+        //        { "data": "userName", "width": "50%" }
+        //    ]
+        //});
+    }
+</script>

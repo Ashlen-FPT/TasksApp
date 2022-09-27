@@ -156,22 +156,19 @@ namespace TasksApp.Controllers
         {
             DateTime oDate = Convert.ToDateTime(date);
 
-            var ReportsToday = _context.reports.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+            var ReportsToday = _context.mreports.Where(d => d.DateCreated.Date == oDate.Date).ToList();
 
             if (ReportsToday.Count == 0)
             {
                 var active_D = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-                DateTime latest = (DateTime)_context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
-                var active = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest).ToList();
-                //var bob = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == DateTime.MaxValue).ToList();
-
+               
                 if (active_D.Any(s => s.Status.StartsWith("D")))
                 {
                     var actives = active_D.Take(1);
 
                     foreach (var task in actives)
                     {
-
+                        
                         var Task = new MReport
                         {
                             Checklist = "Active Directory",
@@ -189,7 +186,10 @@ namespace TasksApp.Controllers
                 }
 
                 else if (active_D.Any(s => !s.Status.StartsWith("D")))
-                {
+                { 
+                    DateTime latest = (DateTime)_context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var active = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest).ToList();
+
                     foreach (var tasks in active)
                     {
 
@@ -209,14 +209,13 @@ namespace TasksApp.Controllers
                     }
                 }
 
+                
+
                 var hardware = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-                var hardwares = hardware.Take(1);
-                DateTime latest1 = (DateTime)_context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
-                var daily = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest1).ToList();
 
                 if (hardware.Any(s => s.Status.StartsWith("D")))
                 {
-
+                    var hardwares = hardware.Take(1);
                     foreach (var task in hardwares)
                     {
 
@@ -238,6 +237,9 @@ namespace TasksApp.Controllers
 
                 else if (hardware.Any(s => !s.Status.StartsWith("D")))
                 {
+                    DateTime latest1 = (DateTime)_context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var daily = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest1).ToList();
+
                     foreach (var tasks in daily)
                     {
 
@@ -257,12 +259,11 @@ namespace TasksApp.Controllers
                     }
                 }
 
+                
+
                 var networking = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-
                 var networks = networking.Take(1);
-                DateTime latest2 = (DateTime)_context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
-                var network = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest2).ToList();
-
+                
                 if (networking.Any(s => s.Status.StartsWith("D")))
                 {
 
@@ -287,9 +288,11 @@ namespace TasksApp.Controllers
 
                 else if (networking.Any(s => !s.Status.StartsWith("D")))
                 {
+                    DateTime latest2 = (DateTime)_context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var network = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest2).ToList();
                     foreach (var tasks in network)
                     {
-
+                        
                         var Task = new MReport
                         {
                             Checklist = "Networking",
@@ -306,12 +309,11 @@ namespace TasksApp.Controllers
                     }
                 }
 
+
                 var securities = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).ToList();
 
                 var security = securities.Take(1);
-                DateTime latest3 = (DateTime)_context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
-                var secure = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest3).ToList();
-
+                
                 if (securities.Any(s => s.Status.StartsWith("D")))
                 {
 
@@ -336,9 +338,11 @@ namespace TasksApp.Controllers
 
                 else if (securities.Any(s => !s.Status.StartsWith("D")))
                 {
+                    DateTime latest3 = (DateTime)_context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var secure = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest3).ToList();
+
                     foreach (var tasks in secure)
                     {
-
                         var Task = new MReport
                         {
                             Checklist = "Software",
@@ -356,10 +360,8 @@ namespace TasksApp.Controllers
                 }
 
                 var sofwares = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-
                 var sofware = sofwares.Take(1);
-                DateTime latest4 = (DateTime)_context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
-                var soft = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest4).ToList();
+                
 
                 if (sofwares.Any(s => s.Status.StartsWith("D")))
                 {
@@ -385,6 +387,9 @@ namespace TasksApp.Controllers
 
                 else if (sofwares.Any(s => !s.Status.StartsWith("D")))
                 {
+                    DateTime latest4 = (DateTime)_context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var soft = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest4).ToList();
+
                     foreach (var tasks in soft)
                     {
 
@@ -405,8 +410,261 @@ namespace TasksApp.Controllers
                 }
 
             }
-            await _context.SaveChangesAsync();
 
+            if (ReportsToday.Count > 0)
+            {
+                var active_D = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+
+                if (active_D.Any(s => s.Status.StartsWith("D")))
+                {
+                    var actives = active_D.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+
+                    foreach (var task in actives)
+                    {
+
+                        var Task = new MReport
+                        {
+                            Checklist = "Active Directory",
+                            Status = task.Status,
+                            DateCreated = task.DateCreated,
+                            DateCompleted = task.DateAllTaskCompleted,
+                            UserName = task.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = task.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
+                else if (active_D.Any(s => !s.Status.StartsWith("D")))
+                {
+                    DateTime latest = (DateTime)_context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var active = active_D.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateTaskCompleted == latest).ToList();
+
+                    foreach (var tasks in active)
+                    {
+
+                        var Task = new MReport
+                        {
+                            Checklist = "Active Directory",
+                            Status = tasks.Status,
+                            DateCreated = tasks.DateCreated,
+                            DateCompleted = tasks.DateAllTaskCompleted,
+                            UserName = tasks.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = tasks.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+
+
+                var hardware = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+
+                if (hardware.Any(s => s.Status.StartsWith("D")))
+                {
+                    var hardwares = hardware.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+                    foreach (var task in hardwares)
+                    {
+
+                        var Task = new MReport
+                        {
+                            Checklist = "Hardware",
+                            Status = task.Status,
+                            DateCreated = date,
+                            DateCompleted = task.DateAllTaskCompleted,
+                            UserName = task.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = task.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+                else if (hardware.Any(s => !s.Status.StartsWith("D")))
+                {
+                    DateTime latest1 = (DateTime)_context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var daily = hardware.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateTaskCompleted == latest1).ToList();
+
+                    foreach (var tasks in daily)
+                    {
+
+                        var Task = new MReport
+                        {
+                            Checklist = "Hardware",
+                            Status = tasks.Status,
+                            DateCreated = date,
+                            DateCompleted = tasks.DateAllTaskCompleted,
+                            UserName = tasks.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = tasks.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+
+
+                var networking = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+                var networks = networking.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+
+                if (networking.Any(s => s.Status.StartsWith("D")))
+                {
+
+                    foreach (var task in networks)
+                    {
+
+                        var Task = new MReport
+                        {
+                            Checklist = "Networking",
+                            Status = task.Status,
+                            DateCreated = date,
+                            DateCompleted = task.DateAllTaskCompleted,
+                            UserName = task.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = task.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+                else if (networking.Any(s => !s.Status.StartsWith("D")))
+                {
+                    DateTime latest2 = (DateTime)_context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var network = networking.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateTaskCompleted == latest2).ToList();
+                    foreach (var tasks in network)
+                    {
+
+                        var Task = new MReport
+                        {
+                            Checklist = "Networking",
+                            Status = tasks.Status,
+                            DateCreated = tasks.DateCreated,
+                            DateCompleted = tasks.DateAllTaskCompleted,
+                            UserName = tasks.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = tasks.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+
+                var securities = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+
+                var security = securities.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+
+                if (securities.Any(s => s.Status.StartsWith("D")))
+                {
+
+                    foreach (var task in security)
+                    {
+
+                        var Task = new MReport
+                        {
+                            Checklist = "Software",
+                            Status = task.Status,
+                            DateCreated = date,
+                            DateCompleted = task.DateAllTaskCompleted,
+                            UserName = task.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = task.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+                else if (securities.Any(s => !s.Status.StartsWith("D")))
+                {
+                    DateTime latest3 = (DateTime)_context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var secure = security.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateTaskCompleted == latest3).ToList();
+
+                    foreach (var tasks in secure)
+                    {
+                        var Task = new MReport
+                        {
+                            Checklist = "Software",
+                            Status = tasks.Status,
+                            DateCreated = date,
+                            DateCompleted = tasks.DateAllTaskCompleted,
+                            UserName = tasks.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = tasks.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+                var sofwares = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+                var sofware = sofwares.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+
+
+                if (sofwares.Any(s => s.Status.StartsWith("D")))
+                {
+
+                    foreach (var task in sofware)
+                    {
+
+                        var Task = new MReport
+                        {
+                            Checklist = "Security",
+                            Status = task.Status,
+                            DateCreated = date,
+                            DateCompleted = task.DateAllTaskCompleted,
+                            UserName = task.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = task.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+                else if (sofwares.Any(s => !s.Status.StartsWith("D")))
+                {
+                    DateTime latest4 = (DateTime)_context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
+                    var soft = sofwares.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateTaskCompleted == latest4).ToList();
+
+                    foreach (var tasks in soft)
+                    {
+
+                        var Task = new MReport
+                        {
+                            Checklist = "Security",
+                            Status = tasks.Status,
+                            DateCreated = date,
+                            DateCompleted = tasks.DateAllTaskCompleted,
+                            UserName = tasks.User,
+                            AssignedTo = "Operator",
+                            TaskCompleted = tasks.DateTaskCompleted
+                        };
+
+                        _context.mreports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+            }
+
+            await _context.SaveChangesAsync();
             return Json(new { data = _context.mreports.Where(d => d.DateCreated.Date == oDate.Date).ToList() });
         }
         #endregion
