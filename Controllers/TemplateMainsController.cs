@@ -241,8 +241,8 @@ namespace TasksApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTaskAsync(int id)
         {
-            var templateTask = await _context.TemplateTasks.FindAsync(id);
-            return Json(new { data = templateTask });
+            var templateMains = await _context.TemplateMains.FindAsync(id);
+            return Json(new { data = templateMains });
 
         }
 

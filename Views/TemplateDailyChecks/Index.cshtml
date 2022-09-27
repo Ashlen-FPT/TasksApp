@@ -19,9 +19,14 @@
 <h1>Manage Tasks</h1>
 <div class="form-group" style="padding-right:12px;">
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="float:right;">
-        <i class="fa fa-plus"></i> Create New
+        <i class="fa fa-plus"></i> Add New Task / Sub-Task
     </button>
 </div>
+@*<div class="form-group" style="padding-right:12px;">
+    <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal1" type="button" onclick='ShowAddSubModal("${data.id}")' style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal1" title="Add Sub Task">
+        <i class=" btn btn-info fa fa-list" style="float:right;"> Add Sub task</i>
+    </a>
+</div>*@
 
 <div class="card text-center" style="width: 100%;">
     <div class="card-title">
@@ -42,11 +47,8 @@
                             <th>Heading</th>
                             <th>Date Created</th>
                             <th>User Email</th>
-                            <th>
-                                <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal1" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal1" title="Add Sub Task">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </a>
-                            </th>
+                            @*<th>
+                                </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -87,13 +89,18 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-group">
-                    <label style="float:left" class="control-label"> Task Item No.</label>
+                    <label style="float:left" class="control-label"> Task Number</label>
                     <input id="HeadNo" class="form-control" />
                 </div>
 
                 <div class="form-group">
-                    <label style="float:left" class="control-label">Task Item</label>
+                    <label style="float:left" class="control-label">Task Heading</label>
                     <input id="Heading" class="form-control " />
+                </div>
+
+                <div class="form-group">
+                    <label style="float:left" class="control-label">Task Description</label>
+                    <input id="TDescription" class="form-control " />
                 </div>
 
                 @*<div class="form-group">
@@ -124,16 +131,21 @@
 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="form-group">
-                    <label style="float:left" class="control-label"> Task No </label>
-                    <input id="TaskNoEdit" class="form-control" />
-                </div>
+                @*<div class="form-group">
+            <label style="float:left" class="control-label"> Task No </label>
+            <input id="TaskNoEdit" class="form-control" />
+        </div>*@
 
                 <div class="form-group">
                     <label style="float:left" class="control-label">Heading</label>
+                    <input id="HeadingEdit" class="form-control" @*placeholder="Enter New Item Heading Or Use Existing"*@ />
+                </div>
+
+                @*<div class="form-group">
+                    <label style="float:left" class="control-label">Heading</label>
                     <inputt id="HeadingEdit" class="form-control " />
 
-                </div>
+                </div>*@
                 <div class="form-group">
                     <label style="float:left" class="control-label">Description</label>
                     <input id="DescriptionEdit" class="form-control" />
@@ -207,7 +219,7 @@
         var groupColumn = 1;
         Table01 = $("#tbl").DataTable({
             "ajax": {
-                "url": "/TemplateDailyChecks/GetDailyCheck",
+                "url": "/TemplateDailyChecks/GetDailyCheckList",
             },
             responsive: true,
             autoWidth: false,
@@ -315,8 +327,8 @@
     function AddTask() {
         var H_No = $('#HeadNo').val();
         var Head = $('#Heading').val();
-        var Desc = $('#Description').val();
-
+        var Desc = $('#TDescription').val();
+        console.log(Desc);
 
         $.ajax({
             type: "POST",
@@ -400,11 +412,11 @@
             type: "GET",
             url: "/TemplateDailyChecks/GetDailyCheck?id=" + id,
             success: function (data) {
-                document.getElementById("TaskNoEdit").value = data.data.taskNo;
+               /* document.getElementById("TaskNoEdit").value = data.data.taskNo;*/
                 document.getElementById("DescriptionEdit").value = data.data.description;
                 document.getElementById("HeadingEdit").value = data.data.heading;
                 //document.getElementById("IdEdit").value = data.data.id;
-                editId = id;
+                editId = id;               
             }
         });
     }
@@ -431,13 +443,13 @@
 
     function EditTask() {
 
-        var TaskNo = $('#TaskNoEdit').val();
+        /*var TaskNo = $('#TaskNoEdit').val();*/
         var Heading = $('#HeadingEdit').val();
         var Desc = $('#DescriptionEdit').val();
 
         $.ajax({
             type: "PUT",
-            url: "/TemplateDailyChecks/EditDailyCheck?Id=" + editId + "TaskNo=" + TaskNo + "&Desc=" + Desc + "&Heading=" + Heading,
+            url: "/TemplateDailyChecks/EditDailyCheck?Id=" + editId /*+ "TaskNo=" + TaskNo*/ + "&Desc=" + Desc + "&Heading=" + Heading,
             success: function (data) {
                 if (data.success) {
 

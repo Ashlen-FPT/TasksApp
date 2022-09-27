@@ -156,7 +156,7 @@ namespace TasksApp.Controllers
         #region API Calls
 
         [HttpGet]
-        public IActionResult GetDailyCheck()
+        public IActionResult GetDailyCheckList()
         {
             var log = new Logs
             {
@@ -177,6 +177,29 @@ namespace TasksApp.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetDailyCheck(int Id)
+        {
+            var templateDailyChecks = await _context.TemplateDailyChecks.FindAsync(Id);
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Read,
+                DateTime = DateTime.Now,
+                UpdatedTable = "TemplateDailyCheck",
+                OldData = "Read TemplateDailyCheck",
+                NewData = null
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+           
+            return Json(new { data = templateDailyChecks});
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddDailyCheck(int H_No, string Check, string Head, string Desc)
         {
@@ -187,6 +210,7 @@ namespace TasksApp.Controllers
                 Heading = Head,
                 Checklist = Check,
                 Description = Desc,
+                DateCreated = DateTime.Now,
                 UserEmail = User.Identity.Name
             };
 
@@ -237,19 +261,19 @@ namespace TasksApp.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> EditDailyCheck(int Id, int H_No, string Desc, string Head, bool Sub)
+        public async Task<IActionResult> EditDailyCheck(int Id, /*int H_No,*/ string Desc, string Heading/*, bool Sub*/)
         {
-            var existingHeadNo = _context.TemplateDailyChecks.Find(Id).HeadNo;
+            //var existingHeadNo = _context.TemplateDailyChecks.Find(Id).HeadNo;
             var existingDescription = _context.TemplateDailyChecks.Find(Id).HeadNo;
             var existingHeading = _context.TemplateDailyChecks.Find(Id).HeadNo;
-            var existingSubItems = _context.TemplateDailyChecks.Find(Id).SubItems;
+            //var existingSubItems = _context.TemplateDailyChecks.Find(Id).SubItems;
 
             var templateDailyCheck = await _context.TemplateDailyChecks.FindAsync(Id);
 
-            templateDailyCheck.HeadNo = H_No;
+            //templateDailyCheck.HeadNo = H_No;
             templateDailyCheck.Description = Desc;
-            templateDailyCheck.Heading = Head;
-            templateDailyCheck.SubItems = Sub;
+            templateDailyCheck.Heading = Heading;
+            //templateDailyCheck.SubItems = Sub;
 
             var log = new Logs
             {
@@ -259,8 +283,8 @@ namespace TasksApp.Controllers
                 LogType = LogTypes.Updated,
                 DateTime = DateTime.Now,
                 UpdatedTable = "TemplateDailyCheck",
-                OldData = $"{ "Heading No: " + existingHeadNo + "Heading: " + existingHeading + "Description: " + existingDescription + "Sub Items: " + existingSubItems}",
-                NewData = $"{ "Heading No: " + templateDailyCheck.HeadNo + "Heading: " + templateDailyCheck.Heading +"Description: " + templateDailyCheck.Description + "Sub Items: " + templateDailyCheck.SubItems}"
+                OldData = $"{ "Heading: " + existingHeading + "Description: " + existingDescription}",
+                NewData = $"{ "Heading: " + templateDailyCheck.Heading +"Description: " + templateDailyCheck.Description}"
             };
 
             _context.Update(templateDailyCheck);
