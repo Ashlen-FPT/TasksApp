@@ -272,12 +272,12 @@
         getDate = Tdate;
     }
 
-    $("#datePicker").on("change", function () {
-        var select = $(this).val();
-        document.getElementById("variableDate").innerHTML = select;
-        return select;
+    //$("#datePicker").on("change", function () {
+    //    var select = $(this).val();
+    //    document.getElementById("variableDate").innerHTML = select;
+    //    return select;
 
-    });
+    //});
 
 
     $(document).ready(function () {
@@ -320,9 +320,16 @@
 
 
     $('#datePicker').change(function () {
+
+        var select = $(this).val();
+        document.getElementById("variableDate").innerHTML = select;
+        
+
+
         var date = document.getElementById("datePicker").value;
         console.log(date);
         Table01.destroy();
+        Table02.destroy();
         loadTable(date);
         loadSignTable(date);
 
@@ -361,7 +368,7 @@
                 }
             }
         });
-
+        return select;
     });
 
     function loadSignTable(date) {
