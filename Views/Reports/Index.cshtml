@@ -61,7 +61,7 @@
                 </table>
             </div>
 
-            <div class="tab-pane fade" id="pills-profiles" role="tabpanel" aria-labelledby="pills-profiles-tab">
+            @*<div class="tab-pane fade" id="pills-profiles" role="tabpanel" aria-labelledby="pills-profiles-tab">
                 <table class="table table-bordered table-hover" id="Table02" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
@@ -89,7 +89,7 @@
                         </tr>
                     </thead>
                 </table>
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
@@ -180,95 +180,7 @@
             "columns": [
                 { "data": "checklist", "width": "60%" },
                 { "data": "assignedTo", "width": "45%" },
-                { "data": "status", "width": "60%" },
-
-                {
-                    "data": "dateCreated",
-                    'render': function (jsonDate) {
-
-                        if (jsonDate == "0001-01-01T00:00:00") {
-                            return " ";
-                        }
-                        else {
-                            var datestr = jsonDate.toString();
-                            var date = new Date(datestr.substr(0, 10));
-                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                            var time = datestr.substr(11)
-                            var hr = time.substr(0, 2)
-                            var min = time.substr(3, 2)
-                            var sec = time.substr(6, 2);
-                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                        }
-
-                    }, "width": "50%"
-                },
-
-                {
-                    "data": "taskCompleted",
-                    'render': function (jsonDate) {
-
-                        if (jsonDate == "0001-01-01T00:00:00") {
-                            return " ";
-                        }
-                        else {
-                            var datestr = jsonDate.toString();
-                            var date = new Date(datestr.substr(0, 10));
-                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                            var time = datestr.substr(11)
-                            var hr = time.substr(0, 2)
-                            var min = time.substr(3, 2)
-                            var sec = time.substr(6, 2);
-                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                        }
-
-                    }, "width": "50%"
-                },
-
-                { "data": "userName", "width": "60%" }
-            ]
-        });
-
-        Table02 = $("#Table02").DataTable({
-            "lengthMenu": [10, 25, 50, 75, 100],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'pageLength',
-                },
-                {
-                    extend: 'copy',
-                    title: 'Weekly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-copy"></i> Copy'
-                },
-                {
-                    extend: 'excel',
-                    title: 'Weekly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-file-excel-o"></i> Excel'
-                },
-                {
-                    extend: 'pdf',
-                    title: 'Weekly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-file-pdf-o"></i> PDF'
-                },
-                {
-                    extend: 'csv',
-                    title: 'Weekly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-file-csv"></i> CSV'
-                },
-                {
-                    extend: 'print',
-                    title: 'Weekly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-print"></i> Print'
-                }
-            ],
-
-            "ajax": {
-                "url": "/Reports/GetWeeklyReport?date=" + date
-            },
-            "columns": [
-                { "data": "checklist", "width": "60%" },
-                { "data": "assignedTo", "width": "45%" },
-                { "data": "status", "width": "60%" },
+                { "data": "status", "width": "65%" },
 
                 {
                     "data": "dateCreated",
@@ -316,92 +228,180 @@
             ]
         });
 
-        Table03 = $("#Table03").DataTable({
-            "lengthMenu": [10, 25, 50, 75, 100],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'pageLength',
-                },
-                {
-                    extend: 'copy',
-                    title: 'Monthly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-copy"></i> Copy'
-                },
-                {
-                    extend: 'excel',
-                    title: 'Monthly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-file-excel-o"></i> Excel'
-                },
-                {
-                    extend: 'pdf',
-                    title: 'Monthly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-file-pdf-o"></i> PDF'
-                },
-                {
-                    extend: 'csv',
-                    title: 'Monthly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-file-csv"></i> CSV'
-                },
-                {
-                    extend: 'print',
-                    title: 'Monthly Report - Checklist System_' + date,
-                    text: '<i class= "fa fa-print"></i> Print'
-                }
-            ],
+        //Table02 = $("#Table02").DataTable({
+        //    "lengthMenu": [10, 25, 50, 75, 100],
+        //    dom: 'Bfrtip',
+        //    buttons: [
+        //        {
+        //            extend: 'pageLength',
+        //        },
+        //        {
+        //            extend: 'copy',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-copy"></i> Copy'
+        //        },
+        //        {
+        //            extend: 'excel',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-excel-o"></i> Excel'
+        //        },
+        //        {
+        //            extend: 'pdf',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-pdf-o"></i> PDF'
+        //        },
+        //        {
+        //            extend: 'csv',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-csv"></i> CSV'
+        //        },
+        //        {
+        //            extend: 'print',
+        //            title: 'Weekly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-print"></i> Print'
+        //        }
+        //    ],
 
-            "ajax": {
-                "url": "/Reports/GetMonthlyReport?date=" + date
-            },
-            "columns": [
-                { "data": "checklist", "width": "60%" },
-                { "data": "assignedTo", "width": "45%" },
-                { "data": "status", "width": "60%" },
+        //    "ajax": {
+        //        "url": "/Reports/GetWeeklyReport?date=" + date
+        //    },
+        //    "columns": [
+        //        { "data": "checklist", "width": "60%" },
+        //        { "data": "assignedTo", "width": "45%" },
+        //        { "data": "status", "width": "60%" },
 
-                {
-                    "data": "dateCreated",
-                    'render': function (jsonDate) {
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
 
-                        if (jsonDate == "0001-01-01T00:00:00") {
-                            return " ";
-                        }
-                        else {
-                            var datestr = jsonDate.toString();
-                            var date = new Date(datestr.substr(0, 10));
-                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                            var time = datestr.substr(11)
-                            var hr = time.substr(0, 2)
-                            var min = time.substr(3, 2)
-                            var sec = time.substr(6, 2);
-                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                        }
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
 
-                    }, "width": "50%"
-                },
+        //            }, "width": "50%"
+        //        },
 
-                {
-                    "data": "taskCompleted",
-                    'render': function (jsonDate) {
+        //        {
+        //            "data": "taskCompleted",
+        //            'render': function (jsonDate) {
 
-                        if (jsonDate == "0001-01-01T00:00:00") {
-                            return " ";
-                        }
-                        else {
-                            var datestr = jsonDate.toString();
-                            var date = new Date(datestr.substr(0, 10));
-                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                            var time = datestr.substr(11)
-                            var hr = time.substr(0, 2)
-                            var min = time.substr(3, 2)
-                            var sec = time.substr(6, 2);
-                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                        }
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
 
-                    }, "width": "50%"
-                },
+        //            }, "width": "50%"
+        //        },
 
-                { "data": "userName", "width": "50%" }
-            ]
-        });
+        //        { "data": "userName", "width": "50%" }
+        //    ]
+        //});
+
+        //Table03 = $("#Table03").DataTable({
+        //    "lengthMenu": [10, 25, 50, 75, 100],
+        //    dom: 'Bfrtip',
+        //    buttons: [
+        //        {
+        //            extend: 'pageLength',
+        //        },
+        //        {
+        //            extend: 'copy',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-copy"></i> Copy'
+        //        },
+        //        {
+        //            extend: 'excel',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-excel-o"></i> Excel'
+        //        },
+        //        {
+        //            extend: 'pdf',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-pdf-o"></i> PDF'
+        //        },
+        //        {
+        //            extend: 'csv',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-file-csv"></i> CSV'
+        //        },
+        //        {
+        //            extend: 'print',
+        //            title: 'Monthly Report - Checklist System_' + date,
+        //            text: '<i class= "fa fa-print"></i> Print'
+        //        }
+        //    ],
+
+        //    "ajax": {
+        //        "url": "/Reports/GetMonthlyReport?date=" + date
+        //    },
+        //    "columns": [
+        //        { "data": "checklist", "width": "60%" },
+        //        { "data": "assignedTo", "width": "45%" },
+        //        { "data": "status", "width": "60%" },
+
+        //        {
+        //            "data": "dateCreated",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+
+        //        {
+        //            "data": "taskCompleted",
+        //            'render': function (jsonDate) {
+
+        //                if (jsonDate == "0001-01-01T00:00:00") {
+        //                    return " ";
+        //                }
+        //                else {
+        //                    var datestr = jsonDate.toString();
+        //                    var date = new Date(datestr.substr(0, 10));
+        //                    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        //                    var time = datestr.substr(11)
+        //                    var hr = time.substr(0, 2)
+        //                    var min = time.substr(3, 2)
+        //                    var sec = time.substr(6, 2);
+        //                    return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+        //                }
+
+        //            }, "width": "50%"
+        //        },
+
+        //        { "data": "userName", "width": "50%" }
+        //    ]
+        //});
     }
 </script>

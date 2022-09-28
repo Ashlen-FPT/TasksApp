@@ -257,7 +257,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Tuesday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
                     var last = Main_Task.LastOrDefault();
                     foreach (var task in Main_Task)
                     {
@@ -283,7 +283,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Tuesday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
 
                     if (Main_Task.Count >= TasksToday.Count)
                     {
@@ -320,7 +320,7 @@ namespace TasksApp.Controllers
 
                 _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
-                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Tuesday") });
+                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
 
             if (dateValue != DayOfWeek.Tuesday)

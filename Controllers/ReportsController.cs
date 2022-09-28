@@ -60,9 +60,9 @@ namespace TasksApp.Controllers
 
                 if (bobcat.Any(s => s.Status.StartsWith("D")))
                 {
-                    //var bobcats = bobcat.Take(1);
+                    var bobcats = bobcat.Where(s => s.Status.StartsWith("D"));
 
-                    foreach (var task in bobcat)
+                    foreach (var task in bobcats)
                     {
 
                         var Task = new Report
@@ -83,9 +83,8 @@ namespace TasksApp.Controllers
 
                 else if (bobcat.Any(s => s.Status.StartsWith("P")))
                 {
-                    //DateTime latest = (DateTime)_context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
-                    //var bob = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest).ToList();
-                    foreach (var tasks in bobcat)
+                    var bobcats = bobcat.Where(s => s.Status.StartsWith("P"));
+                    foreach (var tasks in bobcats)
                     {
 
                         var Task = new Report
@@ -106,9 +105,9 @@ namespace TasksApp.Controllers
 
                 else if (bobcat.Any(s => s.Status.StartsWith("C")))
                 {
-                    //var bobcats = bobcat.Take(1);
+                    var bobcats = bobcat.Where(s => s.Status.StartsWith("C"));
 
-                    foreach (var task in bobcat)
+                    foreach (var task in bobcats)
                     {
 
                         var Task = new Report
@@ -132,8 +131,8 @@ namespace TasksApp.Controllers
                // var dailyChecks = dailyCheck.Take(1);
                 if (dailyCheck.Any(s => s.Status.StartsWith("D")))
                 {
-
-                    foreach (var task in dailyCheck)
+                    var bobcats = dailyCheck.Where(s => s.Status.StartsWith("D"));
+                    foreach (var task in bobcats)
                     {
 
                         var Task = new Report
@@ -154,9 +153,8 @@ namespace TasksApp.Controllers
 
                 else if (dailyCheck.Any(s => s.Status.StartsWith("P")))
                 {
-                    //DateTime latest1 = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
-                    //var daily = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest1).ToList();
-                    foreach (var tasks in dailyCheck)
+                    var bobcats = dailyCheck.Where(s => s.Status.StartsWith("P"));
+                    foreach (var tasks in bobcats)
                     {
 
                         var Task = new Report
@@ -177,8 +175,8 @@ namespace TasksApp.Controllers
 
                 else if (dailyCheck.Any(s => s.Status.StartsWith("C")))
                 {
-
-                    foreach (var task in dailyCheck)
+                    var bobcats = dailyCheck.Where(s => s.Status.StartsWith("C"));
+                    foreach (var task in bobcats)
                     {
 
                         var Task = new Report
@@ -203,8 +201,8 @@ namespace TasksApp.Controllers
                 
                 if (maintenance.Any(s => s.Status.StartsWith("D")))
                 {
-
-                    foreach (var task in maintenance)
+                    var bobcats = maintenance.Where(s => s.Status.StartsWith("D"));
+                    foreach (var task in bobcats)
                     {
 
                         var Task = new Report
@@ -225,10 +223,9 @@ namespace TasksApp.Controllers
 
                 else if (maintenance.Any(s => s.Status.StartsWith("C")))
                 {
-                    //DateTime latest2 = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
-                    //var main = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest2).ToList();
+                    var bobcats = maintenance.Where(s => s.Status.StartsWith("C"));
 
-                    foreach (var tasks in maintenance)
+                    foreach (var tasks in bobcats)
                     {
 
                         var Task = new Report
@@ -247,10 +244,10 @@ namespace TasksApp.Controllers
                     }
                 }
 
-                if (maintenance.Any(s => s.Status.StartsWith("P")))
+                else if (maintenance.Any(s => s.Status.StartsWith("P")))
                 {
-
-                    foreach (var task in maintenance)
+                    var bobcats = maintenance.Where(s => s.Status.StartsWith("P"));
+                    foreach (var task in bobcats)
                     {
 
                         var Task = new Report
@@ -269,13 +266,13 @@ namespace TasksApp.Controllers
                     }
                 }
 
+
                 var item = _context.items.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-                var items = item.Take(1);
                 
                 if (item.Any(s => s.Status.StartsWith("D")))
                 {
-
-                    foreach (var task in items)
+                    var bobcats = item.Where(s => s.Status.StartsWith("D"));
+                    foreach (var task in bobcats)
                     {
 
                         var Task = new Report
@@ -296,10 +293,8 @@ namespace TasksApp.Controllers
 
                 else if (item.Any(s => s.Status.StartsWith("P")))
                 {
-                    DateTime latest3 = (DateTime)_context.items.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
-                    var item1 = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest3).ToList();
-
-                    foreach (var tasks in item1)
+                    var bobcats = item.Where(s => s.Status.StartsWith("P"));
+                    foreach (var tasks in bobcats)
                     {
 
                         var Task = new Report
@@ -320,8 +315,8 @@ namespace TasksApp.Controllers
 
                 else if (item.Any(s => s.Status.StartsWith("C")))
                 {
-
-                    foreach (var task in items)
+                    var bobcats = item.Where(s => s.Status.StartsWith("C"));
+                    foreach (var task in bobcats)
                     {
 
                         var Task = new Report
@@ -345,58 +340,11 @@ namespace TasksApp.Controllers
             if (ReportsToday.Count > 0)
             {
                 var bobcat = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-                DateTime latest = (DateTime)_context.BobCats.Where(r => r.DateTaskCompleted.HasValue).Max(d => d.DateTaskCompleted);
-                var bob = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateTaskCompleted == latest).ToList();
-              
-                    if (bobcat.Any(s => s.Status.StartsWith("D")))
-                    {
-                        //var bobcats = bobcat.Take(1);
-                        var result = bobcat.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
-                        foreach (var task in result)
-                        {
-
-                            var Task = new Report
-                            {
-                                Checklist = "BobCat",
-                                Status = task.Status,
-                                DateCreated = task.DateCreated,
-                                DateCompleted = task.DateAllTaskCompleted,
-                                UserName = task.UserName1,
-                                AssignedTo = "Operator",
-                                TaskCompleted = task.DateTaskCompleted
-                            };
-
-                            _context.reports.Add(Task);
-                            await _context.SaveChangesAsync();
-                        }
-                    }
-
-                    else if (bobcat.Any(s => s.Status.StartsWith("P")))
-                    {
-                        var result = bobcat.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateTaskCompleted == latest).ToList();
-                        foreach (var tasks in result)
-                        {
-
-                            var Task = new Report
-                            {
-                                Checklist = "BobCat",
-                                Status = tasks.Status,
-                                DateCreated = tasks.DateCreated,
-                                DateCompleted = tasks.DateAllTaskCompleted,
-                                UserName = tasks.UserName1,
-                                AssignedTo = "Operator",
-                                TaskCompleted = tasks.DateTaskCompleted
-                            };
-
-                        _context.reports.Add(Task);
-                        // await _context.SaveChangesAsync();
-                        }
-                    }
-
-                else if (bobcat.Any(s => s.Status.StartsWith("C")))
+            
+                if (bobcat.Any(s => s.Status.StartsWith("D")))
                 {
                     //var bobcats = bobcat.Take(1);
-                    var result = bobcat.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+                    var result = bobcat.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("D"));
                     foreach (var task in result)
                     {
 
@@ -416,16 +364,59 @@ namespace TasksApp.Controllers
                     }
                 }
 
-                var dailyCheck = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-                var dailyChecks = dailyCheck.Take(1);
-                
+                else if (bobcat.Any(s => s.Status.StartsWith("P")))
+                {
+                    var result = bobcat.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("P")).ToList();
+                    foreach (var tasks in result)
+                    {
 
-                //if (bobcat.Count >= ReportsToday.Count)
-                //{
+                        var Task = new Report
+                        {
+                            Checklist = "BobCat",
+                            Status = tasks.Status,
+                            DateCreated = tasks.DateCreated,
+                            DateCompleted = tasks.DateAllTaskCompleted,
+                            UserName = tasks.UserName1,
+                            AssignedTo = "Operator",
+                            TaskCompleted = tasks.DateTaskCompleted
+                        };
+
+                        _context.reports.Add(Task);
+                        // await _context.SaveChangesAsync();
+                    }
+                }
+
+                else if (bobcat.Any(s => s.Status.StartsWith("C")))
+                {
+                    //var bobcats = bobcat.Take(1);
+                    var result = bobcat.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("C"));
+                    foreach (var task in result)
+                    {
+
+                        var Task = new Report
+                        {
+                            Checklist = "BobCat",
+                            Status = task.Status,
+                            DateCreated = task.DateCreated,
+                            DateCompleted = task.DateAllTaskCompleted,
+                            UserName = task.UserName1,
+                            AssignedTo = "Operator",
+                            TaskCompleted = task.DateTaskCompleted
+                        };
+
+                        _context.reports.Add(Task);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
+
+
+                var dailyCheck = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+                
                 if (dailyCheck.Any(s => s.Status.StartsWith("D")))
                 {
                     //var bobcats = bobcat.Take(1);
-                    var result = dailyCheck.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+                    var result = dailyCheck.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("D"));
                     foreach (var task in result)
                     {
 
@@ -447,9 +438,7 @@ namespace TasksApp.Controllers
 
                 else if (dailyCheck.Any(s => s.Status.StartsWith("P")))
                 {
-                    DateTime latest1 = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
-                    var daily = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest1).ToList();
-                    var result = dailyCheck.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateCompleted == latest).ToList();
+                    var result = dailyCheck.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("P")).ToList();
                     foreach (var tasks in result)
                     {
 
@@ -472,7 +461,7 @@ namespace TasksApp.Controllers
                 else if (dailyCheck.Any(s => s.Status.StartsWith("C")))
                 {
                     //var bobcats = bobcat.Take(1);
-                    var result = dailyCheck.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+                    var result = dailyCheck.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("C"));
                     foreach (var task in result)
                     {
 
@@ -492,16 +481,14 @@ namespace TasksApp.Controllers
                     }
                 }
 
-                var maintenance = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-                var maintenances = maintenance.Take(1);
-                
 
-                //if (bobcat.Count >= ReportsToday.Count)
-                //{
+
+                var maintenance = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+
                 if (maintenance.Any(s => s.Status.StartsWith("D")))
                 {
                     //var bobcats = bobcat.Take(1);
-                    var result = maintenance.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+                    var result = maintenance.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("D"));
                     foreach (var task in result)
                     {
 
@@ -523,9 +510,8 @@ namespace TasksApp.Controllers
 
                 else if (maintenance.Any(s => s.Status.StartsWith("P")))
                 {
-                    DateTime latest2 = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
-                    var main = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest2).ToList();
-                    var result = maintenance.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateCompleted == latest).ToList();
+                   
+                    var result = maintenance.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("P"));
                     foreach (var tasks in result)
                     {
 
@@ -548,7 +534,7 @@ namespace TasksApp.Controllers
                 else if (maintenance.Any(s => s.Status.StartsWith("C")))
                 {
                     //var bobcats = bobcat.Take(1);
-                    var result = maintenance.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+                    var result = maintenance.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("C"));
                     foreach (var task in result)
                     {
 
@@ -568,13 +554,14 @@ namespace TasksApp.Controllers
                     }
                 }
 
+
+
                 var item = _context.items.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-                var items = item.Take(1);
-             
+                
                 if (item.Any(s => s.Status.StartsWith("D")))
                 {
                     //var bobcats = bobcat.Take(1);
-                    var result = item.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+                    var result = item.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("D"));
                     foreach (var task in result)
                     {
 
@@ -596,9 +583,7 @@ namespace TasksApp.Controllers
 
                 else if (item.Any(s => s.Status.StartsWith("P")))
                 {
-                    DateTime latest3 = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Max(d => d.DateCompleted);
-                    var item1 = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == latest3).ToList();
-                    var result = item.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(d => d.DateCompleted == latest).ToList();
+                    var result = item.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("P"));
                     foreach (var tasks in result)
                     {
 
@@ -621,7 +606,7 @@ namespace TasksApp.Controllers
                 if (item.Any(s => s.Status.StartsWith("C")))
                 {
                     //var bobcats = bobcat.Take(1);
-                    var result = item.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Take(1);
+                    var result = item.Where(p => ReportsToday.All(p2 => p2.Status != p.Status)).Where(s => s.Status.StartsWith("C"));
                     foreach (var task in result)
                     {
 
@@ -647,213 +632,213 @@ namespace TasksApp.Controllers
             return Json(new { data = _context.reports.Where(d => d.DateCreated.Date == oDate.Date).ToList()});
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetWeeklyReportAsync(DateTime date)
-        {
-            DateTime oDate = Convert.ToDateTime(date);
-            var Day = oDate.DayOfWeek.ToString();
-            var week = DateTime.Now.AddDays(-6);
+        //[HttpGet]
+        //public async Task<IActionResult> GetWeeklyReportAsync(DateTime date)
+        //{
+        //    DateTime oDate = Convert.ToDateTime(date);
+        //    var Day = oDate.DayOfWeek.ToString();
+        //    var week = DateTime.Now.AddDays(-6);
 
-            var ReportsToday = _context.reports.Where(d => d.DateCreated >= DateTime.Now.AddDays(-7) && d.DateCreated <= oDate.Date).ToList();
+        //    var ReportsToday = _context.reports.Where(d => d.DateCreated >= DateTime.Now.AddDays(-7) && d.DateCreated <= oDate.Date).ToList();
 
-            if (ReportsToday.Count == 0)
-            {
-                var bobcat = _context.BobCats.Where(d => d.DateCreated == DateTime.Now.AddDays(-7) && d.DateCreated <= oDate.Date).ToList();
-                var bob = _context.BobCats.Where(d => d.DateCreated.Date == DateTime.Now.AddDays(-7) && d.DateCreated <= oDate.Date).Where(d => d.DateTaskCompleted == DateTime.MaxValue).ToList();
-                if (bobcat.Any(s => s.Status.StartsWith("D")))
-                {
-                    var bobcats = bobcat.Take(1);
+        //    if (ReportsToday.Count == 0)
+        //    {
+        //        var bobcat = _context.BobCats.Where(d => d.DateCreated == DateTime.Now.AddDays(-7) && d.DateCreated <= oDate.Date).ToList();
+        //        var bob = _context.BobCats.Where(d => d.DateCreated.Date == DateTime.Now.AddDays(-7) && d.DateCreated <= oDate.Date).Where(d => d.DateTaskCompleted == DateTime.MaxValue).ToList();
+        //        if (bobcat.Any(s => s.Status.StartsWith("D")))
+        //        {
+        //            var bobcats = bobcat.Take(1);
 
-                    foreach (var task in bobcats)
-                    {
+        //            foreach (var task in bobcats)
+        //            {
 
-                        var Task = new Report
-                        {
-                            Checklist = "BobCat",
-                            Status = task.Status,
-                            DateCreated = DateTime.Today,
-                            DateCompleted = task.DateAllTaskCompleted,
-                            UserName = task.UserName1,
-                            AssignedTo = "Operator",
-                            TaskCompleted = task.DateTaskCompleted
-                        };
+        //                var Task = new Report
+        //                {
+        //                    Checklist = "BobCat",
+        //                    Status = task.Status,
+        //                    DateCreated = DateTime.Today,
+        //                    DateCompleted = task.DateAllTaskCompleted,
+        //                    UserName = task.UserName1,
+        //                    AssignedTo = "Operator",
+        //                    TaskCompleted = task.DateTaskCompleted
+        //                };
 
-                        _context.reports.Add(Task);
-                        await _context.SaveChangesAsync();
-                    }
-                }
-                else
-                {
-                    foreach (var tasks in bob)
-                    {
+        //                _context.reports.Add(Task);
+        //                await _context.SaveChangesAsync();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            foreach (var tasks in bob)
+        //            {
 
-                        var Task = new Report
-                        {
-                            Checklist = "BobCat",
-                            Status = tasks.Status,
-                            DateCreated = DateTime.Today,
-                            DateCompleted = tasks.DateAllTaskCompleted,
-                            UserName = tasks.UserName1,
-                            AssignedTo = "Operator",
-                            TaskCompleted = tasks.DateTaskCompleted
-                        };
+        //                var Task = new Report
+        //                {
+        //                    Checklist = "BobCat",
+        //                    Status = tasks.Status,
+        //                    DateCreated = DateTime.Today,
+        //                    DateCompleted = tasks.DateAllTaskCompleted,
+        //                    UserName = tasks.UserName1,
+        //                    AssignedTo = "Operator",
+        //                    TaskCompleted = tasks.DateTaskCompleted
+        //                };
 
-                        _context.reports.Add(Task);
-                        // await _context.SaveChangesAsync();
-                    }
-                }
+        //                _context.reports.Add(Task);
+        //                // await _context.SaveChangesAsync();
+        //            }
+        //        }
 
 
-                var dailyCheck = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+        //        var dailyCheck = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).ToList();
 
-                var dailyChecks = dailyCheck.Take(1);
-                var daily = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == DateTime.MaxValue).ToList();
+        //        var dailyChecks = dailyCheck.Take(1);
+        //        var daily = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == DateTime.MaxValue).ToList();
 
-                if (dailyCheck.Any(s => s.Status.StartsWith("D")))
-                {
+        //        if (dailyCheck.Any(s => s.Status.StartsWith("D")))
+        //        {
 
-                    foreach (var task in dailyChecks)
-                    {
+        //            foreach (var task in dailyChecks)
+        //            {
 
-                        var Task = new Report
-                        {
-                            Checklist = "Daily Checks",
-                            Status = task.Status,
-                            DateCreated = DateTime.Today,
-                            DateCompleted = task.DateAllTaskCompleted,
-                            UserName = task.UserName,
-                            AssignedTo = "Operator",
-                            TaskCompleted = task.DateCompleted
-                        };
+        //                var Task = new Report
+        //                {
+        //                    Checklist = "Daily Checks",
+        //                    Status = task.Status,
+        //                    DateCreated = DateTime.Today,
+        //                    DateCompleted = task.DateAllTaskCompleted,
+        //                    UserName = task.UserName,
+        //                    AssignedTo = "Operator",
+        //                    TaskCompleted = task.DateCompleted
+        //                };
 
-                        _context.reports.Add(Task);
-                        // await _context.SaveChangesAsync();
-                    }
-                }
+        //                _context.reports.Add(Task);
+        //                // await _context.SaveChangesAsync();
+        //            }
+        //        }
 
-                else
-                {
-                    foreach (var tasks in daily)
-                    {
+        //        else
+        //        {
+        //            foreach (var tasks in daily)
+        //            {
 
-                        var Task = new Report
-                        {
-                            Checklist = "Daily Checks",
-                            Status = tasks.Status,
-                            DateCreated = DateTime.Today,
-                            DateCompleted = tasks.DateAllTaskCompleted,
-                            UserName = tasks.UserName,
-                            AssignedTo = "Operator",
-                            TaskCompleted = tasks.DateCompleted
-                        };
+        //                var Task = new Report
+        //                {
+        //                    Checklist = "Daily Checks",
+        //                    Status = tasks.Status,
+        //                    DateCreated = DateTime.Today,
+        //                    DateCompleted = tasks.DateAllTaskCompleted,
+        //                    UserName = tasks.UserName,
+        //                    AssignedTo = "Operator",
+        //                    TaskCompleted = tasks.DateCompleted
+        //                };
 
-                        _context.reports.Add(Task);
-                        // await _context.SaveChangesAsync();
-                    }
-                }
+        //                _context.reports.Add(Task);
+        //                // await _context.SaveChangesAsync();
+        //            }
+        //        }
 
-                var maintenance = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+        //        var maintenance = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).ToList();
 
-                var maintenances = maintenance.Take(1);
-                var main = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == DateTime.MaxValue).ToList();
+        //        var maintenances = maintenance.Take(1);
+        //        var main = _context.Maintenances.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == DateTime.MaxValue).ToList();
 
-                if (maintenance.Any(s => s.Status.StartsWith("D")))
-                {
+        //        if (maintenance.Any(s => s.Status.StartsWith("D")))
+        //        {
 
-                    foreach (var task in maintenances)
-                    {
+        //            foreach (var task in maintenances)
+        //            {
 
-                        var Task = new Report
-                        {
-                            Checklist = "Maintenance",
-                            Status = task.Status,
-                            DateCreated = DateTime.Today,
-                            DateCompleted = task.DateAllCompleted,
-                            UserName = task.User,
-                            AssignedTo = "Operator",
-                            TaskCompleted = task.DateCompleted
-                        };
+        //                var Task = new Report
+        //                {
+        //                    Checklist = "Maintenance",
+        //                    Status = task.Status,
+        //                    DateCreated = DateTime.Today,
+        //                    DateCompleted = task.DateAllCompleted,
+        //                    UserName = task.User,
+        //                    AssignedTo = "Operator",
+        //                    TaskCompleted = task.DateCompleted
+        //                };
 
-                        _context.reports.Add(Task);
-                        // await _context.SaveChangesAsync();
-                    }
-                }
+        //                _context.reports.Add(Task);
+        //                // await _context.SaveChangesAsync();
+        //            }
+        //        }
 
-                else
-                {
-                    foreach (var tasks in main)
-                    {
+        //        else
+        //        {
+        //            foreach (var tasks in main)
+        //            {
 
-                        var Task = new Report
-                        {
-                            Checklist = "Maintenance",
-                            Status = tasks.Status,
-                            DateCreated = DateTime.Today,
-                            DateCompleted = tasks.DateAllCompleted,
-                            UserName = tasks.User,
-                            AssignedTo = "Operator",
-                            TaskCompleted = tasks.DateCompleted
-                        };
+        //                var Task = new Report
+        //                {
+        //                    Checklist = "Maintenance",
+        //                    Status = tasks.Status,
+        //                    DateCreated = DateTime.Today,
+        //                    DateCompleted = tasks.DateAllCompleted,
+        //                    UserName = tasks.User,
+        //                    AssignedTo = "Operator",
+        //                    TaskCompleted = tasks.DateCompleted
+        //                };
 
-                        _context.reports.Add(Task);
-                        // await _context.SaveChangesAsync();
-                    }
-                }
+        //                _context.reports.Add(Task);
+        //                // await _context.SaveChangesAsync();
+        //            }
+        //        }
 
-                var item = _context.items.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+        //        var item = _context.items.Where(d => d.DateCreated.Date == oDate.Date).ToList();
 
-                var items = item.Take(1);
-                var items1 = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == DateTime.MaxValue).ToList();
+        //        var items = item.Take(1);
+        //        var items1 = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(d => d.DateCompleted == DateTime.MaxValue).ToList();
 
-                if (item.Any(s => s.Status.StartsWith("D")))
-                {
+        //        if (item.Any(s => s.Status.StartsWith("D")))
+        //        {
 
-                    foreach (var task in items)
-                    {
+        //            foreach (var task in items)
+        //            {
 
-                        var Task = new Report
-                        {
-                            Checklist = "Items",
-                            Status = task.Status,
-                            DateCreated = DateTime.Today,
-                            DateCompleted = task.DateAllTaskCompleted,
-                            UserName = task.UserName,
-                            AssignedTo = "Operator",
-                            TaskCompleted = task.DateCompleted
-                        };
+        //                var Task = new Report
+        //                {
+        //                    Checklist = "Items",
+        //                    Status = task.Status,
+        //                    DateCreated = DateTime.Today,
+        //                    DateCompleted = task.DateAllTaskCompleted,
+        //                    UserName = task.UserName,
+        //                    AssignedTo = "Operator",
+        //                    TaskCompleted = task.DateCompleted
+        //                };
 
-                        _context.reports.Add(Task);
-                        // await _context.SaveChangesAsync();
-                    }
-                }
+        //                _context.reports.Add(Task);
+        //                // await _context.SaveChangesAsync();
+        //            }
+        //        }
 
-                else
-                {
-                    foreach (var tasks in items)
-                    {
+        //        else
+        //        {
+        //            foreach (var tasks in items)
+        //            {
 
-                        var Task = new Report
-                        {
-                            Checklist = "Items",
-                            Status = tasks.Status,
-                            DateCreated = DateTime.Today,
-                            DateCompleted = tasks.DateAllTaskCompleted,
-                            UserName = tasks.UserName,
-                            AssignedTo = "Operator",
-                            TaskCompleted = tasks.DateCompleted
-                        };
+        //                var Task = new Report
+        //                {
+        //                    Checklist = "Items",
+        //                    Status = tasks.Status,
+        //                    DateCreated = DateTime.Today,
+        //                    DateCompleted = tasks.DateAllTaskCompleted,
+        //                    UserName = tasks.UserName,
+        //                    AssignedTo = "Operator",
+        //                    TaskCompleted = tasks.DateCompleted
+        //                };
 
-                        _context.reports.Add(Task);
-                        // await _context.SaveChangesAsync();
-                    }
-                }
+        //                _context.reports.Add(Task);
+        //                // await _context.SaveChangesAsync();
+        //            }
+        //        }
 
-            }
+        //    }
 
-            await _context.SaveChangesAsync();
+        //    await _context.SaveChangesAsync();
 
-            return Json(new { data = _context.reports.Where(d => d.DateCreated.Date == oDate.Date).ToList() });
-        }
+        //    return Json(new { data = _context.reports.Where(d => d.DateCreated.Date == oDate.Date).ToList() });
+        //}
         #endregion
     }
 }
