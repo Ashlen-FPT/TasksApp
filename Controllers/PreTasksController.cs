@@ -217,6 +217,7 @@ namespace TasksApp.Controllers
             return Json(new { data = _context.PreTasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").Where(s => s.TaskType == "PreTasks") });
         }
 
+        [HttpGet]
         public async Task<IActionResult> AdminGetTasks(DateTime date)
         {
 

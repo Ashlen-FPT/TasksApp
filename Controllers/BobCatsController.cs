@@ -708,6 +708,83 @@ namespace TasksApp.Controllers
 
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> AdminGetTasks(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            var TasksToday = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+
+
+            if (TasksToday.Count == 0)
+            {
+                var TemplateTasks = _context.TemplateBobCat.ToList();
+
+                foreach (var task in TemplateTasks)
+                {
+
+                    var Task = new BobCat
+                    {
+                        Main = task.Heading,
+                        Number = task.TaskNo,
+                        Description = task.Description,
+                        DateCreated = date,
+                        DateTaskCompleted = new DateTime(),
+                        Status = "Task : Incomplete",
+                        UserName1 = User.FindFirst("Username")?.Value,
+                        DateAllTaskCompleted = new DateTime()
+                    };
+
+                    _context.BobCats.Add(Task);
+
+                }
+            }
+
+            if (TasksToday.Count > 0)
+            {
+                var TemplateTasks = _context.TemplateBobCat.ToList();
+
+                if (TemplateTasks.Count > TasksToday.Count)
+                {
+                    var result = TemplateTasks.Where(p => TasksToday.All(p2 => p2.Description != p.Description));
+
+                    foreach (var task in result)
+                    {
+                        var Task = new BobCat
+                        {
+                            Main = task.Heading,
+                            Number = task.TaskNo,
+                            Description = task.Description,
+                            DateCreated = date,
+                            DateTaskCompleted = new DateTime(),
+                            Status = "Task : Incomplete",
+                            UserName1 = User.FindFirst("Username")?.Value,
+                            DateAllTaskCompleted = new DateTime()
+                        };
+
+                        _context.BobCats.Add(Task);
+                    }
+
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { data = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date) });
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.BobCats.Where(d => d.DateCreated.Date == oDate.Date)});
+
+        }
+
         //[HttpPost]
         //public async Task<IActionResult> AddBobCat(string Desc, string Head)
         //{
