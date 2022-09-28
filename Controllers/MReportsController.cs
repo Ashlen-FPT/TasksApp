@@ -155,20 +155,20 @@ namespace TasksApp.Controllers
         public async Task<IActionResult> GetReportAsync(DateTime date)
         {
             DateTime oDate = Convert.ToDateTime(date);
-
+            //var Task = new MReport();
             var ReportsToday = _context.mreports.Where(d => d.DateCreated.Date == oDate.Date).ToList();
 
             if (ReportsToday.Count == 0)
             {
                 var active_D = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).ToList();
-               
+
+
                 if (active_D.Any(s => s.Status.StartsWith("D")))
                 {
                     var actives = active_D.Where(s => s.Status.StartsWith("D"));
 
                     foreach (var task in actives)
-                    {
-                        
+                    {                        
                         var Task = new MReport
                         {
                             Checklist = "Active Directory",
@@ -179,8 +179,9 @@ namespace TasksApp.Controllers
                             AssignedTo = "Operator",
                             TaskCompleted = task.DateTaskCompleted
                         };
-
+                        
                         _context.mreports.Add(Task);
+                        _context.mreports.Distinct().ToList();
                         await _context.SaveChangesAsync();
                     }
                 }
@@ -202,9 +203,10 @@ namespace TasksApp.Controllers
                             AssignedTo = "Operator",
                             TaskCompleted = tasks.DateTaskCompleted
                         };
-
+                        
                         _context.mreports.Add(Task);
-                        // await _context.SaveChangesAsync();
+                        _context.mreports.Take(1).ToList();
+                        await _context.SaveChangesAsync();
                     }
                 }
 
@@ -227,7 +229,6 @@ namespace TasksApp.Controllers
                         };
 
                         _context.mreports.Add(Task);
-                        // await _context.SaveChangesAsync();
                     }
                 }
 
@@ -252,7 +253,6 @@ namespace TasksApp.Controllers
                         };
 
                         _context.mreports.Add(Task);
-                        // await _context.SaveChangesAsync();
                     }
                 }
 
@@ -275,7 +275,6 @@ namespace TasksApp.Controllers
                         };
 
                         _context.mreports.Add(Task);
-                        // await _context.SaveChangesAsync();
                     }
                 }
 
@@ -297,7 +296,6 @@ namespace TasksApp.Controllers
                         };
 
                         _context.mreports.Add(Task);
-                        // await _context.SaveChangesAsync();
                     }
                 }
 
@@ -390,8 +388,9 @@ namespace TasksApp.Controllers
                             AssignedTo = "Operator",
                             TaskCompleted = task.DateTaskCompleted
                         };
-
+                        _context.mreports.Distinct().ToList();
                         _context.mreports.Add(Task);
+
                         // await _context.SaveChangesAsync();
                     }
                 }
@@ -462,7 +461,7 @@ namespace TasksApp.Controllers
                         };
 
                         _context.mreports.Add(Task);
-                        // await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync();
                     }
                 }
 
@@ -536,7 +535,6 @@ namespace TasksApp.Controllers
                         };
 
                         _context.mreports.Add(Task);
-                        await _context.SaveChangesAsync();
                     }
                 }
 
@@ -864,9 +862,7 @@ namespace TasksApp.Controllers
                 }
 
             }
-
-            await _context.SaveChangesAsync();
-            return Json(new { data = _context.mreports.Where(d => d.DateCreated.Date == oDate.Date).ToList() });
+            return Json(new { data = _context.mreports.Where(d => d.DateCreated.Date == oDate.Date).Distinct().ToList()});
         }
         #endregion
     }

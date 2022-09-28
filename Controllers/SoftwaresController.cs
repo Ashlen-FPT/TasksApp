@@ -197,7 +197,7 @@ namespace TasksApp.Controllers
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "OS/Software").ToList();
 
-                if (Main_Task.Count > TasksToday.Count)
+                if (Main_Task.Count >= TasksToday.Count)
                 {
                     var result = Main_Task.Where(p => TasksToday.All(p2 => p2.Description != p.Description)).Where(s => s.TaskCategory == "OS/Software");
 
