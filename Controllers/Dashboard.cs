@@ -148,43 +148,38 @@ namespace TasksApp.Controllers
         public IActionResult ITCalendar()
         {
             //Active_D
-            var Active_D = _context.Active_D.ToList();
             var queryActive_D = new List<Active_D>();
 
-            queryActive_D = Active_D.Where(i => i.Status != null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
+            queryActive_D = _context.Active_D.Where(i => i.Status != null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
 
             ViewData["ActiveD"] = queryActive_D;
 
             //Hardware
-            var Hardware = _context.Hardware.ToList();
             var queryHardware = new List<Hardware>();
 
-            queryHardware = Hardware.Where(i => i.Status != null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
+            queryHardware = _context.Hardware.Where(i => i.Status != null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
 
             ViewData["Hardware"] = queryHardware;
 
             //Network
-            var Network = _context.Networking.ToList();
             var queryNetwork = new List<Networking>();
 
-            queryNetwork = Network.Where(i=>i.Status!=null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
+            queryNetwork = _context.Networking.Where(i=>i.Status!=null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
 
             ViewData["Network"] = queryNetwork;
 
             //Security
-            var Security = _context.Security.ToList();
             var querySecurity = new List<Security>();
 
-            querySecurity = Security.Where(i => i.Status != null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
+            querySecurity = _context.Security.Where(i => i.Status != null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
 
             ViewData["Security"] = querySecurity;
 
 
             //Software
-            var Software = _context.Software.ToList();
             var querySoftware = new List<Software>();
 
-            querySoftware = Software.Where(i => i.Status != null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
+            querySoftware = _context.Software.Where(i => i.Status != null).Where(x => x.Status.StartsWith("D") || x.Status.StartsWith("P") || x.Status.StartsWith("C")).ToList();
 
             ViewData["Software"] = querySoftware;
 

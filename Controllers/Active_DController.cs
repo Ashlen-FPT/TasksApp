@@ -242,12 +242,12 @@ namespace TasksApp.Controllers
 
             var Day = oDate.DayOfWeek.ToString();
 
-            var TasksToday = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly").ToList();
+            var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly").Where(s => s.TaskCategory == "Active_D").ToList();
 
 
             if (TasksToday.Count == 0)
             {
-                var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).ToList();
+                var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).Where(s => s.TaskCategory == "Active_D").ToList();
 
                 foreach (var task in Main_Task)
                 {
@@ -270,7 +270,7 @@ namespace TasksApp.Controllers
 
             if (TasksToday.Count > 0)
             {
-                var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).ToList();
+                var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (Main_Task.Count > TasksToday.Count)
                 {
@@ -307,7 +307,7 @@ namespace TasksApp.Controllers
             _context.Logs.Add(log);
             await _context.SaveChangesAsync(_userService.GetUser());
 
-            return Json(new { data = _context.Tasks.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
+            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly").Where(s => s.TaskCategory == "Active_D") });
 
         }
 
@@ -448,8 +448,12 @@ namespace TasksApp.Controllers
             DateTime oDate = Convert.ToDateTime(date);
 
             //var quarter = new DateTime(oDate.Year, oDate.Month, 1);
-            var firstDayOfQuarter = new DateTime(oDate.Year, oDate.Month, 1);
-            var lastDayOfQuarter = firstDayOfQuarter.AddMonths(3).AddDays(-1);
+            //var firstDayOfQuarter = new DateTime(oDate.Year, oDate.Month, oDate.Day);
+            //var lastDayOfQuarter = firstDayOfQuarter.AddMonths(3).AddDays(-1);
+
+            int quarterNumber = (oDate.Month - 1) / 3 + 1;
+            DateTime firstDayOfQuarter = new DateTime(oDate.Year, (quarterNumber - 1) * 3 + 1, 1);
+            DateTime lastDayOfQuarter = firstDayOfQuarter.AddMonths(3).AddDays(-1);
 
             if (firstDayOfQuarter == oDate)
             {

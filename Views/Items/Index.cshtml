@@ -63,7 +63,7 @@
             @if (DateTime.Today.DayOfWeek == DayOfWeek.Monday)
             {
                 <div class="progress">
-                    <div class="progress-bar" id="progressbar1" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                    <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
                 </div>
             }
             <div class="tab-pane fade show active" id="pills-Mon" role="tabpanel" aria-labelledby="pills-Mon-tab">
@@ -85,7 +85,7 @@
                 @if (DateTime.Today.DayOfWeek == DayOfWeek.Tuesday)
                 {
                     <div class="progress">
-                            <div class="progress-bar" id="progressbar2" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                            <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
                         </div>
                 }
                 <br />
@@ -105,7 +105,7 @@
                 @if (DateTime.Today.DayOfWeek == DayOfWeek.Wednesday)
                 {
                     <div class="progress">
-                        <div class="progress-bar" id="progressbar3" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                        <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
                     </div>
                 }
                 <br />
@@ -125,7 +125,7 @@
                 @if (DateTime.Today.DayOfWeek == DayOfWeek.Thursday)
                 {
                     <div class="progress">
-                        <div class="progress-bar" id="progressbar4" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                        <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
                     </div>
                 }
                 <br />
@@ -145,7 +145,7 @@
                 @if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
                 {
                     <div class="progress">
-                        <div class="progress-bar" id="progressbar5" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                        <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
                     </div>
                 }
                 <br />
@@ -165,7 +165,7 @@
                 @if (DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
                 {
                     <div class="progress">
-                        <div class="progress-bar" id="progressbar6" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                        <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
                     </div>
                 }
                 <br />
@@ -185,7 +185,7 @@
                 @if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday)
                 {
                     <div class="progress">
-                        <div class="progress-bar" id="progressbar7" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
+                        <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="80"></div>
                     </div>
                 }
                 <br />
@@ -401,14 +401,14 @@
                 var p = (count / response.data.length) * 100;
                 if (p == 0) {
 
-                    document.getElementById("progressbar1").style.width = "0%";
-                    document.getElementById("progressbar1").innerHTML = "0%";
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
                 }
                 else {
 
 
-                    document.getElementById("progressbar1").style.width = p + "%";
-                    document.getElementById("progressbar1").innerHTML = Math.round(p) + "%";
+                    document.getElementById("progressbar").style.width = p + "%";
+                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
 
                 }
             }

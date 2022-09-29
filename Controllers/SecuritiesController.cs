@@ -455,11 +455,15 @@ namespace TasksApp.Controllers
 
             DateTime oDate = Convert.ToDateTime(date);
 
-            var firstDayOfMonth = new DateTime(oDate.Year, oDate.Month, 1);
-            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            //var firstDayOfMonth = new DateTime(oDate.Year, oDate.Month, 1);
+            //var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            int quarterNumber = (oDate.Month - 1) / 3 + 1;
+            DateTime firstDayOfQuarter = new DateTime(oDate.Year, (quarterNumber - 1) * 3 + 1, 1);
+            DateTime lastDayOfQuarter = firstDayOfQuarter.AddMonths(3).AddDays(-1);
 
 
-            if (firstDayOfMonth == oDate)
+            if (firstDayOfQuarter == oDate)
             {
                 var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
@@ -510,7 +514,7 @@ namespace TasksApp.Controllers
                 }
             }
 
-            if (lastDayOfMonth == oDate)
+            if (lastDayOfQuarter == oDate)
             {
                 var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 

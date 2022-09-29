@@ -229,13 +229,13 @@ namespace TasksApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTask(string Schedule, string Main)
+        public async Task<IActionResult> AddTask(string Schedule, string Main , string Desc)
         {
 
             var Task = new TemplateItems
             {
                 Main = Main,
-                //Description = Desc,
+                Description = Desc,
                 Schedule = Schedule,
                 DateCreated = DateTime.Now,
                 UserEmail = User.Identity.Name

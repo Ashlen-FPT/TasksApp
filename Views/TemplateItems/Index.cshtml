@@ -20,7 +20,7 @@
 
 <div class="form-group" style="padding-right:12px;">
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="float:right;">
-        <i class="fa fa-plus"></i> Create New
+        <i class="fa fa-plus"></i> Add New Task / Sub-Task
     </button>
 </div>
 
@@ -70,11 +70,11 @@
                             <th>Schedule</th>
                             <th>DateCreated</th>
                             <th>UserEmail</th>
-                            <th>
+                            @*<th>
                                 <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </a>
-                            </th>
+                            </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -104,11 +104,11 @@
                             <th>Schedule</th>
                             <th>DateCreated</th>
                             <th>UserEmail</th>
-                            <th>
+                            @*<th>
                                 <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </a>
-                            </th>
+                            </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -138,11 +138,11 @@
                             <th>Schedule</th>
                             <th>DateCreated</th>
                             <th>UserEmail</th>
-                            <th>
+                            @*<th>
                                 <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </a>
-                            </th>
+                            </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -158,11 +158,11 @@
                             <th>Schedule</th>
                             <th>DateCreated</th>
                             <th>UserEmail</th>
-                            <th>
+                            @*<th>
                                 <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </a>
-                            </th>
+                            </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -193,11 +193,11 @@
                             <th>Schedule</th>
                             <th>DateCreated</th>
                             <th>UserEmail</th>
-                            <th>
+                            @*<th>
                                 <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </a>
-                            </th>
+                            </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -228,11 +228,11 @@
                             <th>Schedule</th>
                             <th>DateCreated</th>
                             <th>UserEmail</th>
-                            <th>
+                            @*<th>
                                 <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </a>
-                            </th>
+                            </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -263,11 +263,11 @@
                             <th>Schedule</th>
                             <th>DateCreated</th>
                             <th>UserEmail</th>
-                            <th>
+                            @*<th>
                                 <a href="@Url.Action("Create", "DailyChecksSubs")#exampleModal2" type="button" onclick="ShowAddSubModal(${data.id})" style="cursor:pointer" data-toggle="tooltip" data-placement="top" data-target="#exampleModal2" title="Add Sub Task">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </a>
-                            </th>
+                            </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -313,6 +313,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label style="float:left" class="control-label">Task Description</label>
+                    <input id="TDescription" class="form-control" />
+                </div>
+
+                <div class="form-group">
                     <label style="float:left" class="control-label">Schedule</label>
                     <select id="Schedule" class="form-control">
                         <option>Monday</option>
@@ -347,14 +352,15 @@
             <div class="modal-body">
 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                 <div class="form-group">
-                    <label style="float:left" class="control-label">Description</label>
-                    <input id="DescriptionEdit" class="form-control" />
+                    <label style="float:left" class="control-label">Main Item</label>
+                    <input id="MainEdit" class="form-control" @*placeholder="Enter New Item Heading Or Use Existing"*@/>
                 </div>
 
                 <div class="form-group">
-                    <label style="float:left" class="control-label">Description</label>
-                    <input id="MainEdit" class="form-control" />
+                    <label style="float:left" class="control-label">Item Description</label>
+                    <input id="DescriptionEdit" class="form-control" />
                 </div>
 
                 <div class="form-group">
@@ -1126,7 +1132,7 @@
     function AddTask() {
 
         var main = $('#Main').val();
-        var Desc = $('#Description').val();
+        var Desc = $('#TDescription').val();
         var Schedule = $('#Schedule').val();
 
         $.ajax({
@@ -1226,6 +1232,7 @@
             type: "GET",
             url: "/TemplateItems/GetTask?id=" + id,
             success: function (data) {
+                document.getElementById("MainEdit").value = data.data.main;
                 document.getElementById("DescriptionEdit").value = data.data.description;
                 document.getElementById("ScheduleEdit").value = data.data.schedule;
                 /*document.getElementById("TaskTypeEdit").value = data.data.TaskType;*/
