@@ -21,8 +21,8 @@
     <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" readonly />
 
 </div>
-
 <br />
+
 
 <div class="card text-center" style="width: 100%;">
     <div class="card-title">
@@ -494,6 +494,8 @@
                         id: "id", isDone: "isDone"
                     },
                     "render": function (data) {
+
+
                         if (data.isDone == true) {
 
                             return `
@@ -510,7 +512,11 @@
                             return `
                                 <div class="text-center">
                                    <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                                    {
+                                         <input disabled type="checkbox"/>
 
+                                    }
                                 </div>
                                `;
 
@@ -518,6 +524,8 @@
 
                     }, "width": "22%"
                 },
+
+
 
                 {
                     "data": "dateCompleted",
@@ -796,10 +804,17 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    @if (User.IsInRole(SD.Role_Operator.ToString()))
+                                    {
+                                         <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    }
 
+                                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                                    {
+                                         <input disabled type="checkbox"/>
+                                    }
                                 </div>
-                               `;
+                            `;
 
                         }
 

@@ -436,7 +436,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Thursday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
                     var last = Main_Task.LastOrDefault();
                     foreach (var task in Main_Task)
                     {
@@ -462,7 +462,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Thursday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -486,7 +486,7 @@ namespace TasksApp.Controllers
                     }
                 }
                 await _context.SaveChangesAsync();
-                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Thursday") });
+                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
 
             if (dateValue != DayOfWeek.Thursday)
@@ -508,7 +508,7 @@ namespace TasksApp.Controllers
 
             _context.Logs.Add(log);
             await _context.SaveChangesAsync();
-            return Json(new { data = _context.items.Where(s => s.Schedule == "Thursday") });
+            return Json(new { data = _context.items.Where(s => s.Schedule == "Monday") });
 
         }
 
@@ -898,6 +898,16 @@ namespace TasksApp.Controllers
         {
             var task = _context.items.Find(id);
             return Json(task);
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date) });
 
         }
         #endregion
