@@ -287,6 +287,7 @@
             document.getElementById("Sun").style.cursor = "not-allowed";
             document.getElementById("pills-Sun-tab").style.pointerEvents = "none";
         }
+
         if (dayOfWeek == 4) {
             $("#pills-Thurs-tab").addClass("nav-link active").siblings().removeClass("nav-link");
             $("#pills-Thurs").addClass("show active").siblings().removeClass("show active");
@@ -309,6 +310,7 @@
             document.getElementById("Sun").style.cursor = "not-allowed";
             document.getElementById("pills-Sun-tab").style.pointerEvents = "none";
         }
+
         if (dayOfWeek == 5) {
             $("#pills-Fri-tab").addClass("nav-link active").siblings().removeClass("nav-link");
             $("#pills-Fri").addClass("show active").siblings().removeClass("show active");
@@ -331,6 +333,7 @@
             document.getElementById("Sun").style.cursor = "not-allowed";
             document.getElementById("pills-Sun-tab").style.pointerEvents = "none";
         }
+
         if (dayOfWeek == 6) {
             $("#pills-Sat-tab").addClass("nav-link active").siblings().removeClass("nav-link");
             $("#pills-Sat").addClass("show active").siblings().removeClass("show active");
@@ -353,6 +356,7 @@
             document.getElementById("Sun").style.cursor = "not-allowed";
             document.getElementById("pills-Sun-tab").style.pointerEvents = "none";
         }
+
         if (dayOfWeek == 7) {
             $("#pills-Sun-tab").addClass("nav-link active").siblings().removeClass("nav-link");
             $("#pills-Sun").addClass("show active").siblings().removeClass("show active");
@@ -512,10 +516,14 @@
                             return `
                                 <div class="text-center">
                                    <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                     @if (User.IsInRole(SD.Role_Operator.ToString()))
+                                    {
+                                         <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    }
+
                                     @if (User.IsInRole(SD.Role_Supervisor.ToString()))
                                     {
                                          <input disabled type="checkbox"/>
-
                                     }
                                 </div>
                                `;
@@ -613,8 +621,15 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    @if (User.IsInRole(SD.Role_Operator.ToString()))
+                                    {
+                                         <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    }
 
+                                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                                    {
+                                         <input disabled type="checkbox"/>
+                                    }
                                 </div>
                                `;
 
@@ -708,7 +723,15 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    @if (User.IsInRole(SD.Role_Operator.ToString()))
+                                    {
+                                         <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    }
+
+                                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                                    {
+                                         <input disabled type="checkbox"/>
+                                    }
 
                                 </div>
                                `;
@@ -907,7 +930,15 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    @if (User.IsInRole(SD.Role_Operator.ToString()))
+                                    {
+                                         <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    }
+
+                                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                                    {
+                                         <input disabled type="checkbox"/>
+                                    }
 
                                 </div>
                                `;
@@ -1003,10 +1034,17 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    @if (User.IsInRole(SD.Role_Operator.ToString()))
+                                    {
+                                         <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    }
 
+                                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                                    {
+                                         <input disabled type="checkbox"/>
+                                    }
                                 </div>
-                               `;
+                            `;
 
                         }
 
@@ -1099,10 +1137,18 @@
 
                             return `
                                 <div class="text-center">
-                                   <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    @if (User.IsInRole(SD.Role_Operator.ToString()))
+                                    {
+                                         <input onclick=Delete("/Items/CompleteTask/${data.id}") type="checkbox" />
+                                    }
+
+                                    @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+                                    {
+                                         <input disabled type="checkbox"/>
+                                    }
 
                                 </div>
-                               `;
+                            `;
 
                         }
 
