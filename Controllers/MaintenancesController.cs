@@ -321,6 +321,84 @@ namespace TasksApp.Controllers
 
         }
 
+        public async Task<IActionResult> CompleteTaskFail(int id)
+        {
+            var Main_Task = _context.TemplateMains.ToList();
+            var Maintenances = _context.Maintenances.ToList();
+            var last = Main_Task.LastOrDefault();
+            var count = Main_Task.Count();
+            var DateCreation = new DateTime();
+            var Ddate = _context.Maintenances.Find(id).DateCreated;
+            var task = _context.Maintenances.Find(id);
+            //Get Last Item & Change Status
+            var items = Maintenances.Where((x, i) => i % count == count - 1);
+            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
+            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
+            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
+            var ChangeStatus = _context.Maintenances.Find(ItemId);
+
+
+            task.Ok = false;
+            task.Not = true;
+            task.DateCompleted = DateTime.Now;
+            //task.DateAllCompleted = DateTime.Now;
+            task.User = User.Identity.Name;
+            //task.Status = "Partially Completed";
+            task.Status = "Task : Completed";
+            task.IsDone = true;
+            DateCreation = task.DateCreated;
+            //var date = task.DateCreated;
+
+            if (ItemDate == Ddate)
+            {
+                ChangeStatus.Status = "Partially Completed : Maintenances";
+            }
+
+            var log = new Logs
+            {
+                UserName = User.FindFirst("Username")?.Value,
+                UserEmail = User.Identity.Name,
+                Entity = User.FindFirst("Organization")?.Value,
+                LogType = LogTypes.Completed,
+                DateTime = DateTime.Now,
+                UpdatedTable = "Maintenance",
+                OldData = null,
+                NewData = "Task Completed"
+            };
+
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+
+            var tasks = _context.Maintenances.Where(d => d.DateCreated == DateCreation).ToList();
+            //bool status = tasks.All(c => c.IsDone == false);
+
+            if (tasks.All(c => c.Not == true))
+            {
+
+                if (ItemDate == Ddate)
+                {
+                    task.DateAllCompleted = DateTime.Now;
+                    ChangeStatus.Status = "Completed : Maintenances";
+                }
+            }
+
+            foreach (var item in tasks)
+            {
+
+                if (item.Not == false)
+                {
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { success = true, message = "Task Completed!" });
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "All Tasks Completed!" });
+
+        }
+
         [HttpGet]
         public async Task<IActionResult> CompleteAllTasks(DateTime date)
         {
