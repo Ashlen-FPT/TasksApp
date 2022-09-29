@@ -360,6 +360,14 @@ namespace TasksApp.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult AdminGetTasks(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+            return Json(new { data = _context.DailyChecks.Where(d => d.DateCreated.Date == oDate.Date) });
+        }
+
         #endregion
     }
 }

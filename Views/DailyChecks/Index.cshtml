@@ -24,15 +24,93 @@
 
 </div>
 
-<div class="card text-center" style="width: 100%;">
-    @*<div class="card-title">
-            <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">BobCat</a>
-                    </li>
-                </ul>
-        </div>*@
 
+@if (User.IsInRole(SD.Role_Operator.ToString()))
+{
+    <div class="card text-center" style="width: 100%;">
+        @*<div class="card-title">
+                <ul class="nav nav-pills mb-3" style="padding:10px" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">BobCat</a>
+                        </li>
+                    </ul>
+            </div>*@
+
+        <div class="card-body">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                    <div class="progress">
+                        <div class="progress-bar" id="progressbar" role="progressbar" style="width: 1%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <br />
+                    <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                        <thead class="thead-dark">
+                            <tr class="table-info">
+                                <th>No.</th>
+                                <th>Description</th>
+                                <th>Main</th>
+                                <th>Complete</th>
+                                <th>Date Completed</th>
+                                <th>Add Remarks</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+
+                        @*<tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Number)
+                                            @Html.DisplayFor(modelItem => item.ReportHeading)
+                                            @Html.DisplayFor(modelItem => item.ReportDesc)
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>*@
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Add Comment Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Comments:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="SaveComment()" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (User.IsInRole(SD.Role_Supervisor.ToString()))
+{
     <div class="card-body">
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -42,7 +120,7 @@
                 </div>
 
                 <br />
-                <table class="table table-bordered table-hover" id="tbl" style=" word-wrap:break-word; width:100%; table-layout:fixed">
+                <table class="table table-bordered table-hover" id="tbl1" style=" word-wrap:break-word; width:100%; table-layout:fixed">
                     <thead class="thead-dark">
                         <tr class="table-info">
                             <th>No.</th>
@@ -50,56 +128,14 @@
                             <th>Main</th>
                             <th>Complete</th>
                             <th>Date Completed</th>
-                            <th>Add Remarks</th>
                             <th>Remarks</th>
                         </tr>
                     </thead>
-
-                    @*<tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Number)
-                                        @Html.DisplayFor(modelItem => item.ReportHeading)
-                                        @Html.DisplayFor(modelItem => item.ReportDesc)
-
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>*@
                 </table>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Add Comment Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Comment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Comments:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" onclick="SaveComment()" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
+}
 
 <script src="~/plugins/jquery/jquery.js"></script>
 
@@ -174,6 +210,7 @@
 
     $('#datePicker').change(function () {
         var date = document.getElementById("datePicker").value;
+        Table01.destroy();
         Table01.destroy();
         loadTable(date);
 
@@ -333,7 +370,94 @@
             }
         });
 
-        
+
+        Table02 = $("#tbl1").DataTable({
+            "ajax": {
+                "url": "/DailyChecks/AdminGetTasks?date=" + date
+            },
+            "columns": [
+                { "data": "number", "width": "10%" },
+                { "data": "reportDesc", "width": "50%" },
+                { "data": "reportHeading", "width": "50%" },
+
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox" checked="true" />
+
+                                </div>
+                            `;
+
+                        }
+
+                        if (data.isDone == false) {
+
+                            return `
+                                <div class="text-center">
+                                   <input disabled type="checkbox"/>
+
+                                </div>
+                            `;
+
+                        }
+
+                    }, "width": "15%"
+                },
+
+                {
+                    "data": "dateCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "25%"
+                },
+
+                { "data": "remarks", "width": "50%" },
+
+            ],
+
+            columnDefs: [{ visible: false, targets: groupColumn }],
+            order: [[groupColumn, 'asc']],
+            //displayLength: 25,
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api
+                    .column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="6">' + group + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            },
+        });
+
     }
 
 
