@@ -1012,6 +1012,25 @@ namespace TasksApp.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult AdminGetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date) });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllW(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
+
+        }
         #endregion
     }
 
