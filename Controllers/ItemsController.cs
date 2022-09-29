@@ -346,7 +346,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Wednesday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
                     var last = Main_Task.LastOrDefault();
                     foreach (var task in Main_Task)
                     {
@@ -372,7 +372,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Wednesday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -410,7 +410,7 @@ namespace TasksApp.Controllers
 
                 _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
-                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Wednesday") });
+                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
 
             if (dayOfWeek != DayOfWeek.Wednesday)
@@ -419,7 +419,7 @@ namespace TasksApp.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return Json(new { data = _context.items.Where(s => s.Schedule == "Wednesday") });
+            return Json(new { data = _context.items.Where(s => s.Schedule == "Monday") });
 
         }
 
@@ -525,7 +525,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Friday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
                     var last = Main_Task.LastOrDefault();
                     foreach (var task in Main_Task)
                     {
@@ -551,7 +551,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Friday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -588,7 +588,7 @@ namespace TasksApp.Controllers
 
                 _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
-                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Friday") });
+                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
 
             if (dateValue != DayOfWeek.Friday)
@@ -597,7 +597,7 @@ namespace TasksApp.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return Json(new { data = _context.items.Where(s => s.Schedule == "Friday") });
+            return Json(new { data = _context.items.Where(s => s.Schedule == "Monday") });
         }
 
         [HttpGet]
@@ -613,7 +613,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Saturday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
                     var last = Main_Task.LastOrDefault();
                     foreach (var task in Main_Task)
                     {
@@ -639,7 +639,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Saturday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -676,7 +676,7 @@ namespace TasksApp.Controllers
 
                 _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
-                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Saturday") });
+                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
 
             if (dateValue != DayOfWeek.Saturday)
@@ -685,7 +685,7 @@ namespace TasksApp.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return Json(new { data = _context.items.Where(s => s.Schedule == "Saturday") });
+            return Json(new { data = _context.items.Where(s => s.Schedule == "Monday") });
 
         }
 
@@ -702,7 +702,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Sunday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
                     var last = Main_Task.LastOrDefault();
                     foreach (var task in Main_Task)
                     {
@@ -728,7 +728,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Sunday").ToList();
+                    var Main_Task = _context.TemplateItem.Where(s => s.Schedule == "Monday").ToList();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -765,7 +765,7 @@ namespace TasksApp.Controllers
 
                 _context.Logs.Add(log);
                 await _context.SaveChangesAsync();
-                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Sunday") });
+                return Json(new { data = _context.items.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monday") });
             }
 
             if (dateValue != DayOfWeek.Sunday)
@@ -774,7 +774,7 @@ namespace TasksApp.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return Json(new { data = _context.items.Where(s => s.Schedule == "Sunday") });
+            return Json(new { data = _context.items.Where(s => s.Schedule == "Monday") });
 
         }
 
@@ -794,7 +794,7 @@ namespace TasksApp.Controllers
         public async Task<IActionResult> CompleteTask(int id)
         {
             var today = DateTime.Now.DayOfWeek.ToString();
-            var Main_Task = _context.TemplateItem.Where(x=>x.Schedule==today).ToList();
+            var Main_Task = _context.TemplateItem.Where(x=>x.Schedule=="Monday").ToList();
             var Items = _context.items.ToList();
             var last = Main_Task.LastOrDefault();
             var count = Main_Task.Count();
