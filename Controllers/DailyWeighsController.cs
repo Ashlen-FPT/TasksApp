@@ -565,6 +565,16 @@ namespace TasksApp.Controllers
             return Json(new { success = true, message = "Comment added!" });
 
         }
+
+        [HttpGet]
+        public IActionResult AdminGetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.DailyWeighs.Where(d => d.DateCreated.Date == oDate.Date) });
+
+        }
         #endregion
     }
 }

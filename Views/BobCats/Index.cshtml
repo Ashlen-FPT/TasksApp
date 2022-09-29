@@ -176,17 +176,9 @@
                             </tr>
                             <tr>
                                 <th>Operator Name</th>
-
-                                
-                                
-                                    <th>Supervisor Name</th>
-                                
-
+                                <th>Supervisor Name</th>
                                 <th>Operator Signature</th>
-                               
-                                
-                                    <th>Supervisor Signature</th>
-                                
+                                <th>Supervisor Signature</th>
                                 <th>Last Updated</th>
                             </tr>
                         </thead>
@@ -436,7 +428,7 @@
 
                     }, "width": "20%"
                 },
-                @if (User.IsInRole(SD.Role_Supervisor.ToString()))
+               @if (User.IsInRole(SD.Role_Supervisor.ToString()))
             {
                 <text>
                 {
@@ -526,7 +518,7 @@
                             return `
 
                                     <div class="text-center">
-                                       <input disabled type="checkbox" checked="true" id="myCheck1" />
+                                       <input disabled type="checkbox" checked="true" id="myCheck1"/>
 
                                     </div>
                             `;
@@ -670,13 +662,106 @@
                 "url": "/BobCats/AdminGetTasks?date=" + date
             },
             "columns": [
-                { "data": "number", "width": "10%" },
+                { "data": "number", "width": "5%" },
                 { "data": "description", "width": "50%" },
                 { "data": "main", "width": "50%" },
-                { "data": "yes", "width": "10%" },
+                {
+                    "data": {
+                        id: "id", yes: "yes"
+                    },
 
-                { "data": "no", "width": "10%" },
-                { "data": "na", "width": "10%" },
+                    "render": function (data) {
+                        if (data.yes == true) {
+
+                            return `
+
+                                    <div class="text-center">
+                                       <input disabled type="checkbox"  checked="true" />
+
+                                    </div>
+                            `;
+
+                        }
+
+                        if (data.yes == false) {
+
+                            return `
+
+                                    <div class="text-center">
+                                       <input disabled type="checkbox"/>
+
+                                    </div>
+                            `;
+
+                        }
+                    }, "width": "10%"
+                },
+
+                {
+                    "data": {
+                        id: "id", no: "no"
+                    },
+
+                    "render": function (data) {
+                        if (data.no == true) {
+
+                            return `
+
+                                    <div class="text-center">
+                                       <input disabled type="checkbox"  checked="true" />
+
+                                    </div>
+                            `;
+
+                        }
+
+                        if (data.no == false) {
+
+                            return `
+
+                                    <div class="text-center">
+                                       <input disabled type="checkbox"/>
+
+                                    </div>
+                            `;
+
+                        }
+                    }, "width": "10%"
+                },
+
+                {
+                    "data": {
+                        id: "id", na: "na"
+                    },
+
+                    "render": function (data) {
+                        if (data.na == true) {
+
+                            return `
+
+                                    <div class="text-center">
+                                       <input disabled type="checkbox"  checked="true" />
+
+                                    </div>
+                            `;
+
+                        }
+
+                        if (data.na == false) {
+
+                            return `
+
+                                    <div class="text-center">
+                                       <input disabled type="checkbox"/>
+
+                                    </div>
+                            `;
+
+                        }
+                    }, "width": "10%"
+                },
+
+
                 {
                     "data": "dateTaskCompleted",
                     'render': function (jsonDate) {

@@ -710,7 +710,7 @@ namespace TasksApp.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> AdminGetTasks(DateTime date)
+        public async Task<IActionResult> AdminGetTasks(DateTime date, bool Yes)
         {
 
             DateTime oDate = Convert.ToDateTime(date);
@@ -734,7 +734,8 @@ namespace TasksApp.Controllers
                         DateTaskCompleted = new DateTime(),
                         Status = "Task : Incomplete",
                         UserName1 = User.FindFirst("Username")?.Value,
-                        DateAllTaskCompleted = new DateTime()
+                        DateAllTaskCompleted = new DateTime(),
+                        Yes = Yes
                     };
 
                     _context.BobCats.Add(Task);
@@ -769,6 +770,7 @@ namespace TasksApp.Controllers
 
                 }
             }
+
 
             await _context.SaveChangesAsync();
 
