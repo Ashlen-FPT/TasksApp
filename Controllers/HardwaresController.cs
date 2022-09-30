@@ -154,66 +154,6 @@ namespace TasksApp.Controllers
             return _context.Hardware.Any(e => e.Id == id);
         }
 
-        [HttpGet]
-        public IActionResult AdminGetAll(DateTime date)
-        {
-
-            DateTime oDate = Convert.ToDateTime(date);
-
-            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date) });
-
-        }
-
-        [HttpGet]
-        public IActionResult AdminGetAllW(DateTime date)
-        {
-
-            DateTime oDate = Convert.ToDateTime(date);
-
-            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
-
-        }
-
-        [HttpGet]
-        public IActionResult AdminGetAllM(DateTime date)
-        {
-
-            DateTime oDate = Convert.ToDateTime(date);
-
-            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly") });
-
-        }
-
-        [HttpGet]
-        public IActionResult AdminGetAllQ(DateTime date)
-        {
-
-            DateTime oDate = Convert.ToDateTime(date);
-
-            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Quarterly") });
-
-        }
-
-        [HttpGet]
-        public IActionResult AdminGetAllB(DateTime date)
-        {
-
-            DateTime oDate = Convert.ToDateTime(date);
-
-            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Bi-Annually") });
-
-        }
-
-        [HttpGet]
-        public IActionResult AdminGetAllA(DateTime date)
-        {
-
-            DateTime oDate = Convert.ToDateTime(date);
-
-            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Anually") });
-
-        }
-
         #region API Calls
 
 
@@ -273,7 +213,14 @@ namespace TasksApp.Controllers
                             Schedule = item.Schedule,
                             DateTaskCompleted = new DateTime(),
                             TaskCategory = item.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (item == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
 
                         _context.Hardware.Add(Task);
                     }
@@ -312,6 +259,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count == 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).ToList();
+                var last = Main_Task.LastOrDefault();
 
                 foreach (var task in Main_Task)
                 {
@@ -321,9 +269,15 @@ namespace TasksApp.Controllers
                         Description = task.Description,
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
-                        Schedule = task.Schedule
-
+                        Schedule = task.Schedule,
+                        Status = "Task : Incomplete",
+                        User = User.FindFirst("Username")?.Value
                     };
+
+                    if (task == last)
+                    {
+                        Task.Status = "Do-Checklist : Hardware";
+                    }
 
                     _context.Hardware.Add(Task);
 
@@ -333,6 +287,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count > 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).ToList();
+                var last = Main_Task.LastOrDefault();
 
                 if (Main_Task.Count > TasksToday.Count)
                 {
@@ -345,9 +300,15 @@ namespace TasksApp.Controllers
                             Description = item.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
-                            Schedule = item.Schedule
-
+                            Schedule = item.Schedule,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (item == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
 
                         _context.Hardware.Add(Task);
                     }
@@ -393,6 +354,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Hardware").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -403,8 +365,14 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
 
                         _context.Hardware.Add(Task);
 
@@ -414,6 +382,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Hardware").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -426,10 +395,15 @@ namespace TasksApp.Controllers
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Hardware";
+                            }
                             _context.Hardware.Add(Task);
                         }
 
@@ -444,6 +418,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Hardware").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -454,8 +429,14 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
 
                         _context.Hardware.Add(Task);
 
@@ -465,6 +446,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Hardware").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -477,9 +459,15 @@ namespace TasksApp.Controllers
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
+
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Hardware";
+                            }
 
                             _context.Hardware.Add(Task);
                         }
@@ -523,25 +511,32 @@ namespace TasksApp.Controllers
 
             if (firstDayOfQuarter == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Hardware
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
 
-                        _context.Active_D.Add(Task);
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
+
+                        _context.Hardware.Add(Task);
 
                     }
                 }
@@ -549,6 +544,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -556,16 +552,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Hardware
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Hardware";
+                            }
+
+                            _context.Hardware.Add(Task);
                         }
 
                     }
@@ -574,24 +576,31 @@ namespace TasksApp.Controllers
 
             if (lastDayOfQuarter == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Hardware
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
-                        _context.Active_D.Add(Task);
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
+                        _context.Hardware.Add(Task);
 
                     }
                 }
@@ -599,6 +608,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -606,16 +616,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Hardware
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Hardware";
+                            }
+
+                            _context.Hardware.Add(Task);
                         }
 
                     }
@@ -637,7 +653,7 @@ namespace TasksApp.Controllers
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 
-            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
         }
 
@@ -653,25 +669,32 @@ namespace TasksApp.Controllers
 
             if (firstDayOfMonth == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Hardware
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
 
-                        _context.Active_D.Add(Task);
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
+
+                        _context.Hardware.Add(Task);
 
                     }
                 }
@@ -679,6 +702,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -686,16 +710,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Hardware
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Hardware";
+                            }
+
+                            _context.Hardware.Add(Task);
                         }
 
                     }
@@ -704,24 +734,31 @@ namespace TasksApp.Controllers
 
             if (lastDayOfMonth == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Hardware
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
-                        _context.Active_D.Add(Task);
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
+                        _context.Hardware.Add(Task);
 
                     }
                 }
@@ -729,6 +766,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -736,16 +774,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Hardware
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Hardware";
+                            }
+
+                            _context.Hardware.Add(Task);
                         }
 
                     }
@@ -766,7 +810,7 @@ namespace TasksApp.Controllers
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 
-            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
         }
 
@@ -782,25 +826,32 @@ namespace TasksApp.Controllers
 
             if (firstDayOfMonth == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Hardware
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
 
-                        _context.Active_D.Add(Task);
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
+
+                        _context.Hardware.Add(Task);
 
                     }
                 }
@@ -808,6 +859,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -815,16 +867,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Hardware
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Hardware";
+                            }
+
+                            _context.Hardware.Add(Task);
                         }
 
                     }
@@ -833,24 +891,31 @@ namespace TasksApp.Controllers
 
             if (lastDayOfMonth == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Hardware
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
-                        _context.Active_D.Add(Task);
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Hardware";
+                        }
+                        _context.Hardware.Add(Task);
 
                     }
                 }
@@ -858,6 +923,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -865,16 +931,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Hardware
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Hardware";
+                            }
+
+                            _context.Hardware.Add(Task);
                         }
 
                     }
@@ -896,7 +968,7 @@ namespace TasksApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
         }
 
@@ -1023,6 +1095,66 @@ namespace TasksApp.Controllers
         {
             var task = _context.Hardware.Find(id);
             return Json(task);
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date) });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllW(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllM(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly") });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllQ(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Quarterly") });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllB(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Bi-Annually") });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllA(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Anually") });
 
         }
 
