@@ -511,11 +511,11 @@ namespace TasksApp.Controllers
 
             if (firstDayOfQuarter == oDate)
             {
-                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Quarterly").Where(s => s.TaskCategory == "Hardware").ToList();
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Quarterly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
@@ -543,7 +543,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Quarterly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
@@ -576,11 +576,11 @@ namespace TasksApp.Controllers
 
             if (lastDayOfQuarter == oDate)
             {
-                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Quarterly").Where(s => s.TaskCategory == "Hardware").ToList();
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Quarterly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
@@ -607,7 +607,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Quarterly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
@@ -653,7 +653,7 @@ namespace TasksApp.Controllers
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 
-            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Quarterly").Where(s => s.TaskCategory == "Hardware") });
 
         }
 
@@ -669,11 +669,11 @@ namespace TasksApp.Controllers
 
             if (firstDayOfMonth == oDate)
             {
-                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Bi-Annually").Where(s => s.TaskCategory == "Hardware").ToList();
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Bi-Annually").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
@@ -701,7 +701,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Bi-Annually").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
@@ -734,11 +734,11 @@ namespace TasksApp.Controllers
 
             if (lastDayOfMonth == oDate)
             {
-                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Bi-Annually").Where(s => s.TaskCategory == "Hardware").ToList();
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Bi-Annually").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
@@ -765,7 +765,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Bi-Annually").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
@@ -810,7 +810,7 @@ namespace TasksApp.Controllers
 
             await _context.SaveChangesAsync(_userServices.GetUser());
 
-            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Bi-Annually").Where(s => s.TaskCategory == "Hardware") });
 
         }
 
@@ -826,11 +826,11 @@ namespace TasksApp.Controllers
 
             if (firstDayOfMonth == oDate)
             {
-                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Annually").Where(s => s.TaskCategory == "Hardware").ToList();
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Annually").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
@@ -858,7 +858,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Annually").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
@@ -891,11 +891,11 @@ namespace TasksApp.Controllers
 
             if (lastDayOfMonth == oDate)
             {
-                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Annually").Where(s => s.TaskCategory == "Hardware").ToList();
 
                 if (TasksToday.Count == 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Annually").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
@@ -922,7 +922,7 @@ namespace TasksApp.Controllers
 
                 if (TasksToday.Count > 0)
                 {
-                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Annually").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Hardware").ToList();
                     var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
@@ -968,7 +968,7 @@ namespace TasksApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Annually").Where(s => s.TaskCategory == "Hardware") });
 
         }
 
