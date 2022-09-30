@@ -199,6 +199,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count > 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Networking").ToList();
+                var last = Main_Task.LastOrDefault();
 
                 if (Main_Task.Count > TasksToday.Count)
                 {
@@ -212,8 +213,15 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             Schedule = item.Schedule,
                             DateTaskCompleted = new DateTime(),
-                            TaskCategory = item.TaskCategory
+                            TaskCategory = item.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (item == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
 
                         _context.Networking.Add(Task);
                     }
@@ -253,6 +261,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count == 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).ToList();
+                var last = Main_Task.LastOrDefault();
 
                 foreach (var task in Main_Task)
                 {
@@ -262,9 +271,15 @@ namespace TasksApp.Controllers
                         Description = task.Description,
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
-                        Schedule = task.Schedule
-
+                        Schedule = task.Schedule,
+                        Status = "Task : Incomplete",
+                        User = User.FindFirst("Username")?.Value
                     };
+
+                    if (task == last)
+                    {
+                        Task.Status = "Do-Checklist : Networks";
+                    }
 
                     _context.Networking.Add(Task);
 
@@ -277,6 +292,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count > 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).ToList();
+                var last = Main_Task.LastOrDefault();
 
                 if (Main_Task.Count > TasksToday.Count)
                 {
@@ -289,9 +305,15 @@ namespace TasksApp.Controllers
                             Description = item.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
-                            Schedule = item.Schedule
-
+                            Schedule = item.Schedule,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (item == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
 
                         _context.Networking.Add(Task);
                     }
@@ -336,6 +358,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Networking").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -346,8 +369,14 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
 
                         _context.Networking.Add(Task);
 
@@ -357,6 +386,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Networking").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -369,9 +399,15 @@ namespace TasksApp.Controllers
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
+
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Networks";
+                            }
 
                             _context.Networking.Add(Task);
                         }
@@ -387,6 +423,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Networking").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -397,8 +434,14 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
 
                         _context.Networking.Add(Task);
 
@@ -411,6 +454,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Networking").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -423,9 +467,15 @@ namespace TasksApp.Controllers
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
+
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Networks";
+                            }
 
                             _context.Networking.Add(Task);
                         }
@@ -469,25 +519,32 @@ namespace TasksApp.Controllers
 
             if (firstDayOfQuarter == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Networking
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
 
-                        _context.Active_D.Add(Task);
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
+
+                        _context.Networking.Add(Task);
 
                     }
                 }
@@ -495,6 +552,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -502,16 +560,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Networking
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Networks";
+                            }
+
+                            _context.Networking.Add(Task);
                         }
 
                     }
@@ -520,24 +584,31 @@ namespace TasksApp.Controllers
 
             if (lastDayOfQuarter == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Networking
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
-                        _context.Active_D.Add(Task);
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
+                        _context.Networking.Add(Task);
 
                     }
                 }
@@ -545,6 +616,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -552,16 +624,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Networking
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Networks";
+                            }
+
+                            _context.Networking.Add(Task);
                         }
 
                     }
@@ -582,7 +660,7 @@ namespace TasksApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
+            return Json(new { data = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
         }
 
@@ -598,25 +676,31 @@ namespace TasksApp.Controllers
 
             if (firstDayOfMonth == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Networking
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
 
-                        _context.Active_D.Add(Task);
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
+                        _context.Networking.Add(Task);
 
                     }
                 }
@@ -624,6 +708,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -631,16 +716,21 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Networking
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Networks";
+                            }
+                            _context.Networking.Add(Task);
                         }
 
                     }
@@ -649,24 +739,31 @@ namespace TasksApp.Controllers
 
             if (lastDayOfMonth == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Networking
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
-                        _context.Active_D.Add(Task);
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
+                        _context.Networking.Add(Task);
 
                     }
                 }
@@ -674,6 +771,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -681,16 +779,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Networking
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Networks";
+                            }
+
+                            _context.Networking.Add(Task);
                         }
 
                     }
@@ -712,7 +816,7 @@ namespace TasksApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
+            return Json(new { data = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
         }
 
@@ -728,25 +832,32 @@ namespace TasksApp.Controllers
 
             if (firstDayOfMonth == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Networking
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
 
-                        _context.Active_D.Add(Task);
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
+
+                        _context.Networking.Add(Task);
 
                     }
                 }
@@ -754,6 +865,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -761,16 +873,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Networking
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Networks";
+                            }
+
+                            _context.Networking.Add(Task);
                         }
 
                     }
@@ -779,24 +897,31 @@ namespace TasksApp.Controllers
 
             if (lastDayOfMonth == oDate)
             {
-                var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
+                var TasksToday = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
 
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
 
-                        var Task = new Active_D
+                        var Task = new Networking
                         {
                             Description = task.Description,
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
-                        _context.Active_D.Add(Task);
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Networks";
+                        }
+                        _context.Networking.Add(Task);
 
                     }
                 }
@@ -804,6 +929,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -811,16 +937,22 @@ namespace TasksApp.Controllers
 
                         foreach (var item in result)
                         {
-                            var Task = new Active_D
+                            var Task = new Networking
                             {
                                 Description = item.Description,
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
-                                Schedule = item.Schedule
-
+                                Schedule = item.Schedule,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
 
-                            _context.Active_D.Add(Task);
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Networks";
+                            }
+
+                            _context.Networking.Add(Task);
                         }
 
                     }
@@ -842,7 +974,7 @@ namespace TasksApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
+            return Json(new { data = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D") });
 
         }
 
