@@ -1348,18 +1348,18 @@
                                 }
                             });
                             toastr.success(data.message);
-                            Table01.ajax.reload();
-                            Table02.ajax.reload();
-                            Table03.ajax.reload();
-                            Table04.ajax.reload();
-                            Table05.ajax.reload();
-                            Table06.ajax.reload();
-                            Table01s.ajax.reload();
-                            Table02s.ajax.reload();
-                            Table03s.ajax.reload();
-                            Table04s.ajax.reload();
-                            Table05s.ajax.reload();
-                            Table06s.ajax.reload();
+                            $('#Table01').DataTable().ajax.reload();
+                            $('#Table02').DataTable().ajax.reload();
+                            $('#Table03').DataTable().ajax.reload();
+                            $('#Table04').DataTable().ajax.reload();
+                            $('#Table05').DataTable().ajax.reload();
+                            $('#Table06').DataTable().ajax.reload();
+                            $('#Table01s').DataTable().ajax.reload();
+                            $('#Table02s').DataTable().ajax.reload();
+                            $('#Table03s').DataTable().ajax.reload();
+                            $('#Table04s').DataTable().ajax.reload();
+                            $('#Table05s').DataTable().ajax.reload();
+                            $('#Table06s').DataTable().ajax.reload();
                         }
                         else {
                             toastr.error(data.message);
@@ -1404,12 +1404,12 @@
             async: false,
             success: function (response) {
                 toastr.success(response.message);
-                Table01.ajax.reload();
-                Table02.ajax.reload();
-                Table03.ajax.reload();
-                Table04.ajax.reload();
-                Table05.ajax.reload();
-                Table06.ajax.reload();
+                $('#Table01').DataTable().ajax.reload();
+                $('#Table02').DataTable().ajax.reload();
+                $('#Table03').DataTable().ajax.reload();
+                $('#Table04').DataTable().ajax.reload();
+                $('#Table05').DataTable().ajax.reload();
+                $('#Table06').DataTable().ajax.reload();
             }
         });
 

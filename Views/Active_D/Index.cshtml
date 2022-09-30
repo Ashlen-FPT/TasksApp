@@ -6,6 +6,8 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+<link href="~/css/DataTable/datatables.min.css" rel="stylesheet" />
+<script src="~/js/DataTable/datatables.min.js"></script>
 
 <h1>Tasks</h1>
 
@@ -344,160 +346,158 @@
 
 
 <script src="~/plugins/jquery/jquery.js"></script>
-<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
 
 <script>
-        var Tdate = document.getElementById("datePicker").value;
-        var selectedDate = localStorage.getItem('opDate');
-        var getDate;
+    var Tdate = document.getElementById("datePicker").value;
+    var selectedDate = localStorage.getItem('opDate');
+    var getDate;
 
-        function formatDate(date) {
-            var d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
-            if (month.length < 2)
-                month = '0' + month;
-            if (day.length < 2)
-                day = '0' + day;
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
 
-            return [year, month, day].join('-');
-        }
+        return [year, month, day].join('-');
+    }
 
-        var formattedDate = formatDate(selectedDate);
+    var formattedDate = formatDate(selectedDate);
 
-        if (selectedDate != null) {
-            getDate = selectedDate;
-            $("#datePicker").val(formattedDate).trigger("change");
-        }
-        if (selectedDate == null) {
-            getDate = Tdate;
-        }
+    if (selectedDate != null) {
+        getDate = selectedDate;
+        $("#datePicker").val(formattedDate).trigger("change");
+    }
+    if (selectedDate == null) {
+        getDate = Tdate;
+    }
 
-        $(document).ready(function () {
-            var date = document.getElementById("datePicker").value;
-            loadTable(date);
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        loadTable(date);
 
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: "/Active_D/GetAll?date=" + date,
-                async: false,
-                success: function (response) {
-                    var count = 0;
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Active_D/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
 
-                    for (var i = 0; i < response.data.length; i++) {
+                for (var i = 0; i < response.data.length; i++) {
 
-                        if (response.data[i].isDone == true) {
-                            count += 1;
-                        }
-
-                    }
-
-                    var p = (count / response.data.length) * 100;
-                    if (p == 0) {
-                        document.getElementById("progressbar").style.width = "0%";
-                        document.getElementById("progressbar").innerHTML = "0%";
-
-                    }
-
-                    else {
-                        document.getElementById("progressbar").style.width = p + "%";
-                        document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
-
-                    }
-                }
-            });
-
-
-        });
-
-
-        $('#datePicker').change(function () {
-            var date = document.getElementById("datePicker").value;
-            Table01.destroy();
-            Table02.destroy();
-            Table03.destroy();
-            Table04.destroy();
-            Table05.destroy();
-            Table06.destroy();
-            Table01s.destroy();
-            Table02s.destroy();
-            Table03s.destroy();
-            Table04s.destroy();
-            Table05s.destroy();
-            Table06s.destroy();
-            loadTable(date);
-
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: "/Active_D/GetAll?date=" + date,
-                async: false,
-                success: function (response) {
-
-                    var count = 0;
-
-                    for (var i = 0; i < response.data.length; i++) {
-
-                        if (response.data[i].isDone == true) {
-                            count += 1;
-                        }
-
-                    }
-
-                    var p = (count / response.data.length) * 100;
-
-                    if (Number.isNaN(p)) {
-                        console.log(p)
-                        document.getElementById("progressbar").style.width = "0%";
-                        document.getElementById("progressbar").innerHTML = "0%";
-
-                    }
-                    else if (p == 0) {
-                        document.getElementById("progressbar").style.width = "0%";
-                        document.getElementById("progressbar").innerHTML = "0%";
-                    }
-
-                    else {
-                        document.getElementById("progressbar").style.width = p + "%";
-                        document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                    if (response.data[i].isDone == true) {
+                        count += 1;
                     }
 
                 }
-            });
 
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+
+                }
+
+                else {
+                    document.getElementById("progressbar").style.width = p + "%";
+                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+
+                }
+            }
         });
 
-        function loadTable(date) {
 
-            Table01 = $("#Table01").DataTable({
-                "ajax": {
-                    "url": "/Active_D/GetTasksToday?date=" + date
-                },
-                "columns": [
-                    { "data": "description", "width": "60%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+    });
 
-                                return `
+
+    $('#datePicker').change(function () {
+        var date = document.getElementById("datePicker").value;
+        Table01.destroy();
+        Table02.destroy();
+        Table03.destroy();
+        Table04.destroy();
+        Table05.destroy();
+        Table06.destroy();
+        Table01s.destroy();
+        Table02s.destroy();
+        Table03s.destroy();
+        Table04s.destroy();
+        Table05s.destroy();
+        Table06s.destroy();
+        loadTable(date);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Active_D/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+
+                if (Number.isNaN(p)) {
+                    console.log(p)
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+
+                }
+                else if (p == 0) {
+                    document.getElementById("progressbar").style.width = "0%";
+                    document.getElementById("progressbar").innerHTML = "0%";
+                }
+
+                else {
+                    document.getElementById("progressbar").style.width = p + "%";
+                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                }
+
+            }
+        });
+
+    });
+
+    function loadTable(date) {
+
+        Table01 = $("#Table01").DataTable({
+            "ajax": {
+                "url": "/Active_D/GetTasksToday?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "60%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
 
                                        <input onclick=Delete("/Active_D/CompleteTask/${data.id}") type="checkbox" />
@@ -505,39 +505,39 @@
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "30%"
+                    }, "width": "30%"
+                },
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+
+                {
+                    "data": {
+                        id: "id"
                     },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "50%"
-                    },
-
-                    {
-                        "data": {
-                            id: "id"
-                        },
-                        "render": function (data) {
+                    "render": function (data) {
 
 
-                            return `
+                        return `
                                     <div class="text-center">
                                        <button type="button" class="btn btn-info" onclick="showModal(this)"  data-id="${data.id}" >
                                             <i class="fas fa-comment"></i>
@@ -545,78 +545,78 @@
 
                                     </div>
                                    `;
-                        }, "width": "40%"
-                    },
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-            localStorage.removeItem('opDate');
-
-            Table02 = $("#Table02").DataTable({
-                "ajax": {
-                    "url": "/Active_D/GetTasksWeekly?date=" + date
+                    }, "width": "40%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                { "data": "comments", "width": "100%" }
 
-                                return `
+            ]
+        });
+        localStorage.removeItem('opDate');
+
+        Table02 = $("#Table02").DataTable({
+            "ajax": {
+                "url": "/Active_D/GetTasksWeekly?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input onclick=Delete("/Active_D/CompleteTask/${data.id}") type="checkbox" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
+                    }, "width": "22%"
+                },
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+
+                {
+                    "data": {
+                        id: "id"
                     },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "100%"
-                    },
-
-                    {
-                        "data": {
-                            id: "id"
-                        },
-                        "render": function (data) {
+                    "render": function (data) {
 
 
-                            return `
+                        return `
                                     <div class="text-center">
                                        <button type="button" class="btn btn-info" onclick="showModal(this)"  data-id="${data.id}" >
                                             <i class="fas fa-comment"></i>
@@ -624,77 +624,77 @@
 
                                     </div>
                                    `;
-                        }, "width": "20%"
-                    },
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-
-            Table03 = $("#Table03").DataTable({
-                "ajax": {
-                    "url": "/Active_D/GetTasksMonthly?date=" + date
+                    }, "width": "20%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                { "data": "comments", "width": "100%" }
 
-                                return `
+            ]
+        });
+
+        Table03 = $("#Table03").DataTable({
+            "ajax": {
+                "url": "/Active_D/GetTasksMonthly?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input onclick=Delete("/Active_D/CompleteTask/${data.id}") type="checkbox" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
+                    }, "width": "22%"
+                },
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+
+                {
+                    "data": {
+                        id: "id"
                     },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "100%"
-                    },
-
-                    {
-                        "data": {
-                            id: "id"
-                        },
-                        "render": function (data) {
+                    "render": function (data) {
 
 
-                            return `
+                        return `
                                     <div class="text-center">
                                        <button type="button" class="btn btn-info" onclick="showModal(this)"  data-id="${data.id}" >
                                             <i class="fas fa-comment"></i>
@@ -702,77 +702,77 @@
 
                                     </div>
                                    `;
-                        }, "width": "20%"
-                    },
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-
-            Table04 = $("#Table04").DataTable({
-                "ajax": {
-                    "url": "/Active_D/GetTasksQuarterly?date=" + date
+                    }, "width": "20%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                { "data": "comments", "width": "100%" }
 
-                                return `
+            ]
+        });
+
+        Table04 = $("#Table04").DataTable({
+            "ajax": {
+                "url": "/Active_D/GetTasksQuarterly?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input onclick=Delete("/Active_D/CompleteTask/${data.id}") type="checkbox" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
+                    }, "width": "22%"
+                },
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+
+                {
+                    "data": {
+                        id: "id"
                     },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "100%"
-                    },
-
-                    {
-                        "data": {
-                            id: "id"
-                        },
-                        "render": function (data) {
+                    "render": function (data) {
 
 
-                            return `
+                        return `
                                     <div class="text-center">
                                        <button type="button" class="btn btn-info" onclick="showModal(this)"  data-id="${data.id}" >
                                             <i class="fas fa-comment"></i>
@@ -780,77 +780,77 @@
 
                                     </div>
                                    `;
-                        }, "width": "20%"
-                    },
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-
-            Table05 = $("#Table05").DataTable({
-                "ajax": {
-                    "url": "/Active_D/GetTasksBi?date=" + date
+                    }, "width": "20%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                { "data": "comments", "width": "100%" }
 
-                                return `
+            ]
+        });
+
+        Table05 = $("#Table05").DataTable({
+            "ajax": {
+                "url": "/Active_D/GetTasksBi?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input onclick=Delete("/Active_D/CompleteTask/${data.id}") type="checkbox" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
+                    }, "width": "22%"
+                },
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+
+                {
+                    "data": {
+                        id: "id"
                     },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "100%"
-                    },
-
-                    {
-                        "data": {
-                            id: "id"
-                        },
-                        "render": function (data) {
+                    "render": function (data) {
 
 
-                            return `
+                        return `
                                     <div class="text-center">
                                        <button type="button" class="btn btn-info" onclick="showModal(this)"  data-id="${data.id}" >
                                             <i class="fas fa-comment"></i>
@@ -858,77 +858,77 @@
 
                                     </div>
                                    `;
-                        }, "width": "20%"
-                    },
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-
-            Table06 = $("#Table06").DataTable({
-                "ajax": {
-                    "url": "/Active_D/GetTasksAnnually?date=" + date
+                    }, "width": "20%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                { "data": "comments", "width": "100%" }
 
-                                return `
+            ]
+        });
+
+        Table06 = $("#Table06").DataTable({
+            "ajax": {
+                "url": "/Active_D/GetTasksAnnually?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input onclick=Delete("/Active_D/CompleteTask/${data.id}") type="checkbox" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
+                    }, "width": "22%"
+                },
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
+
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+
+                {
+                    "data": {
+                        id: "id"
                     },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "100%"
-                    },
-
-                    {
-                        "data": {
-                            id: "id"
-                        },
-                        "render": function (data) {
+                    "render": function (data) {
 
 
-                            return `
+                        return `
                                     <div class="text-center">
                                        <button type="button" class="btn btn-info" onclick="showModal(this)"  data-id="${data.id}" >
                                             <i class="fas fa-comment"></i>
@@ -936,38 +936,38 @@
 
                                     </div>
                                    `;
-                        }, "width": "20%"
-                    },
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-
-            Table01 = $("#Table01s").DataTable({
-                "ajax": {
-                    "url": "/Active_D/AdminGetAll?date=" + date
+                    }, "width": "20%"
                 },
-                "columns": [
-                    { "data": "description", "width": "60%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                { "data": "comments", "width": "100%" }
 
-                                return `
+            ]
+        });
+
+        Table01 = $("#Table01s").DataTable({
+            "ajax": {
+                "url": "/Active_D/AdminGetAll?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "60%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
 
                                        <input disabled type="checkbox"/>
@@ -975,453 +975,451 @@
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "30%"
-                    },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "50%"
-                    },
-
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-            localStorage.removeItem('opDate');
-
-            Table02 = $("#Table02s").DataTable({
-                "ajax": {
-                    "url": "/Active_D/AdminGetAllW?date=" + date
+                    }, "width": "30%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
 
-                                return `
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "50%"
+                },
+
+                { "data": "comments", "width": "100%" }
+
+            ]
+        });
+        localStorage.removeItem('opDate');
+
+        Table02 = $("#Table02s").DataTable({
+            "ajax": {
+                "url": "/Active_D/AdminGetAllW?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox"/>
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
-                    },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "100%"
-                    },
-
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-
-            Table03 = $("#Table03s").DataTable({
-                "ajax": {
-                    "url": "/Active_D/AdminGetAllM?date=" + date
+                    }, "width": "22%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
 
-                                return `
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+
+                { "data": "comments", "width": "100%" }
+
+            ]
+        });
+
+        Table03 = $("#Table03s").DataTable({
+            "ajax": {
+                "url": "/Active_D/AdminGetAllM?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox"/>
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
-                    },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "100%"
-                    },
-
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-
-            Table04 = $("#Table04s").DataTable({
-                "ajax": {
-                    "url": "/Active_D/AdminGetAllQ?date=" + date
+                    }, "width": "22%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
 
-                                return `
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+
+                { "data": "comments", "width": "100%" }
+
+            ]
+        });
+
+        Table04 = $("#Table04s").DataTable({
+            "ajax": {
+                "url": "/Active_D/AdminGetAllQ?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox"/>
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
-                    },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "100%"
-                    },
-
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-
-            Table05 = $("#Table05s").DataTable({
-                "ajax": {
-                    "url": "/Active_D/AdminGetAllB?date=" + date
+                    }, "width": "22%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
 
-                                return `
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+
+                { "data": "comments", "width": "100%" }
+
+            ]
+        });
+
+        Table05 = $("#Table05s").DataTable({
+            "ajax": {
+                "url": "/Active_D/AdminGetAllB?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox"/>
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
-                    },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
-
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
-
-                        }, "width": "100%"
-                    },
-
-                    { "data": "comments", "width": "100%" }
-
-                ]
-            });
-
-            Table06 = $("#Table06s").DataTable({
-                "ajax": {
-                    "url": "/Active_D/AdminGetAllA?date=" + date
+                    }, "width": "22%"
                 },
-                "columns": [
-                    { "data": "description", "width": "100%" },
-                    {
-                        "data": {
-                            id: "id", isDone: "isDone"
-                        },
-                        "render": function (data) {
-                            if (data.isDone == true) {
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
 
-                                return `
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
+
+                    }, "width": "100%"
+                },
+
+                { "data": "comments", "width": "100%" }
+
+            ]
+        });
+
+        Table06 = $("#Table06s").DataTable({
+            "ajax": {
+                "url": "/Active_D/AdminGetAllA?date=" + date
+            },
+            "columns": [
+                { "data": "description", "width": "100%" },
+                {
+                    "data": {
+                        id: "id", isDone: "isDone"
+                    },
+                    "render": function (data) {
+                        if (data.isDone == true) {
+
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox" checked="true" />
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                            if (data.isDone == false) {
+                        if (data.isDone == false) {
 
-                                return `
+                            return `
                                     <div class="text-center">
                                        <input disabled type="checkbox"/>
 
                                     </div>
                                    `;
 
-                            }
+                        }
 
-                        }, "width": "22%"
-                    },
-                    {
-                        "data": "dateTaskCompleted",
-                        'render': function (jsonDate) {
+                    }, "width": "22%"
+                },
+                {
+                    "data": "dateTaskCompleted",
+                    'render': function (jsonDate) {
 
-                            if (jsonDate == "0001-01-01T00:00:00") {
-                                return " ";
-                            }
-                            else {
-                                var datestr = jsonDate.toString();
-                                var date = new Date(datestr.substr(0, 10));
-                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                var time = datestr.substr(11)
-                                var hr = time.substr(0, 2)
-                                var min = time.substr(3, 2)
-                                var sec = time.substr(6, 2);
-                                return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
-                            }
+                        if (jsonDate == "0001-01-01T00:00:00") {
+                            return " ";
+                        }
+                        else {
+                            var datestr = jsonDate.toString();
+                            var date = new Date(datestr.substr(0, 10));
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var time = datestr.substr(11)
+                            var hr = time.substr(0, 2)
+                            var min = time.substr(3, 2)
+                            var sec = time.substr(6, 2);
+                            return ("0" + date.getDate()).slice(-2) + '-' + month + '-' + date.getFullYear() + "  " + hr + ":" + min + ":" + sec;
+                        }
 
-                        }, "width": "100%"
-                    },
+                    }, "width": "100%"
+                },
 
-                    { "data": "comments", "width": "100%" }
+                { "data": "comments", "width": "100%" }
 
-                ]
-            });
+            ]
+        });
 
-        }
+    }
 
-        function Delete(url) {
+    function Delete(url) {
 
-            var uri = url;
-            var res = encodeURI(uri);
+        var uri = url;
+        var res = encodeURI(uri);
 
-            swal({
-                title: "Are you sure you want to complete this task?",
-                text: "You will not be able to restore the data!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true
-            }).then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                        type: "GET",
-                        url: res,
-                        success: function (data) {
-                            if (data.success) {
-                                var date = document.getElementById("datePicker").value;
-                                $.ajax({
-                                    type: "GET",
-                                    dataType: 'json',
-                                    url: "/Active_D/GetAll?date=" + date,
-                                    async: false,
-                                    success: function (response) {
-                                        console.log(response)
-                                        var count = 0;
+        swal({
+            title: "Are you sure you want to complete this task?",
+            text: "You will not be able to restore the data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "GET",
+                    url: res,
+                    success: function (data) {
+                        if (data.success) {
+                            var date = document.getElementById("datePicker").value;
+                            $.ajax({
+                                type: "GET",
+                                dataType: 'json',
+                                url: "/Active_D/GetAll?date=" + date,
+                                async: false,
+                                success: function (response) {
+                                    console.log(response)
+                                    var count = 0;
 
-                                        for (var i = 0; i < response.data.length; i++) {
+                                    for (var i = 0; i < response.data.length; i++) {
 
-                                            if (response.data[i].isDone == true) {
-                                                count += 1;
-                                            }
-
+                                        if (response.data[i].isDone == true) {
+                                            count += 1;
                                         }
 
-                                        var p = (count / response.data.length) * 100;
-                                        document.getElementById("progressbar").style.width = p + "%";
-                                        document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
                                     }
-                                });
-                                toastr.success(data.message);
-                                Table01.ajax.reload();
-                                Table02.ajax.reload();
-                                Table03.ajax.reload();
-                                Table04.ajax.reload();
-                                Table05.ajax.reload();
-                                Table06.ajax.reload();
-                                Table01s.ajax.reload();
-                                Table02s.ajax.reload();
-                                Table03s.ajax.reload();
-                                Table04s.ajax.reload();
-                                Table05s.ajax.reload();
-                                Table06s.ajax.reload();
 
-                            }
-                            else {
-                                toastr.error(data.message);
-                            }
+                                    var p = (count / response.data.length) * 100;
+                                    document.getElementById("progressbar").style.width = p + "%";
+                                    document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
+                                }
+                            });
+                            toastr.success(data.message);
+                            $('#Table01').DataTable().ajax.reload();
+                            $('#Table02').DataTable().ajax.reload();
+                            $('#Table03').DataTable().ajax.reload();
+                            $('#Table04').DataTable().ajax.reload();
+                            $('#Table05').DataTable().ajax.reload();
+                            $('#Table06').DataTable().ajax.reload();
+                            $('#Table01s').DataTable().ajax.reload();
+                            $('#Table02s').DataTable().ajax.reload();
+                            $('#Table03s').DataTable().ajax.reload();
+                            $('#Table04s').DataTable().ajax.reload();
+                            $('#Table05s').DataTable().ajax.reload();
+                            $('#Table06s').DataTable().ajax.reload();
                         }
-                    });
-                }
-            });
-        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    }
 
-        var CommentId = 1;
+    var CommentId = 1;
 
-        function showModal(event) {
+    function showModal(event) {
 
-            $('#exampleModal').modal("toggle");
+        $('#exampleModal').modal("toggle");
 
-            CommentId = event.dataset.id
+        CommentId = event.dataset.id
 
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: "/Active_D/GetTask?id=" + CommentId,
-                async: false,
-                success: function (response) {
-                    document.getElementById("message-text").value = response.comments;
-                    console.log(response.comments)
-                }
-            });
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Active_D/GetTask?id=" + CommentId,
+            async: false,
+            success: function (response) {
+                document.getElementById("message-text").value = response.comments;
+                console.log(response.comments)
+            }
+        });
 
-        }
+    }
 
-        function SaveComment() {
+    function SaveComment() {
 
-            console.log("save")
+        console.log("save")
 
-            var comment = document.getElementById("message-text").value;
+        var comment = document.getElementById("message-text").value;
 
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: "/Active_D/AddComment?id=" + CommentId + "&comment=" + comment,
-                async: false,
-                success: function (response) {
-                    toastr.success(response.message);
-                    Table01.ajax.reload();
-                    Table02.ajax.reload();
-                    Table03.ajax.reload();
-                    Table04.ajax.reload();
-                    Table05.ajax.reload();
-                    Table06.ajax.reload();
-                }
-            });
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Active_D/AddComment?id=" + CommentId + "&comment=" + comment,
+            async: false,
+            success: function (response) {
+                toastr.success(response.message);
+                $('#Table01').DataTable().ajax.reload();
+                $('#Table02').DataTable().ajax.reload();
+                $('#Table03').DataTable().ajax.reload();
+                $('#Table04').DataTable().ajax.reload();
+                $('#Table05').DataTable().ajax.reload();
+                $('#Table06').DataTable().ajax.reload();
+            }
+        });
 
+        $('#exampleModal').modal("toggle");
+    }
 
-            $('#exampleModal').modal("toggle");
-        }
-
-    </script>
+</script>
