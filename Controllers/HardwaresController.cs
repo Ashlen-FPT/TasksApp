@@ -921,7 +921,7 @@ namespace TasksApp.Controllers
             var Ddate = _context.Hardware.Find(id).DateCreated;
             var task = _context.Hardware.Find(id);
             //Get Last Item & Change Status
-            var items = Hardware.Where((x, i) => i % count == count - 1);
+            var items = Hardware.Where((x, i) => i % count == count - count);
             var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
             var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
             var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
