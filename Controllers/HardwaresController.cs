@@ -154,6 +154,66 @@ namespace TasksApp.Controllers
             return _context.Hardware.Any(e => e.Id == id);
         }
 
+        [HttpGet]
+        public IActionResult AdminGetAll(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date) });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllW(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllM(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly") });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllQ(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Quarterly") });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllB(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Bi-Annually") });
+
+        }
+
+        [HttpGet]
+        public IActionResult AdminGetAllA(DateTime date)
+        {
+
+            DateTime oDate = Convert.ToDateTime(date);
+
+            return Json(new { data = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Anually") });
+
+        }
+
         #region API Calls
 
 
