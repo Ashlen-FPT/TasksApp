@@ -215,39 +215,39 @@
                 </li>*@
 
                 @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                    <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                    <span class="c-sidebar-nav-icon fa fa-info-circle"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Click here for more checklist options"></span>
+                    &nbsp;
+                    Dashboard
+                </a>
+
+                <ul class="c-sidebar-nav-dropdown-items">*@
+
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="MCT_IT_Index">
                         <span class="c-sidebar-nav-icon fa fa-info-circle"
                               data-toggle="tooltip"
                               data-placement="bottom"
-                              title="Click here for more checklist options"></span>
+                              title="Click here to Manage Tasks"></span>
                         &nbsp;
-                        Dashboard
+                        IT Maintanance Dashboard
                     </a>
+                </li>
 
-                    <ul class="c-sidebar-nav-dropdown-items">*@
-                   
-                        <li class="c-sidebar-nav-item">
-                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="MCT_IT_Index">
-                                <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to Manage Tasks"></span>
-                                &nbsp;
-                                IT Maintanance Dashboard
-                            </a>
-                        </li>
-
-                        @*<li class="c-sidebar-nav-item">
-                            <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Index">
-                                <span class="c-sidebar-nav-icon fa fa-info-circle"
-                                      data-toggle="tooltip"
-                                      data-placement="bottom"
-                                      title="Click here to Manage Tasks"></span>
-                                &nbsp;
-                                Tasks Dashboard
-                            </a>
-                        </li>*@
-                    @*</ul>
+                @*<li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Index">
+                        <span class="c-sidebar-nav-icon fa fa-info-circle"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Click here to Manage Tasks"></span>
+                        &nbsp;
+                        Tasks Dashboard
+                    </a>
+                </li>*@
+                @*</ul>
                 </li>*@
 
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
@@ -920,7 +920,16 @@
                         </li>*@
 
                     </ul>
-
+                </li>
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link" asp-controller="Dashboard" asp-action="Calendar">
+                        <span class="c-sidebar-nav-icon fa fa-calendar-alt"
+                              data-toggle="tooltip"
+                              data-placement="bottom"
+                              title="Operator Operations at a glance"></span>
+                        &nbsp;
+                        Calendar Overview
+                    </a>
                 </li>
             }
 
