@@ -248,6 +248,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count == 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).Where(s => s.TaskCategory == "Active_D").ToList();
+                var last = Main_Task.LastOrDefault();
 
                 foreach (var task in Main_Task)
                 {
@@ -258,15 +259,20 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
                         Schedule = task.Schedule,
-                        TaskCategory = task.TaskCategory
-
+                        TaskCategory = task.TaskCategory,
+                        Status = "Task : Incomplete",
+                        User = User.FindFirst("Username")?.Value
                     };
 
+                    if (task == last)
+                    {
+                        Task.Status = "Do-Checklist : Active Directory";
+                    }
                     _context.Active_D.Add(Task);
-
 
                 }
             }
+            
 
             if (TasksToday.Count > 0)
             {
@@ -328,6 +334,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -338,9 +345,15 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            TaskCategory = task.TaskCategory
+                            TaskCategory = task.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
 
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Active Directory";
+                        }
                         _context.Active_D.Add(Task);
 
                     }
@@ -375,10 +388,10 @@ namespace TasksApp.Controllers
             if (lastDayOfMonth == oDate)
             {
                 var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Monthly").Where(s => s.TaskCategory == "Active_D").ToList();
-
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Monthly").Where(d => d.Month == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -389,8 +402,15 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            TaskCategory = task.TaskCategory
+                            TaskCategory = task.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (task == last)
+                        { 
+                            Task.Status = "Do-Checklist : Active Directory";
+                        }
                         _context.Active_D.Add(Task);
 
                     }
@@ -462,6 +482,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Quarterly").Where(d => d.Quarterly == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -472,9 +493,15 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            TaskCategory = task.TaskCategory
+                            TaskCategory = task.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
 
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Active Directory";
+                        }
                         _context.Active_D.Add(Task);
 
                     }
@@ -483,7 +510,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Quarterly").Where(d => d.Quarterly == "Beginning").Where(s => s.TaskCategory == "Active_D").ToList();
-
+                    var last = Main_Task.LastOrDefault();
                     if (Main_Task.Count > TasksToday.Count)
                     {
                         var result = Main_Task.Where(p => TasksToday.All(p2 => p2.Description != p.Description));
@@ -496,8 +523,15 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                TaskCategory = item.TaskCategory
+                                TaskCategory = item.TaskCategory,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
+
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Active Directory";
+                            }
 
                             _context.Active_D.Add(Task);
                         }
@@ -513,6 +547,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Quarterly").Where(d => d.Quarterly == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -523,16 +558,25 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            TaskCategory = task.TaskCategory
+                            TaskCategory = task.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Active Directory";
+                        }
                         _context.Active_D.Add(Task);
 
                     }
+
                 }
 
                 if (TasksToday.Count > 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Quarterly").Where(d => d.Quarterly == "End").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     if (Main_Task.Count > TasksToday.Count)
                     {
@@ -546,8 +590,15 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                TaskCategory = item.TaskCategory
+                                TaskCategory = item.TaskCategory,
+                                Status = "Task : Incomplete",
+                                User = User.FindFirst("Username")?.Value
                             };
+
+                            if (item == last)
+                            {
+                                Task.Status = "Do-Checklist : Active Directory";
+                            }
 
                             _context.Active_D.Add(Task);
                         }
@@ -592,6 +643,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Bi-Annually").Where(d => d.Bi_Annual == "1st").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -602,9 +654,15 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            TaskCategory = task.TaskCategory
+                            TaskCategory = task.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
 
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Active Directory";
+                        }
                         _context.Active_D.Add(Task);
 
                     }
@@ -643,6 +701,7 @@ namespace TasksApp.Controllers
                 if (TasksToday.Count == 0)
                 {
                     var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Bi-Annually").Where(d => d.Bi_Annual == "2nd").Where(s => s.TaskCategory == "Active_D").ToList();
+                    var last = Main_Task.LastOrDefault();
 
                     foreach (var task in Main_Task)
                     {
@@ -653,8 +712,15 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-
+                            TaskCategory = task.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (task == last)
+                        {
+                            Task.Status = "Do-Checklist : Active Directory";
+                        }
                         _context.Active_D.Add(Task);
 
                     }
