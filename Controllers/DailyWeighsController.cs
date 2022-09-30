@@ -358,7 +358,7 @@ namespace TasksApp.Controllers
                     };
                     _context.Logs.Add(log);
 
-                    _context.Add(Task);
+                    //_context.Add(Task);
                 }
 
                 var result = tasks.Where(p => tasks.All(p2 => p2.Date == p.Date)).Where(x => tasks.All(x2 => x2.Time == x.Time)).Where(r => tasks.All(r2 => r2.Gross == 0));
