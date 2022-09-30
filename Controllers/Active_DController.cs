@@ -907,7 +907,7 @@ namespace TasksApp.Controllers
             var Ddate = _context.Active_D.Find(id).DateCreated;
             var task = _context.Active_D.Find(id);
             //Get Last Item & Change Status
-            var items = AD.Where((x, i) => i % count == count - 1);
+            var items = AD.Where((x, i) => i % count == count - count);
             var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
             var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
             var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
