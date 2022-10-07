@@ -1003,7 +1003,7 @@ namespace TasksApp.Controllers
             var getPartial = Network.Where(x => x.DateCreated == Ddate && x.Status.StartsWith("D"));
             var getPDate = getPartial.Select(i => i.DateCreated).FirstOrDefault();
             var getPId = getPartial.Select(i => i.Id).FirstOrDefault();
-            var ChangeToPartialStatus = _context.Active_D.Find(getPId);
+            var ChangeToPartialStatus = _context.Networking.Find(getPId);
 
             //ChangeToCompleteStatus
             var getComplete = Network.Where(x => x.DateCreated == Ddate && x.Status.StartsWith("P"));
