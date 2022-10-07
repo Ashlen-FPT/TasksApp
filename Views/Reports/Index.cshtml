@@ -105,15 +105,15 @@
         var date = document.getElementById("datePicker").value;
         loadTable(date);
 
-        $.ajax({
-            type: "GET",
-            dataType: 'json',
-            url: "/Reports/GetReport?date=" + date,
-            async: false,
-            success: function (response) {
+        //$.ajax({
+        //    type: "GET",
+        //    dataType: 'json',
+        //    url: "/Reports/GetReport?date=" + date,
+        //    async: false,
+        //    success: function (response) {
 
-            }
-        });
+        //    }
+        //});
 
 
     });
