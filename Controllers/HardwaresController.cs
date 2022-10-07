@@ -1003,7 +1003,7 @@ namespace TasksApp.Controllers
             var getComplete = Hardware.Where(x => x.DateCreated == Ddate && x.Status.StartsWith("P"));
             var getCDate = getComplete.Select(i => i.DateCreated).FirstOrDefault();
             var getCId = getComplete.Select(i => i.Id).FirstOrDefault();
-            var ChangeToCompleteStatus = _context.Active_D.Find(getCId);
+            var ChangeToCompleteStatus = _context.Hardware.Find(getCId);
 
 
             task.IsDone = true;
