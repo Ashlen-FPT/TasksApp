@@ -1,5 +1,12 @@
 ﻿@model TasksApp.ViewModels.DashboardViewModel
 
+
+<div class="form-group">
+    <label class="control-label">Choose date</label>
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" min="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
+</div>
+
+
 <section class="content-header">
 
     @*<ol class="breadcrumb">
@@ -9,10 +16,6 @@
 </section>
 
 <!-- Main content -->
-@*<div class="form-group">
-
-        <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
-    </div>*@
 
 <div id="dashboard">
     <section class="content">
@@ -117,45 +120,31 @@
 
                                 <span class="progress-text">Active Directory CheckList</span>
                                 <div class="progress">
-                                    <div id="progress1" class="progress-bar progress-bar-aqua" role="progressbar" aria-valuemax="100">
-                                        <a href="@Url.Action("CompleteTask", "Active_D")#progressbar" data-target="#progressbar">
-
-                                        </a>
-                                    </div>
+                                    <div id="progress1" class="progress-bar progress-bar-aqua" role="progressbar" aria-valuemax="100"></div>
                                 </div>
                                 <br />
 
                                 <span class="progress-text">Hardware CheckList</span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemax="100">
-                                        <a href="DailyChecks/Index.cshtml?id=progressbar" data-target="#progressbar">
-
-                                        </a>
-                                    </div>
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemax="100" id="progress2"></div>
                                 </div>
                                 <br />
 
                                 <span class="progress-text">Networking Checklist</span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progressbar3">
-
-                                    </div>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemax="100" id="progressbar3"></div>
                                 </div>
                                 <br />
 
                                 <span class="progress-text">Security Checklist</span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemax="100" id="progressbar4">
-
-                                    </div>
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemax="100" id="progressbar4"></div>
                                 </div>
                                 <br />
 
                                 <span class="progress-text">Software Checklist</span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuemax="100" id="progressbar5">
-
-                                    </div>
+                                    <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuemax="100" id="progressbar5"></div>
                                 </div>
                                 <br />
                             </div>
@@ -175,14 +164,6 @@
 
 
 <script>
-
-    //$(function () {
-    //    $("progress2").onChange(function (e) {
-    //        $("progress").load("DailyChecks/Index", function () {
-    //            alert("page content has been loaded");
-    //        });
-    //    });
-    //})
 
 
     $(function () {
@@ -218,4 +199,180 @@
             hideHover: 'auto'
         });
     });
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Active_D/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progress1").style.width = "0%";
+                    document.getElementById("progress1").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progress1").style.width = p + "%";
+                    document.getElementById("progress1").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Hardwares/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progress2").style.width = "0%";
+                    document.getElementById("progress2").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progress2").style.width = p + "%";
+                    document.getElementById("progress2").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Networkings/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar3").style.width = "0%";
+                    document.getElementById("progressbar3").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progressbar3").style.width = p + "%";
+                    document.getElementById("progressbar3").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Securities/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar4").style.width = "0%";
+                    document.getElementById("progressbar4").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progressbar4").style.width = p + "%";
+                    document.getElementById("progressbar4").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Softwares/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar5").style.width = "0%";
+                    document.getElementById("progressbar5").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progressbar5").style.width = p + "%";
+                    document.getElementById("progressbar5").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
+
 </script>
