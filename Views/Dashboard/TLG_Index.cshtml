@@ -1,5 +1,11 @@
 ﻿@model TasksApp.ViewModels.DashboardViewModel
 
+
+<div class="form-group">
+    <label class="control-label">Choose date</label>
+    <input class="form-control" id="datePicker" type="date" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" min="@DateTime.Now.Date.ToString("yyyy-MM-dd")" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" style="width: 100%;" />
+</div>
+
 <section class="content-header">
     
     @*<ol class="breadcrumb">
@@ -120,45 +126,31 @@
 
                                 <span class="progress-text">Brake Test FEL CheckList</span>
                                 <div class="progress">
-                                    <div id="progress1" class="progress-bar progress-bar-aqua" role="progressbar" aria-valuemax="100">
-                                        <a href="@Url.Action("CompleteTask", "BobCats")#progressbar" data-target="#progressbar">
-                                           
-                                        </a>
-                                    </div>
+                                    <div id="progress1" class="progress-bar progress-bar-aqua" role="progressbar" aria-valuemax="100"></div>
                                 </div>
                                 <br />
 
                                 <span class="progress-text">Daily CheckList</span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemax="100">
-                                        <a href="DailyChecks/Index.cshtml?id=progressbar" data-target="#progressbar">
-                                            
-                                        </a>
-                                    </div>
+                                    <div class="progress-bar progress-bar-warning" id ="progress2"  role="progressbar" aria-valuemax="100"></div>
                                 </div>
                                 <br />
 
                                 <span class="progress-text">Weighbridge Test</span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar"aria-valuemin="0" aria-valuemax="100" id="progressbar3">
-
-                                    </div>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemax="100" id="progressbar3"></div>
                                 </div>
                                 <br />
 
                                 <span class="progress-text">Pre-start Checklist FEL</span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemax="100" id="progressbar4">
-
-                                    </div>
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemax="100" id="progressbar4"></div>
                                 </div>
                                 <br />
 
                                 <span class="progress-text">Maintenance Checklist</span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuemax="100" id="progressbar5">
-
-                                    </div>
+                                    <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuemax="100" id="progressbar5"></div>
                                 </div>
                                 <br />
                             </div>
@@ -179,13 +171,13 @@
 
 <script>
 
-    $(function () {
-        $("progress2").onChange(function (e) {
-            $("progress").load("DailyChecks/Index", function () {
-                alert("page content has been loaded");
-            });
-        });
-    })
+    //$(function () {
+    //    $("progress2").onChange(function (e) {
+    //        $("progress").load("DailyChecks/Index", function () {
+    //            alert("page content has been loaded");
+    //        });
+    //    });
+    //})
 
 
     $(function () {
@@ -222,142 +214,183 @@
         });
     });
 
-    //$(document).ready(function () {
-    //    $('#dashboard').load('Dashboard/TLG_Index.cshtml');
-    //    var date = document.getElementById("datePicker").value;
-        
 
-    //    $.ajax({
-    //        type: "GET",
-    //        dataType: 'json',
-    //        url: "/Dashboard/TLG_Index?date=" + date,
-    //        async: false,
-    //        success: function (response) {
-    //            var count = 0;
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
 
-    //            for (var i = 0; i < response.data.length; i++) {
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/BobCats/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
 
-    //                if (response.data[i].isDone == true) {
-    //                    count += 1;
-    //                }
+                for (var i = 0; i < response.data.length; i++) {
 
-    //            }
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
 
-    //            var p = (count / response.data.length) * 100;
-    //            if (p == 0) {
-    //                document.getElementById("progressbar").style.width = "0%";
-    //                document.getElementById("progressbar").innerHTML = "0%";
-    //            }
-    //            else {
-    //                document.getElementById("progressbar").style.width = p + "%";
-    //                document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
-    //            }
-    //        }
-    //    });
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progress1").style.width = "0%";
+                    document.getElementById("progress1").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progress1").style.width = p + "%";
+                    document.getElementById("progress1").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/DailyChecks/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progress2").style.width = "0%";
+                    document.getElementById("progress2").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progress2").style.width = p + "%";
+                    document.getElementById("progress2").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/DailyWeighs/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar3").style.width = "0%";
+                    document.getElementById("progressbar3").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progressbar3").style.width = p + "%";
+                    document.getElementById("progressbar3").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Items/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar4").style.width = "0%";
+                    document.getElementById("progressbar4").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progressbar4").style.width = p + "%";
+                    document.getElementById("progressbar4").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var date = document.getElementById("datePicker").value;
+        /*console.log(date);*/
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/Maintenances/GetAll?date=" + date,
+            async: false,
+            success: function (response) {
+                var count = 0;
+
+                for (var i = 0; i < response.data.length; i++) {
+
+                    if (response.data[i].isDone == true) {
+                        count += 1;
+                    }
+
+                }
+
+                var p = (count / response.data.length) * 100;
+                if (p == 0) {
+                    document.getElementById("progressbar5").style.width = "0%";
+                    document.getElementById("progressbar5").innerHTML = "0%";
+                }
+                else {
+                    document.getElementById("progressbar5").style.width = p + "%";
+                    document.getElementById("progressbar5").innerHTML = Math.round(p) + "%";
+                }
+                console.log(p);
+            }
+        });
+
+    });
 
 
-    //});
-
-
-    //$('#datePicker').change(function () {
-    //    var date = document.getElementById("datePicker").value;
-    //    Table01.destroy();
-    //    loadTable(date);
-
-    //    $.ajax({
-    //        type: "GET",
-    //        dataType: 'json',
-    //        url: "/ Dashboard / TLG_Index ? date = " + date,
-    //        async: false,
-    //        success: function (response) {
-
-    //            var count = 0;
-
-    //            for (var i = 0; i < response.data.length; i++) {
-
-    //                if (response.data[i].isDone == true) {
-    //                    count += 1;
-    //                }
-
-    //            }
-
-    //            var p = (count / response.data.length) * 100;
-
-    //            if (Number.isNaN(p)) {
-    //                console.log(p)
-    //                document.getElementById("progressbar").style.width = "0%";
-    //                document.getElementById("progressbar").innerHTML = "0%";
-    //            }
-    //            else if (p == 0) {
-    //                document.getElementById("progressbar").style.width = "0%";
-    //                document.getElementById("progressbar").innerHTML = "0%";
-    //            }
-
-    //            else {
-    //                document.getElementById("progressbar").style.width = p + "%";
-    //                document.getElementById("progressbar").innerHTML = Math.round(p) + "%";
-    //            }
-
-    //        }
-    //    });
-
-    //});
-    //    $.ajax({
-    //        type: "GET",
-    //        dataType: 'json',
-    //        url: "/BobCats/GetAll",
-    //        async: false,
-    //        success: function (response) {
-    //            var count = 0;
-
-    //            for (var i = 0; i < response.data.length; i++) {
-
-    //                if (response.data[i].isDone == true) {
-    //                    count += 1;
-    //                }
-
-    //            }
-
-    //            var p = (count / response.data.length) * 100;
-    //            if (p == 0) {
-    //                document.getElementById("progressbar1").style.width = "0%";
-    //                document.getElementById("progressbar1").innerHTML = "0%";
-    //            }
-    //            else {
-    //                document.getElementById("progressbar1").style.width = p + "%";
-    //                document.getElementById("progressbar1").innerHTML = Math.round(p) + "%";
-    //            }
-    //        }
-    //    });
-    
-
-    //$.ajax({
-    //    type: "GET",
-    //    dataType: 'json',
-    //    url: "/DailyChecks/GetAll",
-    //    async: false,
-    //    success: function (response) {
-    //        var count = 0;
-
-    //        for (var i = 0; i < response.data.length; i++) {
-
-    //            if (response.data[i].isDone == true) {
-    //                count += 1;
-    //            }
-
-    //        }
-
-    //        var p = (count / response.data.length) * 100;
-    //        if (p == 0) {
-    //            document.getElementById("progressbar2").style.width = "0%";
-    //            document.getElementById("progressbar2").innerHTML = "0%";
-    //        }
-    //        else {
-    //            document.getElementById("progressbar2").style.width = p + "%";
-    //            document.getElementById("progressbar2").innerHTML = Math.round(p) + "%";
-    //        }
-    //    }
-    //});
 </script>
 
 
