@@ -245,7 +245,7 @@ namespace TasksApp.Controllers
         [HttpGet]
         public async Task<IActionResult> CompleteTask(int id)
         {
-            var Main_Task = _context.TemplateMains.ToList();
+            var Main_Task = _context.TemplateMains.Where(x=>x.Schedule=="Daily").ToList();
             var Maintenances = _context.Maintenances.ToList();
             var last = Main_Task.LastOrDefault();
             var count = Main_Task.Count();

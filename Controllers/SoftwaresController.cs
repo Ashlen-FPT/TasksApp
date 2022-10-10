@@ -969,12 +969,18 @@ namespace TasksApp.Controllers
             var DateCreation = new DateTime();
             var Ddate = _context.Software.Find(id).DateCreated;
             var task = _context.Software.Find(id);
-            //Get Last Item & Change Status
-            var items = Software.Where((x, i) => i % count == count - 1);
-            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
-            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
-            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
-            var ChangeStatus = _context.Software.Find(ItemId);
+
+            //ChangeToPartialStatus
+            var getPartial = Software.Where(x => x.DateCreated == Ddate && x.Status.StartsWith("D"));
+            var getPDate = getPartial.Select(i => i.DateCreated).FirstOrDefault();
+            var getPId = getPartial.Select(i => i.Id).FirstOrDefault();
+            var ChangeToPartialStatus = _context.Software.Find(getPId);
+
+            //ChangeToCompleteStatus
+            var getComplete = Software.Where(x => x.DateCreated == Ddate && x.Status.StartsWith("P"));
+            var getCDate = getComplete.Select(i => i.DateCreated).FirstOrDefault();
+            var getCId = getComplete.Select(i => i.Id).FirstOrDefault();
+            var ChangeToCompleteStatus = _context.Software.Find(getCId);
 
             task.IsDone = true;
             task.DateTaskCompleted = DateTime.Now;
@@ -982,9 +988,9 @@ namespace TasksApp.Controllers
             DateCreation = task.DateCreated;
             task.Status = "Task : Completed";
 
-            if (ItemDate == Ddate)
+            if (getPDate == Ddate)
             {
-                ChangeStatus.Status = "Partially Completed : OS/Software";
+                ChangeToPartialStatus.Status = "Partially Completed : OS/Software";
             }
 
 
@@ -993,10 +999,10 @@ namespace TasksApp.Controllers
             if (tasks.All(c => c.IsDone == true))
             {
 
-                if (ItemDate == Ddate)
+                if (getCDate == Ddate)
                 {
                     task.DateAllTaskCompleted = DateTime.Now;
-                    ChangeStatus.Status = "Completed : OS/Software";
+                    ChangeToCompleteStatus.Status = "Completed : OS/Software";
                 }
             }
 

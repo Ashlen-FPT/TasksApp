@@ -992,12 +992,18 @@ namespace TasksApp.Controllers
             var DateCreation = new DateTime();
             var Ddate = _context.Hardware.Find(id).DateCreated;
             var task = _context.Hardware.Find(id);
-            //Get Last Item & Change Status
-            var items = Hardware.Where((x, i) => i % count == count - count);
-            var ItemDate = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.DateCreated).FirstOrDefault();
-            var ItemStatus = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Status).FirstOrDefault();
-            var ItemId = items.Where(x => x.DateCreated == Ddate.Date).Select(x => x.Id).FirstOrDefault();
-            var ChangeStatus = _context.Hardware.Find(ItemId);
+
+            //ChangeToPartialStatus
+            var getPartial = Hardware.Where(x => x.DateCreated == Ddate && x.Status.StartsWith("D"));
+            var getPDate = getPartial.Select(i => i.DateCreated).FirstOrDefault();
+            var getPId = getPartial.Select(i => i.Id).FirstOrDefault();
+            var ChangeToPartialStatus = _context.Hardware.Find(getPId);
+
+            //ChangeToCompleteStatus
+            var getComplete = Hardware.Where(x => x.DateCreated == Ddate && x.Status.StartsWith("P"));
+            var getCDate = getComplete.Select(i => i.DateCreated).FirstOrDefault();
+            var getCId = getComplete.Select(i => i.Id).FirstOrDefault();
+            var ChangeToCompleteStatus = _context.Hardware.Find(getCId);
 
 
             task.IsDone = true;
@@ -1006,9 +1012,9 @@ namespace TasksApp.Controllers
             DateCreation = task.DateCreated;
             task.Status = "Task : Completed";
 
-            if (ItemDate == Ddate)
+            if (getPDate == Ddate)
             {
-                ChangeStatus.Status = "Partially Completed : Hardware";
+                ChangeToPartialStatus.Status = "Partially Completed : Hardware";
             }
 
             var tasks = _context.Hardware.Where(d => d.DateCreated == DateCreation).ToList();
@@ -1016,10 +1022,10 @@ namespace TasksApp.Controllers
             if (tasks.All(c => c.IsDone == true))
             {
 
-                if (ItemDate == Ddate)
+                if (getCDate == Ddate)
                 {
                     task.DateAllTaskCompleted = DateTime.Now;
-                    ChangeStatus.Status = "Completed : Hardware";
+                    ChangeToCompleteStatus.Status = "Completed : Hardware";
                 }
             }
 
