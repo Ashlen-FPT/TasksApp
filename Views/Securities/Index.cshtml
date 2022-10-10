@@ -193,7 +193,7 @@
     </div>
 }
 
-@if (User.IsInRole(SD.Role_Supervisor.ToString()))
+@if (User.IsInRole(SD.Role_Supervisor.ToString()) || User.IsInRole(SD.Role_Admin.ToString()))
 {
     <div class="card text-center" style="width: 100%;">
 

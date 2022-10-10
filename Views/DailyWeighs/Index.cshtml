@@ -86,7 +86,7 @@
     </div>
 }
 
-@if (User.IsInRole(SD.Role_Supervisor.ToString()))
+@if (User.IsInRole(SD.Role_Supervisor.ToString()) || User.IsInRole(SD.Role_Admin.ToString()))
 {
     <div class="card-body">
         <div class="tab-content" id="pills-tabContent">
