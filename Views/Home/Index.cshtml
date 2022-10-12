@@ -5,10 +5,12 @@
     }
 
     .card {
-        margin: 0 auto;
+       /* margin: 0 auto;
         float: none;
         margin-bottom: 10px;
-        opacity: 0.90;
+        opacity: 0.90;*/
+       height:250px;
+       border-radius:50px;
     }
 
     body, #body1 {
@@ -28,7 +30,6 @@
     }
 
     .jumbotron {
-        opacity: 0.90;
         background-color: white;
     }
 </style>
@@ -41,18 +42,18 @@
                 <center><img src="~/images/Landing.jpg" alt="Task" width="100%" height="900" /></center>
             }*@
 
-        <div class="container h-100">
             <div class="row align-items-center h-100">
-                <div class="col-6 mx-auto">
-                    <div class="jumbotron">
-                        <center><h2 style="padding-bottom:20px;">@DateTime.Now.ToString(" dddd dd MMMM yyyy - HH:mm tt")</h2></center>
-                        <center><h2 style="padding-bottom:20px;">Hello , what would you like to do ? </h2></center>
+                <div class="col-4 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <center><h2 style="padding-bottom:20px;">@DateTime.Now.ToString(" dddd dd MMMM yyyy - HH:mm tt")</h2></center>
+                            <center><h2 style="padding-bottom:75px;">Hello , what would you like to do ? </h2></center>
 
-                        <p class="text-center"><a button asp-area="Identity" asp-page="/Account/Login" class="nav-link btn btn-success btn-lg fa fa-user"> Login</a>&ensp; <a button asp-area="Identity" asp-page="/Account/Register" class="nav-link btn btn-warning btn-lg fa fa-user-plus"> Register </a></p>
+                            <p class="text-center"><a button asp-area="Identity" asp-page="/Account/Login" class="nav-link btn btn-success btn-lg fa fa-user"> Login</a>&ensp; <a button asp-area="Identity" asp-page="/Account/Register" class="nav-link btn btn-warning btn-lg fa fa-user-plus"> Register </a></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
     </body>
 }
