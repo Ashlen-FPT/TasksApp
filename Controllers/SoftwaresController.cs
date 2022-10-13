@@ -1082,7 +1082,7 @@ namespace TasksApp.Controllers
 
             DateTime oDate = Convert.ToDateTime(date);
 
-            return Json(new { data = _context.Software.Where(d => d.DateCreated.Date == oDate.Date) });
+            return Json(new { data = _context.Software.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily") });
 
         }
 
