@@ -271,14 +271,14 @@ namespace TasksApp.Controllers
                         DateTaskCompleted = new DateTime(),
                         Schedule = task.Schedule,
                         TaskCategory = task.TaskCategory,
-                        Status = "Task : Incomplete",
+                        //Status = "Task : Incomplete",
                         User = User.FindFirst("Username")?.Value
                     };
 
-                    if (task == last)
-                    {
-                        Task.Status = "Do-Checklist : Security";
-                    }
+                    //if (task == last)
+                    //{
+                    //    Task.Status = "Do-Checklist : Security";
+                    //}
 
                     _context.Security.Add(Task);
 
@@ -303,14 +303,14 @@ namespace TasksApp.Controllers
                             DateTaskCompleted = new DateTime(),
                             Schedule = item.Schedule,
                             TaskCategory = item.TaskCategory,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
 
-                        if (item == last)
-                        {
-                            Task.Status = "Do-Checklist : Security";
-                        }
+                        //if (item == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : Security";
+                        //}
 
                         _context.Security.Add(Task);
                     }
@@ -365,14 +365,14 @@ namespace TasksApp.Controllers
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
                             TaskCategory = task.TaskCategory,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
 
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : Security";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : Security";
+                        //}
 
                         _context.Security.Add(Task);
 
@@ -397,14 +397,14 @@ namespace TasksApp.Controllers
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
                                 TaskCategory = item.TaskCategory,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
 
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : Security";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : Security";
+                            //}
 
                             _context.Security.Add(Task);
                         }
@@ -432,14 +432,14 @@ namespace TasksApp.Controllers
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
                             TaskCategory = task.TaskCategory,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
 
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : Security";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : Security";
+                        //}
 
                         _context.Security.Add(Task);
 
@@ -467,14 +467,14 @@ namespace TasksApp.Controllers
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
                                 TaskCategory = item.TaskCategory,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
 
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : Security";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : Security";
+                            //}
 
                             _context.Security.Add(Task);
                         }
@@ -535,14 +535,14 @@ namespace TasksApp.Controllers
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
                             TaskCategory = task.TaskCategory,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
 
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : Security";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : Security";
+                        //}
 
                         _context.Security.Add(Task);
 
@@ -567,14 +567,14 @@ namespace TasksApp.Controllers
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
                                 TaskCategory = item.TaskCategory,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
 
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : Security";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : Security";
+                            //}
 
                             _context.Security.Add(Task);
                         }
@@ -602,14 +602,14 @@ namespace TasksApp.Controllers
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
                             TaskCategory = task.TaskCategory,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
 
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : Security";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : Security";
+                        //}
                         _context.Security.Add(Task);
 
                     }
@@ -633,14 +633,14 @@ namespace TasksApp.Controllers
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
                                 TaskCategory = item.TaskCategory,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
 
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : Security";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : Security";
+                            //}
 
                             _context.Security.Add(Task);
                         }
@@ -697,14 +697,14 @@ namespace TasksApp.Controllers
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
                             TaskCategory = task.TaskCategory,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
 
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : Security";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : Security";
+                        //}
 
                         _context.Security.Add(Task);
 
@@ -729,14 +729,14 @@ namespace TasksApp.Controllers
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
                                 TaskCategory = item.TaskCategory,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
 
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : Security";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : Security";
+                            //}
 
                             _context.Security.Add(Task);
                         }
@@ -764,14 +764,14 @@ namespace TasksApp.Controllers
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
                             TaskCategory = task.TaskCategory,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
 
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : Security";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : Security";
+                        //}
                         _context.Security.Add(Task);
 
                     }
@@ -795,14 +795,14 @@ namespace TasksApp.Controllers
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
                                 TaskCategory = item.TaskCategory,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
 
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : Security";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : Security";
+                            //}
 
                             _context.Security.Add(Task);
                         }
@@ -859,14 +859,14 @@ namespace TasksApp.Controllers
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
                             TaskCategory = task.TaskCategory,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
 
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : Security";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : Security";
+                        //}
 
                         _context.Security.Add(Task);
 
@@ -891,14 +891,14 @@ namespace TasksApp.Controllers
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
                                 TaskCategory = item.TaskCategory,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
 
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : Security";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : Security";
+                            //}
 
                             _context.Security.Add(Task);
                         }
@@ -926,14 +926,14 @@ namespace TasksApp.Controllers
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
                             TaskCategory = task.TaskCategory,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
 
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : Security";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : Security";
+                        //}
                         _context.Security.Add(Task);
 
                     }
@@ -957,14 +957,14 @@ namespace TasksApp.Controllers
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
                                 TaskCategory = item.TaskCategory,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
 
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : Security";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : Security";
+                            //}
 
                             _context.Security.Add(Task);
                         }
@@ -1006,7 +1006,7 @@ namespace TasksApp.Controllers
         public async Task<IActionResult> CompleteTask(int id)
         {
             var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Security").ToList();
-            var Security = _context.Security.ToList();
+            var Security = _context.Security.Where(x=>x.Schedule=="Daily").ToList();
             var last = Main_Task.LastOrDefault();
             var count = Main_Task.Count();
             var DateCreation = new DateTime();
@@ -1038,7 +1038,7 @@ namespace TasksApp.Controllers
             }
 
 
-            var tasks = _context.Security.Where(d => d.DateCreated == DateCreation).ToList();
+            var tasks = _context.Security.Where(d => d.DateCreated == DateCreation).Where(s => s.Schedule == "Daily").ToList();
 
             if (tasks.All(c => c.IsDone == true))
             {

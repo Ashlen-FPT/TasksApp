@@ -268,13 +268,13 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
                         Schedule = task.Schedule,
-                        Status = "Task : Incomplete",
+                        //Status = "Task : Incomplete",
                         User = User.FindFirst("Username")?.Value
                     };
-                    if (task == last)
-                    {
-                        Task.Status = "Do-Checklist : OS/Software";
-                    }
+                    //if (task == last)
+                    //{
+                    //    Task.Status = "Do-Checklist : OS/Software";
+                    //}
 
                     _context.Software.Add(Task);
 
@@ -299,13 +299,13 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = item.Schedule,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
-                        if (item == last)
-                        {
-                            Task.Status = "Do-Checklist : OS/Software";
-                        }
+                        //if (item == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : OS/Software";
+                        //}
 
                         _context.Software.Add(Task);
                     }
@@ -361,13 +361,13 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : OS/Software";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : OS/Software";
+                        //}
 
                         _context.Software.Add(Task);
 
@@ -391,13 +391,13 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : OS/Software";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : OS/Software";
+                            //}
 
                             _context.Software.Add(Task);
                         }
@@ -424,13 +424,13 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : OS/Software";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : OS/Software";
+                        //}
 
                         _context.Software.Add(Task);
 
@@ -454,13 +454,13 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : OS/Software";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : OS/Software";
+                            //}
                             _context.Software.Add(Task);
                         }
 
@@ -518,13 +518,13 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : OS/Software";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : OS/Software";
+                        //}
 
                         _context.Software.Add(Task);
 
@@ -548,13 +548,13 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : OS/Software";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : OS/Software";
+                            //}
 
                             _context.Software.Add(Task);
                         }
@@ -581,13 +581,13 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : OS/Software";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : OS/Software";
+                        //}
                         _context.Software.Add(Task);
 
                     }
@@ -610,13 +610,13 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : OS/Software";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : OS/Software";
+                            //}
 
                             _context.Software.Add(Task);
                         }
@@ -672,13 +672,13 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : OS/Software";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : OS/Software";
+                        //}
 
                         _context.Software.Add(Task);
 
@@ -702,13 +702,13 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : OS/Software";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : OS/Software";
+                            //}
                             _context.Software.Add(Task);
                         }
 
@@ -734,13 +734,13 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : OS/Software";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : OS/Software";
+                        //}
                         _context.Software.Add(Task);
 
                     }
@@ -763,13 +763,13 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : OS/Software";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : OS/Software";
+                            //}
                             _context.Software.Add(Task);
                         }
 
@@ -824,13 +824,13 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : OS/Software";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : OS/Software";
+                        //}
 
                         _context.Software.Add(Task);
 
@@ -854,13 +854,13 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : OS/Software";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : OS/Software";
+                            //}
 
                             _context.Software.Add(Task);
                         }
@@ -887,13 +887,13 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
-                            Status = "Task : Incomplete",
+                            //Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
-                        if (task == last)
-                        {
-                            Task.Status = "Do-Checklist : OS/Software";
-                        }
+                        //if (task == last)
+                        //{
+                        //    Task.Status = "Do-Checklist : OS/Software";
+                        //}
                         _context.Software.Add(Task);
 
                     }
@@ -916,13 +916,13 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
-                                Status = "Task : Incomplete",
+                                //Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
-                            if (item == last)
-                            {
-                                Task.Status = "Do-Checklist : OS/Software";
-                            }
+                            //if (item == last)
+                            //{
+                            //    Task.Status = "Do-Checklist : OS/Software";
+                            //}
                             _context.Software.Add(Task);
                         }
 
@@ -963,7 +963,7 @@ namespace TasksApp.Controllers
         public async Task<IActionResult> CompleteTask(int id)
         {
             var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "OS/Software").ToList();
-            var Software = _context.Software.ToList();
+            var Software = _context.Software.Where(s => s.Schedule == "Daily").ToList();
             var last = Main_Task.LastOrDefault();
             var count = Main_Task.Count();
             var DateCreation = new DateTime();
@@ -994,7 +994,7 @@ namespace TasksApp.Controllers
             }
 
 
-            var tasks = _context.Software.Where(d => d.DateCreated == DateCreation).ToList();
+            var tasks = _context.Software.Where(d => d.DateCreated == DateCreation).Where(s => s.Schedule == "Daily").ToList();
 
             if (tasks.All(c => c.IsDone == true))
             {
