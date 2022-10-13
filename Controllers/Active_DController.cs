@@ -194,6 +194,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count > 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Daily").Where(s => s.TaskCategory == "Active_D").ToList();
+                var last = Main_Task.LastOrDefault();
 
                 if (Main_Task.Count > TasksToday.Count)
                 {
@@ -207,8 +208,15 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             Schedule = item.Schedule,
                             DateTaskCompleted = new DateTime(),
-                            TaskCategory = item.TaskCategory
+                            TaskCategory = item.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (item == last)
+                        {
+                            Task.Status = "Do-Checklist : Active Directory";
+                        }
 
                         _context.Active_D.Add(Task);
                     }
@@ -277,6 +285,7 @@ namespace TasksApp.Controllers
             if (TasksToday.Count > 0)
             {
                 var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).Where(s => s.TaskCategory == "Active_D").ToList();
+                var last = Main_Task.LastOrDefault();
 
                 if (Main_Task.Count > TasksToday.Count)
                 {
@@ -290,8 +299,15 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = item.Schedule,
-                            TaskCategory = item.TaskCategory
+                            TaskCategory = item.TaskCategory,
+                            Status = "Task : Incomplete",
+                            User = User.FindFirst("Username")?.Value
                         };
+
+                        if (item == last)
+                        {
+                            Task.Status = "Do-Checklist : Active Directory";
+                        }
 
                         _context.Active_D.Add(Task);
                     }
