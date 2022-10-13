@@ -253,12 +253,12 @@ namespace TasksApp.Controllers
 
             var Day = oDate.DayOfWeek.ToString();
 
-            var TasksToday = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly").ToList();
+            var TasksToday = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly").Where(c => c.TaskCategory == "Security").ToList();
 
 
             if (TasksToday.Count == 0)
             {
-                var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).ToList();
+                var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).Where(c => c.TaskCategory == "Security").ToList();
                 var last = Main_Task.LastOrDefault();
 
                 foreach (var task in Main_Task)
@@ -270,6 +270,7 @@ namespace TasksApp.Controllers
                         DateCreated = date,
                         DateTaskCompleted = new DateTime(),
                         Schedule = task.Schedule,
+                        TaskCategory = task.TaskCategory,
                         Status = "Task : Incomplete",
                         User = User.FindFirst("Username")?.Value
                     };
@@ -286,7 +287,7 @@ namespace TasksApp.Controllers
 
             if (TasksToday.Count > 0)
             {
-                var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).ToList();
+                var Main_Task = _context.Main_Task.Where(s => s.Schedule == "Weekly").Where(d => d.DayOfWeek == Day).Where(c => c.TaskCategory == "Security").ToList();
                 var last = Main_Task.LastOrDefault();
 
                 if (Main_Task.Count > TasksToday.Count)
@@ -301,6 +302,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = item.Schedule,
+                            TaskCategory = item.TaskCategory,
                             Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
@@ -330,7 +332,7 @@ namespace TasksApp.Controllers
             _context.Logs.Add(log);
             await _context.SaveChangesAsync(_userServices.GetUser());
 
-            return Json(new { data = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly") });
+            return Json(new { data = _context.Security.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Weekly").Where(c => c.TaskCategory == "Security") });
 
         }
 
@@ -362,6 +364,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            TaskCategory = task.TaskCategory,
                             Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
@@ -393,6 +396,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
+                                TaskCategory = item.TaskCategory,
                                 Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
@@ -427,6 +431,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            TaskCategory = task.TaskCategory,
                             Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
@@ -461,6 +466,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
+                                TaskCategory = item.TaskCategory,
                                 Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
@@ -528,6 +534,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            TaskCategory = task.TaskCategory,
                             Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
@@ -559,6 +566,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
+                                TaskCategory = item.TaskCategory,
                                 Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
@@ -593,6 +601,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            TaskCategory = task.TaskCategory,
                             Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
@@ -623,6 +632,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
+                                TaskCategory = item.TaskCategory,
                                 Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
@@ -686,6 +696,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            TaskCategory = task.TaskCategory,
                             Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
@@ -717,6 +728,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
+                                TaskCategory = item.TaskCategory,
                                 Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
@@ -751,6 +763,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            TaskCategory = task.TaskCategory,
                             Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
@@ -781,6 +794,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
+                                TaskCategory = item.TaskCategory,
                                 Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
@@ -844,6 +858,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            TaskCategory = task.TaskCategory,
                             Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
@@ -875,6 +890,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
+                                TaskCategory = item.TaskCategory,
                                 Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
@@ -909,6 +925,7 @@ namespace TasksApp.Controllers
                             DateCreated = date,
                             DateTaskCompleted = new DateTime(),
                             Schedule = task.Schedule,
+                            TaskCategory = task.TaskCategory,
                             Status = "Task : Incomplete",
                             User = User.FindFirst("Username")?.Value
                         };
@@ -939,6 +956,7 @@ namespace TasksApp.Controllers
                                 DateCreated = date,
                                 DateTaskCompleted = new DateTime(),
                                 Schedule = item.Schedule,
+                                TaskCategory = item.TaskCategory,
                                 Status = "Task : Incomplete",
                                 User = User.FindFirst("Username")?.Value
                             };
