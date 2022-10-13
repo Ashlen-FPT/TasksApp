@@ -163,7 +163,7 @@ namespace TasksApp.Controllers
 
             DateTime oDate = Convert.ToDateTime(date);
 
-            var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskCategory == "Hardware").ToList();
+            var TasksToday = _context.Hardware.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskCategory == "Hardware").Where(s => s.Schedule == "Daily").ToList();
 
 
             if (TasksToday.Count == 0)

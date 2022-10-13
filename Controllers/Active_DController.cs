@@ -160,7 +160,7 @@ namespace TasksApp.Controllers
         {
 
             DateTime oDate = Convert.ToDateTime(date);
-            var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskCategory == "Active_D").ToList();
+            var TasksToday = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskCategory == "Active_D").Where(s => s.Schedule == "Daily").ToList();
 
 
             if (TasksToday.Count == 0)
@@ -197,7 +197,7 @@ namespace TasksApp.Controllers
 
                 if (Main_Task.Count > TasksToday.Count)
                 {
-                    var result = Main_Task.Where(p => TasksToday.All(p2 => p2.Description != p.Description)).Where(s => s.TaskCategory == "Active_D");
+                    var result = Main_Task.Where(p => TasksToday.All(p2 => p2.Description != p.Description));
 
                     foreach (var item in result)
                     {

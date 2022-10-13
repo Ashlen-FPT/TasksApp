@@ -164,7 +164,7 @@ namespace TasksApp.Controllers
 
             DateTime oDate = Convert.ToDateTime(date);
 
-            var TasksToday = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskCategory == "Networking").ToList();
+            var TasksToday = _context.Networking.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.TaskCategory == "Networking").Where(s => s.Schedule == "Daily").ToList();
 
 
             if (TasksToday.Count == 0)
