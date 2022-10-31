@@ -17,7 +17,7 @@ namespace TasksApp.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserService _userServices;
 
-        public NetworkingsController(ApplicationDbContext context , UserService userService)
+        public NetworkingsController(ApplicationDbContext context, UserService userService)
         {
             _context = context;
             _userServices = userService;
@@ -999,6 +999,10 @@ namespace TasksApp.Controllers
             var Ddate = _context.Networking.Find(id).DateCreated;
             var task = _context.Networking.Find(id);
 
+            DateCreation = task.DateCreated;
+
+            var tasks = _context.Networking.Where(d => d.DateCreated == DateCreation).Where(s => s.Schedule == "Daily").ToList();
+
             //ChangeToPartialStatus
             var getPartial = Network.Where(x => x.DateCreated == Ddate && x.Status.StartsWith("D"));
             var getPDate = getPartial.Select(i => i.DateCreated).FirstOrDefault();
@@ -1014,19 +1018,21 @@ namespace TasksApp.Controllers
             task.IsDone = true;
             task.DateTaskCompleted = DateTime.Now;
             task.User = User.FindFirst("Username")?.Value;
-            DateCreation = task.DateCreated;
+
             task.Status = "Task : Completed";
 
-            if (getPDate == Ddate)
+            if (getPDate == Ddate && tasks.Count > 1)
             {
                 ChangeToPartialStatus.Status = "Partially Completed : Networks";
             }
 
-
-            var tasks = _context.Networking.Where(d => d.DateCreated == DateCreation).Where(s => s.Schedule == "Daily").ToList();
-
             if (tasks.All(c => c.IsDone == true))
             {
+                if (getPDate == Ddate && tasks.Count == 1)
+                {
+                    task.DateAllTaskCompleted = DateTime.Now;
+                    ChangeToPartialStatus.Status = "Completed : Active Directory";
+                }
 
                 if (getCDate == Ddate)
                 {

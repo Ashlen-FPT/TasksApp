@@ -1013,6 +1013,9 @@ namespace TasksApp.Controllers
             var Ddate = _context.Security.Find(id).DateCreated;
             var task = _context.Security.Find(id);
 
+            DateCreation = task.DateCreated;
+            var tasks = _context.Security.Where(d => d.DateCreated == DateCreation).Where(s => s.Schedule == "Daily").ToList();
+
             //ChangeToPartialStatus
             var getPartial = Security.Where(x => x.DateCreated == Ddate && x.Status.StartsWith("D"));
             var getPDate = getPartial.Select(i => i.DateCreated).FirstOrDefault();
@@ -1029,19 +1032,22 @@ namespace TasksApp.Controllers
             task.IsDone = true;
             task.DateTaskCompleted = DateTime.Now;
             task.User = User.FindFirst("Username")?.Value;
-            DateCreation = task.DateCreated;
+            
             task.Status = "Task : Completed";
 
-            if (getPDate == Ddate)
+            if (getPDate == Ddate && tasks.Count > 1)
             {
                 ChangeToPartialStatus.Status = "Partially Completed : Security";
             }
-
-
-            var tasks = _context.Security.Where(d => d.DateCreated == DateCreation).Where(s => s.Schedule == "Daily").ToList();
+            
 
             if (tasks.All(c => c.IsDone == true))
             {
+                if (getPDate == Ddate && tasks.Count == 1)
+                {
+                    task.DateAllTaskCompleted = DateTime.Now;
+                    ChangeToPartialStatus.Status = "Completed : Active Directory";
+                }
 
                 if (getCDate == Ddate)
                 {
