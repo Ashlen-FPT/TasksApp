@@ -200,37 +200,44 @@ namespace TasksApp.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTask(string Desc, string Schedule, string Day, string Month, string CType, string Annual, string Quarter, string Bi_Annually)
         {
+            var doesDecExist = _context.Main_Task.Any(x => x.Description.Equals(Desc));
 
-            var Task = new Main_Task
+            if (doesDecExist == true)
             {
-                Description = Desc,
-                Schedule = Schedule,
-                DayOfWeek = Day,
-                Month = Month,
-                Quarterly = Quarter,
-                Bi_Annual = Bi_Annually,
-                Annual = Annual,
-                TaskCategory = CType,
-                DateCreated = DateTime.Now,
-                UserEmail = User.Identity.Name
-            };
-            var log = new Logs
-            {
-                UserName = User.FindFirst("Username")?.Value,
-                UserEmail = User.Identity.Name,
-                Entity = User.FindFirst("Organization")?.Value,
-                LogType = LogTypes.Created,
-                DateTime = DateTime.Now,
-                UpdatedTable = "Main_Task",
-                OldData = "New Task",
-                NewData = $"{ " Description:" + Task.Description + "Schedule:" + Task.Schedule + " DayOfWeek:" + Task.DayOfWeek + "Month:" + Task.Month + " Quarterly:" + Task.Quarterly + "Bi-Annual:" + Task.Bi_Annual + " Annual:" + Task.Annual + "Task Category:" + Task.TaskCategory}"
-            };
+                return Json(new { error = true, message = "Task already exists !" });
+            }
 
-            _context.Add(Task);
-            _context.Add(log);
-            await _context.SaveChangesAsync();
+                var Task = new Main_Task
+                {
+                    Description = Desc,
+                    Schedule = Schedule,
+                    DayOfWeek = Day,
+                    Month = Month,
+                    Quarterly = Quarter,
+                    Bi_Annual = Bi_Annually,
+                    Annual = Annual,
+                    TaskCategory = CType,
+                    DateCreated = DateTime.Now,
+                    UserEmail = User.Identity.Name
+                };
+                var log = new Logs
+                {
+                    UserName = User.FindFirst("Username")?.Value,
+                    UserEmail = User.Identity.Name,
+                    Entity = User.FindFirst("Organization")?.Value,
+                    LogType = LogTypes.Created,
+                    DateTime = DateTime.Now,
+                    UpdatedTable = "Main_Task",
+                    OldData = "New Task",
+                    NewData = $"{ " Description:" + Task.Description + "Schedule:" + Task.Schedule + " DayOfWeek:" + Task.DayOfWeek + "Month:" + Task.Month + " Quarterly:" + Task.Quarterly + "Bi-Annual:" + Task.Bi_Annual + " Annual:" + Task.Annual + "Task Category:" + Task.TaskCategory}"
+                };
 
-            return Json(new { success = true, message = "Task added!" });
+                _context.Add(Task);
+                _context.Add(log);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Task added!" });
+             
 
         }
 

@@ -828,7 +828,8 @@
                     Table06.ajax.reload();
                 }
                 else {
-                    toastr.error(data.message);
+                    swal(data.message, "", "error");
+                    //toastr.error(data.message);
                 }
             }
         });
