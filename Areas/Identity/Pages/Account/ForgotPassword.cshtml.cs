@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using TasksApp.Models;
+using TasksApp.Data;
+using System.Linq;
 
 namespace TasksApp.Areas.Identity.Pages.Account
 {
@@ -18,12 +20,14 @@ namespace TasksApp.Areas.Identity.Pages.Account
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
         private readonly IEmailSender _emailSender;
 
-        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender , ApplicationDbContext context )
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -40,7 +44,8 @@ namespace TasksApp.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync("Admin@mct.co.moz");
+                //Admin@mct.co.mz
+                var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null)
                 {
 
@@ -50,11 +55,11 @@ namespace TasksApp.Areas.Identity.Pages.Account
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ResetPassword",
-                    pageHandler: null,
-                    values: new { area = "Identity", code},
-                    protocol: Request.Scheme);
+                //var callbackUrl = Url.Page(
+                //    "/Account/ResetPassword",
+                //    pageHandler: null,
+                //    values: new { area = "Identity", code},
+                //    protocol: Request.Scheme);
 
                 //await _emailSender.SendEmailAsync(
                 //    Input.Email,
