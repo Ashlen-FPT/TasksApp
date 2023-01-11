@@ -44,12 +44,12 @@ namespace TasksApp.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                //Admin@mct.co.mz
+                
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null)
                 {
 
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    return RedirectToPage("./Login");
                 }
 
 
