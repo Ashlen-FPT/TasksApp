@@ -4,14 +4,14 @@
 
 
 @*<style>
-    tr {
-        outline: thin solid black;
-    }
+        tr {
+            outline: thin solid black;
+        }
 
-    td {
-        outline: thin solid black;
-    }
-</style>*@
+        td {
+            outline: thin solid black;
+        }
+    </style>*@
 
 <center><h1>System Logs</h1></center>
 
@@ -59,10 +59,10 @@
 
 
                         <td>
-                            @{ 
-                                var date = item.DateTime.ToString(" dd MMMM yyyy - HH:mm tt");
+                            @{
+                                var date = item.DateTime;
                             }
-                            @Html.DisplayFor(modelItem=>date)
+                            @Html.DisplayFor(modelItem => date)
                         </td>
 
                         <td>
@@ -87,7 +87,6 @@
 <link type="text/css" href="~/css/DataTable/datatables.min.css" rel="stylesheet">
 
 
-
 <script>
 
     $(document).ready(function () {
@@ -97,6 +96,7 @@
         $('#tbl').DataTable({
             "lengthMenu": [10, 25, 50, 75, 100],
             dom: 'Bfrtip',
+            order: [[4, 'desc']],
             buttons: [
                 {
                     extend: 'pageLength',
@@ -104,7 +104,7 @@
                 {
                     extend: 'copy',
                     title: 'System Logs - Checklist System_' + date,
-                    text:'<i class= "fa fa-copy"></i> Copy'
+                    text: '<i class= "fa fa-copy"></i> Copy'
                 },
                 {
                     extend: 'excel',
@@ -128,16 +128,19 @@
                 }
             ],
             "columnDefs": [
+                {
+                    targets: 4,
+                },
                 //Username Column
                 { "width": "5%", "targets": 0 },
                 //Email Column
                 { "width": "6%", "targets": 1 },
                 //Organization Column
-                { "width": "5%", "targets": 2 },
+                { "width": "4%", "targets": 2 },
                 //Log Type Column
                 { "width": "3%", "targets": 3 },
                 //Date/Time Column
-                { "width": "5%", "targets": 4 },
+                { "width": "5%", "targets": 4},
                 //Affected Table Column
                 { "width": "5%", "targets": 5 },
                 //Old Data Column
