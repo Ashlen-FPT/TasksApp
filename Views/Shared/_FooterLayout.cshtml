@@ -1,20 +1,31 @@
-﻿<footer class="c-footer">
+﻿<style>
+    #footerRow {
+        display: flex;
+        justify-content: center;
+        column-gap: 20px;
+    }
+</style>
+<footer id="footer" class="card-footer">
 
-    <div style="width:500px;">
-         Checklist System
-        <span class="footer-tag-styling"> | Copyright &copy; @DateTime.Now.Year | All Rights Reserved.</span>
-        
+    <div id="footerRow"class="row">
+        <div style="width: 400px; text-align: center;">
+            Checklist System
+            <span class="footer-tag-styling"> | Copyright &copy; 2022 | All Rights Reserved.</span>
+        </div>
+
+        @if (@User.FindFirst("Organization")?.Value == "MCT")
+        {
+
+            <img src="~/images/Logo_Final.png" height="20" alt="MCT Logo" style="float:right;">
+        }
+
+        @if (@User.FindFirst("Organization")?.Value == "TLG")
+        {
+            <img class="d-none d-md-block" src="~/images/TLG.png" height="45" alt="TLG Logo" style="float:right;">
+        }
     </div>
-    
-    @if (@User.FindFirst("Organization")?.Value == "MCT"){
-        <img class="d-none d-md-block" src="~/images/Logo_Final.png" height="20" alt="MCT Logo" style="padding-left:600px;width=100%">
-    }
 
-    @if (@User.FindFirst("Organization")?.Value == "TLG")
-    {
-        <img class="d-none d-md-block" src="~/images/TLG.png" height="45" alt="TLG Logo" style="padding-left:600px;width=100%">
-    }
-    
+
 </footer>
 
 
