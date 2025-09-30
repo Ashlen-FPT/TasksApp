@@ -160,10 +160,10 @@ namespace TasksApp.Controllers
 
             if (ReportsToday.Count == 0)
             {
-                var active_D = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+                var active_D = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s => s.Schedule == "Daily").ToList();
 
 
-                if (active_D.Any(s => s.Status.StartsWith("D")))
+                if (active_D.Any(s => s.Status.StartsWith("D") && s.Status!=null))
                 {
                     var actives = active_D.Where(s => s.Status.StartsWith("D"));
 
@@ -514,7 +514,7 @@ namespace TasksApp.Controllers
 
             if (ReportsToday.Count > 0)
             {
-                var active_D = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).ToList();
+                var active_D = _context.Active_D.Where(d => d.DateCreated.Date == oDate.Date).Where(s=> s.Schedule=="Daily").ToList();
 
                 if (active_D.Any(s => s.Status.StartsWith("D")))
                 {

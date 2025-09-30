@@ -1003,7 +1003,7 @@ namespace TasksApp.Controllers
                 if (getPDate == Ddate && tasks.Count == 1)
                 {
                     task.DateAllTaskCompleted = DateTime.Now;
-                    ChangeToPartialStatus.Status = "Completed : Active Directory";
+                    ChangeToPartialStatus.Status = "Completed : OS/Software";
                 }
 
 

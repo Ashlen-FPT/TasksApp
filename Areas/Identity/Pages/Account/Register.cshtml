@@ -427,9 +427,12 @@
 
 
                                 </div>
-                                <span asp-validation-for="Input.ConfirmPassword" class="text-warning"></span>
+                                <span data-tooltip="Passwords must have at least one non alphanumeric character.
+                                    Passwords must have at least one digit ('0'-'9').
+                                    Passwords must have at least one uppercase ('A'-'Z')." asp-validation-for="Input.ConfirmPassword" class="text-warning">
+                                    <i class="fas fa-info-circle fa-lg"></i>
+                                </span>                               
                             </div>
-
                         </div>
                     </div>
                 </div>
